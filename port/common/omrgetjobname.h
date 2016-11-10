@@ -13,13 +13,14 @@
  *      http://www.opensource.org/licenses/apache2.0.php
  *
  * Contributors:
- *    Multiple authors (IBM Corp.) - initial API and implementation and/or initial documentation
+ *    Multiple authors (IBM Corp.) - initial API and implementation and/or
+ *initial documentation
  *******************************************************************************/
 
 #ifndef omrgetjobname_h
 #define omrgetjobname_h
 
-void
-omrget_jobname(struct OMRPortLibrary *portLibrary, char *jobname, uintptr_t length);
+void omrget_jobname(struct OMRPortLibrary *portLibrary, char *jobname,
+                    uintptr_t length);
 
-#endif     /* omrgetjobname_h */
+#endif /* omrgetjobname_h */

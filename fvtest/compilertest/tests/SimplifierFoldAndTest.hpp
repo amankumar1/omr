@@ -18,24 +18,19 @@
 
 #include "TestDriver.hpp"
 
-namespace TestCompiler
-{
-class SimplifierFoldAndTest : public TestDriver
-   {
-   public:
+namespace TestCompiler {
+class SimplifierFoldAndTest : public TestDriver {
+public:
+  // int64_t testCompiledMethod(int32_t x);
+  typedef int64_t (*TestCompiledMethodType)(int32_t);
 
-   // int64_t testCompiledMethod(int32_t x);
-   typedef int64_t (*TestCompiledMethodType)(int32_t);
+protected:
+  virtual void allocateTestData();
+  virtual void compileTestMethods();
+  virtual void invokeTests();
+  virtual void deallocateTestData();
 
-   protected:
-
-   virtual void allocateTestData();
-   virtual void compileTestMethods();
-   virtual void invokeTests();
-   virtual void deallocateTestData();
-
-   private:
-
-   static TestCompiledMethodType testCompiledMethod;
-   };
+private:
+  static TestCompiledMethodType testCompiledMethod;
+};
 }

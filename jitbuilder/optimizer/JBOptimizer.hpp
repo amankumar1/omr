@@ -20,40 +20,48 @@
 #define JITBUILDER_OPTIMIZER_INCL
 
 /*
- * The following #define and typedef must appear before any #includes in this file
+ * The following #define and typedef must appear before any #includes in this
+ * file
  */
 #ifndef JITBUILDER_OPTIMIZER_CONNECTOR
 #define JITBUILDER_OPTIMIZER_CONNECTOR
-namespace JitBuilder { class Optimizer; }
-namespace JitBuilder { typedef JitBuilder::Optimizer OptimizerConnector; }
+namespace JitBuilder {
+class Optimizer;
+}
+namespace JitBuilder {
+typedef JitBuilder::Optimizer OptimizerConnector;
+}
 #endif
 
 #include "optimizer/OMROptimizer.hpp"
 
-#include <stddef.h>                    // for NULL
-#include <stdint.h>                    // for uint16_t
+#include <stddef.h> // for NULL
+#include <stdint.h> // for uint16_t
 
-namespace TR { class Compilation; }
-namespace TR { class Optimizer; }
-namespace TR { class ResolvedMethodSymbol; }
+namespace TR {
+class Compilation;
+}
+namespace TR {
+class Optimizer;
+}
+namespace TR {
+class ResolvedMethodSymbol;
+}
 struct OptimizationStrategy;
 
-namespace JitBuilder
-{
+namespace JitBuilder {
 
-class Optimizer : public OMR::OptimizerConnector
-   {
-   public:
+class Optimizer : public OMR::OptimizerConnector {
+public:
+  Optimizer(TR::Compilation *comp, TR::ResolvedMethodSymbol *methodSymbol,
+            bool isIlGen, const OptimizationStrategy *strategy = NULL,
+            uint16_t VNType = 0);
 
-   Optimizer(TR::Compilation *comp, TR::ResolvedMethodSymbol *methodSymbol, bool isIlGen,
-         const OptimizationStrategy *strategy = NULL, uint16_t VNType = 0);
+  static const OptimizationStrategy *optimizationStrategy(TR::Compilation *c);
 
-   static const OptimizationStrategy *optimizationStrategy( TR::Compilation *c);
-
-   private:
-   TR::Optimizer *self();
-   };
-
+private:
+  TR::Optimizer *self();
+};
 }
 
 #endif

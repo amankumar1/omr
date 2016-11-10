@@ -22,40 +22,42 @@
 #include <stdint.h>
 #include "compile/CompilationTypes.hpp"
 
-namespace TR { class IlGeneratorMethodDetails; }
-namespace TR { class MethodBuilder; }
+namespace TR {
+class IlGeneratorMethodDetails;
+}
+namespace TR {
+class MethodBuilder;
+}
 
-typedef uint8_t * (*CompileFunctionType)(TR::IlGeneratorMethodDetails &, TR_Hotness);
-extern "C" uint8_t *compileMethod(TR::IlGeneratorMethodDetails &, TR_Hotness, int32_t &);
+typedef uint8_t *(*CompileFunctionType)(TR::IlGeneratorMethodDetails &,
+                                        TR_Hotness);
+extern "C" uint8_t *compileMethod(TR::IlGeneratorMethodDetails &, TR_Hotness,
+                                  int32_t &);
 
-namespace TestCompiler
-{
-#define TOSTR(x)     #x
+namespace TestCompiler {
+#define TOSTR(x) #x
 #define LINETOSTR(x) TOSTR(x)
 
-class TestDriver
-   {
-   public:
-   void RunTest();
-   virtual void allocateTestData() = 0;
-   virtual void compileTestMethods() = 0;
-   virtual void invokeTests() = 0;
-   virtual void deallocateTestData() = 0;
+class TestDriver {
+public:
+  void RunTest();
+  virtual void allocateTestData() = 0;
+  virtual void compileTestMethods() = 0;
+  virtual void invokeTests() = 0;
+  virtual void deallocateTestData() = 0;
 
-   int32_t compileMethodBuilder(TR::MethodBuilder *m, uint8_t **entry);
+  int32_t compileMethodBuilder(TR::MethodBuilder *m, uint8_t **entry);
 
-   CompileFunctionType *_compileTestMethodFunction;
+  CompileFunctionType *_compileTestMethodFunction;
 
-   private:
+private:
+#ifdef MS_WINDOWS
+  HMODULE _libraryHandle;
+#else
+  void *_libraryHandle;
+#endif
+};
 
-   #ifdef MS_WINDOWS
-   HMODULE _libraryHandle;
-   #else
-   void *_libraryHandle;
-   #endif
-
-   };
-
-}// namespace TestCompiler
+} // namespace TestCompiler
 
 #endif

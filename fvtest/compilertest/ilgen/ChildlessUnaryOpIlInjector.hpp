@@ -21,22 +21,22 @@
 
 #include "ilgen/UnaryOpIlInjector.hpp"
 
-namespace TR { class TypeDictionary; }
+namespace TR {
+class TypeDictionary;
+}
 
-namespace TestCompiler
-{
-class ChildlessUnaryOpIlInjector : public UnaryOpIlInjector
-   {
-   public:
-   ChildlessUnaryOpIlInjector(TR::TypeDictionary *types, TestDriver *test, TR::ILOpCodes opCode)
-      : UnaryOpIlInjector(types, test, opCode)
-      {
-      initOptArgs(1);
-      }
-   TR_ALLOC(TR_Memory::IlGenerator)
+namespace TestCompiler {
+class ChildlessUnaryOpIlInjector : public UnaryOpIlInjector {
+public:
+  ChildlessUnaryOpIlInjector(TR::TypeDictionary *types, TestDriver *test,
+                             TR::ILOpCodes opCode)
+      : UnaryOpIlInjector(types, test, opCode) {
+    initOptArgs(1);
+  }
+  TR_ALLOC(TR_Memory::IlGenerator)
 
-   bool injectIL();
-   };
+  bool injectIL();
+};
 
 } // namespace TestCompiler
 

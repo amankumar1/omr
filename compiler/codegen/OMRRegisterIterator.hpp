@@ -20,37 +20,40 @@
 #define OMR_REGISTER_ITERATOR_INCL
 
 /*
- * The following #define and typedef must appear before any #includes in this file
+ * The following #define and typedef must appear before any #includes in this
+ * file
  */
 #ifndef OMR_REGISTER_ITERATOR_CONNECTOR
 #define OMR_REGISTER_ITERATOR_CONNECTOR
-namespace OMR { class RegisterIterator; }
-namespace OMR { typedef OMR::RegisterIterator RegisterIteratorConnector; }
+namespace OMR {
+class RegisterIterator;
+}
+namespace OMR {
+typedef OMR::RegisterIterator RegisterIteratorConnector;
+}
 #endif
 
-#include "env/TRMemory.hpp"  // for TR_Memory, etc
-namespace TR { class Register; }
+#include "env/TRMemory.hpp" // for TR_Memory, etc
+namespace TR {
+class Register;
+}
 
-namespace OMR
-{
+namespace OMR {
 
 /*
  * This interface must be implemented by platform-specific descendents,
  * using either List and ListIterator, or some cheaper alternatives.
  */
-class OMR_EXTENSIBLE RegisterIterator
-   {
-   public:
-   TR_ALLOC(TR_Memory::RegisterIterator)
+class OMR_EXTENSIBLE RegisterIterator {
+public:
+  TR_ALLOC(TR_Memory::RegisterIterator)
 
-   virtual TR::Register *getFirst() = 0;
+  virtual TR::Register *getFirst() = 0;
 
-   virtual TR::Register *getCurrent() = 0;
+  virtual TR::Register *getCurrent() = 0;
 
-   virtual TR::Register *getNext() = 0;
-
-   };
-
+  virtual TR::Register *getNext() = 0;
+};
 }
 
 #endif

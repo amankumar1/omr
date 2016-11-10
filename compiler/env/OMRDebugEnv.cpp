@@ -16,23 +16,21 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  ******************************************************************************/
 
-#include <stddef.h>                   // for NULL
-#include <stdint.h>                   // for int32_t, int64_t, uint32_t
-#include "env/DebugEnv.hpp"
+#include <stddef.h> // for NULL
+#include <stdint.h> // for int32_t, int64_t, uint32_t
 #include "env/CompilerEnv.hpp"
-#include "env/jittypes.h"             // for uintptrj_t, intptrj_t
-#include "infra/Assert.hpp"           // for TR_ASSERT
+#include "env/DebugEnv.hpp"
+#include "env/jittypes.h"   // for uintptrj_t, intptrj_t
+#include "infra/Assert.hpp" // for TR_ASSERT
 
 #if defined(LINUX) || defined(AIXPPC)
 #include <signal.h>
 #endif
 
-void
-OMR::DebugEnv::breakPoint()
-   {
+void OMR::DebugEnv::breakPoint() {
 #if defined(LINUX) || defined(AIXPPC)
-   raise(SIGTRAP);
+  raise(SIGTRAP);
 #else
-   TR_ASSERT(0, "Not implemented yet: OMR::DebugEnv::breakPoint");
+  TR_ASSERT(0, "Not implemented yet: OMR::DebugEnv::breakPoint");
 #endif
-   }
+}

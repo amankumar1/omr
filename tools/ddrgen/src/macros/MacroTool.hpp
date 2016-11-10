@@ -21,25 +21,24 @@
 
 #include <string>
 
-#include "config.hpp"
 #include "MacroInfo.hpp"
 #include "Symbol_IR.hpp"
+#include "config.hpp"
 
 using std::string;
 using std::vector;
 
-class MacroTool
-{
+class MacroTool {
 private:
-	vector<MacroInfo> macroList;
+  vector<MacroInfo> macroList;
 
-	string getTypeName(string s);
-	pair<string, string> getMacroInfo(string s);
-	string getFileName(string s);
+  string getTypeName(string s);
+  pair<string, string> getMacroInfo(string s);
+  string getFileName(string s);
 
 public:
-	DDR_RC getMacros(string fname);
-	DDR_RC addMacrosToIR(Symbol_IR *ir);
+  DDR_RC getMacros(string fname);
+  DDR_RC addMacrosToIR(Symbol_IR *ir);
 };
 
 #endif /* MACROTOOL_HPP */

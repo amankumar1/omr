@@ -13,7 +13,8 @@
  *      http://www.opensource.org/licenses/apache2.0.php
  *
  * Contributors:
- *    Multiple authors (IBM Corp.) - initial API and implementation and/or initial documentation
+ *    Multiple authors (IBM Corp.) - initial API and implementation and/or
+ *initial documentation
  *******************************************************************************/
 
 /**
@@ -27,15 +28,12 @@
 
 /* TODO: move out struct to omrosdump_helpers.c to complete refactoring */
 typedef struct MarkAllPagesWritableHeader {
-	uint32_t eyeCatcher;
-	uint32_t checksum;
-	uintptr_t size;
-	uintptr_t maxSize;
+  uint32_t eyeCatcher;
+  uint32_t checksum;
+  uintptr_t size;
+  uintptr_t maxSize;
 } MarkAllPagesWritableHeader;
 
-uintptr_t renameDump(struct OMRPortLibrary *portLibrary, char *filename, pid_t pid, int signalNumber);
+uintptr_t renameDump(struct OMRPortLibrary *portLibrary, char *filename,
+                     pid_t pid, int signalNumber);
 char *markAllPagesWritable(struct OMRPortLibrary *portLibrary);
-
-
-
-

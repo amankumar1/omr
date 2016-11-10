@@ -16,26 +16,21 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-
 #include "threadTestLib.hpp"
 
 /*
  * Thread that acquires and holds a monitor for a time.
  */
-CEnterExit::CEnterExit(CMonitor& monitor, int sleep) :
-	m_monitor(monitor), m_sleep(sleep)
-{
-}
+CEnterExit::CEnterExit(CMonitor &monitor, int sleep)
+    : m_monitor(monitor), m_sleep(sleep) {}
 
-intptr_t
-CEnterExit::Run(void)
-{
-	DbgMsg::verbosePrint("ENTERING\n");
-	m_monitor.Enter();
-	DbgMsg::verbosePrint("ENTERED\n");
-	omrthread_sleep(m_sleep);
-	DbgMsg::verbosePrint("EXITING\n");
-	m_monitor.Exit();
-	DbgMsg::verbosePrint("EXITED\n");
-	return 0;
+intptr_t CEnterExit::Run(void) {
+  DbgMsg::verbosePrint("ENTERING\n");
+  m_monitor.Enter();
+  DbgMsg::verbosePrint("ENTERED\n");
+  omrthread_sleep(m_sleep);
+  DbgMsg::verbosePrint("EXITING\n");
+  m_monitor.Exit();
+  DbgMsg::verbosePrint("EXITED\n");
+  return 0;
 }

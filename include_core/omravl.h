@@ -27,10 +27,8 @@
 extern "C" {
 #endif
 
-
 /* DO NOT DIRECTLY INCLUDE THIS FILE! */
 /* Include avl_api.h instead */
-
 
 #include "j9nongenerated.h"
 

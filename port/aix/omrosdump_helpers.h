@@ -13,7 +13,8 @@
  *      http://www.opensource.org/licenses/apache2.0.php
  *
  * Contributors:
- *    Multiple authors (IBM Corp.) - initial API and implementation and/or initial documentation
+ *    Multiple authors (IBM Corp.) - initial API and implementation and/or
+ *initial documentation
  *******************************************************************************/
 
 /**
@@ -25,14 +26,15 @@
 #include "omrport.h"
 #include "omrportpriv.h"
 
-/* TODO: these should be moved back to omrosdump_helpers.c once the refactoring of omrosdump.c is complete */
+/* TODO: these should be moved back to omrosdump_helpers.c once the refactoring
+ * of omrosdump.c is complete */
 #include <core.h>
 #define DEFAULT_CORE_FILE_NAME "core"
 /* endTODO */
 
 void findOSPreferredCoreDir(struct OMRPortLibrary *portLibrary, char *buffer);
-uintptr_t getPEnvValue(struct OMRPortLibrary *portLibrary, char *envVar, char *infoString);
-intptr_t genSystemCoreUsingGencore(struct OMRPortLibrary *portLibrary, char *filename);
+uintptr_t getPEnvValue(struct OMRPortLibrary *portLibrary, char *envVar,
+                       char *infoString);
+intptr_t genSystemCoreUsingGencore(struct OMRPortLibrary *portLibrary,
+                                   char *filename);
 void appendCoreName(OMRPortLibrary *portLibrary, char *corepath, intptr_t pid);
-
-

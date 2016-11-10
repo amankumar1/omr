@@ -16,57 +16,53 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-
 #include "omrTest.h"
 #include "omrutilbase.h"
-#include "thread_api.h"
 #include "thrdsup.h"
 #include "threadExtendedTestHelpers.hpp"
+#include "thread_api.h"
 
-#define NUM_ITERATIONS		12
-#define FIVE_SEC_IN_MSEC	5000 /**< 5 sec in ms */
+#define NUM_ITERATIONS 12
+#define FIVE_SEC_IN_MSEC 5000 /**< 5 sec in ms */
 
 /**
  * Generate CPU Load for 5 seconds
  */
-static void
-cpuLoad(void)
-{
-	OMRPORT_ACCESS_FROM_OMRPORT(omrTestEnv->getPortLibrary());
-	int64_t start = 0;
-	int64_t end = 0;
+static void cpuLoad(void) {
+  OMRPORT_ACCESS_FROM_OMRPORT(omrTestEnv->getPortLibrary());
+  int64_t start = 0;
+  int64_t end = 0;
 
-	start = omrtime_current_time_millis();
-	/* Generate CPU Load for 5 seconds */
-	do {
-		end = omrtime_current_time_millis();
-	} while ((end - start) < FIVE_SEC_IN_MSEC);
+  start = omrtime_current_time_millis();
+  /* Generate CPU Load for 5 seconds */
+  do {
+    end = omrtime_current_time_millis();
+  } while ((end - start) < FIVE_SEC_IN_MSEC);
 }
 
 /**
  * Test the monotonicity of the GET_HIRES_CLOCK()/getTimebase() functions.
  *
  */
-TEST(ThreadExtendedTest, TestTimeBaseMonotonicity)
-{
-	uint64_t timestampArray[NUM_ITERATIONS];
-	uintptr_t i = 0;
-	uintptr_t isMonotonic = 1;
+TEST(ThreadExtendedTest, TestTimeBaseMonotonicity) {
+  uint64_t timestampArray[NUM_ITERATIONS];
+  uintptr_t i = 0;
+  uintptr_t isMonotonic = 1;
 
-	memset(&timestampArray, 0, sizeof(timestampArray));
+  memset(&timestampArray, 0, sizeof(timestampArray));
 
-	for (i = 0; i < NUM_ITERATIONS; i++) {
-		cpuLoad();
-		timestampArray[i] = GET_HIRES_CLOCK();
-		ASSERT_TRUE(timestampArray[i] > 0);
-	}
+  for (i = 0; i < NUM_ITERATIONS; i++) {
+    cpuLoad();
+    timestampArray[i] = GET_HIRES_CLOCK();
+    ASSERT_TRUE(timestampArray[i] > 0);
+  }
 
-	for (i = 0; i < NUM_ITERATIONS - 1; i++) {
-		if (timestampArray[i] > timestampArray[i + 1]) {
-			isMonotonic = 0;
-			break;
-		}
-	}
+  for (i = 0; i < NUM_ITERATIONS - 1; i++) {
+    if (timestampArray[i] > timestampArray[i + 1]) {
+      isMonotonic = 0;
+      break;
+    }
+  }
 
-	ASSERT_TRUE(isMonotonic == 1);
+  ASSERT_TRUE(isMonotonic == 1);
 }

@@ -16,84 +16,73 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-#include <stdint.h>                                 // for int32_t
+#include <stdint.h>                // for int32_t
+#include "compile/Compilation.hpp" // for Compilation
 #include "env/StackMemoryRegion.hpp"
-#include "compile/Compilation.hpp"                  // for Compilation
 #include "env/TRMemory.hpp"
-#include "infra/BitVector.hpp"                      // for TR_BitVector
-#include "infra/Cfg.hpp"                            // for CFG
+#include "infra/BitVector.hpp" // for TR_BitVector
+#include "infra/Cfg.hpp"       // for CFG
 #include "optimizer/DataFlowAnalysis.hpp"
 
 class TR_BlockStructure;
 class TR_Structure;
-namespace TR { class Optimizer; }
+namespace TR {
+class Optimizer;
+}
 
-TR_DataFlowAnalysis::Kind TR_ReachingBlocks::getKind()
-   {
-   return ReachingBlocks;
-   }
+TR_DataFlowAnalysis::Kind TR_ReachingBlocks::getKind() {
+  return ReachingBlocks;
+}
 
+bool TR_ReachingBlocks::supportsGenAndKillSets() { return true; }
 
-bool TR_ReachingBlocks::supportsGenAndKillSets()
-   {
-   return true;
-   }
+TR_ReachingBlocks::TR_ReachingBlocks(TR::Compilation *comp,
+                                     TR::Optimizer *optimizer, bool trace)
+    : TR_UnionBitVectorAnalysis(comp, comp->getFlowGraph(), optimizer, trace) {
+  _numberOfBlocks = comp->getFlowGraph()->getNextNodeNumber();
+}
 
+int32_t TR_ReachingBlocks::perform() {
+  // *this    swipeable for debugging purposes
+  // Allocate the block info before setting the stack mark - it will be used by
+  // the caller
+  //
+  initializeBlockInfo();
 
-TR_ReachingBlocks::TR_ReachingBlocks(TR::Compilation *comp, TR::Optimizer *optimizer, bool trace)
-   : TR_UnionBitVectorAnalysis(comp, comp->getFlowGraph(), optimizer, trace)
-   {
-   _numberOfBlocks = comp->getFlowGraph()->getNextNodeNumber();
-   }
+  {
+    TR::StackMemoryRegion stackMemoryRegion(*trMemory());
 
-int32_t TR_ReachingBlocks::perform()
-   {
-   // *this    swipeable for debugging purposes
-   // Allocate the block info before setting the stack mark - it will be used by
-   // the caller
-   //
-   initializeBlockInfo();
+    TR_Structure *rootStructure = comp()->getFlowGraph()->getStructure();
+    performAnalysis(rootStructure, false);
+  } // scope of the stack memory region
 
-   {
-   TR::StackMemoryRegion stackMemoryRegion(*trMemory());
+  return 10; // actual cost
+}
 
-   TR_Structure *rootStructure = comp()->getFlowGraph()->getStructure();
-   performAnalysis(rootStructure, false);
-   } // scope of the stack memory region
+int32_t TR_ReachingBlocks::getNumberOfBits() { return _numberOfBlocks; }
 
-   return 10; // actual cost
-   }
+void TR_ReachingBlocks::analyzeBlockZeroStructure(
+    TR_BlockStructure *blockStructure) {
+  // Initialize the analysis info by making the initial parameter and field
+  // definitions reach the method entry
+  //
+  //_blockInfo[0]->Empty();
+}
 
+void TR_ReachingBlocks::initializeGenAndKillSetInfo() {
+  // *this    swipeable for debugging purposes
+  // For each block in the CFG build the gen and kill set for this analysis.
+  // Go in treetop order, which guarantees that we see the correct (i.e. first)
+  // evaluation point for each node.
+  //
+  int32_t blockNum;
 
-int32_t TR_ReachingBlocks::getNumberOfBits()
-   {
-   return _numberOfBlocks;
-   }
-
-
-void TR_ReachingBlocks::analyzeBlockZeroStructure(TR_BlockStructure *blockStructure)
-   {
-   // Initialize the analysis info by making the initial parameter and field
-   // definitions reach the method entry
-   //
-   //_blockInfo[0]->Empty();
-   }
-
-
-void TR_ReachingBlocks::initializeGenAndKillSetInfo()
-   {
-   // *this    swipeable for debugging purposes
-   // For each block in the CFG build the gen and kill set for this analysis.
-   // Go in treetop order, which guarantees that we see the correct (i.e. first)
-   // evaluation point for each node.
-   //
-   int32_t   blockNum;
-
-   for (blockNum = 0; blockNum < _numberOfBlocks; blockNum++)
-      {
-      _regularGenSetInfo[blockNum] = new (trStackMemory()) TR_BitVector(getNumberOfBits(),trMemory(), stackAlloc);
-      _regularGenSetInfo[blockNum]->set(blockNum);
-      _exceptionGenSetInfo[blockNum] = new (trStackMemory()) TR_BitVector(getNumberOfBits(),trMemory(), stackAlloc);
-      _exceptionGenSetInfo[blockNum]->set(blockNum);
-      }
-   }
+  for (blockNum = 0; blockNum < _numberOfBlocks; blockNum++) {
+    _regularGenSetInfo[blockNum] = new (trStackMemory())
+        TR_BitVector(getNumberOfBits(), trMemory(), stackAlloc);
+    _regularGenSetInfo[blockNum]->set(blockNum);
+    _exceptionGenSetInfo[blockNum] = new (trStackMemory())
+        TR_BitVector(getNumberOfBits(), trMemory(), stackAlloc);
+    _exceptionGenSetInfo[blockNum]->set(blockNum);
+  }
+}

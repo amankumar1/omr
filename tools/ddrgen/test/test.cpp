@@ -15,20 +15,19 @@
  * Contributors:
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
-#include "testHeader.h"
 #include "map_to_type/map_to_type.hpp"
+#include "testHeader.h"
 
 /*
  * @ddr_namespace: default
  */
 
 /* These should be included: */
-#define dolphin			11
-#define fish ((unsigned int)(4))/* Test comment block. */
-#define whale (7) // Test comment.
+#define dolphin 11
+#define fish ((unsigned int)(4)) /* Test comment block. */
+#define whale (7)                // Test comment.
 #define octopus dolphin
 
 /* These should be not included: */
 #define test_function_macro(x) x
 #define test_function_macro2 (x) x
-

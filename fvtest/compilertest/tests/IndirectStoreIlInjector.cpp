@@ -16,27 +16,26 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
+#include "tests/IndirectStoreIlInjector.hpp"
 #include "compile/Compilation.hpp"
+#include "compile/Method.hpp"
 #include "compile/SymbolReferenceTable.hpp"
 #include "env/FrontEnd.hpp"
-#include "compile/Method.hpp"
-#include "tests/IndirectStoreIlInjector.hpp"
 #include "tests/OpCodesTest.hpp"
 
-namespace TestCompiler
-{
+namespace TestCompiler {
 
-bool
-IndirectStoreIlInjector::injectIL()
-   {
-   if (!isOpCodeSupported())
-      return false;
+bool IndirectStoreIlInjector::injectIL() {
+  if (!isOpCodeSupported())
+    return false;
 
-   createBlocks(1);
-   TR::SymbolReference *storeSymRef = symRefTab()->findOrCreateArrayShadowSymbolRef(_dataType, parm(1));
-   genTreeTop(TR::Node::createWithSymRef(_opCode, 2, parm(1), parm(2), 0, storeSymRef));
-   returnNoValue();
-   return true;
-   }
+  createBlocks(1);
+  TR::SymbolReference *storeSymRef =
+      symRefTab()->findOrCreateArrayShadowSymbolRef(_dataType, parm(1));
+  genTreeTop(
+      TR::Node::createWithSymRef(_opCode, 2, parm(1), parm(2), 0, storeSymRef));
+  returnNoValue();
+  return true;
+}
 
 } // namespace TestCompiler

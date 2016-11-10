@@ -16,62 +16,43 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  ******************************************************************************/
 
-
 #ifndef MATMULT_INCL
 #define MATMULT_INCL
 
 #include "ilgen/MethodBuilder.hpp"
 
-typedef void (MatMultFunctionType)(double *, double *, double *, int32_t);
+typedef void(MatMultFunctionType)(double *, double *, double *, int32_t);
 
-class MatMult : public TR::MethodBuilder
-   {
-   private:
-   TR::IlType *pDouble;
+class MatMult : public TR::MethodBuilder {
+private:
+  TR::IlType *pDouble;
 
-   void Store2D(TR::IlBuilder *bldr,
-                TR::IlValue *base,
-                TR::IlValue *first,
-                TR::IlValue *second,
-                TR::IlValue *N,
-                TR::IlValue *value);
-   TR::IlValue *Load2D(TR::IlBuilder *bldr,
-                       TR::IlValue *base,
-                       TR::IlValue *first,
-                       TR::IlValue *second,
-                       TR::IlValue *N);
+  void Store2D(TR::IlBuilder *bldr, TR::IlValue *base, TR::IlValue *first,
+               TR::IlValue *second, TR::IlValue *N, TR::IlValue *value);
+  TR::IlValue *Load2D(TR::IlBuilder *bldr, TR::IlValue *base,
+                      TR::IlValue *first, TR::IlValue *second, TR::IlValue *N);
 
-   public:
-   MatMult(TR::TypeDictionary *);
-   virtual bool buildIL();
-   };
+public:
+  MatMult(TR::TypeDictionary *);
+  virtual bool buildIL();
+};
 
-class VectorMatMult : public TR::MethodBuilder
-   {
-   private:
-   TR::IlType *pDouble;
-   TR::IlType *ppDouble;
+class VectorMatMult : public TR::MethodBuilder {
+private:
+  TR::IlType *pDouble;
+  TR::IlType *ppDouble;
 
-   void VectorStore2D(TR::IlBuilder *bldr,
-                      TR::IlValue *base,
-                      TR::IlValue *first,
-                      TR::IlValue *second,
-                      TR::IlValue *N,
-                      TR::IlValue *value);
-   TR::IlValue *VectorLoad2D(TR::IlBuilder *bldr,
-                             TR::IlValue *base,
-                             TR::IlValue *first,
-                             TR::IlValue *second,
-                             TR::IlValue *N);
-   TR::IlValue *Load2D(TR::IlBuilder *bldr,
-                       TR::IlValue *base,
-                       TR::IlValue *first,
-                       TR::IlValue *second,
-                       TR::IlValue *N);
+  void VectorStore2D(TR::IlBuilder *bldr, TR::IlValue *base, TR::IlValue *first,
+                     TR::IlValue *second, TR::IlValue *N, TR::IlValue *value);
+  TR::IlValue *VectorLoad2D(TR::IlBuilder *bldr, TR::IlValue *base,
+                            TR::IlValue *first, TR::IlValue *second,
+                            TR::IlValue *N);
+  TR::IlValue *Load2D(TR::IlBuilder *bldr, TR::IlValue *base,
+                      TR::IlValue *first, TR::IlValue *second, TR::IlValue *N);
 
-   public:
-   VectorMatMult(TR::TypeDictionary *);
-   virtual bool buildIL();
-   };
+public:
+  VectorMatMult(TR::TypeDictionary *);
+  virtual bool buildIL();
+};
 
 #endif // !defined(MATMULT_INCL)

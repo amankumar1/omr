@@ -26,18 +26,17 @@
 
 using std::vector;
 
-class ClassType : public NamespaceUDT
-{
+class ClassType : public NamespaceUDT {
 public:
-	vector<Field *> _fieldMembers;
-	vector<EnumMember *> _enumMembers; /* used for anonymous enums*/
+  vector<Field *> _fieldMembers;
+  vector<EnumMember *> _enumMembers; /* used for anonymous enums*/
 
-	ClassType(SymbolType symbolType, size_t size, unsigned int lineNumber = 0);
-	virtual ~ClassType();
+  ClassType(SymbolType symbolType, size_t size, unsigned int lineNumber = 0);
+  virtual ~ClassType();
 
-	virtual bool isAnonymousType();
-	virtual bool equal(Type const& type, set<Type const*> *checked) const;
-	virtual void replaceType(Type *typeToReplace, Type *replaceWith);
+  virtual bool isAnonymousType();
+  virtual bool equal(Type const &type, set<Type const *> *checked) const;
+  virtual void replaceType(Type *typeToReplace, Type *replaceWith);
 };
 
 #endif /* CLASSTYPE_HPP */

@@ -16,14 +16,18 @@
 *    Multiple authors (IBM Corp.) - initial implementation and documentation
 *******************************************************************************/
 
-
 /*
  * Description: An extensible class with three levels.
  */
 
 #define OMR_EXTENSIBLE __attribute__((annotate("OMR_Extensible")))
 
-namespace OMR { class OMR_EXTENSIBLE ExtClass {}; }
-namespace MID { class OMR_EXTENSIBLE ExtClass : public OMR::ExtClass {}; }
-namespace TR  { class OMR_EXTENSIBLE ExtClass : public MID::ExtClass {}; }
-
+namespace OMR {
+class OMR_EXTENSIBLE ExtClass {};
+}
+namespace MID {
+class OMR_EXTENSIBLE ExtClass : public OMR::ExtClass {};
+}
+namespace TR {
+class OMR_EXTENSIBLE ExtClass : public MID::ExtClass {};
+}

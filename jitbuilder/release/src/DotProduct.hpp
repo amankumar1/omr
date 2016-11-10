@@ -16,24 +16,21 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  ******************************************************************************/
 
-
 #ifndef DOTPRODUCT_INCL
 #define DOTPRODUCT_INCL
 
 #include "ilgen/MethodBuilder.hpp"
 
-typedef void (DotProductFunctionType)(double *, double *, double *, int32_t);
+typedef void(DotProductFunctionType)(double *, double *, double *, int32_t);
 
-class DotProduct : public TR::MethodBuilder
-   {
-   private:
+class DotProduct : public TR::MethodBuilder {
+private:
+  void PrintString(TR::IlBuilder *bldr, const char *s);
+  TR::IlType *pDouble;
 
-   void PrintString (TR::IlBuilder *bldr, const char *s);
-   TR::IlType *pDouble;
-
-   public:
-   DotProduct(TR::TypeDictionary *);
-   virtual bool buildIL();
-   };
+public:
+  DotProduct(TR::TypeDictionary *);
+  virtual bool buildIL();
+};
 
 #endif // !defined(DOTPRODUCT_INCL)

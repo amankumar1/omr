@@ -16,26 +16,23 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-#include "compile/Compilation.hpp"
-#include "env/FrontEnd.hpp"
-#include "compile/Method.hpp"
 #include "ilgen/BinaryOpIlInjector.hpp"
+#include "compile/Compilation.hpp"
+#include "compile/Method.hpp"
+#include "env/FrontEnd.hpp"
 
-namespace TestCompiler
-{
+namespace TestCompiler {
 
-bool
-BinaryOpIlInjector::injectIL()
-   {
-   if (!isOpCodeSupported())
-      return false;
+bool BinaryOpIlInjector::injectIL() {
+  if (!isOpCodeSupported())
+    return false;
 
-   createBlocks(1);
-   // Block 2: blocks(0)
-   // return parameter1 op parameter2;
-   returnValue(createWithoutSymRef(_opCode, 2, parm(1), parm(2)));
+  createBlocks(1);
+  // Block 2: blocks(0)
+  // return parameter1 op parameter2;
+  returnValue(createWithoutSymRef(_opCode, 2, parm(1), parm(2)));
 
-   return true;
-   }
+  return true;
+}
 
 } // namespace TestCompiler

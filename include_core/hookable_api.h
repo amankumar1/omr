@@ -45,12 +45,12 @@ struct J9HookInterface;
 * @param interfaceSize
 * @return intptr_t
 */
-intptr_t
-J9HookInitializeInterface(struct J9HookInterface **hookInterface, OMRPortLibrary *portLib, size_t interfaceSize);
+intptr_t J9HookInitializeInterface(struct J9HookInterface **hookInterface,
+                                   OMRPortLibrary *portLib,
+                                   size_t interfaceSize);
 
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* hookable_api_h */
-

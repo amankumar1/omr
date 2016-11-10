@@ -21,25 +21,14 @@
  * definitions are permitted.
  */
 
-
-
- // The entries in this file must be kept in sync with compiler/codegen/OMRCodeGenPhaseFunctionTable.hpp
-      ReserveCodeCachePhase,
-      LowerTreesPhase,
-      SetupForInstructionSelectionPhase,
-      InstructionSelectionPhase,
-      CreateStackAtlasPhase,
-      RegisterAssigningPhase,
-      MapStackPhase,
-      PeepholePhase,
-      BinaryEncodingPhase,
-      EmitSnippetsPhase,
-      ProcessRelocationsPhase,
-      FindAndFixCommonedReferencesPhase,
-      RemoveUnusedLocalsPhase,
-      ShrinkWrappingPhase, // all
-      InliningReportPhase, // all
-      InsertDebugCountersPhase,
-      CleanUpFlagsPhase,
-      LastOMRPhase = CleanUpFlagsPhase,
-
+// The entries in this file must be kept in sync with
+// compiler/codegen/OMRCodeGenPhaseFunctionTable.hpp
+ReserveCodeCachePhase, LowerTreesPhase, SetupForInstructionSelectionPhase,
+    InstructionSelectionPhase, CreateStackAtlasPhase, RegisterAssigningPhase,
+    MapStackPhase, PeepholePhase, BinaryEncodingPhase, EmitSnippetsPhase,
+    ProcessRelocationsPhase, FindAndFixCommonedReferencesPhase,
+    RemoveUnusedLocalsPhase,
+    ShrinkWrappingPhase, // all
+    InliningReportPhase, // all
+    InsertDebugCountersPhase, CleanUpFlagsPhase,
+    LastOMRPhase = CleanUpFlagsPhase,

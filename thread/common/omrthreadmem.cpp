@@ -19,30 +19,39 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "thread_internal.h"
-#include "omrmemcategories.h"
 #include "AtomicSupport.hpp"
+#include "omrmemcategories.h"
+#include "thread_internal.h"
 
 extern "C" {
 
-/* Template category data to be copied into the thread library structure in omrthread_mem_init */
+/* Template category data to be copied into the thread library structure in
+ * omrthread_mem_init */
 #if defined(OMR_THR_FORK_SUPPORT)
-const uint32_t threadCategoryChildren[] = {OMRMEM_CATEGORY_THREADS_RUNTIME_STACK, OMRMEM_CATEGORY_THREADS_NATIVE_STACK, OMRMEM_CATEGORY_OSMUTEXES, OMRMEM_CATEGORY_OSCONDVARS};
-const OMRMemCategory threadCategoryTemplate = { "Threads", OMRMEM_CATEGORY_THREADS, 0, 0, 0, 0, 4, threadCategoryChildren };
-const OMRMemCategory mutexCategoryTemplate = { "OS Mutexes", OMRMEM_CATEGORY_OSMUTEXES, 0, 0, 0, 0, 0, NULL };
-const OMRMemCategory condvarCategoryTemplate = { "OS Condvars", OMRMEM_CATEGORY_OSCONDVARS, 0, 0, 0, 0, 0, NULL };
-#else /* defined(OMR_THR_FORK_SUPPORT) */
-const uint32_t threadCategoryChildren[] = {OMRMEM_CATEGORY_THREADS_RUNTIME_STACK, OMRMEM_CATEGORY_THREADS_NATIVE_STACK};
-const OMRMemCategory threadCategoryTemplate = { "Threads", OMRMEM_CATEGORY_THREADS, 0, 0, 0, 0, 2, threadCategoryChildren };
+const uint32_t threadCategoryChildren[] = {
+    OMRMEM_CATEGORY_THREADS_RUNTIME_STACK, OMRMEM_CATEGORY_THREADS_NATIVE_STACK,
+    OMRMEM_CATEGORY_OSMUTEXES, OMRMEM_CATEGORY_OSCONDVARS};
+const OMRMemCategory threadCategoryTemplate = {
+    "Threads", OMRMEM_CATEGORY_THREADS, 0, 0, 0, 0, 4, threadCategoryChildren};
+const OMRMemCategory mutexCategoryTemplate = {
+    "OS Mutexes", OMRMEM_CATEGORY_OSMUTEXES, 0, 0, 0, 0, 0, NULL};
+const OMRMemCategory condvarCategoryTemplate = {
+    "OS Condvars", OMRMEM_CATEGORY_OSCONDVARS, 0, 0, 0, 0, 0, NULL};
+#else  /* defined(OMR_THR_FORK_SUPPORT) */
+const uint32_t threadCategoryChildren[] = {
+    OMRMEM_CATEGORY_THREADS_RUNTIME_STACK,
+    OMRMEM_CATEGORY_THREADS_NATIVE_STACK};
+const OMRMemCategory threadCategoryTemplate = {
+    "Threads", OMRMEM_CATEGORY_THREADS, 0, 0, 0, 0, 2, threadCategoryChildren};
 #endif /* defined(OMR_THR_FORK_SUPPORT) */
-const OMRMemCategory nativeStackCategoryTemplate = { "Native Stack", OMRMEM_CATEGORY_THREADS_NATIVE_STACK, 0, 0, 0, 0, 0, NULL };
-
+const OMRMemCategory nativeStackCategoryTemplate = {
+    "Native Stack", OMRMEM_CATEGORY_THREADS_NATIVE_STACK, 0, 0, 0, 0, 0, NULL};
 
 typedef struct J9ThreadMemoryHeader {
-	uintptr_t blockSize;
-#if ! defined(OMR_ENV_DATA64)
-	/* Padding to ensure 8-byte alignment on 32 bit */
-	uint8_t padding[4];
+  uintptr_t blockSize;
+#if !defined(OMR_ENV_DATA64)
+  /* Padding to ensure 8-byte alignment on 32 bit */
+  uint8_t padding[4];
 #endif
 } J9ThreadMemoryHeader;
 
@@ -51,14 +60,16 @@ typedef struct J9ThreadMemoryHeader {
  *
  * Called by omrthread_init
  */
-void
-omrthread_mem_init(omrthread_library_t threadLibrary)
-{
-	memcpy(&threadLibrary->threadLibraryCategory, &threadCategoryTemplate, sizeof(OMRMemCategory));
-	memcpy(&threadLibrary->nativeStackCategory, &nativeStackCategoryTemplate, sizeof(OMRMemCategory));
+void omrthread_mem_init(omrthread_library_t threadLibrary) {
+  memcpy(&threadLibrary->threadLibraryCategory, &threadCategoryTemplate,
+         sizeof(OMRMemCategory));
+  memcpy(&threadLibrary->nativeStackCategory, &nativeStackCategoryTemplate,
+         sizeof(OMRMemCategory));
 #if defined(OMR_THR_FORK_SUPPORT)
-	memcpy(&threadLibrary->mutexCategory, &mutexCategoryTemplate, sizeof(OMRMemCategory));
-	memcpy(&threadLibrary->condvarCategory, &condvarCategoryTemplate, sizeof(OMRMemCategory));
+  memcpy(&threadLibrary->mutexCategory, &mutexCategoryTemplate,
+         sizeof(OMRMemCategory));
+  memcpy(&threadLibrary->condvarCategory, &condvarCategoryTemplate,
+         sizeof(OMRMemCategory));
 #endif /* defined(OMR_THR_FORK_SUPPORT) */
 }
 
@@ -70,25 +81,24 @@ omrthread_mem_init(omrthread_library_t threadLibrary)
  * @param [in] memoryCategory Memory category (Currently ignored)
  * @return Pointer to allocated memory, or NULL if the allocation failed.
  */
-void *
-omrthread_allocate_memory(omrthread_library_t threadLibrary, uintptr_t size, uint32_t memoryCategory)
-{
-	uintptr_t paddedSize = size + sizeof(J9ThreadMemoryHeader);
-	J9ThreadMemoryHeader *header;
-	void *mallocPtr;
+void *omrthread_allocate_memory(omrthread_library_t threadLibrary,
+                                uintptr_t size, uint32_t memoryCategory) {
+  uintptr_t paddedSize = size + sizeof(J9ThreadMemoryHeader);
+  J9ThreadMemoryHeader *header;
+  void *mallocPtr;
 
-	mallocPtr = malloc(paddedSize);
+  mallocPtr = malloc(paddedSize);
 
-	if (NULL == mallocPtr) {
-		return mallocPtr;
-	}
+  if (NULL == mallocPtr) {
+    return mallocPtr;
+  }
 
-	header = (J9ThreadMemoryHeader *)mallocPtr;
-	header->blockSize = paddedSize;
+  header = (J9ThreadMemoryHeader *)mallocPtr;
+  header->blockSize = paddedSize;
 
-	increment_memory_counter(&threadLibrary->threadLibraryCategory, paddedSize);
+  increment_memory_counter(&threadLibrary->threadLibraryCategory, paddedSize);
 
-	return (void *)((uintptr_t)mallocPtr + sizeof(J9ThreadMemoryHeader));
+  return (void *)((uintptr_t)mallocPtr + sizeof(J9ThreadMemoryHeader));
 }
 
 /**
@@ -97,22 +107,21 @@ omrthread_allocate_memory(omrthread_library_t threadLibrary, uintptr_t size, uin
  * @param [in] threadLibrary Thread library
  * @param [in] ptr Pointer to free.
  */
-void
-omrthread_free_memory(omrthread_library_t threadLibrary, void *ptr)
-{
-	void *mallocPtr;
-	J9ThreadMemoryHeader *header;
+void omrthread_free_memory(omrthread_library_t threadLibrary, void *ptr) {
+  void *mallocPtr;
+  J9ThreadMemoryHeader *header;
 
-	if (NULL == ptr) {
-		return;
-	}
+  if (NULL == ptr) {
+    return;
+  }
 
-	mallocPtr = (void *)((uintptr_t)ptr - sizeof(J9ThreadMemoryHeader));
+  mallocPtr = (void *)((uintptr_t)ptr - sizeof(J9ThreadMemoryHeader));
 
-	header = (J9ThreadMemoryHeader *)mallocPtr;
-	decrement_memory_counter(&threadLibrary->threadLibraryCategory, header->blockSize);
+  header = (J9ThreadMemoryHeader *)mallocPtr;
+  decrement_memory_counter(&threadLibrary->threadLibraryCategory,
+                           header->blockSize);
 
-	free(mallocPtr);
+  free(mallocPtr);
 }
 
 /**
@@ -121,14 +130,12 @@ omrthread_free_memory(omrthread_library_t threadLibrary, void *ptr)
  * @param [in] category Category to be updated
  * @param [in] size Size of memory block allocated
  */
-void
-increment_memory_counter(OMRMemCategory *category, uintptr_t size)
-{
-	/* Increment block count */
-	VM_AtomicSupport::add(&category->liveAllocations, 1);
+void increment_memory_counter(OMRMemCategory *category, uintptr_t size) {
+  /* Increment block count */
+  VM_AtomicSupport::add(&category->liveAllocations, 1);
 
-	/* Increment size */
-	VM_AtomicSupport::add(&category->liveBytes, size);
+  /* Increment size */
+  VM_AtomicSupport::add(&category->liveBytes, size);
 }
 
 /**
@@ -137,14 +144,12 @@ increment_memory_counter(OMRMemCategory *category, uintptr_t size)
  * @param [in] category Category to be updated
  * @param [in] size Size of memory block freed
  */
-void
-decrement_memory_counter(OMRMemCategory *category, uintptr_t size)
-{
-	/* Decrement block count */
-	VM_AtomicSupport::subtract(&category->liveAllocations, 1);
+void decrement_memory_counter(OMRMemCategory *category, uintptr_t size) {
+  /* Decrement block count */
+  VM_AtomicSupport::subtract(&category->liveAllocations, 1);
 
-	/* Decrement size */
-	VM_AtomicSupport::subtract(&category->liveBytes, size);
+  /* Decrement size */
+  VM_AtomicSupport::subtract(&category->liveBytes, size);
 }
 
 /**
@@ -157,12 +162,9 @@ decrement_memory_counter(OMRMemCategory *category, uintptr_t size)
  * @return none
  *
  */
-void
-omrthread_freeWrapper(void *user, void *ptr, uint32_t type)
-{
-	omrthread_free_memory((omrthread_library_t)user, ptr);
+void omrthread_freeWrapper(void *user, void *ptr, uint32_t type) {
+  omrthread_free_memory((omrthread_library_t)user, ptr);
 }
-
 
 /**
  * Malloc memory.
@@ -178,10 +180,11 @@ omrthread_freeWrapper(void *user, void *ptr, uint32_t type)
  * @retval NULL on failure
  *
  */
-void *
-omrthread_mallocWrapper(void *user, uint32_t size, const char *callSite, uint32_t memoryCategory, uint32_t type, uint32_t *doInit)
-{
-	return omrthread_allocate_memory((omrthread_library_t)user, size, memoryCategory);
+void *omrthread_mallocWrapper(void *user, uint32_t size, const char *callSite,
+                              uint32_t memoryCategory, uint32_t type,
+                              uint32_t *doInit) {
+  return omrthread_allocate_memory((omrthread_library_t)user, size,
+                                   memoryCategory);
 }
 
 } /* extern "C" */

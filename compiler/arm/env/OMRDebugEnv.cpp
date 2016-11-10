@@ -18,12 +18,9 @@
 
 #include "env/DebugEnv.hpp"
 
-OMR::ARM::DebugEnv::DebugEnv() :
-      OMR::DebugEnv()
-   {
+OMR::ARM::DebugEnv::DebugEnv() : OMR::DebugEnv() {
 
-   _hexAddressWidthInChars = 8;
-   _hexAddressFieldWidthInChars = 10;
-   _codeByteColumnWidth = 10;
-
-   }
+  _hexAddressWidthInChars = 8;
+  _hexAddressFieldWidthInChars = 10;
+  _codeByteColumnWidth = 10;
+}

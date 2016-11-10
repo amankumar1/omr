@@ -23,7 +23,7 @@
 #include "cs2/bitvectr.h"
 #include "cs2/sparsrbit.h"
 
-namespace CS2{
+namespace CS2 {
 
 // ------------------------------------------------------------------------
 // TableOf
@@ -34,35 +34,40 @@ namespace CS2{
 // or when the table is destroyed.
 // ------------------------------------------------------------------------
 
-#define CS2_TBL_TEMP template <class AElementType, class Allocator, uint32_t segmentBits, template<class> class SupportingBitVector>
-#define CS2_TBL_DECL TableOf <AElementType, Allocator, segmentBits, SupportingBitVector>
-#define CS2_TAR_DECL BaseArrayOf <AElementType, Allocator, segmentBits>
+#define CS2_TBL_TEMP                                                           \
+  template <class AElementType, class Allocator, uint32_t segmentBits,         \
+            template <class> class SupportingBitVector>
+#define CS2_TBL_DECL                                                           \
+  TableOf<AElementType, Allocator, segmentBits, SupportingBitVector>
+#define CS2_TAR_DECL BaseArrayOf<AElementType, Allocator, segmentBits>
 
 typedef size_t TableIndex;
 
-template <class AElementType, class Allocator = CS2::allocator, uint32_t segmentBits = 8, template<class = Allocator>class SupportingBitVector = ASparseBitVector>
+template <class AElementType, class Allocator = CS2::allocator,
+          uint32_t segmentBits = 8,
+          template <class = Allocator> class SupportingBitVector =
+              ASparseBitVector>
 class TableOf : public CS2_TAR_DECL {
-  public:
-
-  TableOf (const Allocator &a = Allocator());
-  TableOf (uint32_t ignore, const Allocator &a = Allocator());
+public:
+  TableOf(const Allocator &a = Allocator());
+  TableOf(uint32_t ignore, const Allocator &a = Allocator());
   ~TableOf();
-  TableOf (const CS2_TBL_DECL &);
-  CS2_TBL_DECL &operator= (const CS2_TBL_DECL &);
+  TableOf(const CS2_TBL_DECL &);
+  CS2_TBL_DECL &operator=(const CS2_TBL_DECL &);
 
   /// \brief Return the element at the given index.  The element must have been
   /// previously added and not subsequently removed from the table.
-  AElementType &operator[] (TableIndex) const;
+  AElementType &operator[](TableIndex) const;
 
   /// \brief Exactly the same as operator[].  For consistency with the ArrayOf
   /// class.
-  AElementType &ElementAt (TableIndex) const;
+  AElementType &ElementAt(TableIndex) const;
 
-  /// \brief Add a table entry at the next available position and return its index.
+  /// \brief Add a table entry at the next available position and return its
+  /// index.
   TableIndex AddEntry();
 
-  template <class Initializer>
-    TableIndex AddEntry(Initializer &element);
+  template <class Initializer> TableIndex AddEntry(Initializer &element);
 
   TableIndex AddEntryAtPosition(TableIndex);
 
@@ -70,29 +75,28 @@ class TableOf : public CS2_TAR_DECL {
   TableIndex AddEntryAtPosition(TableIndex, Initializer element);
 
   /// \brief Remove an entry at a given position.
-  void RemoveEntry (TableIndex);
+  void RemoveEntry(TableIndex);
 
   /// \brief Determine if an entry exists at a given position.
-  bool Exists (TableIndex) const;
+  bool Exists(TableIndex) const;
 
   /// \brief Determine if the table has any entries
   bool IsEmpty() const;
 
   /// \brief Remove all entries from the table
-  void MakeEmpty ();
+  void MakeEmpty();
 
   /// \brief Return the number of bytes of memory used by this table
   unsigned long MemoryUsage() const;
 
-  // The following is a sub-class used to traverse tables.
-  #define CS2_TBLCC_DECL CS2_TBL_DECL::ConstCursor
+// The following is a sub-class used to traverse tables.
+#define CS2_TBLCC_DECL CS2_TBL_DECL::ConstCursor
   class ConstCursor {
-    public:
-
-    ConstCursor (const CS2_TBL_DECL &);
-    ConstCursor (const CS2_TBL_DECL &, const SupportingBitVector<Allocator> &);
-    ConstCursor (const ConstCursor &c);
-    ConstCursor (const ConstCursor &c, const SupportingBitVector<Allocator> &);
+  public:
+    ConstCursor(const CS2_TBL_DECL &);
+    ConstCursor(const CS2_TBL_DECL &, const SupportingBitVector<Allocator> &);
+    ConstCursor(const ConstCursor &c);
+    ConstCursor(const ConstCursor &c, const SupportingBitVector<Allocator> &);
 
     // Set the cursor position
     void SetToFirst();
@@ -104,9 +108,8 @@ class TableOf : public CS2_TAR_DECL {
     /// \brief Convert the cursor to integer.  Used to actually index the table.
     operator TableIndex() const;
 
-    private:
-
-    ConstCursor &operator= (const ConstCursor &);
+  private:
+    ConstCursor &operator=(const ConstCursor &);
 
     const CS2_TBL_DECL &fTable;
     typename SupportingBitVector<Allocator>::Cursor fFreeCursor;
@@ -114,25 +117,22 @@ class TableOf : public CS2_TAR_DECL {
     TableIndex fIndex;
   };
 
-  #define CS2_TBLC_DECL CS2_TBL_DECL::Cursor
+#define CS2_TBLC_DECL CS2_TBL_DECL::Cursor
   class Cursor : public ConstCursor {
   public:
-    Cursor (const CS2_TBL_DECL &);
-    Cursor (const Cursor &);
+    Cursor(const CS2_TBL_DECL &);
+    Cursor(const Cursor &);
 
   private:
     SupportingBitVector<Allocator> fFreeVector;
   };
 
   template <class ostr>
-  friend
-  ostr &operator<<  (ostr &out, const CS2_TBL_DECL &table) {
+  friend ostr &operator<<(ostr &out, const CS2_TBL_DECL &table) {
     typename CS2_TBL_DECL::ConstCursor tblCursor(table);
 
-    for (tblCursor.SetToFirst();
-         tblCursor.Valid();
-         tblCursor.SetToNext()) {
-      out << "[" << (TableIndex) tblCursor << "]: ";
+    for (tblCursor.SetToFirst(); tblCursor.Valid(); tblCursor.SetToNext()) {
+      out << "[" << (TableIndex)tblCursor << "]: ";
       out << table.ElementAt(tblCursor);
       out << "\n";
     }
@@ -140,12 +140,11 @@ class TableOf : public CS2_TAR_DECL {
     return out;
   }
 
-  private:
-
+private:
   TableIndex fHighestIndex;
   TableIndex fLowestPossibleRemoved;
   TableIndex fHighestPossibleRemoved;
-  TableIndex ClearLastOneIfThereIsOne(bool&);
+  TableIndex ClearLastOneIfThereIsOne(bool &);
   SupportingBitVector<Allocator> fFreeVector;
 };
 
@@ -156,52 +155,59 @@ class TableOf : public CS2_TAR_DECL {
 // for ASparseBitVector, that is not necessary.
 // The original implementation preferred to re-use elements starting
 // with the highest free-ed element.  So this code maintains that discipline
-CS2_TBL_TEMP inline TableIndex CS2_TBL_DECL::ClearLastOneIfThereIsOne(bool& foundone) {
-   foundone = false;
-   if (fLowestPossibleRemoved == fHighestPossibleRemoved) {
-      // in this case either we really do have a free spot here or we there are no free spots
-      TableIndex possibleSlot = fHighestPossibleRemoved;
-      if (fFreeVector.ValueAt(possibleSlot)) {
-         // this is the last free one
-         fFreeVector[possibleSlot] = false;
-         // not sure this is necessary...worried about fFreeVector shrinking
-         fLowestPossibleRemoved = 0;
-         fHighestPossibleRemoved = 0;
-         foundone = true;
-         return possibleSlot;
-      } else {
-         return ~(TableIndex) 0;
+CS2_TBL_TEMP inline TableIndex
+CS2_TBL_DECL::ClearLastOneIfThereIsOne(bool &foundone) {
+  foundone = false;
+  if (fLowestPossibleRemoved == fHighestPossibleRemoved) {
+    // in this case either we really do have a free spot here or we there are no
+    // free spots
+    TableIndex possibleSlot = fHighestPossibleRemoved;
+    if (fFreeVector.ValueAt(possibleSlot)) {
+      // this is the last free one
+      fFreeVector[possibleSlot] = false;
+      // not sure this is necessary...worried about fFreeVector shrinking
+      fLowestPossibleRemoved = 0;
+      fHighestPossibleRemoved = 0;
+      foundone = true;
+      return possibleSlot;
+    } else {
+      return ~(TableIndex)0;
+    }
+  } else {
+    if (fFreeVector.ValueAt(fHighestPossibleRemoved)) {
+      // save ourselves the trouble of a full search
+      CS2Assert(fLowestPossibleRemoved < fHighestPossibleRemoved,
+                ("fLowestPossibleRemoved not less than highest"));
+      fFreeVector[fHighestPossibleRemoved] = false;
+      TableIndex rc = fHighestPossibleRemoved;
+      --fHighestPossibleRemoved;
+      foundone = true;
+      return rc;
+    } else {
+      TableIndex lastOne = fFreeVector.ClearLastOneIfThereIsOneInRange(
+          fLowestPossibleRemoved, fHighestPossibleRemoved, foundone);
+      if (foundone) {
+        CS2Assert(lastOne >= fLowestPossibleRemoved &&
+                      lastOne <= fHighestPossibleRemoved,
+                  ("found a removed node less than expected"));
+        if (lastOne == fLowestPossibleRemoved) {
+          fHighestPossibleRemoved = fLowestPossibleRemoved;
+        } else {
+          fHighestPossibleRemoved = lastOne - 1;
+        }
       }
-   } else {
-      if (fFreeVector.ValueAt(fHighestPossibleRemoved)) {
-         // save ourselves the trouble of a full search
-         CS2Assert(fLowestPossibleRemoved < fHighestPossibleRemoved, ("fLowestPossibleRemoved not less than highest"));
-         fFreeVector[fHighestPossibleRemoved] = false;
-         TableIndex rc = fHighestPossibleRemoved;
-         --fHighestPossibleRemoved;
-         foundone = true;
-         return rc;
-      } else {
-         TableIndex lastOne = fFreeVector.ClearLastOneIfThereIsOneInRange(fLowestPossibleRemoved, fHighestPossibleRemoved, foundone);
-         if (foundone) {
-            CS2Assert(lastOne >= fLowestPossibleRemoved && lastOne <= fHighestPossibleRemoved, ("found a removed node less than expected"));
-            if (lastOne == fLowestPossibleRemoved) {
-               fHighestPossibleRemoved = fLowestPossibleRemoved;
-            } else {
-               fHighestPossibleRemoved = lastOne - 1;
-            }
-         }
-         return lastOne;
-      }
-   }
+      return lastOne;
+    }
+  }
 }
 
 // TableOf::ElementAt
 //
 // Indexing method.
 
-CS2_TBL_TEMP inline AElementType &CS2_TBL_DECL::ElementAt (TableIndex index) const {
-  CS2Assert (Exists(index), ("Table index " CS2_ZU " does not exist", index));
+CS2_TBL_TEMP inline AElementType &
+CS2_TBL_DECL::ElementAt(TableIndex index) const {
+  CS2Assert(Exists(index), ("Table index " CS2_ZU " does not exist", index));
   return CS2_TAR_DECL::ElementAt(index);
 }
 
@@ -209,7 +215,8 @@ CS2_TBL_TEMP inline AElementType &CS2_TBL_DECL::ElementAt (TableIndex index) con
 //
 // Indexing operator.
 
-CS2_TBL_TEMP inline AElementType &CS2_TBL_DECL::operator[] (TableIndex index) const {
+CS2_TBL_TEMP inline AElementType &CS2_TBL_DECL::
+operator[](TableIndex index) const {
   return ElementAt(index);
 }
 
@@ -217,9 +224,11 @@ CS2_TBL_TEMP inline AElementType &CS2_TBL_DECL::operator[] (TableIndex index) co
 //
 // Predicate to determine if an element exists.
 
-CS2_TBL_TEMP inline bool CS2_TBL_DECL::Exists (TableIndex index) const {
-  if (index == 0) return false;
-  if (index > fHighestIndex) return false;
+CS2_TBL_TEMP inline bool CS2_TBL_DECL::Exists(TableIndex index) const {
+  if (index == 0)
+    return false;
+  if (index > fHighestIndex)
+    return false;
   return !fFreeVector.ValueAt(index);
 }
 
@@ -228,7 +237,7 @@ CS2_TBL_TEMP inline bool CS2_TBL_DECL::Exists (TableIndex index) const {
 // Predicate to determine if the table contains any elements.
 
 CS2_TBL_TEMP inline bool CS2_TBL_DECL::IsEmpty() const {
-  return (fHighestIndex == 0) || fFreeVector.PopulationCount()>=fHighestIndex;
+  return (fHighestIndex == 0) || fFreeVector.PopulationCount() >= fHighestIndex;
 }
 
 // TableOf::TableOf
@@ -236,36 +245,32 @@ CS2_TBL_TEMP inline bool CS2_TBL_DECL::IsEmpty() const {
 // Construct a table with at least the given number of elements and with
 // the (optional) segment size.
 
-CS2_TBL_TEMP inline CS2_TBL_DECL::TableOf (const Allocator &a) :
-  CS2_TAR_DECL (a),
-  fHighestIndex (0),
-  fLowestPossibleRemoved(0),
-  fHighestPossibleRemoved(0),
-  fFreeVector(a) { }
+CS2_TBL_TEMP inline CS2_TBL_DECL::TableOf(const Allocator &a)
+    : CS2_TAR_DECL(a), fHighestIndex(0), fLowestPossibleRemoved(0),
+      fHighestPossibleRemoved(0), fFreeVector(a) {}
 
-CS2_TBL_TEMP inline CS2_TBL_DECL::TableOf (uint32_t, const Allocator &a) :
-  CS2_TAR_DECL (a),
-  fHighestIndex (0),
-  fLowestPossibleRemoved(0),
-  fHighestPossibleRemoved(0),
-  fFreeVector(a) { }
+CS2_TBL_TEMP inline CS2_TBL_DECL::TableOf(uint32_t, const Allocator &a)
+    : CS2_TAR_DECL(a), fHighestIndex(0), fLowestPossibleRemoved(0),
+      fHighestPossibleRemoved(0), fFreeVector(a) {}
 
 // TableOf::~TableOf
 //
 // Destroy a table and all of its elements.
 
 CS2_TBL_TEMP inline CS2_TBL_DECL::~TableOf() {
-  if (is_pod<AElementType>()) return;
+  if (is_pod<AElementType>())
+    return;
 
-  if (fHighestIndex==0) return;
+  if (fHighestIndex == 0)
+    return;
 
   typename CS2_TBL_DECL::ConstCursor elementIndex(*this);
   // Destroy every existing element.
-  for (elementIndex.SetToFirst();
-       elementIndex.Valid();
+  for (elementIndex.SetToFirst(); elementIndex.Valid();
        elementIndex.SetToNext()) {
     AElementType &currentElement = ElementAt(elementIndex);
-    typename CS2_TAR_DECL::DerivedElement *derivedElement = (typename CS2_TAR_DECL::DerivedElement *) &currentElement;
+    typename CS2_TAR_DECL::DerivedElement *derivedElement =
+        (typename CS2_TAR_DECL::DerivedElement *)&currentElement;
     derivedElement->CS2_TAR_DECL::DerivedElement::~DerivedElement();
   }
 }
@@ -274,20 +279,19 @@ CS2_TBL_TEMP inline CS2_TBL_DECL::~TableOf() {
 //
 // Copy construct a table.
 
-CS2_TBL_TEMP inline CS2_TBL_DECL::TableOf (const CS2_TBL_DECL &table) :
-  CS2_TAR_DECL(table),
-  fHighestIndex(table.fHighestIndex),
-  fLowestPossibleRemoved(table.fLowestPossibleRemoved),
-  fHighestPossibleRemoved(table.fHighestPossibleRemoved),
-  fFreeVector(table.fFreeVector) {
+CS2_TBL_TEMP inline CS2_TBL_DECL::TableOf(const CS2_TBL_DECL &table)
+    : CS2_TAR_DECL(table), fHighestIndex(table.fHighestIndex),
+      fLowestPossibleRemoved(table.fLowestPossibleRemoved),
+      fHighestPossibleRemoved(table.fHighestPossibleRemoved),
+      fFreeVector(table.fFreeVector) {
 
   typename CS2_TBL_DECL::ConstCursor elementIndex(table);
   // Copy every existing element.
-  for (elementIndex.SetToFirst();
-       elementIndex.Valid();
+  for (elementIndex.SetToFirst(); elementIndex.Valid();
        elementIndex.SetToNext()) {
     AElementType &currentElement = ElementAt(elementIndex);
-    new (&currentElement) typename CS2_TAR_DECL::DerivedElement (table.ElementAt(elementIndex));
+    new (&currentElement)
+        typename CS2_TAR_DECL::DerivedElement(table.ElementAt(elementIndex));
   }
 }
 
@@ -295,7 +299,8 @@ CS2_TBL_TEMP inline CS2_TBL_DECL::TableOf (const CS2_TBL_DECL &table) :
 //
 // Assign a table to another.
 
-CS2_TBL_TEMP inline CS2_TBL_DECL &CS2_TBL_DECL::operator= (const CS2_TBL_DECL &table) {
+CS2_TBL_TEMP inline CS2_TBL_DECL &CS2_TBL_DECL::
+operator=(const CS2_TBL_DECL &table) {
   MakeEmpty();
 
   fHighestIndex = table.fHighestIndex;
@@ -305,11 +310,11 @@ CS2_TBL_TEMP inline CS2_TBL_DECL &CS2_TBL_DECL::operator= (const CS2_TBL_DECL &t
 
   typename CS2_TBL_DECL::ConstCursor elementIndex(table);
   // Copy every existing element.
-  for (elementIndex.SetToFirst();
-       elementIndex.Valid();
+  for (elementIndex.SetToFirst(); elementIndex.Valid();
        elementIndex.SetToNext()) {
     AElementType &currentElement = ElementAt(elementIndex);
-    new (&currentElement) typename CS2_TAR_DECL::DerivedElement (table.ElementAt(elementIndex));
+    new (&currentElement)
+        typename CS2_TAR_DECL::DerivedElement(table.ElementAt(elementIndex));
   }
   return *this;
 }
@@ -318,15 +323,15 @@ CS2_TBL_TEMP inline CS2_TBL_DECL &CS2_TBL_DECL::operator= (const CS2_TBL_DECL &t
 //
 // Destroy all existing table elements.
 
-CS2_TBL_TEMP inline void CS2_TBL_DECL::MakeEmpty () {
+CS2_TBL_TEMP inline void CS2_TBL_DECL::MakeEmpty() {
   ConstCursor elementIndex(*this);
 
   // Destroy every existing element.
-  for (elementIndex.SetToFirst();
-       elementIndex.Valid();
+  for (elementIndex.SetToFirst(); elementIndex.Valid();
        elementIndex.SetToNext()) {
     AElementType &currentElement = ElementAt(elementIndex);
-    typename CS2_TAR_DECL::DerivedElement *derivedElement = (typename CS2_TAR_DECL::DerivedElement *) &currentElement;
+    typename CS2_TAR_DECL::DerivedElement *derivedElement =
+        (typename CS2_TAR_DECL::DerivedElement *)&currentElement;
     derivedElement->CS2_TAR_DECL::DerivedElement::~DerivedElement();
   }
 
@@ -341,19 +346,20 @@ CS2_TBL_TEMP inline void CS2_TBL_DECL::MakeEmpty () {
 //
 // Add an entry to the table at the next available index.
 
-CS2_TBL_TEMP inline TableIndex CS2_TBL_DECL::AddEntry () {
+CS2_TBL_TEMP inline TableIndex CS2_TBL_DECL::AddEntry() {
   TableIndex newIndex;
   bool foundone;
 
   newIndex = ClearLastOneIfThereIsOne(foundone);
   while (foundone) {
-    if (newIndex <=fHighestIndex) goto found;
+    if (newIndex <= fHighestIndex)
+      goto found;
     newIndex = ClearLastOneIfThereIsOne(foundone);
   }
 
-  fHighestIndex +=1;
+  fHighestIndex += 1;
   newIndex = fHighestIndex;
-  CS2_TAR_DECL::GrowTo (fHighestIndex+1);
+  CS2_TAR_DECL::GrowTo(fHighestIndex + 1);
 
 found:
   // Construct the new table entry
@@ -362,19 +368,20 @@ found:
 }
 
 CS2_TBL_TEMP
-  template <class Initializer>
-inline TableIndex CS2_TBL_DECL::AddEntry (Initializer &initializer) {
+template <class Initializer>
+inline TableIndex CS2_TBL_DECL::AddEntry(Initializer &initializer) {
   TableIndex newIndex;
   bool foundone;
 
   newIndex = ClearLastOneIfThereIsOne(foundone);
   while (foundone) {
-    if (newIndex <=fHighestIndex) goto found;
+    if (newIndex <= fHighestIndex)
+      goto found;
     newIndex = ClearLastOneIfThereIsOne(foundone);
   }
 
   newIndex = fHighestIndex + 1;
-  CS2_TAR_DECL::GrowTo (newIndex + 1);
+  CS2_TAR_DECL::GrowTo(newIndex + 1);
   fHighestIndex = newIndex;
 
 found:
@@ -387,36 +394,39 @@ found:
 //
 // Add an entry to the table at the specified position.
 
-CS2_TBL_TEMP inline TableIndex CS2_TBL_DECL::AddEntryAtPosition (TableIndex newIndex) {
+CS2_TBL_TEMP inline TableIndex
+CS2_TBL_DECL::AddEntryAtPosition(TableIndex newIndex) {
   if (fHighestIndex < newIndex) {
-    if (fHighestIndex < newIndex-1) {
-       if (fLowestPossibleRemoved == fHighestPossibleRemoved &&
-           !fFreeVector.ValueAt(fLowestPossibleRemoved)) {
-          fLowestPossibleRemoved = fHighestIndex + 1;
-       }
-       fHighestPossibleRemoved = newIndex - 1;
-       while (fHighestIndex < newIndex-1) {
-          fHighestIndex+=1;
-          fFreeVector[fHighestIndex]=true;
-       }
+    if (fHighestIndex < newIndex - 1) {
+      if (fLowestPossibleRemoved == fHighestPossibleRemoved &&
+          !fFreeVector.ValueAt(fLowestPossibleRemoved)) {
+        fLowestPossibleRemoved = fHighestIndex + 1;
+      }
+      fHighestPossibleRemoved = newIndex - 1;
+      while (fHighestIndex < newIndex - 1) {
+        fHighestIndex += 1;
+        fFreeVector[fHighestIndex] = true;
+      }
     }
     fHighestIndex = newIndex;
-    CS2_TAR_DECL::GrowTo (newIndex+1);
+    CS2_TAR_DECL::GrowTo(newIndex + 1);
   } else if (fFreeVector.ValueAt(newIndex)) {
-    fFreeVector[newIndex]=false;
+    fFreeVector[newIndex] = false;
     if (newIndex == fHighestPossibleRemoved) {
-       if (fLowestPossibleRemoved == fHighestPossibleRemoved) {
-          fLowestPossibleRemoved = 0;
-          fHighestPossibleRemoved = 0;
-       } else {
-          --fHighestPossibleRemoved;
-       }
+      if (fLowestPossibleRemoved == fHighestPossibleRemoved) {
+        fLowestPossibleRemoved = 0;
+        fHighestPossibleRemoved = 0;
+      } else {
+        --fHighestPossibleRemoved;
+      }
     } else if (newIndex == fLowestPossibleRemoved) {
-       // lowest cannot == highest in this case
-       ++fLowestPossibleRemoved;
+      // lowest cannot == highest in this case
+      ++fLowestPossibleRemoved;
     }
   } else {
-    CS2Assert (!Exists(newIndex), ("Trying to add index " CS2_ZU " on top of existing element", newIndex));
+    CS2Assert(!Exists(newIndex),
+              ("Trying to add index " CS2_ZU " on top of existing element",
+               newIndex));
     return newIndex; // NO ADD
   }
   // Construct the new table entry
@@ -425,36 +435,39 @@ CS2_TBL_TEMP inline TableIndex CS2_TBL_DECL::AddEntryAtPosition (TableIndex newI
 }
 
 CS2_TBL_TEMP template <class Initializer>
-  inline TableIndex CS2_TBL_DECL::AddEntryAtPosition (TableIndex newIndex, Initializer initializer) {
+inline TableIndex CS2_TBL_DECL::AddEntryAtPosition(TableIndex newIndex,
+                                                   Initializer initializer) {
   if (fHighestIndex < newIndex) {
-    if (fHighestIndex < newIndex-1) {
-       if (fLowestPossibleRemoved == fHighestPossibleRemoved &&
-           !fFreeVector.ValueAt(fLowestPossibleRemoved)) {
-          fLowestPossibleRemoved = fHighestIndex + 1;
-       }
-       fHighestPossibleRemoved = newIndex - 1;
-       while (fHighestIndex < newIndex-1) {
-          fHighestIndex+=1;
-          fFreeVector[fHighestIndex]=true;
-       }
+    if (fHighestIndex < newIndex - 1) {
+      if (fLowestPossibleRemoved == fHighestPossibleRemoved &&
+          !fFreeVector.ValueAt(fLowestPossibleRemoved)) {
+        fLowestPossibleRemoved = fHighestIndex + 1;
+      }
+      fHighestPossibleRemoved = newIndex - 1;
+      while (fHighestIndex < newIndex - 1) {
+        fHighestIndex += 1;
+        fFreeVector[fHighestIndex] = true;
+      }
     }
     fHighestIndex = newIndex;
-    CS2_TAR_DECL::GrowTo (newIndex+1);
+    CS2_TAR_DECL::GrowTo(newIndex + 1);
   } else if (fFreeVector.ValueAt(newIndex)) {
-    fFreeVector[newIndex]=false;
+    fFreeVector[newIndex] = false;
     if (newIndex == fHighestPossibleRemoved) {
-       if (fLowestPossibleRemoved == fHighestPossibleRemoved) {
-          fLowestPossibleRemoved = 0;
-          fHighestPossibleRemoved = 0;
-       } else {
-          --fHighestPossibleRemoved;
-       }
+      if (fLowestPossibleRemoved == fHighestPossibleRemoved) {
+        fLowestPossibleRemoved = 0;
+        fHighestPossibleRemoved = 0;
+      } else {
+        --fHighestPossibleRemoved;
+      }
     } else if (newIndex == fLowestPossibleRemoved) {
-       // lowest cannot == highest in this case
-       ++fLowestPossibleRemoved;
+      // lowest cannot == highest in this case
+      ++fLowestPossibleRemoved;
     }
   } else {
-    CS2Assert (!Exists(newIndex), ("Trying to add index " CS2_ZU " on top of existing element", newIndex));
+    CS2Assert(!Exists(newIndex),
+              ("Trying to add index " CS2_ZU " on top of existing element",
+               newIndex));
     return newIndex; // NO ADD
   }
   // Construct the new table entry
@@ -466,28 +479,32 @@ CS2_TBL_TEMP template <class Initializer>
 //
 // Remove the given entry from the table.
 
-CS2_TBL_TEMP inline void CS2_TBL_DECL::RemoveEntry (TableIndex index) {
+CS2_TBL_TEMP inline void CS2_TBL_DECL::RemoveEntry(TableIndex index) {
   // The entry must already exist
-  CS2Assert (Exists(index), ("Index " CS2_ZU " does not exist", index));
+  CS2Assert(Exists(index), ("Index " CS2_ZU " does not exist", index));
 
-  if (index==0 || index > fHighestIndex) return;
+  if (index == 0 || index > fHighestIndex)
+    return;
 
   // Destroy this element
-  typename CS2_TAR_DECL::DerivedElement *derivedElement = (typename CS2_TAR_DECL::DerivedElement *) & ElementAt(index);
+  typename CS2_TAR_DECL::DerivedElement *derivedElement =
+      (typename CS2_TAR_DECL::DerivedElement *)&ElementAt(index);
   derivedElement->CS2_TAR_DECL::DerivedElement::~DerivedElement();
 
-  if (index==fHighestIndex) {
-     fHighestIndex-=1;
+  if (index == fHighestIndex) {
+    fHighestIndex -= 1;
   } else {
-     fFreeVector[index] = true;
-     if (fLowestPossibleRemoved == fHighestPossibleRemoved &&
-         !fFreeVector.ValueAt(fLowestPossibleRemoved)) {
+    fFreeVector[index] = true;
+    if (fLowestPossibleRemoved == fHighestPossibleRemoved &&
+        !fFreeVector.ValueAt(fLowestPossibleRemoved)) {
+      fLowestPossibleRemoved = index;
+      fHighestPossibleRemoved = index;
+    } else {
+      if (index < fLowestPossibleRemoved)
         fLowestPossibleRemoved = index;
+      if (index > fHighestPossibleRemoved)
         fHighestPossibleRemoved = index;
-     } else {
-        if (index < fLowestPossibleRemoved) fLowestPossibleRemoved = index;
-        if (index > fHighestPossibleRemoved) fHighestPossibleRemoved = index;
-     }
+    }
   }
 }
 
@@ -512,61 +529,56 @@ CS2_TBL_TEMP inline unsigned long CS2_TBL_DECL::MemoryUsage() const {
 //
 // Construct a table cursor.
 
-  CS2_TBL_TEMP inline CS2_TBLCC_DECL::ConstCursor (const CS2_TBL_DECL &aTable) :
-   fTable(aTable),
-   fFreeCursor(aTable.fFreeVector),
-   fNextFree(0),
-   fIndex(0) {}
+CS2_TBL_TEMP inline CS2_TBLCC_DECL::ConstCursor(const CS2_TBL_DECL &aTable)
+    : fTable(aTable), fFreeCursor(aTable.fFreeVector), fNextFree(0), fIndex(0) {
+}
 
- CS2_TBL_TEMP inline CS2_TBLCC_DECL::ConstCursor (const CS2_TBL_DECL &aTable,
-						  const SupportingBitVector<Allocator> &fv) :
-   fTable(aTable),
-   fFreeCursor(fv),
-   fNextFree(0),
-   fIndex(0) {}
+CS2_TBL_TEMP inline CS2_TBLCC_DECL::ConstCursor(
+    const CS2_TBL_DECL &aTable, const SupportingBitVector<Allocator> &fv)
+    : fTable(aTable), fFreeCursor(fv), fNextFree(0), fIndex(0) {}
 
-  CS2_TBL_TEMP inline CS2_TBLC_DECL::Cursor (const CS2_TBL_DECL &aTable) :
-    fFreeVector(aTable.fFreeVector),
-    ConstCursor(aTable, fFreeVector) {}
+CS2_TBL_TEMP inline CS2_TBLC_DECL::Cursor(const CS2_TBL_DECL &aTable)
+    : fFreeVector(aTable.fFreeVector), ConstCursor(aTable, fFreeVector) {}
 
 // TableOf::Cursor::Cursor (const TableOf::Cursor &)
 //
 // Copy construct a table cursor.
 
-CS2_TBL_TEMP inline CS2_TBLCC_DECL::ConstCursor (const typename CS2_TBLCC_DECL &inputCursor) :
-  fTable(inputCursor.fTable),
-  fFreeCursor(inputCursor.fFreeCursor),
-  fIndex(inputCursor.fIndex),
-  fNextFree(inputCursor.fNextFree) {
-}
+CS2_TBL_TEMP inline CS2_TBLCC_DECL::ConstCursor(
+    const typename CS2_TBLCC_DECL &inputCursor)
+    : fTable(inputCursor.fTable), fFreeCursor(inputCursor.fFreeCursor),
+      fIndex(inputCursor.fIndex), fNextFree(inputCursor.fNextFree) {}
 
-CS2_TBL_TEMP inline CS2_TBLCC_DECL::ConstCursor (const typename CS2_TBLCC_DECL &inputCursor,
-						 const SupportingBitVector<Allocator> &fv) :
-  fTable(inputCursor.fTable),
-  fFreeCursor(fv),
-  fIndex(inputCursor.fIndex),
-  fNextFree(inputCursor.fNextFree) {
+CS2_TBL_TEMP inline CS2_TBLCC_DECL::ConstCursor(
+    const typename CS2_TBLCC_DECL &inputCursor,
+    const SupportingBitVector<Allocator> &fv)
+    : fTable(inputCursor.fTable), fFreeCursor(fv), fIndex(inputCursor.fIndex),
+      fNextFree(inputCursor.fNextFree) {
   fFreeCursor.SetToNextOneAfter(fIndex);
 }
 
-CS2_TBL_TEMP inline CS2_TBLC_DECL::Cursor (const typename CS2_TBLC_DECL &inputCursor) :
-  fFreeVector(inputCursor.fFreeVector),
-  ConstCursor(inputCursor, fFreeVector) {
-}
+CS2_TBL_TEMP inline CS2_TBLC_DECL::Cursor(
+    const typename CS2_TBLC_DECL &inputCursor)
+    : fFreeVector(inputCursor.fFreeVector),
+      ConstCursor(inputCursor, fFreeVector) {}
 
 // TableOf::Cursor::SetToFirst
 //
 // Set the cursor to the first allocated element in the table.
 
 CS2_TBL_TEMP inline void CS2_TBLCC_DECL::SetToFirst() {
-  fIndex=1;
+  fIndex = 1;
   fFreeCursor.SetToFirstOne();
-  if (fFreeCursor.Valid()){
+  if (fFreeCursor.Valid()) {
     fNextFree = fFreeCursor;
-    if (fFreeCursor==fIndex) {fIndex=0 ; return SetToNext();}
-    if (fNextFree <= fTable.fHighestIndex) return;
+    if (fFreeCursor == fIndex) {
+      fIndex = 0;
+      return SetToNext();
+    }
+    if (fNextFree <= fTable.fHighestIndex)
+      return;
   }
-  fNextFree=fTable.fHighestIndex+1;
+  fNextFree = fTable.fHighestIndex + 1;
 }
 
 // TableOf::Cursor::SetToNext
@@ -574,20 +586,21 @@ CS2_TBL_TEMP inline void CS2_TBLCC_DECL::SetToFirst() {
 // Set the cursor to the next allocated element in the table.
 
 CS2_TBL_TEMP inline void CS2_TBLCC_DECL::SetToNext() {
-  fIndex+=1;
-  if (fIndex<fNextFree) return;
+  fIndex += 1;
+  if (fIndex < fNextFree)
+    return;
 
-  if (fFreeCursor.Valid()){
+  if (fFreeCursor.Valid()) {
     while (fFreeCursor.Valid()) {
       if (fFreeCursor > fIndex) {
-	fNextFree=fFreeCursor;
-	return;
+        fNextFree = fFreeCursor;
+        return;
       }
-      fIndex+=1;
+      fIndex += 1;
       fFreeCursor.SetToNextOne();
     }
   }
-  fNextFree=fTable.fHighestIndex+1;
+  fNextFree = fTable.fHighestIndex + 1;
 }
 
 // TableOf::Cursor::Valid
@@ -595,7 +608,7 @@ CS2_TBL_TEMP inline void CS2_TBLCC_DECL::SetToNext() {
 // Predicate to determine if the cursor points at a valid element.
 
 CS2_TBL_TEMP inline bool CS2_TBLCC_DECL::Valid() const {
-  return fIndex<fNextFree;
+  return fIndex < fNextFree;
 }
 
 // TableOf::Cursor::operator TableIndex
@@ -605,8 +618,6 @@ CS2_TBL_TEMP inline bool CS2_TBLCC_DECL::Valid() const {
 CS2_TBL_TEMP inline CS2_TBLCC_DECL::operator TableIndex() const {
   return fIndex;
 }
-
-
 
 #undef CS2_TBL_TEMP
 #undef CS2_TBL_DECL

@@ -13,7 +13,8 @@
  *      http://www.opensource.org/licenses/apache2.0.php
  *
  * Contributors:
- *    Multiple authors (IBM Corp.) - initial API and implementation and/or initial documentation
+ *    Multiple authors (IBM Corp.) - initial API and implementation and/or
+ *initial documentation
  *******************************************************************************/
 
 #ifndef omrmem32struct_h
@@ -22,21 +23,21 @@
 #include "omrport.h"
 
 typedef struct J9HeapWrapper {
-	struct J9HeapWrapper *nextHeapWrapper;
-	J9Heap *heap;
-	uintptr_t heapSize;
-	J9PortVmemIdentifier *vmemID;
+  struct J9HeapWrapper *nextHeapWrapper;
+  J9Heap *heap;
+  uintptr_t heapSize;
+  J9PortVmemIdentifier *vmemID;
 } J9HeapWrapper;
 
 typedef struct J9SubAllocateHeapMem32 {
-	uintptr_t totalSize;
-	J9HeapWrapper *firstHeapWrapper;
-	omrthread_monitor_t monitor;
-	uintptr_t subCommitCommittedMemorySize;
-	BOOLEAN canSubCommitHeapGrow;
-	J9HeapWrapper *subCommitHeapWrapper;
-	uintptr_t suballocator_initialSize;
-	uintptr_t suballocator_commitSize;
+  uintptr_t totalSize;
+  J9HeapWrapper *firstHeapWrapper;
+  omrthread_monitor_t monitor;
+  uintptr_t subCommitCommittedMemorySize;
+  BOOLEAN canSubCommitHeapGrow;
+  J9HeapWrapper *subCommitHeapWrapper;
+  uintptr_t suballocator_initialSize;
+  uintptr_t suballocator_commitSize;
 } J9SubAllocateHeapMem32;
 
-#endif	/* omrmem32struct_h */
+#endif /* omrmem32struct_h */

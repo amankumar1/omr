@@ -17,65 +17,56 @@
  ******************************************************************************/
 
 #include <string.h>
-#include "omrutil.h"
-#include "omrport.h"
 #include "omr.h"
+#include "omrport.h"
+#include "omrutil.h"
 
-static char *
-getOMRVMThreadNameNoLock(OMR_VMThread *vmThread)
-{
-	char *name = NULL;
+static char *getOMRVMThreadNameNoLock(OMR_VMThread *vmThread) {
+  char *name = NULL;
 
-	name = (char *)vmThread->threadName;
+  name = (char *)vmThread->threadName;
 
-	if (name == NULL) {
-		name = OMR_Glue_GetThreadNameForUnamedThread(vmThread);
-	}
-	return name;
+  if (name == NULL) {
+    name = OMR_Glue_GetThreadNameForUnamedThread(vmThread);
+  }
+  return name;
 }
 
-char *
-getOMRVMThreadName(OMR_VMThread *vmThread)
-{
-	omrthread_monitor_enter(vmThread->threadNameMutex);
-	return getOMRVMThreadNameNoLock(vmThread);
+char *getOMRVMThreadName(OMR_VMThread *vmThread) {
+  omrthread_monitor_enter(vmThread->threadNameMutex);
+  return getOMRVMThreadNameNoLock(vmThread);
 }
 
-char *
-tryGetOMRVMThreadName(OMR_VMThread *vmThread)
-{
-	if (omrthread_monitor_try_enter(vmThread->threadNameMutex) == 0) {
-		return getOMRVMThreadNameNoLock(vmThread);
-	} else {
-		return NULL;
-	}
+char *tryGetOMRVMThreadName(OMR_VMThread *vmThread) {
+  if (omrthread_monitor_try_enter(vmThread->threadNameMutex) == 0) {
+    return getOMRVMThreadNameNoLock(vmThread);
+  } else {
+    return NULL;
+  }
 }
 
-void
-releaseOMRVMThreadName(OMR_VMThread *vmThread)
-{
-	omrthread_monitor_exit(vmThread->threadNameMutex);
+void releaseOMRVMThreadName(OMR_VMThread *vmThread) {
+  omrthread_monitor_exit(vmThread->threadNameMutex);
 }
 
-void
-setOMRVMThreadNameWithFlag(OMR_VMThread *currentThread, OMR_VMThread *vmThread, char *name, uint8_t nameIsStatic)
-{
-	omrthread_monitor_enter(vmThread->threadNameMutex);
-	setOMRVMThreadNameWithFlagNoLock(vmThread, name, nameIsStatic);
-	omrthread_monitor_exit(vmThread->threadNameMutex);
+void setOMRVMThreadNameWithFlag(OMR_VMThread *currentThread,
+                                OMR_VMThread *vmThread, char *name,
+                                uint8_t nameIsStatic) {
+  omrthread_monitor_enter(vmThread->threadNameMutex);
+  setOMRVMThreadNameWithFlagNoLock(vmThread, name, nameIsStatic);
+  omrthread_monitor_exit(vmThread->threadNameMutex);
 }
 
-void
-setOMRVMThreadNameWithFlagNoLock(OMR_VMThread *vmThread, char *name, uint8_t nameIsStatic)
-{
-	if (!vmThread->threadNameIsStatic) {
-		char *oldName = (char *)vmThread->threadName;
+void setOMRVMThreadNameWithFlagNoLock(OMR_VMThread *vmThread, char *name,
+                                      uint8_t nameIsStatic) {
+  if (!vmThread->threadNameIsStatic) {
+    char *oldName = (char *)vmThread->threadName;
 
-		if (name != oldName) {
-			OMRPORT_ACCESS_FROM_OMRVMTHREAD(vmThread);
-			omrmem_free_memory(oldName);
-		}
-	}
-	vmThread->threadNameIsStatic = nameIsStatic;
-	vmThread->threadName = (uint8_t *)name;
+    if (name != oldName) {
+      OMRPORT_ACCESS_FROM_OMRVMTHREAD(vmThread);
+      omrmem_free_memory(oldName);
+    }
+  }
+  vmThread->threadNameIsStatic = nameIsStatic;
+  vmThread->threadName = (uint8_t *)name;
 }

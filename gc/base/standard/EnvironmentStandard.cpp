@@ -27,40 +27,36 @@
 #endif
 
 MM_EnvironmentStandard *
-MM_EnvironmentStandard::newInstance(MM_GCExtensionsBase *extensions, OMR_VMThread *omrVMThread)
-{
-	void *envPtr;
-	MM_EnvironmentStandard *env = NULL;
-	
-	envPtr = (void *)pool_newElement(extensions->environments);
-	if (envPtr) {
-		env = new(envPtr) MM_EnvironmentStandard(omrVMThread);
-		if (!env->initialize(extensions)) {
-			env->kill();
-			env = NULL;	
-		}
-	}	
+MM_EnvironmentStandard::newInstance(MM_GCExtensionsBase *extensions,
+                                    OMR_VMThread *omrVMThread) {
+  void *envPtr;
+  MM_EnvironmentStandard *env = NULL;
 
-	return env;
+  envPtr = (void *)pool_newElement(extensions->environments);
+  if (envPtr) {
+    env = new (envPtr) MM_EnvironmentStandard(omrVMThread);
+    if (!env->initialize(extensions)) {
+      env->kill();
+      env = NULL;
+    }
+  }
+
+  return env;
 }
 
-bool
-MM_EnvironmentStandard::initialize(MM_GCExtensionsBase *extensions)
-{
+bool MM_EnvironmentStandard::initialize(MM_GCExtensionsBase *extensions) {
 #if defined(OMR_GC_CONCURRENT_SCAVENGER)
-	extensions->scavenger->mutatorSetupForGC(this);
+  extensions->scavenger->mutatorSetupForGC(this);
 #endif
 
-	/* initialize base class */
-	return MM_EnvironmentBase::initialize(extensions);
+  /* initialize base class */
+  return MM_EnvironmentBase::initialize(extensions);
 }
 
-void
-MM_EnvironmentStandard::tearDown(MM_GCExtensionsBase *extensions)
-{
+void MM_EnvironmentStandard::tearDown(MM_GCExtensionsBase *extensions) {
 #if defined(OMR_GC_CONCURRENT_SCAVENGER)
-	extensions->scavenger->mutatorFinalReleaseCopyCaches(this, this);
+  extensions->scavenger->mutatorFinalReleaseCopyCaches(this, this);
 #endif
-	/* tearDown base class */
-	MM_EnvironmentBase::tearDown(extensions);
+  /* tearDown base class */
+  MM_EnvironmentBase::tearDown(extensions);
 }

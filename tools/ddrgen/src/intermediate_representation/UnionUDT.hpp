@@ -21,17 +21,19 @@
 
 #include "ClassType.hpp"
 
-class UnionUDT: public ClassType
-{
+class UnionUDT : public ClassType {
 public:
-	UnionUDT(size_t size, unsigned int lineNumber = 0);
+  UnionUDT(size_t size, unsigned int lineNumber = 0);
 
-	virtual ~UnionUDT();
+  virtual ~UnionUDT();
 
-	virtual DDR_RC scanChildInfo(Scanner *scanner, void *data);
-	virtual DDR_RC enumerateType(BlobGenerator *blobGenerator, bool addFieldsOnly);
-	virtual DDR_RC buildBlob(BlobGenerator *blobGenerator, bool addFieldsOnly, string prefix);
-	virtual DDR_RC printToSuperset(SupersetGenerator *supersetGenerator, bool addFieldsOnly, string prefix);
+  virtual DDR_RC scanChildInfo(Scanner *scanner, void *data);
+  virtual DDR_RC enumerateType(BlobGenerator *blobGenerator,
+                               bool addFieldsOnly);
+  virtual DDR_RC buildBlob(BlobGenerator *blobGenerator, bool addFieldsOnly,
+                           string prefix);
+  virtual DDR_RC printToSuperset(SupersetGenerator *supersetGenerator,
+                                 bool addFieldsOnly, string prefix);
 };
 
 #endif /* UNIONUDT_HPP */

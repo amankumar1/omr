@@ -20,43 +20,40 @@
 #define OMR_Z_REGISTER_PAIR_INCL
 
 /*
- * The following #define and typedef must appear before any #includes in this file
+ * The following #define and typedef must appear before any #includes in this
+ * file
  */
 #ifndef OMR_REGISTER_PAIR_CONNECTOR
 #define OMR_REGISTER_PAIR_CONNECTOR
-   namespace OMR { namespace Z { class RegisterPair; } }
-   namespace OMR { typedef OMR::Z::RegisterPair RegisterPairConnector; }
+namespace OMR {
+namespace Z {
+class RegisterPair;
+}
+}
+namespace OMR {
+typedef OMR::Z::RegisterPair RegisterPairConnector;
+}
 #else
-   #error OMR::Z::RegisterPair expected to be a primary connector, but a OMR connector is already defined
+#error OMR::Z::RegisterPair expected to be a primary connector, but a OMR connector is already defined
 #endif
-
 
 #include "compiler/codegen/OMRRegisterPair.hpp"
 
-namespace OMR
-{
+namespace OMR {
 
-namespace Z
-{
+namespace Z {
 
-class OMR_EXTENSIBLE RegisterPair: public OMR::RegisterPair
-   {
-   protected:
+class OMR_EXTENSIBLE RegisterPair : public OMR::RegisterPair {
+protected:
+  RegisterPair() {}
+  RegisterPair(TR_RegisterKinds rk) : OMR::RegisterPair(rk) {}
+  RegisterPair(TR::Register *lo, TR::Register *ho);
 
-   RegisterPair() {}
-   RegisterPair(TR_RegisterKinds rk):  OMR::RegisterPair(rk) {}
-   RegisterPair(TR::Register *lo, TR::Register *ho);
-
-   public:
-
-   TR::Register * setLowOrder(TR::Register *lo, TR::CodeGenerator *codeGen);
-   TR::Register * setHighOrder(TR::Register *ho, TR::CodeGenerator *codeGen);
-
-
-   };
-
+public:
+  TR::Register *setLowOrder(TR::Register *lo, TR::CodeGenerator *codeGen);
+  TR::Register *setHighOrder(TR::Register *ho, TR::CodeGenerator *codeGen);
+};
 }
-
 }
 
 #endif

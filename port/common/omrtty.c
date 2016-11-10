@@ -13,7 +13,8 @@
  *      http://www.opensource.org/licenses/apache2.0.php
  *
  * Contributors:
- *    Multiple authors (IBM Corp.) - initial API and implementation and/or initial documentation
+ *    Multiple authors (IBM Corp.) - initial API and implementation and/or
+ *initial documentation
  *******************************************************************************/
 
 /**
@@ -21,11 +22,10 @@
   * @ingroup Port
   * @brief TTY output
   *
-  * All VM output goes to stderr by default.  These routines provide the helpers for such output.
+  * All VM output goes to stderr by default.  These routines provide the helpers
+ * for such output.
   */
 #include "omrport.h"
-
-
 
 /**
  * Determine the number of characters remaining to be read from stdin.
@@ -34,11 +34,7 @@
  *
  * @return number of characters remaining to be read.
  */
-intptr_t
-omrtty_available(struct OMRPortLibrary *portLibrary)
-{
-	return 0;
-}
+intptr_t omrtty_available(struct OMRPortLibrary *portLibrary) { return 0; }
 
 /**
  * Output message to stderr.
@@ -49,20 +45,18 @@ omrtty_available(struct OMRPortLibrary *portLibrary)
  *
  * @deprecated All output goes to stderr, use omrtty_printf()
  *
- * @internal @note Supported, portable format specifiers are described in the document entitled "PortLibrary printf"
+ * @internal @note Supported, portable format specifiers are described in the
+ * document entitled "PortLibrary printf"
  * in the "Inside J9" Lotus Notes database.
  */
-void
-omrtty_err_printf(struct OMRPortLibrary *portLibrary, const char *format, ...)
-{
-	va_list args;
+void omrtty_err_printf(struct OMRPortLibrary *portLibrary, const char *format,
+                       ...) {
+  va_list args;
 
-	va_start(args, format);
-	portLibrary->tty_err_vprintf(portLibrary, format, args);
-	va_end(args);
+  va_start(args, format);
+  portLibrary->tty_err_vprintf(portLibrary, format, args);
+  va_end(args);
 }
-
-
 
 /**
  * Output message to stderr.
@@ -73,16 +67,14 @@ omrtty_err_printf(struct OMRPortLibrary *portLibrary, const char *format, ...)
  *
  * @deprecated All output goes to stderr, use omrtty_vprintf()
  *
- * @internal @note Supported, portable format specifiers are described in the document entitled "PortLibrary printf"
+ * @internal @note Supported, portable format specifiers are described in the
+ * document entitled "PortLibrary printf"
  * in the "Inside J9" Lotus Notes database.
  */
-void
-omrtty_err_vprintf(struct OMRPortLibrary *portLibrary, const char *format, va_list args)
-{
-	portLibrary->file_vprintf(portLibrary, OMRPORT_TTY_ERR, format, args);
+void omrtty_err_vprintf(struct OMRPortLibrary *portLibrary, const char *format,
+                        va_list args) {
+  portLibrary->file_vprintf(portLibrary, OMRPORT_TTY_ERR, format, args);
 }
-
-
 
 /**
  * Read characters from stdin into buffer.
@@ -93,13 +85,10 @@ omrtty_err_vprintf(struct OMRPortLibrary *portLibrary, const char *format, va_li
  *
  * @return The number of characters read, -1 on error.
  */
-intptr_t
-omrtty_get_chars(struct OMRPortLibrary *portLibrary, char *s, uintptr_t length)
-{
-	return -1;
+intptr_t omrtty_get_chars(struct OMRPortLibrary *portLibrary, char *s,
+                          uintptr_t length) {
+  return -1;
 }
-
-
 
 /**
  * Write characters to stderr.
@@ -110,56 +99,51 @@ omrtty_get_chars(struct OMRPortLibrary *portLibrary, char *s, uintptr_t length)
  *
  * @note Use omrfile_printf for stdout output.
  *
- * @internal @note Supported, portable format specifiers are described in the document entitled "PortLibrary printf"
+ * @internal @note Supported, portable format specifiers are described in the
+ * document entitled "PortLibrary printf"
  * in the "Inside J9" Lotus Notes database.
  */
-void
-omrtty_printf(struct OMRPortLibrary *portLibrary, const char *format, ...)
-{
-	va_list args;
+void omrtty_printf(struct OMRPortLibrary *portLibrary, const char *format,
+                   ...) {
+  va_list args;
 
-	va_start(args, format);
-	portLibrary->tty_vprintf(portLibrary, format, args);
-	va_end(args);
+  va_start(args, format);
+  portLibrary->tty_vprintf(portLibrary, format, args);
+  va_end(args);
 }
-
-
 
 /**
  * PortLibrary shutdown.
  *
- * This function is called during shutdown of the portLibrary.  Any resources that were created by @ref omrtty_startup
+ * This function is called during shutdown of the portLibrary.  Any resources
+ * that were created by @ref omrtty_startup
  * should be destroyed here.
  *
  * @param[in] portLibrary The port library.
  *
  * @note Most implementations will be empty.
  */
-void
-omrtty_shutdown(struct OMRPortLibrary *portLibrary)
-{
-}
+void omrtty_shutdown(struct OMRPortLibrary *portLibrary) {}
 /**
  * PortLibrary startup.
  *
- * This function is called during startup of the portLibrary.  Any resources that are required for
- * the TTY library operations may be created here.  All resources created here should be destroyed
+ * This function is called during startup of the portLibrary.  Any resources
+ * that are required for
+ * the TTY library operations may be created here.  All resources created here
+ * should be destroyed
  * in @ref omrtty_shutdown.
  *
  * @param[in] portLibrary The port library.
  *
- * @return 0 on success, negative error code on failure.  Error code values returned are
+ * @return 0 on success, negative error code on failure.  Error code values
+ * returned are
  * \arg OMRPORT_ERROR_STARTUP_TTY
  * \arg OMRPORT_ERROR_STARTUP_TTY_HANDLE
  * \arg OMRPORT_ERROR_STARTUP_TTY_CONSOLE
  *
  * @note Most implementations will simply return success.
  */
-int32_t
-omrtty_startup(struct OMRPortLibrary *portLibrary)
-{
-	return 0;
-}
+int32_t omrtty_startup(struct OMRPortLibrary *portLibrary) { return 0; }
 /**
  * Output message to stderr.
  *
@@ -169,25 +153,21 @@ omrtty_startup(struct OMRPortLibrary *portLibrary)
  *
  * @note Use omrfile_vprintf for stdout output.
  *
- * @internal @note Supported, portable format specifiers are described in the document entitled "PortLibrary printf"
+ * @internal @note Supported, portable format specifiers are described in the
+ * document entitled "PortLibrary printf"
  * in the "Inside J9" Lotus Notes database.
  */
-void
-omrtty_vprintf(struct OMRPortLibrary *portLibrary, const char *format, va_list args)
-{
-	portLibrary->file_vprintf(portLibrary, OMRPORT_TTY_ERR, format, args);
+void omrtty_vprintf(struct OMRPortLibrary *portLibrary, const char *format,
+                    va_list args) {
+  portLibrary->file_vprintf(portLibrary, OMRPORT_TTY_ERR, format, args);
 }
 
 /**
- * This method allows the caller to "daemonize" the current process by closing handles
+ * This method allows the caller to "daemonize" the current process by closing
+ * handles
  * used by the port library
  *
  * @param[in] portLibrary The port library.
  *
  */
-void
-omrtty_daemonize(struct OMRPortLibrary *portLibrary)
-{
-}
-
-
+void omrtty_daemonize(struct OMRPortLibrary *portLibrary) {}

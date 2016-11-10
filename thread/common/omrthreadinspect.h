@@ -16,13 +16,9 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-
 #ifndef omrthreadinspect_h
 #define omrthreadinspect_h
 
 #include "thread_api.h"
 
 #endif
-
-
-

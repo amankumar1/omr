@@ -16,67 +16,57 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
+#include "tests/SimplifierFoldAndTest.hpp"
 #include <limits.h>
 #include <stdio.h>
 #include "compile/Method.hpp"
-#include "tests/SimplifierFoldAndTest.hpp"
-#include "tests/SimplifierFoldAndIlInjector.hpp"
 #include "gtest/gtest.h"
-#include "ilgen/TypeDictionary.hpp"
 #include "ilgen/IlGeneratorMethodDetails_inlines.hpp"
+#include "ilgen/TypeDictionary.hpp"
+#include "tests/SimplifierFoldAndIlInjector.hpp"
 
-namespace TestCompiler
-{
-SimplifierFoldAndTest::TestCompiledMethodType SimplifierFoldAndTest::testCompiledMethod = 0;
+namespace TestCompiler {
+SimplifierFoldAndTest::TestCompiledMethodType
+    SimplifierFoldAndTest::testCompiledMethod = 0;
 
-void
-SimplifierFoldAndTest::allocateTestData()
-   {
-   }
+void SimplifierFoldAndTest::allocateTestData() {}
 
-void
-SimplifierFoldAndTest::deallocateTestData()
-   {
-   }
+void SimplifierFoldAndTest::deallocateTestData() {}
 
-void
-SimplifierFoldAndTest::compileTestMethods()
-   {
-   int32_t rc = 0;
+void SimplifierFoldAndTest::compileTestMethods() {
+  int32_t rc = 0;
 
-   TR::TypeDictionary types;
+  TR::TypeDictionary types;
 
-   TR::IlType* Int32 = types.PrimitiveType(TR::Int32);
-   TR::IlType* Int64 = types.PrimitiveType(TR::Int64);
+  TR::IlType *Int32 = types.PrimitiveType(TR::Int32);
+  TR::IlType *Int64 = types.PrimitiveType(TR::Int64);
 
-   int32_t numberOfArguments = 1;
+  int32_t numberOfArguments = 1;
 
-   TR::IlType** argTypes = new TR::IlType*[numberOfArguments]
-   {
-      Int32
-   };
+  TR::IlType **argTypes = new TR::IlType *[numberOfArguments] { Int32 };
 
-   SimplifierFoldAndIlInjector ilInjector(&types, this);
+  SimplifierFoldAndIlInjector ilInjector(&types, this);
 
-   TR::ResolvedMethod compilee(__FILE__, LINETOSTR(__LINE__), "simplifierFoldAnd", numberOfArguments, argTypes, Int64, 0, &ilInjector);
+  TR::ResolvedMethod compilee(__FILE__, LINETOSTR(__LINE__),
+                              "simplifierFoldAnd", numberOfArguments, argTypes,
+                              Int64, 0, &ilInjector);
 
-   TR::IlGeneratorMethodDetails details(&compilee);
+  TR::IlGeneratorMethodDetails details(&compilee);
 
-   testCompiledMethod = reinterpret_cast<SimplifierFoldAndTest::TestCompiledMethodType>(compileMethod(details, warm, rc));
-   }
-
-void
-SimplifierFoldAndTest::invokeTests()
-   {
-   ASSERT_EQ(0ll, testCompiledMethod(0));
-   ASSERT_EQ(0ll, testCompiledMethod(1));
-   ASSERT_EQ(0ll, testCompiledMethod(-1));
-   ASSERT_EQ(0ll, testCompiledMethod(-9));
-   ASSERT_EQ(0ll, testCompiledMethod(2147483647));
-   }
+  testCompiledMethod =
+      reinterpret_cast<SimplifierFoldAndTest::TestCompiledMethodType>(
+          compileMethod(details, warm, rc));
 }
 
-TEST(JITSimplifierTest, SimplifierFoldAndTest)
-   {
-   ::TestCompiler::SimplifierFoldAndTest().RunTest();
-   }
+void SimplifierFoldAndTest::invokeTests() {
+  ASSERT_EQ(0ll, testCompiledMethod(0));
+  ASSERT_EQ(0ll, testCompiledMethod(1));
+  ASSERT_EQ(0ll, testCompiledMethod(-1));
+  ASSERT_EQ(0ll, testCompiledMethod(-9));
+  ASSERT_EQ(0ll, testCompiledMethod(2147483647));
+}
+}
+
+TEST(JITSimplifierTest, SimplifierFoldAndTest) {
+  ::TestCompiler::SimplifierFoldAndTest().RunTest();
+}

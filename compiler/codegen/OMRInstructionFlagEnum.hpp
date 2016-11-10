@@ -26,11 +26,10 @@
 //
 LastWarmInstruction,
 
-// Instruction requires a GC map
-//
-NeedsGCMapBit,
+    // Instruction requires a GC map
+    //
+    NeedsGCMapBit,
 
-// Instruction requires an AOT relocation
-//
-NeedsAOTRelocation,
-
+    // Instruction requires an AOT relocation
+    //
+    NeedsAOTRelocation,

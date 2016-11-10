@@ -17,8 +17,8 @@
  ******************************************************************************/
 
 #include "omrcfg.h"
-#include "omrcomp.h"
 #include "modronopt.h"
+#include "omrcomp.h"
 
 #include "AllocationContext.hpp"
 
@@ -28,23 +28,14 @@
 /**
  * Initialization.
  */
-bool
-MM_AllocationContext::initialize(MM_EnvironmentBase *env)
-{
-	return true;
-}
+bool MM_AllocationContext::initialize(MM_EnvironmentBase *env) { return true; }
 
-void
-MM_AllocationContext::kill(MM_EnvironmentBase *env)
-{
-	tearDown(env);
-	env->getForge()->free(this);
+void MM_AllocationContext::kill(MM_EnvironmentBase *env) {
+  tearDown(env);
+  env->getForge()->free(this);
 }
 
 /**
  * Initialization.
  */
-void
-MM_AllocationContext::tearDown(MM_EnvironmentBase *env)
-{
-}
+void MM_AllocationContext::tearDown(MM_EnvironmentBase *env) {}

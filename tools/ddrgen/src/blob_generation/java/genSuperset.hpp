@@ -39,42 +39,51 @@ using std::set;
 using std::stringstream;
 #if defined(AIXPPC)
 using std::tr1::unordered_map;
-#else /* defined(AIXPPC) */
+#else  /* defined(AIXPPC) */
 using std::unordered_map;
 #endif /* !defined(AIXPPC) */
 
-class JavaSupersetGenerator: public SupersetGenerator
-{
+class JavaSupersetGenerator : public SupersetGenerator {
 private:
-	set<string> _baseTypedefSet; /* Set of types renamed to "[U/I][SIZE]" */
-	unordered_map<string, string> _baseTypedefMap; /* Types remapped for assembled type names. */
-	unordered_map<string, string> _baseTypedefReplace; /* Type names which are replaced everywhere. */
-	set<string> _baseTypedefIgnore; /* Set of types to not rename when found as a typedef */
-	intptr_t _file;
-	OMRPortLibrary *_portLibrary;
+  set<string> _baseTypedefSet; /* Set of types renamed to "[U/I][SIZE]" */
+  unordered_map<string, string>
+      _baseTypedefMap; /* Types remapped for assembled type names. */
+  unordered_map<string, string>
+      _baseTypedefReplace; /* Type names which are replaced everywhere. */
+  set<string> _baseTypedefIgnore; /* Set of types to not rename when found as a
+                                     typedef */
+  intptr_t _file;
+  OMRPortLibrary *_portLibrary;
 
-	void initBaseTypedefSet();
-	void convertJ9BaseTypedef(Type *type, string *name);
-	void replaceBaseTypedef(Type *type, string *name);
-	DDR_RC getFieldType(Field *f, string *assembledTypeName, string *simpleTypeName);
-	DDR_RC getTypeName(Field *f, string *typeName);
-	string getUDTname(Type *type);
-	DDR_RC printFieldMember(Field *field, string prefix);
-	void printConstantMember(string name);
+  void initBaseTypedefSet();
+  void convertJ9BaseTypedef(Type *type, string *name);
+  void replaceBaseTypedef(Type *type, string *name);
+  DDR_RC getFieldType(Field *f, string *assembledTypeName,
+                      string *simpleTypeName);
+  DDR_RC getTypeName(Field *f, string *typeName);
+  string getUDTname(Type *type);
+  DDR_RC printFieldMember(Field *field, string prefix);
+  void printConstantMember(string name);
 
-	string replace(string str, string subStr, string newStr);
+  string replace(string str, string subStr, string newStr);
 
 public:
-	JavaSupersetGenerator();
+  JavaSupersetGenerator();
 
-	DDR_RC printSuperset(OMRPortLibrary *portLibrary, Symbol_IR *ir, const char *supersetFile);
+  DDR_RC printSuperset(OMRPortLibrary *portLibrary, Symbol_IR *ir,
+                       const char *supersetFile);
 
-	DDR_RC dispatchPrintToSuperset(Type *type, bool addFieldsOnly, string prefix);
-	DDR_RC dispatchPrintToSuperset(EnumUDT *type, bool addFieldsOnly, string prefix);
-	DDR_RC dispatchPrintToSuperset(NamespaceUDT *type, bool addFieldsOnly, string prefix);
-	DDR_RC dispatchPrintToSuperset(TypedefUDT *type, bool addFieldsOnly, string prefix);
-	DDR_RC dispatchPrintToSuperset(ClassUDT *type, bool addFieldsOnly, string prefix);
-	DDR_RC dispatchPrintToSuperset(UnionUDT *type, bool addFieldsOnly, string prefix);
+  DDR_RC dispatchPrintToSuperset(Type *type, bool addFieldsOnly, string prefix);
+  DDR_RC dispatchPrintToSuperset(EnumUDT *type, bool addFieldsOnly,
+                                 string prefix);
+  DDR_RC dispatchPrintToSuperset(NamespaceUDT *type, bool addFieldsOnly,
+                                 string prefix);
+  DDR_RC dispatchPrintToSuperset(TypedefUDT *type, bool addFieldsOnly,
+                                 string prefix);
+  DDR_RC dispatchPrintToSuperset(ClassUDT *type, bool addFieldsOnly,
+                                 string prefix);
+  DDR_RC dispatchPrintToSuperset(UnionUDT *type, bool addFieldsOnly,
+                                 string prefix);
 };
 
 #endif /* GENSUPERSET_HPP */

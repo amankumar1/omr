@@ -16,7 +16,8 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-// TODO:AMD64: We should obtain the actual boundary, but 8 is conservatively safe
+// TODO:AMD64: We should obtain the actual boundary, but 8 is conservatively
+// safe
 //
 #define INSTRUCTION_PATCH_ALIGNMENT_BOUNDARY (8)
 
@@ -27,4 +28,3 @@
 #include "codegen/CodeGenerator.hpp"
 
 #endif
-

@@ -25,9 +25,9 @@
 #include "omrcomp.h"
 
 #if defined(va_copy)
-#define COPY_VA_LIST(new,old) va_copy(new,  old)
+#define COPY_VA_LIST(new, old) va_copy(new, old)
 #else
-#define COPY_VA_LIST(new,old) memcpy(VA_PTR(new), VA_PTR(old), sizeof(va_list))
+#define COPY_VA_LIST(new, old) memcpy(VA_PTR(new), VA_PTR(old), sizeof(va_list))
 #endif
 
 #if defined(va_copy)
@@ -36,6 +36,4 @@
 #define END_VA_LIST_COPY(args)
 #endif
 
-#endif     /* omrstdarg_h */
-
-
+#endif /* omrstdarg_h */

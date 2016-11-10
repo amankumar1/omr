@@ -28,44 +28,48 @@ class MM_GlobalCollector;
 class MM_ObjectAllocationInterface;
 
 /**
- * Class representing a configuration language interface. This defines the API between the OMR
+ * Class representing a configuration language interface. This defines the API
+ * between the OMR
  * functionality and the language being implemented.
  */
 class MM_ConfigurationLanguageInterface : public MM_BaseVirtual {
 private:
 protected:
-	MM_ConfigurationLanguageInterface()
-		: MM_BaseVirtual()
-	{
-		_typeId = __FUNCTION__;
-	}
+  MM_ConfigurationLanguageInterface() : MM_BaseVirtual() {
+    _typeId = __FUNCTION__;
+  }
 
 public:
+  virtual void kill(MM_EnvironmentBase *env) = 0;
 
-	virtual void kill(MM_EnvironmentBase *env) = 0;
+  virtual bool initializeEnvironment(MM_EnvironmentBase *env) = 0;
 
-	virtual bool initializeEnvironment(MM_EnvironmentBase* env) = 0;
+  virtual MM_ObjectAllocationInterface *
+  createObjectAllocationInterface(MM_EnvironmentBase *env) = 0;
 
-	virtual MM_ObjectAllocationInterface* createObjectAllocationInterface(MM_EnvironmentBase* env) = 0;
+  virtual MM_EnvironmentLanguageInterface *
+  createEnvironmentLanguageInterface(MM_EnvironmentBase *env) = 0;
 
-	virtual MM_EnvironmentLanguageInterface *createEnvironmentLanguageInterface(MM_EnvironmentBase *env) = 0;
+  virtual bool initializeArrayletLeafSize(MM_EnvironmentBase *env) = 0;
+  virtual void initializeWriteBarrierType(MM_EnvironmentBase *env,
+                                          uintptr_t configWriteBarrierType) = 0;
+  virtual void initializeAllocationType(MM_EnvironmentBase *env,
+                                        uintptr_t configGcAllocationType) = 0;
+  virtual bool initializeSizeClasses(MM_EnvironmentBase *env) { return true; }
+  virtual uintptr_t internalGetWriteBarrierType(MM_EnvironmentBase *env) = 0;
+  virtual uintptr_t internalGetAllocationType(MM_EnvironmentBase *env) = 0;
 
-	virtual bool initializeArrayletLeafSize(MM_EnvironmentBase* env) = 0;
-	virtual void initializeWriteBarrierType(MM_EnvironmentBase* env, uintptr_t configWriteBarrierType) = 0;
-	virtual void initializeAllocationType(MM_EnvironmentBase* env, uintptr_t configGcAllocationType) = 0;
-	virtual bool initializeSizeClasses(MM_EnvironmentBase* env) { return true; }
-	virtual uintptr_t internalGetWriteBarrierType(MM_EnvironmentBase* env) = 0;
-	virtual uintptr_t internalGetAllocationType(MM_EnvironmentBase* env) = 0;
+  virtual MM_GlobalCollector *
+  createGlobalCollector(MM_EnvironmentBase *env) = 0;
 
-	virtual MM_GlobalCollector* createGlobalCollector(MM_EnvironmentBase* env) = 0;
-
-	virtual uintptr_t getEnvPoolNumElements(void) { return 0; }
-	virtual uintptr_t getEnvPoolFlags(void) { return 0; }
+  virtual uintptr_t getEnvPoolNumElements(void) { return 0; }
+  virtual uintptr_t getEnvPoolFlags(void) { return 0; }
 
 #define MAXIMUM_DEFAULT_NUMBER_OF_GC_THREADS 64
 
-	virtual uintptr_t getMaxGCThreadCount(void) { return MAXIMUM_DEFAULT_NUMBER_OF_GC_THREADS; }
-
+  virtual uintptr_t getMaxGCThreadCount(void) {
+    return MAXIMUM_DEFAULT_NUMBER_OF_GC_THREADS;
+  }
 };
 
 #endif /* CONFIGURATIONLANGUAGEINTERFACE_HPP_ */

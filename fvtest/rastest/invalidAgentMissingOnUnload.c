@@ -22,8 +22,7 @@
  * Invalid Agent - missing OMRAgent_OnUnload()
  */
 
-omr_error_t
-OMRAgent_OnLoad(OMR_TI const *ti, OMR_VM *vm, char const *options, OMR_AgentCallbacks *agentCallbacks, ...)
-{
-	return OMR_ERROR_NONE;
+omr_error_t OMRAgent_OnLoad(OMR_TI const *ti, OMR_VM *vm, char const *options,
+                            OMR_AgentCallbacks *agentCallbacks, ...) {
+  return OMR_ERROR_NONE;
 }

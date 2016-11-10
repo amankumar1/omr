@@ -32,7 +32,8 @@ typedef struct OMR_Agent OMR_Agent;
  * @brief Initialize port library memory categories.
  *
  * This should be done before any significant memory allocations are made.
- * This function cannot be called more than once in the lifetime of the port library.
+ * This function cannot be called more than once in the lifetime of the port
+ * library.
  * Memory category definitions cannot be changed after they are initialized.
  *
  * @pre attached to omrthread
@@ -53,10 +54,12 @@ omr_error_t omr_ras_initMemCategories(OMRPortLibrary *portLibrary);
  *
  * @param[in,out] omrVM The current OMR VM.
  * @param[out]    hc The healthcenter agent.
- * @param[in]     healthCenterOpt Option string passed to the agent's OMRAgent_OnLoad() function.
+ * @param[in]     healthCenterOpt Option string passed to the agent's
+ * OMRAgent_OnLoad() function.
  * @return an OMR error code
  */
-omr_error_t omr_ras_initHealthCenter(OMR_VM *omrVM, OMR_Agent **hc, const char *healthCenterOpt);
+omr_error_t omr_ras_initHealthCenter(OMR_VM *omrVM, OMR_Agent **hc,
+                                     const char *healthCenterOpt);
 
 /**
  * @brief Shutdown and destroy the HealthCenter agent.
@@ -98,11 +101,13 @@ omr_error_t omr_ras_cleanupTI(OMR_VM *vm);
  * @pre attached to omrthread
  *
  * @param[in,out] omrVM The current OMR VM.
- * @param[in]     traceOptstring Trace options string. e.g. "maximal=all:buffers=1k"
+ * @param[in]     traceOptstring Trace options string. e.g.
+ * "maximal=all:buffers=1k"
  * @param[in]     datDir Path containing trace format files (*TraceFormat.dat).
  * @return an OMR error code
  */
-omr_error_t omr_ras_initTraceEngine(OMR_VM *omrVM, const char *traceOptString, const char *datDir);
+omr_error_t omr_ras_initTraceEngine(OMR_VM *omrVM, const char *traceOptString,
+                                    const char *datDir);
 
 /**
  * @brief Shutdown and destroy the trace engine.

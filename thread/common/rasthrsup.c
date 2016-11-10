@@ -19,16 +19,14 @@
 
 /**
  * Get the RAS thread ID of the current thread.
- * The RAS thread ID is the platform-dependent thread ID that matches thread IDs used by the native debugger.
+ * The RAS thread ID is the platform-dependent thread ID that matches thread IDs
+ * used by the native debugger.
  * The current thread might not be attached to the thread library.
  *
  * @return a thread ID
  * @see omrthread_get_osId
  */
-uintptr_t
-omrthread_get_ras_tid(void)
-{
+uintptr_t omrthread_get_ras_tid(void) {
 #error omrthread_get_ras_tid() is not implemented on this platform
-	return 0;
+  return 0;
 }
-

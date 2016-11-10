@@ -21,21 +21,16 @@
 
 #include "control/OMRRecompilation.hpp"
 
-namespace TR { class Compilation; }
+namespace TR {
+class Compilation;
+}
 
-namespace TR
-{
+namespace TR {
 
-class Recompilation : public OMR::RecompilationConnector
-   {
+class Recompilation : public OMR::RecompilationConnector {
 public:
-
-   Recompilation(TR::Compilation *comp) :
-      OMR::RecompilationConnector(comp)
-      {
-      }
-   };
-
+  Recompilation(TR::Compilation *comp) : OMR::RecompilationConnector(comp) {}
+};
 }
 
 #endif

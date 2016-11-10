@@ -23,43 +23,40 @@
 
 #ifndef TR_SYSTEM_SEGMENT_PROVIDER
 #define TR_SYSTEM_SEGMENT_PROVIDER
-namespace OMR { class SystemSegmentProvider; }
-namespace TR { using OMR::SystemSegmentProvider; }
+namespace OMR {
+class SystemSegmentProvider;
+}
+namespace TR {
+using OMR::SystemSegmentProvider;
+}
 #endif
 
-#include <stddef.h>
 #include <set>
+#include <stddef.h>
+#include "env/RawAllocator.hpp"
+#include "env/SegmentProvider.hpp"
 #include "env/TypedAllocator.hpp"
 #include "infra/ReferenceWrapper.hpp"
-#include "env/SegmentProvider.hpp"
-#include "env/RawAllocator.hpp"
 
 namespace OMR {
 
-class SystemSegmentProvider : public TR::SegmentProvider
-   {
+class SystemSegmentProvider : public TR::SegmentProvider {
 public:
-   SystemSegmentProvider(size_t segmentSize, TR::RawAllocator rawAllocator);
-   ~SystemSegmentProvider() throw();
-   virtual TR::MemorySegment &request(size_t requiredSize);
-   virtual void release(TR::MemorySegment &segment) throw();
-   size_t bytesAllocated() const throw();
+  SystemSegmentProvider(size_t segmentSize, TR::RawAllocator rawAllocator);
+  ~SystemSegmentProvider() throw();
+  virtual TR::MemorySegment &request(size_t requiredSize);
+  virtual void release(TR::MemorySegment &segment) throw();
+  size_t bytesAllocated() const throw();
 
 private:
-   TR::RawAllocator _rawAllocator;
-   size_t _bytesAllocated;
-   typedef TR::typed_allocator<
-      TR::MemorySegment,
-      TR::RawAllocator
-      > SegmentSetAllocator;
+  TR::RawAllocator _rawAllocator;
+  size_t _bytesAllocated;
+  typedef TR::typed_allocator<TR::MemorySegment, TR::RawAllocator>
+      SegmentSetAllocator;
 
-   std::set<
-      TR::MemorySegment,
-      std::less< TR::MemorySegment >,
-      SegmentSetAllocator
-      > _segments;
-
-   };
+  std::set<TR::MemorySegment, std::less<TR::MemorySegment>, SegmentSetAllocator>
+      _segments;
+};
 
 } // namespace TR
 

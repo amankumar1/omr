@@ -16,7 +16,6 @@
 *    Multiple authors (IBM Corp.) - initial implementation and documentation
 *******************************************************************************/
 
-
 /**
  * Description: Calls static member function on a non-extensible
  *    class wihtout scope resolution.
@@ -25,14 +24,13 @@
 namespace OMR {
 
 class NonExtClass {
-   public:
-   static void functionCalled();  // function to be called
-   void callingFunction();        // function that will make call
-                                  //   without scope resolution
+public:
+  static void functionCalled(); // function to be called
+  void callingFunction();       // function that will make call
+                                //   without scope resolution
 };
 
 } // namespace OMR
-
 
 void OMR::NonExtClass::functionCalled() {}
 

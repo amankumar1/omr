@@ -22,44 +22,49 @@
 #if defined(SUPPORTS_THREAD_LOCAL)
 
 #if defined(WIN32) || defined(LINUX) || defined(OSX) || defined(AIXPPC)
- #if defined(WIN32)
-  #include "windows.h"
-  #define tlsDeclare(type, variable) extern DWORD variable
-  #define tlsDefine(type, variable) DWORD variable = TLS_OUT_OF_INDEXES
-  #define tlsAlloc(variable) if ((variable) == TLS_OUT_OF_INDEXES) { (variable) = TlsAlloc();}
-  #define tlsFree(variable)  (TlsFree(variable))
-  #define tlsSet(variable, value) TlsSetValue((variable), value)
-  #define tlsGet(variable, type) ((type)TlsGetValue(variable))
- #else /* if defined(LINUX) || defined(AIXPPC) */
-  #define tlsDeclare(type, variable) extern __thread type variable
-  #define tlsDefine(type, variable) __thread type variable = NULL
-  #define tlsAlloc(variable) // not required on win, linux or AIX
-  #define tlsFree(variable)  // not required on win, linux or AIX
-  #define tlsSet(variable, value) variable = value
-  #define tlsGet(variable, type) (variable)
- #endif
-#else /* !(defined(WIN32) || defined(LINUX) || defined(OSX) || defined(AIXPPC)) */  /* mainly defined(J9ZOS390) */
- #include <pthread.h>
+#if defined(WIN32)
+#include "windows.h"
+#define tlsDeclare(type, variable) extern DWORD variable
+#define tlsDefine(type, variable) DWORD variable = TLS_OUT_OF_INDEXES
+#define tlsAlloc(variable)                                                     \
+  if ((variable) == TLS_OUT_OF_INDEXES) {                                      \
+    (variable) = TlsAlloc();                                                   \
+  }
+#define tlsFree(variable) (TlsFree(variable))
+#define tlsSet(variable, value) TlsSetValue((variable), value)
+#define tlsGet(variable, type) ((type)TlsGetValue(variable))
+#else /* if defined(LINUX) || defined(AIXPPC) */
+#define tlsDeclare(type, variable) extern __thread type variable
+#define tlsDefine(type, variable) __thread type variable = NULL
+#define tlsAlloc(variable) // not required on win, linux or AIX
+#define tlsFree(variable)  // not required on win, linux or AIX
+#define tlsSet(variable, value) variable = value
+#define tlsGet(variable, type) (variable)
+#endif
+#else /* !(defined(WIN32) || defined(LINUX) || defined(OSX) || defined(AIXPPC)) */ /* mainly defined(J9ZOS390) */
+#include <pthread.h>
 
- #define tlsDeclare(type, variable) extern pthread_key_t variable
- #define tlsDefine(type, variable) pthread_key_t variable
- #define tlsAlloc(variable) pthread_key_create(&variable, NULL)   // allocates a new key, which will have initial value NULL for all threads
- #define tlsFree(variable) pthread_key_delete(variable)
- #define tlsSet(variable, value) pthread_setspecific(variable, value)
- #if defined(J9ZOS390)
-  #define tlsGet(variable, type) ((type) pthread_getspecific_d8_np(variable))
- #else
-  #define tlsGet(variable, type) ((type) pthread_getspecific(variable))
- #endif
+#define tlsDeclare(type, variable) extern pthread_key_t variable
+#define tlsDefine(type, variable) pthread_key_t variable
+#define tlsAlloc(variable)                                                     \
+  pthread_key_create(&variable, NULL) // allocates a new key, which will have
+                                      // initial value NULL for all threads
+#define tlsFree(variable) pthread_key_delete(variable)
+#define tlsSet(variable, value) pthread_setspecific(variable, value)
+#if defined(J9ZOS390)
+#define tlsGet(variable, type) ((type)pthread_getspecific_d8_np(variable))
+#else
+#define tlsGet(variable, type) ((type)pthread_getspecific(variable))
+#endif
 #endif
 
 #else /* !defined(SUPPORTS_THREAD_LOCAL) */
- #define tlsDeclare(type, variable) extern type variable
- #define tlsDefine(type, variable) type variable = NULL
- #define tlsAlloc(variable)
- #define tlsFree(variable)
- #define tlsSet(variable, value) variable = value
- #define tlsGet(variable, type) (variable)
+#define tlsDeclare(type, variable) extern type variable
+#define tlsDefine(type, variable) type variable = NULL
+#define tlsAlloc(variable)
+#define tlsFree(variable)
+#define tlsSet(variable, value) variable = value
+#define tlsGet(variable, type) (variable)
 #endif
 
 #endif /* THREADLOCAL_INCL */

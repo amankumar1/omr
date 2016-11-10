@@ -16,7 +16,6 @@
 *    Multiple authors (IBM Corp.) - initial implementation and documentation
 *******************************************************************************/
 
-
 /**
  * Description: Calls an extensible class member function using
  *    an explicit `static_cast` for down casting. Since this is
@@ -29,21 +28,23 @@
 #define CONCRETE_CLASS_MACRO TR::ExtClass
 #define THIS_MACRO this
 
-namespace OMR
-{
+namespace OMR {
 
-class OMR_EXTENSIBLE ExtClass
-   {
-   public:
-   void functionCalled();   // function to be called
-   void callingFunction();  // function that will make call
-                            //    with reinterpret down cast
-   };
+class OMR_EXTENSIBLE ExtClass {
+public:
+  void functionCalled();  // function to be called
+  void callingFunction(); // function that will make call
+                          //    with reinterpret down cast
+};
 
 } // namespace OMR
 
-namespace TR { class OMR_EXTENSIBLE ExtClass : public OMR::ExtClass {}; }
+namespace TR {
+class OMR_EXTENSIBLE ExtClass : public OMR::ExtClass {};
+}
 
 void OMR::ExtClass::functionCalled() {}
 
-void OMR::ExtClass::callingFunction() { static_cast<CONCRETE_CLASS_MACRO *>(THIS_MACRO)->functionCalled(); }
+void OMR::ExtClass::callingFunction() {
+  static_cast<CONCRETE_CLASS_MACRO *>(THIS_MACRO)->functionCalled();
+}

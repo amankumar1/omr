@@ -19,13 +19,11 @@
 #ifndef RECOGNIZEDMETHODS_INCL
 #define RECOGNIZEDMETHODS_INCL
 
-namespace TR
-   {
-      enum RecognizedMethod
-      {
-      #include "codegen/OMRRecognizedMethodsEnum.hpp"
-      numRecognizedMethods
-      };
-   }
+namespace TR {
+enum RecognizedMethod {
+#include "codegen/OMRRecognizedMethodsEnum.hpp"
+  numRecognizedMethods
+};
+}
 
 #endif

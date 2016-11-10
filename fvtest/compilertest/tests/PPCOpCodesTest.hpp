@@ -18,49 +18,47 @@
 
 #include "OpCodesTest.hpp"
 
-namespace TestCompiler
-{
-class PPCOpCodesTest : public OpCodesTest
-   {
-   public:
-   virtual void compileUnaryTestMethods();
-   virtual void compileMemoryOperationTestMethods();
-   virtual void compileTernaryTestMethods();
-   virtual void compileCompareTestMethods();
-   virtual void compileShiftOrRolTestMethods();
-   virtual void compileBitwiseTestMethods();
-   virtual void compileAddressTestMethods();
+namespace TestCompiler {
+class PPCOpCodesTest : public OpCodesTest {
+public:
+  virtual void compileUnaryTestMethods();
+  virtual void compileMemoryOperationTestMethods();
+  virtual void compileTernaryTestMethods();
+  virtual void compileCompareTestMethods();
+  virtual void compileShiftOrRolTestMethods();
+  virtual void compileBitwiseTestMethods();
+  virtual void compileAddressTestMethods();
 
-   virtual void invokeUnaryTests();
-   virtual void invokeMemoryOperationTests();
-   virtual void invokeTernaryTests();
-   virtual void invokeCompareTests();
-   virtual void invokeShiftOrRolTests();
-   virtual void invokeBitwiseTests();
-   virtual void invokeAddressTests();
-   virtual void UnsupportedOpCodesTests();
+  virtual void invokeUnaryTests();
+  virtual void invokeMemoryOperationTests();
+  virtual void invokeTernaryTests();
+  virtual void invokeCompareTests();
+  virtual void invokeShiftOrRolTests();
+  virtual void invokeBitwiseTests();
+  virtual void invokeAddressTests();
+  virtual void UnsupportedOpCodesTests();
 
-   virtual void compileDisabledConvertTestMethods();
-   virtual void compileDisabledCompareTestMethods();
-   virtual void compileDisabledIntegerArithmeticTestMethods();
-   virtual void compileDisabledFloatArithmeticTestMethods();
-   virtual void compileDisabledMemoryOperationTestMethods();
-   virtual void compileDisabledUnaryTestMethods();
-   virtual void compileDisabledShiftOrRolTestMethods();
-   virtual void compileDisabledBitwiseTestMethods();
-   virtual void compileDisabledTernaryTestMethods();
-   virtual void compileDisabledDirectCallTestMethods();
+  virtual void compileDisabledConvertTestMethods();
+  virtual void compileDisabledCompareTestMethods();
+  virtual void compileDisabledIntegerArithmeticTestMethods();
+  virtual void compileDisabledFloatArithmeticTestMethods();
+  virtual void compileDisabledMemoryOperationTestMethods();
+  virtual void compileDisabledUnaryTestMethods();
+  virtual void compileDisabledShiftOrRolTestMethods();
+  virtual void compileDisabledBitwiseTestMethods();
+  virtual void compileDisabledTernaryTestMethods();
+  virtual void compileDisabledDirectCallTestMethods();
 
-   virtual void invokeDisabledConvertTests();
-   virtual void invokeDisabledCompareTests();
-   virtual void invokeDisabledIntegerArithmeticTests();
-   virtual void invokeDisabledFloatArithmeticTests();
-   virtual void invokeDisabledMemoryOperationTests();
-   virtual void invokeDisabledUnaryTests();
-   virtual void invokeDisabledShiftOrRolTests();
-   virtual void invokeDisabledBitwiseTests();
-   virtual void invokeDisabledTernaryTest();
-   virtual void invokeDisabledDirectCallTest();
-   };
+  virtual void invokeDisabledConvertTests();
+  virtual void invokeDisabledCompareTests();
+  virtual void invokeDisabledIntegerArithmeticTests();
+  virtual void invokeDisabledFloatArithmeticTests();
+  virtual void invokeDisabledMemoryOperationTests();
+  virtual void invokeDisabledUnaryTests();
+  virtual void invokeDisabledShiftOrRolTests();
+  virtual void invokeDisabledBitwiseTests();
+  virtual void invokeDisabledTernaryTest();
+  virtual void invokeDisabledDirectCallTest();
+};
 
 } // namespace TestCompiler

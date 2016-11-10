@@ -20,28 +20,30 @@
 #define OMR_POWER_CODECACHECONFIG_INCL
 
 /*
- * The following #defines and typedefs must appear before any #includes in this file
+ * The following #defines and typedefs must appear before any #includes in this
+ * file
  */
 #ifndef OMR_CODECACHECONFIG_COMPOSED
 #define OMR_CODECACHECONFIG_COMPOSED
-namespace OMR { namespace Power { class CodeCacheConfig; } }
-namespace OMR { typedef Power::CodeCacheConfig CodeCacheConfigConnector; }
+namespace OMR {
+namespace Power {
+class CodeCacheConfig;
+}
+}
+namespace OMR {
+typedef Power::CodeCacheConfig CodeCacheConfigConnector;
+}
 #endif
 
 #include "compiler/runtime/OMRCodeCacheConfig.hpp"
 
-namespace OMR
-{
-namespace Power
-{
+namespace OMR {
+namespace Power {
 
-class OMR_EXTENSIBLE CodeCacheConfig : public OMR::CodeCacheConfig
-   {
-   public:
-
-   CodeCacheConfig();
-   };
-
+class OMR_EXTENSIBLE CodeCacheConfig : public OMR::CodeCacheConfig {
+public:
+  CodeCacheConfig();
+};
 
 } // namespace POWER
 } // namespace OMR

@@ -25,6 +25,6 @@
 #define DEBUG_HPP_
 
 #define assume0(a)
-#define assume(expr,msg)
+#define assume(expr, msg)
 
 #endif /* DEBUG_HPP_ */

@@ -16,21 +16,21 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  ******************************************************************************/
 
-
 #ifndef RECURSIVEFIB_INCL
 #define RECURSIVEFIB_INCL
 
 #include "ilgen/MethodBuilder.hpp"
 
-namespace TR { class TypeDictionary; }
+namespace TR {
+class TypeDictionary;
+}
 
-typedef int32_t (RecursiveFibFunctionType)(int32_t);
+typedef int32_t(RecursiveFibFunctionType)(int32_t);
 
-class RecursiveFibonnaciMethod : public TR::MethodBuilder
-   {
-   public:
-   RecursiveFibonnaciMethod(TR::TypeDictionary *types);
-   virtual bool buildIL();
-   };
+class RecursiveFibonnaciMethod : public TR::MethodBuilder {
+public:
+  RecursiveFibonnaciMethod(TR::TypeDictionary *types);
+  virtual bool buildIL();
+};
 
 #endif // !defined(RECURSIVEFIB_INCL)

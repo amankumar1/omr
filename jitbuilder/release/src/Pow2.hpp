@@ -16,21 +16,21 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  ******************************************************************************/
 
-
 #ifndef POW2_INCL
 #define POW2_INCL
 
 #include "ilgen/MethodBuilder.hpp"
 
-namespace TR { class TypeDictionary; }
+namespace TR {
+class TypeDictionary;
+}
 
-typedef int64_t (Pow2FunctionType)(int64_t);
+typedef int64_t(Pow2FunctionType)(int64_t);
 
-class Pow2Method : public TR::MethodBuilder
-   {
-   public:
-   Pow2Method(TR::TypeDictionary *types);
-   virtual bool buildIL();
-   };
+class Pow2Method : public TR::MethodBuilder {
+public:
+  Pow2Method(TR::TypeDictionary *types);
+  virtual bool buildIL();
+};
 
 #endif // !defined(POW2_INCL)

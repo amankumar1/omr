@@ -16,6 +16,7 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-// This file includes the most specialized version of the Enums for the OMR Project
+// This file includes the most specialized version of the Enums for the OMR
+// Project
 
 #include "codegen/OMRCodeGenPhaseEnum.hpp"

@@ -21,49 +21,39 @@
 #include "config.hpp"
 
 UDT::UDT(SymbolType symbolType, size_t size, unsigned int lineNumber)
-	: Type(symbolType, size), _outerUDT(NULL), _lineNumber(lineNumber)
-{
+    : Type(symbolType, size), _outerUDT(NULL), _lineNumber(lineNumber) {}
+
+UDT::~UDT() {}
+
+bool UDT::equal(Type const &type, set<Type const *> *checked) const {
+  bool ret = false;
+  if (checked->find(this) != checked->end()) {
+    ret = true;
+  } else {
+    checked->insert(this);
+    UDT const *udt = dynamic_cast<UDT const *>(&type);
+    if (NULL == udt) {
+      ret = false;
+    } else {
+      /* Do not check if the outer UDT is equal when comparing sub UDTs,
+       * otherwise an infinite loop will be created.
+       */
+      ret = (Type::equal(type, checked)) && ((_outerUDT == udt->_outerUDT) ||
+                                             (*_outerUDT == *udt->_outerUDT)) &&
+            (_lineNumber == udt->_lineNumber);
+    }
+  }
+  return ret;
 }
 
-UDT::~UDT()
-{
+void UDT::replaceType(Type *typeToReplace, Type *replaceWith) {
+  Type::replaceType(typeToReplace, replaceWith);
+  if (_outerUDT == typeToReplace) {
+    UDT *udt = dynamic_cast<UDT *>(replaceWith);
+    _outerUDT = udt;
+  }
 }
 
-bool
-UDT::equal(Type const& type, set<Type const*> *checked) const
-{
-	bool ret = false;
-	if (checked->find(this) != checked->end()) {
-		ret = true;
-	} else {
-		checked->insert(this);
-		UDT const *udt = dynamic_cast<UDT const *>(&type);
-		if (NULL == udt) {
-			ret = false;
-		} else {
-			/* Do not check if the outer UDT is equal when comparing sub UDTs,
-			 * otherwise an infinite loop will be created.
-			 */
-			ret = (Type::equal(type, checked))
-				&& ((_outerUDT == udt->_outerUDT) || (*_outerUDT == *udt->_outerUDT))
-				&& (_lineNumber == udt->_lineNumber);
-		}
-	}
-	return ret;
-}
-
-void
-UDT::replaceType(Type *typeToReplace, Type *replaceWith)
-{
-	Type::replaceType(typeToReplace, replaceWith);
-	if (_outerUDT == typeToReplace) {
-		UDT *udt = dynamic_cast<UDT *>(replaceWith);
-		_outerUDT = udt;
-	}
-}
-
-string
-UDT::getFullName()
-{
-	return ((NULL == _outerUDT) ? "" : _outerUDT->getFullName() + "::") + _name;
+string UDT::getFullName() {
+  return ((NULL == _outerUDT) ? "" : _outerUDT->getFullName() + "::") + _name;
 }

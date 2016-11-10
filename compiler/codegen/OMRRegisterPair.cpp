@@ -16,103 +16,76 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-#include "codegen/OMRRegisterPair.hpp"  // for RegisterPair, etc
+#include "codegen/OMRRegisterPair.hpp" // for RegisterPair, etc
 
-#include <stddef.h>                              // for NULL
-#include <stdint.h>                              // for int32_t
-#include "codegen/CodeGenerator.hpp"             // for CodeGenerator
-#include "codegen/LiveRegister.hpp"              // for TR_LiveRegisters
-#include "codegen/Register.hpp"                  // for Register
-#include "codegen/RegisterPair.hpp"              // for RegisterPair
-#include "infra/List.hpp"                        // for TR_Queue
+#include <stddef.h>                  // for NULL
+#include <stdint.h>                  // for int32_t
+#include "codegen/CodeGenerator.hpp" // for CodeGenerator
+#include "codegen/LiveRegister.hpp"  // for TR_LiveRegisters
+#include "codegen/Register.hpp"      // for Register
+#include "codegen/RegisterPair.hpp"  // for RegisterPair
+#include "infra/List.hpp"            // for TR_Queue
 
-void OMR::RegisterPair::block()
-   {
-   _lowOrder->block();
-   _highOrder->block();
-   }
+void OMR::RegisterPair::block() {
+  _lowOrder->block();
+  _highOrder->block();
+}
 
-void OMR::RegisterPair::unblock()
-   {
-   _lowOrder->unblock();
-   _highOrder->unblock();
-   }
+void OMR::RegisterPair::unblock() {
+  _lowOrder->unblock();
+  _highOrder->unblock();
+}
 
-bool OMR::RegisterPair::usesRegister(TR::Register* reg)
-   {
-   if (REGPAIR_THIS == reg || _lowOrder == reg || _highOrder == reg )
-      {
-      return true;
-      }
-   else
-      {
-      return false;
-      }
-   }
+bool OMR::RegisterPair::usesRegister(TR::Register *reg) {
+  if (REGPAIR_THIS == reg || _lowOrder == reg || _highOrder == reg) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
-TR::Register *
-OMR::RegisterPair::getLowOrder()
-   {
-   return _lowOrder;
-   }
+TR::Register *OMR::RegisterPair::getLowOrder() { return _lowOrder; }
 
-TR::Register *
-OMR::RegisterPair::setLowOrder(TR::Register *lo, TR::CodeGenerator *codeGen)
-   {
-   if (!lo->isLive() && codeGen->getLiveRegisters(lo->getKind())!=NULL)
-      codeGen->getLiveRegisters(lo->getKind())->addRegister(lo);
+TR::Register *OMR::RegisterPair::setLowOrder(TR::Register *lo,
+                                             TR::CodeGenerator *codeGen) {
+  if (!lo->isLive() && codeGen->getLiveRegisters(lo->getKind()) != NULL)
+    codeGen->getLiveRegisters(lo->getKind())->addRegister(lo);
 
-   return (_lowOrder = lo);
-   }
+  return (_lowOrder = lo);
+}
 
-TR::Register *
-OMR::RegisterPair::getHighOrder()
-   {
-   return _highOrder;
-   }
+TR::Register *OMR::RegisterPair::getHighOrder() { return _highOrder; }
 
-TR::Register *
-OMR::RegisterPair::setHighOrder(TR::Register *ho, TR::CodeGenerator *codeGen)
-   {
-   if (!ho->isLive() && codeGen->getLiveRegisters(ho->getKind())!=NULL)
-      codeGen->getLiveRegisters(ho->getKind())->addRegister(ho);
+TR::Register *OMR::RegisterPair::setHighOrder(TR::Register *ho,
+                                              TR::CodeGenerator *codeGen) {
+  if (!ho->isLive() && codeGen->getLiveRegisters(ho->getKind()) != NULL)
+    codeGen->getLiveRegisters(ho->getKind())->addRegister(ho);
 
-   return (_highOrder = ho);
-   }
+  return (_highOrder = ho);
+}
 
-TR::Register *
-OMR::RegisterPair::getRegister()
-   {
-   return NULL;
-   }
+TR::Register *OMR::RegisterPair::getRegister() { return NULL; }
 
-TR::RegisterPair *
-OMR::RegisterPair::getRegisterPair()
-   {
-   return REGPAIR_THIS;
-   }
+TR::RegisterPair *OMR::RegisterPair::getRegisterPair() { return REGPAIR_THIS; }
 
-int32_t
-OMR::RegisterPair::FlattenRegisterPairs(TR_Queue<TR::Register> * Pairs)
-   {
-    //Empty Queue
-     while(Pairs->dequeue());
+int32_t OMR::RegisterPair::FlattenRegisterPairs(TR_Queue<TR::Register> *Pairs) {
+  // Empty Queue
+  while (Pairs->dequeue())
+    ;
 
-    int32_t regCount = 0;
-    TR::Register * firstPair = REGPAIR_THIS;
-    Pairs->enqueue(firstPair);
+  int32_t regCount = 0;
+  TR::Register *firstPair = REGPAIR_THIS;
+  Pairs->enqueue(firstPair);
+  regCount++;
+
+  while (Pairs->peek()->getRegisterPair() != NULL) {
+    TR::Register *pair = Pairs->dequeue();
+    regCount--;
+    Pairs->enqueue(pair->getHighOrder());
     regCount++;
+    Pairs->enqueue(pair->getLowOrder());
+    regCount++;
+  }
 
-      while(Pairs->peek()->getRegisterPair() != NULL){
-         TR::Register * pair  = Pairs->dequeue();
-         regCount--;
-         Pairs->enqueue(pair->getHighOrder());
-         regCount++;
-         Pairs->enqueue(pair->getLowOrder());
-         regCount++;
-      }
-
-    return regCount;
-   }
-
-
+  return regCount;
+}

@@ -20,19 +20,14 @@
 #define TR_DEBUG_ENV_INCL
 
 #include "env/OMRDebugEnv.hpp"
-#include "infra/Annotations.hpp"  // for OMR_EXTENSIBLE
+#include "infra/Annotations.hpp" // for OMR_EXTENSIBLE
 
-namespace TR
-{
+namespace TR {
 
-class OMR_EXTENSIBLE DebugEnv : public OMR::DebugEnvConnector
-   {
+class OMR_EXTENSIBLE DebugEnv : public OMR::DebugEnvConnector {
 public:
-   DebugEnv() :
-         OMR::DebugEnvConnector()
-      {}
-   };
-
+  DebugEnv() : OMR::DebugEnvConnector() {}
+};
 }
 
 #endif

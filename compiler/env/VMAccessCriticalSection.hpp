@@ -22,22 +22,20 @@
 #include "env/OMRVMAccessCriticalSection.hpp"
 #include "infra/Annotations.hpp"
 
-namespace TR { class Compilation; }
+namespace TR {
+class Compilation;
+}
 
-namespace TR
-{
+namespace TR {
 
-class OMR_EXTENSIBLE VMAccessCriticalSection : public OMR::VMAccessCriticalSectionConnector
-   {
+class OMR_EXTENSIBLE VMAccessCriticalSection
+    : public OMR::VMAccessCriticalSectionConnector {
 public:
-
-   VMAccessCriticalSection(
-         TR::Compilation *comp,
-         VMAccessAcquireProtocol protocol = acquireVMAccessIfNeeded) :
-      OMR::VMAccessCriticalSectionConnector(comp, protocol) {}
-
-   };
-
+  VMAccessCriticalSection(
+      TR::Compilation *comp,
+      VMAccessAcquireProtocol protocol = acquireVMAccessIfNeeded)
+      : OMR::VMAccessCriticalSectionConnector(comp, protocol) {}
+};
 }
 
 #endif

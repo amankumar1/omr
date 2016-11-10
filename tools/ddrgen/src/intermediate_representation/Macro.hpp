@@ -23,25 +23,18 @@
 
 #include "config.hpp"
 
-class Macro
-{
+class Macro {
 private:
-	std::string _value;
+  std::string _value;
 
 public:
-	std::string _name;
+  std::string _name;
 
-	Macro(std::string name, std::string value) : _value(value), _name(name)
-	{
-	}
+  Macro(std::string name, std::string value) : _value(value), _name(name) {}
 
-	std::string
-	getValue() const
-	{
-		return _value;
-	}
+  std::string getValue() const { return _value; }
 
-	DDR_RC getNumeric(long long *ret);
+  DDR_RC getNumeric(long long *ret);
 };
 
 #endif /* MACRO_HPP */

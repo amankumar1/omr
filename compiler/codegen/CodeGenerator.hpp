@@ -19,20 +19,18 @@
 #ifndef OMR_CODEGENERATOR_INCL
 #define OMR_CODEGENERATOR_INCL
 
-#include "codegen/OMRCodeGenerator.hpp"  // for CodeGeneratorConnector
+#include "codegen/OMRCodeGenerator.hpp" // for CodeGeneratorConnector
 
-namespace TR { class Compilation; }
+namespace TR {
+class Compilation;
+}
 
-namespace TR
-{
+namespace TR {
 
-class OMR_EXTENSIBLE CodeGenerator : public OMR::CodeGeneratorConnector
-   {
-   public:
-
-   CodeGenerator(TR::Compilation *comp) :
-      OMR::CodeGeneratorConnector() {}
-   };
+class OMR_EXTENSIBLE CodeGenerator : public OMR::CodeGeneratorConnector {
+public:
+  CodeGenerator(TR::Compilation *comp) : OMR::CodeGeneratorConnector() {}
+};
 }
 
 #endif

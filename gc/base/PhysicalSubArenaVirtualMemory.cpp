@@ -16,13 +16,13 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-
 #include "PhysicalSubArenaVirtualMemory.hpp"
 
 class MM_EnvironmentBase;
 
 /**
- * Zos390 Platform dependent trickery for the ar command.  Without this definition
+ * Zos390 Platform dependent trickery for the ar command.  Without this
+ * definition
  * the ar command on Zos390 will fail to link this class.
  */
 #if defined(J9ZOS390)
@@ -30,30 +30,29 @@ class MM_EnvironmentBase;
 int j9zos390LinkTrickPhysicalSubArenaVirtualMemory;
 #endif /* J9ZOS390 */
 
-bool
-MM_PhysicalSubArenaVirtualMemory::initialize(MM_EnvironmentBase* env)
-{
-	if (!MM_PhysicalSubArena::initialize(env)) {
-		return false;
-	}
+bool MM_PhysicalSubArenaVirtualMemory::initialize(MM_EnvironmentBase *env) {
+  if (!MM_PhysicalSubArena::initialize(env)) {
+    return false;
+  }
 
-	return true;
+  return true;
 }
 
 /**
- * Find the next valid address higher than the current physical subarenas memory.
- * This routine is typically used for decommit purposes, to find the valid ranges surrounding a particular
+ * Find the next valid address higher than the current physical subarenas
+ * memory.
+ * This routine is typically used for decommit purposes, to find the valid
+ * ranges surrounding a particular
  * address range.
  * @return the next highest valid range, or NULL if there is none.
  */
-void*
-MM_PhysicalSubArenaVirtualMemory::findAdjacentHighValidAddress(MM_EnvironmentBase* env)
-{
-	/* Is there a valid higher address? */
-	if (NULL == _highArena) {
-		return NULL;
-	}
+void *MM_PhysicalSubArenaVirtualMemory::findAdjacentHighValidAddress(
+    MM_EnvironmentBase *env) {
+  /* Is there a valid higher address? */
+  if (NULL == _highArena) {
+    return NULL;
+  }
 
-	/* There is - return its lowest address */
-	return _highArena->getLowAddress();
+  /* There is - return its lowest address */
+  return _highArena->getLowAddress();
 }

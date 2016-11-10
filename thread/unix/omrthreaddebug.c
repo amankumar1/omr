@@ -33,12 +33,10 @@
  * @param retVal Return value from function call.
  * @returns retVal
  */
-intptr_t
-omrthread_debug_syscall(const char *func, intptr_t retVal)
-{
-	if (retVal != 0) {
-		fprintf(stderr, "%s: %s\n", func, strerror(retVal));
-	}
-	return retVal;
+intptr_t omrthread_debug_syscall(const char *func, intptr_t retVal) {
+  if (retVal != 0) {
+    fprintf(stderr, "%s: %s\n", func, strerror(retVal));
+  }
+  return retVal;
 }
 #endif

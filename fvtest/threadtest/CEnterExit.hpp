@@ -16,7 +16,6 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-
 #ifndef CENTEREXIT_HPP_INCLUDED
 #define CENTEREXIT_HPP_INCLUDED
 
@@ -25,15 +24,14 @@
 /*
  * Thread that acquires and holds a monitor for a time.
  */
-class CEnterExit: public CThread
-{
+class CEnterExit : public CThread {
 public:
-	CEnterExit(CMonitor& monitor, int sleep);
+  CEnterExit(CMonitor &monitor, int sleep);
 
 protected:
-	virtual intptr_t Run(void);
-	CMonitor& m_monitor;
-	int m_sleep;
+  virtual intptr_t Run(void);
+  CMonitor &m_monitor;
+  int m_sleep;
 };
 
 #endif /* CENTEREXIT_HPP_INCLUDE */

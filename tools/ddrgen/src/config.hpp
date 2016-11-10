@@ -21,11 +21,12 @@
 
 #include <stdio.h>
 
-#define ERRMSG(...) { \
-	fprintf(stderr, "Error: %s:%d %s - ", __FILE__, __LINE__, __FUNCTION__);\
-	fprintf(stderr, __VA_ARGS__);\
-	fprintf(stderr, "\n");\
-}
+#define ERRMSG(...)                                                            \
+  {                                                                            \
+    fprintf(stderr, "Error: %s:%d %s - ", __FILE__, __LINE__, __FUNCTION__);   \
+    fprintf(stderr, __VA_ARGS__);                                              \
+    fprintf(stderr, "\n");                                                     \
+  }
 
 #if 0
 /* Enable debug printf output */
@@ -33,19 +34,17 @@
 #endif
 
 #if defined(DEBUGPRINTF_ON)
-#define DEBUGPRINTF(...) { \
-	printf("DEBUG: %s[%d]: %s: ", __FILE__, __LINE__, __FUNCTION__);\
-	printf(__VA_ARGS__);\
-	printf("\n");\
-	fflush(stdout);\
-}
+#define DEBUGPRINTF(...)                                                       \
+  {                                                                            \
+    printf("DEBUG: %s[%d]: %s: ", __FILE__, __LINE__, __FUNCTION__);           \
+    printf(__VA_ARGS__);                                                       \
+    printf("\n");                                                              \
+    fflush(stdout);                                                            \
+  }
 #else
 #define DEBUGPRINTF(...)
 #endif /* defined(DEBUG) */
 
-enum DDR_RC {
-	DDR_RC_OK,
-	DDR_RC_ERROR
-};
+enum DDR_RC { DDR_RC_OK, DDR_RC_ERROR };
 
 #endif /* CONFIG_HPP */

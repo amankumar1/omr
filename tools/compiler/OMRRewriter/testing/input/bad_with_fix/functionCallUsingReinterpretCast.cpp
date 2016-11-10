@@ -16,7 +16,6 @@
 *    Multiple authors (IBM Corp.) - initial implementation and documentation
 *******************************************************************************/
 
-
 /**
  * Description: Calls an extensible class member function by down
  *    casting `this` using `reinterpret_cast`, which is not allowed.
@@ -24,21 +23,23 @@
 
 #define OMR_EXTENSIBLE __attribute__((annotate("OMR_Extensible")))
 
-namespace OMR
-{
+namespace OMR {
 
-class OMR_EXTENSIBLE ExtClass
-   {
-   public:
-   void functionCalled();   // function to be called
-   void callingFunction();  // function that will make call
-                            //    with reinterpret down cast
-   };
+class OMR_EXTENSIBLE ExtClass {
+public:
+  void functionCalled();  // function to be called
+  void callingFunction(); // function that will make call
+                          //    with reinterpret down cast
+};
 
 } // namespace OMR
 
-namespace TR { class OMR_EXTENSIBLE ExtClass : public OMR::ExtClass {}; }
+namespace TR {
+class OMR_EXTENSIBLE ExtClass : public OMR::ExtClass {};
+}
 
 void OMR::ExtClass::functionCalled() {}
 
-void OMR::ExtClass::callingFunction() { reinterpret_cast<TR::ExtClass *>(this)->functionCalled(); }
+void OMR::ExtClass::callingFunction() {
+  reinterpret_cast<TR::ExtClass *>(this)->functionCalled();
+}

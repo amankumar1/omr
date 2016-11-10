@@ -13,7 +13,8 @@
  *      http://www.opensource.org/licenses/apache2.0.php
  *
  * Contributors:
- *    Multiple authors (IBM Corp.) - initial API and implementation and/or initial documentation
+ *    Multiple authors (IBM Corp.) - initial API and implementation and/or
+ *initial documentation
  *******************************************************************************/
 
 #ifndef omrgetasid_h
@@ -32,6 +33,7 @@
  *
  * @return 0 on success, size of required buffer on failure.
  */
-uintptr_t omrget_asid(struct OMRPortLibrary *portLibrary, char *asid, uintptr_t length);
+uintptr_t omrget_asid(struct OMRPortLibrary *portLibrary, char *asid,
+                      uintptr_t length);
 
-#endif     /* omrgetasid_h */
+#endif /* omrgetasid_h */

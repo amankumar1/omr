@@ -21,9 +21,15 @@
 
 #include "codegen/Snippet.hpp"
 
-namespace TR { class CodeGenerator; }
-namespace TR { class LabelSymbol; }
-namespace TR { class Node; }
+namespace TR {
+class CodeGenerator;
+}
+namespace TR {
+class LabelSymbol;
+}
+namespace TR {
+class Node;
+}
 
 namespace TR {
 
@@ -31,63 +37,57 @@ namespace TR {
  * Create trampolines from warm code to cold code, when branch targets is not
  * reachable by compare-and-branch instructions.
  */
-class S390WarmToColdTrampolineSnippet : public TR::Snippet
-   {
-   TR::LabelSymbol * _targetLabel;
+class S390WarmToColdTrampolineSnippet : public TR::Snippet {
+  TR::LabelSymbol *_targetLabel;
 
 public:
-   S390WarmToColdTrampolineSnippet(TR::CodeGenerator* cg, TR::Node *c, TR::LabelSymbol *lab, TR::LabelSymbol *targetLabel)
-      : TR::Snippet(cg, c, lab, false), _targetLabel(targetLabel)
-      {
-      setWarmSnippet();
-      }
+  S390WarmToColdTrampolineSnippet(TR::CodeGenerator *cg, TR::Node *c,
+                                  TR::LabelSymbol *lab,
+                                  TR::LabelSymbol *targetLabel)
+      : TR::Snippet(cg, c, lab, false), _targetLabel(targetLabel) {
+    setWarmSnippet();
+  }
 
-   S390WarmToColdTrampolineSnippet(TR::CodeGenerator* cg, TR::Node *c, TR::LabelSymbol *lab, TR::Snippet *targetSnippet)
-      : TR::Snippet(cg, c, lab, false), _targetLabel(targetSnippet->getSnippetLabel())
-      {
-      setWarmSnippet();
-      }
+  S390WarmToColdTrampolineSnippet(TR::CodeGenerator *cg, TR::Node *c,
+                                  TR::LabelSymbol *lab,
+                                  TR::Snippet *targetSnippet)
+      : TR::Snippet(cg, c, lab, false),
+        _targetLabel(targetSnippet->getSnippetLabel()) {
+    setWarmSnippet();
+  }
 
-   TR::LabelSymbol *getTargetLabel() { return _targetLabel; }
-   TR::LabelSymbol *setTargetLabel ( TR::LabelSymbol * targetLabel)
-      {
-      return _targetLabel = targetLabel;
-      }
+  TR::LabelSymbol *getTargetLabel() { return _targetLabel; }
+  TR::LabelSymbol *setTargetLabel(TR::LabelSymbol *targetLabel) {
+    return _targetLabel = targetLabel;
+  }
 
+  virtual uint32_t getLength(int32_t estimatedSnippetStart);
+  virtual uint8_t *emitSnippetBody();
+  virtual Kind getKind() { return IsWarmToColdTrampoline; }
+};
 
-   virtual uint32_t getLength(int32_t estimatedSnippetStart);
-   virtual uint8_t *emitSnippetBody();
-   virtual Kind getKind() { return IsWarmToColdTrampoline; }
-   };
-
-
-class S390RestoreGPR7Snippet : public TR::Snippet
-   {
-   TR::LabelSymbol * _targetLabel;
+class S390RestoreGPR7Snippet : public TR::Snippet {
+  TR::LabelSymbol *_targetLabel;
 
 public:
-   S390RestoreGPR7Snippet(TR::CodeGenerator* cg, TR::Node *c, TR::LabelSymbol *lab, TR::LabelSymbol *targetLabel)
-      : TR::Snippet(cg, c, lab, false), _targetLabel(targetLabel)
-      {
-      }
+  S390RestoreGPR7Snippet(TR::CodeGenerator *cg, TR::Node *c,
+                         TR::LabelSymbol *lab, TR::LabelSymbol *targetLabel)
+      : TR::Snippet(cg, c, lab, false), _targetLabel(targetLabel) {}
 
-   S390RestoreGPR7Snippet(TR::CodeGenerator* cg, TR::Node *c, TR::LabelSymbol *lab, TR::Snippet *targetSnippet)
-      : TR::Snippet(cg, c, lab, false), _targetLabel(targetSnippet->getSnippetLabel())
-      {
-      }
+  S390RestoreGPR7Snippet(TR::CodeGenerator *cg, TR::Node *c,
+                         TR::LabelSymbol *lab, TR::Snippet *targetSnippet)
+      : TR::Snippet(cg, c, lab, false),
+        _targetLabel(targetSnippet->getSnippetLabel()) {}
 
-   TR::LabelSymbol *getTargetLabel() { return _targetLabel; }
-   TR::LabelSymbol *setTargetLabel ( TR::LabelSymbol * targetLabel)
-      {
-      return _targetLabel = targetLabel;
-      }
+  TR::LabelSymbol *getTargetLabel() { return _targetLabel; }
+  TR::LabelSymbol *setTargetLabel(TR::LabelSymbol *targetLabel) {
+    return _targetLabel = targetLabel;
+  }
 
-   virtual uint32_t getLength(int32_t estimatedSnippetStart);
-   virtual uint8_t *emitSnippetBody();
-   virtual Kind getKind() { return IsRestoreGPR7; }
-
-   };
-
+  virtual uint32_t getLength(int32_t estimatedSnippetStart);
+  virtual uint8_t *emitSnippetBody();
+  virtual Kind getKind() { return IsRestoreGPR7; }
+};
 }
 
 #endif

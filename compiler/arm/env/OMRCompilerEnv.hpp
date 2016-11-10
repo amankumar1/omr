@@ -20,45 +20,43 @@
 #define OMR_ARM_COMPILER_ENV_INCL
 
 /*
- * The following #define and typedef must appear before any #includes in this file
+ * The following #define and typedef must appear before any #includes in this
+ * file
  */
 #ifndef OMR_COMPILER_ENV_CONNECTOR
 #define OMR_COMPILER_ENV_CONNECTOR
-namespace OMR { namespace ARM { class CompilerEnv; } }
-namespace OMR { typedef OMR::ARM::CompilerEnv CompilerEnvConnector; }
+namespace OMR {
+namespace ARM {
+class CompilerEnv;
+}
+}
+namespace OMR {
+typedef OMR::ARM::CompilerEnv CompilerEnvConnector;
+}
 #else
 #error OMR::ARM::CompilerEnv expected to be a primary connector, but an OMR connector is already defined
 #endif
 
 #include "compiler/env/OMRCompilerEnv.hpp"
-#include "infra/Annotations.hpp"  // for OMR_EXTENSIBLE
 #include "env/RawAllocator.hpp"
+#include "infra/Annotations.hpp" // for OMR_EXTENSIBLE
 
+namespace OMR {
 
-namespace OMR
-{
+namespace ARM {
 
-namespace ARM
-{
-
-class OMR_EXTENSIBLE CompilerEnv : public OMR::CompilerEnv
-   {
+class OMR_EXTENSIBLE CompilerEnv : public OMR::CompilerEnv {
 public:
-
-   CompilerEnv(TR::RawAllocator raw, const TR::PersistentAllocatorKit &persistentAllocatorKit) :
-         OMR::CompilerEnv(raw, persistentAllocatorKit)
-      {}
+  CompilerEnv(TR::RawAllocator raw,
+              const TR::PersistentAllocatorKit &persistentAllocatorKit)
+      : OMR::CompilerEnv(raw, persistentAllocatorKit) {}
 
 protected:
-
-   // Initialize 'target' environment for this compilation
-   //
-   void initializeTargetEnvironment();
-
-   };
-
+  // Initialize 'target' environment for this compilation
+  //
+  void initializeTargetEnvironment();
+};
 }
-
 }
 
 #endif

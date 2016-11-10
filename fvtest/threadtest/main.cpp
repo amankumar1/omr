@@ -17,18 +17,17 @@
  *******************************************************************************/
 
 #include "omrTest.h"
-#include "thread_api.h"
 #include "testHelper.hpp"
+#include "thread_api.h"
 
 ThreadTestEnvironment *omrTestEnv;
 
-extern "C" int
-testMain(int argc, char **argv, char **envp)
-{
-	::testing::InitGoogleTest(&argc, argv);
-	ATTACH_J9THREAD();
-	omrTestEnv = (ThreadTestEnvironment *)testing::AddGlobalTestEnvironment(new ThreadTestEnvironment(argc, argv));
-	int rc = RUN_ALL_TESTS();
-	DETACH_J9THREAD();
-	return rc;
+extern "C" int testMain(int argc, char **argv, char **envp) {
+  ::testing::InitGoogleTest(&argc, argv);
+  ATTACH_J9THREAD();
+  omrTestEnv = (ThreadTestEnvironment *)testing::AddGlobalTestEnvironment(
+      new ThreadTestEnvironment(argc, argv));
+  int rc = RUN_ALL_TESTS();
+  DETACH_J9THREAD();
+  return rc;
 }

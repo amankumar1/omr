@@ -20,16 +20,21 @@
 #define OMR_METHOD_METADATAPOD_INCL
 
 /*
- * The following #define(s) and typedef(s) must appear before any #includes in this file
+ * The following #define(s) and typedef(s) must appear before any #includes in
+ * this file
  */
 #ifndef OMR_METHOD_METADATAPOD_CONNECTOR
 #define OMR_METHOD_METADATAPOD_CONNECTOR
-namespace OMR { struct MethodMetaDataPOD; }
-namespace OMR { typedef OMR::MethodMetaDataPOD MethodMetaDataPODConnector; }
+namespace OMR {
+struct MethodMetaDataPOD;
+}
+namespace OMR {
+typedef OMR::MethodMetaDataPOD MethodMetaDataPODConnector;
+}
 #endif
 
-#include <stdint.h>               // for uintptr_t
-#include "infra/Annotations.hpp"  // for OMR_EXTENSIBLE
+#include <stdint.h>              // for uintptr_t
+#include "infra/Annotations.hpp" // for OMR_EXTENSIBLE
 
 /*
  * This structure describes the shape of the method meta data information.
@@ -39,14 +44,11 @@ namespace OMR { typedef OMR::MethodMetaDataPOD MethodMetaDataPODConnector; }
  *
  */
 
-namespace OMR
-{
+namespace OMR {
 
-struct OMR_EXTENSIBLE MethodMetaDataPOD
-   {
-   uintptr_t startPC;
-   uintptr_t endPC;
-
+struct OMR_EXTENSIBLE MethodMetaDataPOD {
+  uintptr_t startPC;
+  uintptr_t endPC;
 
 #if 0
 #if defined(RAS_EYECATCHERS)
@@ -87,8 +89,7 @@ struct OMR_EXTENSIBLE MethodMetaDataPOD
     UDATA codeCacheAlloc;
     void* gpuCode;
 #endif
-   };
-
+};
 }
 
 #endif

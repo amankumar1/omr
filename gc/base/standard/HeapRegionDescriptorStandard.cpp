@@ -23,44 +23,48 @@
 #include "EnvironmentStandard.hpp"
 #include "HeapRegionDescriptorStandard.hpp"
 
-MM_HeapRegionDescriptorStandard::MM_HeapRegionDescriptorStandard(MM_EnvironmentStandard *env, void *lowAddress, void *highAddress)
-	: MM_HeapRegionDescriptor(env, lowAddress, highAddress)
-{
-	_typeId = __FUNCTION__;
+MM_HeapRegionDescriptorStandard::MM_HeapRegionDescriptorStandard(
+    MM_EnvironmentStandard *env, void *lowAddress, void *highAddress)
+    : MM_HeapRegionDescriptor(env, lowAddress, highAddress) {
+  _typeId = __FUNCTION__;
 }
 
-bool 
-MM_HeapRegionDescriptorStandard::initialize(MM_EnvironmentBase *envBase, MM_HeapRegionManager *regionManager)
-{
-	MM_EnvironmentStandard *env =  MM_EnvironmentStandard::getEnvironment(envBase);
+bool MM_HeapRegionDescriptorStandard::initialize(
+    MM_EnvironmentBase *envBase, MM_HeapRegionManager *regionManager) {
+  MM_EnvironmentStandard *env = MM_EnvironmentStandard::getEnvironment(envBase);
 
-	if (!MM_HeapRegionDescriptor::initialize(env, regionManager)) {
-		return false;
-	}
+  if (!MM_HeapRegionDescriptor::initialize(env, regionManager)) {
+    return false;
+  }
 
-	MM_CollectorLanguageInterface *cli = MM_GCExtensionsBase::getExtensions(env->getOmrVM())->collectorLanguageInterface;
-	return cli->collectorHeapRegionDescriptorInitialize(env, this);
+  MM_CollectorLanguageInterface *cli =
+      MM_GCExtensionsBase::getExtensions(env->getOmrVM())
+          ->collectorLanguageInterface;
+  return cli->collectorHeapRegionDescriptorInitialize(env, this);
 }
 
-void 
-MM_HeapRegionDescriptorStandard::tearDown(MM_EnvironmentBase *env)
-{
-	MM_CollectorLanguageInterface *cli = MM_GCExtensionsBase::getExtensions(env->getOmrVM())->collectorLanguageInterface;
-	cli->collectorHeapRegionDescriptorTearDown(env, this);
+void MM_HeapRegionDescriptorStandard::tearDown(MM_EnvironmentBase *env) {
+  MM_CollectorLanguageInterface *cli =
+      MM_GCExtensionsBase::getExtensions(env->getOmrVM())
+          ->collectorLanguageInterface;
+  cli->collectorHeapRegionDescriptorTearDown(env, this);
 
-	MM_HeapRegionDescriptor::tearDown(env);
+  MM_HeapRegionDescriptor::tearDown(env);
 }
 
-bool 
-MM_HeapRegionDescriptorStandard::initializer(MM_EnvironmentBase *env, MM_HeapRegionManager *regionManager, MM_HeapRegionDescriptor *descriptor, void *lowAddress, void *highAddress)
-{
-	new((MM_HeapRegionDescriptorStandard*)descriptor) MM_HeapRegionDescriptorStandard((MM_EnvironmentStandard*)env, lowAddress, highAddress);
-	return ((MM_HeapRegionDescriptorStandard*)descriptor)->initialize(env, regionManager);
+bool MM_HeapRegionDescriptorStandard::initializer(
+    MM_EnvironmentBase *env, MM_HeapRegionManager *regionManager,
+    MM_HeapRegionDescriptor *descriptor, void *lowAddress, void *highAddress) {
+  new ((MM_HeapRegionDescriptorStandard *)descriptor)
+      MM_HeapRegionDescriptorStandard((MM_EnvironmentStandard *)env, lowAddress,
+                                      highAddress);
+  return ((MM_HeapRegionDescriptorStandard *)descriptor)
+      ->initialize(env, regionManager);
 }
 
-void 
-MM_HeapRegionDescriptorStandard::destructor(MM_EnvironmentBase *env, MM_HeapRegionManager *regionManager, MM_HeapRegionDescriptor *descriptor)
-{
-	((MM_HeapRegionDescriptorStandard*)descriptor)->tearDown((MM_EnvironmentStandard*)env);
+void MM_HeapRegionDescriptorStandard::destructor(
+    MM_EnvironmentBase *env, MM_HeapRegionManager *regionManager,
+    MM_HeapRegionDescriptor *descriptor) {
+  ((MM_HeapRegionDescriptorStandard *)descriptor)
+      ->tearDown((MM_EnvironmentStandard *)env);
 }
-

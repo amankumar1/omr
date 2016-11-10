@@ -29,12 +29,10 @@
 /**
  * Return the next slot in the pool.
  */
-void **
-GC_PoolIterator::nextSlot()
-{
-	void **value = _nextValue;
-	if (value) {
-		_nextValue = (void **)pool_nextDo(&_state);
-	} 
-	return value;
+void **GC_PoolIterator::nextSlot() {
+  void **value = _nextValue;
+  if (value) {
+    _nextValue = (void **)pool_nextDo(&_state);
+  }
+  return value;
 }

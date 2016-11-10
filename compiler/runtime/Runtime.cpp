@@ -20,33 +20,29 @@
 
 TR_RuntimeHelperTable runtimeHelpers;
 
-#if (defined(__IBMCPP__) || defined(__IBMC__) && !defined(MVS)) && !defined(LINUXPPC64)
- #if defined(AIXPPC)
-  #define JIT_HELPER(x) extern "C" void *x
- #else
-  #define JIT_HELPER(x) extern "C" __cdecl x()
- #endif
+#if (defined(__IBMCPP__) || defined(__IBMC__) && !defined(MVS)) &&             \
+    !defined(LINUXPPC64)
+#if defined(AIXPPC)
+#define JIT_HELPER(x) extern "C" void *x
 #else
- #if defined(LINUXPPC64)
-  #define JIT_HELPER(x) extern "C" void *x
- #elif defined(LINUX)
-  #define JIT_HELPER(x) extern "C" void x()
- #else
-  #define JIT_HELPER(x) extern "C" x()
- #endif
+#define JIT_HELPER(x) extern "C" __cdecl x()
+#endif
+#else
+#if defined(LINUXPPC64)
+#define JIT_HELPER(x) extern "C" void *x
+#elif defined(LINUX)
+#define JIT_HELPER(x) extern "C" void x()
+#else
+#define JIT_HELPER(x) extern "C" x()
+#endif
 #endif
 
-extern "C" void *PyTuple_GetItem(void*,int);
+extern "C" void *PyTuple_GetItem(void *, int);
 
-void
-TR_RuntimeHelperTable::setAddress(TR_RuntimeHelper h, void *a)
-   {
-   _helpers[h] = a;
-   }
+void TR_RuntimeHelperTable::setAddress(TR_RuntimeHelper h, void *a) {
+  _helpers[h] = a;
+}
 
-void
-initializeJitRuntimeHelperTable(char isSMP)
-   {
-   //runtimeHelpers.setAddress(PyHelper_TupleGetItem,                    (void*)PyTuple_GetItem);
-   }
-
+void initializeJitRuntimeHelperTable(char isSMP) {
+  // runtimeHelpers.setAddress(PyHelper_TupleGetItem, (void*)PyTuple_GetItem);
+}

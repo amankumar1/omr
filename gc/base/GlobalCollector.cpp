@@ -20,22 +20,17 @@
 
 #include "CollectorLanguageInterface.hpp"
 
-void
-MM_GlobalCollector::internalPostCollect(MM_EnvironmentBase* env, MM_MemorySubSpace* subSpace)
-{
-	_cli->globalCollector_internalPostCollect(env, subSpace);
+void MM_GlobalCollector::internalPostCollect(MM_EnvironmentBase *env,
+                                             MM_MemorySubSpace *subSpace) {
+  _cli->globalCollector_internalPostCollect(env, subSpace);
 }
 
-bool
-MM_GlobalCollector::isTimeForGlobalGCKickoff()
-{
-	return _cli->globalCollector_isTimeForGlobalGCKickoff();
+bool MM_GlobalCollector::isTimeForGlobalGCKickoff() {
+  return _cli->globalCollector_isTimeForGlobalGCKickoff();
 }
 
 /**
  * Abort any currently active garbage collection activity.
  */
-void
-MM_GlobalCollector::abortCollection(MM_EnvironmentBase* env, CollectionAbortReason reason)
-{
-}
+void MM_GlobalCollector::abortCollection(MM_EnvironmentBase *env,
+                                         CollectionAbortReason reason) {}

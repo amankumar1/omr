@@ -21,24 +21,26 @@
 
 #include "x/codegen/DataSnippet.hpp"
 
-#include <stdint.h>                   // for uint8_t
-#include "codegen/Snippet.hpp"        // for TR::X86Snippet::Kind, etc
+#include <stdint.h>            // for uint8_t
+#include "codegen/Snippet.hpp" // for TR::X86Snippet::Kind, etc
 
-namespace TR { class CodeGenerator; }
-namespace TR { class Node; }
+namespace TR {
+class CodeGenerator;
+}
+namespace TR {
+class Node;
+}
 
 namespace TR {
 
-class IA32ConstantDataSnippet : public TR::IA32DataSnippet
-   {
-   public:
+class IA32ConstantDataSnippet : public TR::IA32DataSnippet {
+public:
+  IA32ConstantDataSnippet(TR::CodeGenerator *cg, TR::Node *, void *c,
+                          uint8_t size);
 
-   IA32ConstantDataSnippet(TR::CodeGenerator *cg, TR::Node *, void *c, uint8_t size);
-
-   virtual Kind getKind() { return IsConstantData; }
-   uint8_t getConstantSize()  { return getDataSize(); }
-   };
-
+  virtual Kind getKind() { return IsConstantData; }
+  uint8_t getConstantSize() { return getDataSize(); }
+};
 }
 
 #endif

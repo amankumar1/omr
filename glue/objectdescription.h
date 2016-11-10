@@ -29,11 +29,11 @@
 
 #error Please specify the size of object related pointers (defaults may ok)
 
-typedef uintptr_t* languageobjectptr_t;
-typedef uintptr_t* omrobjectptr_t;
-typedef uintptr_t* omrarrayptr_t;
+typedef uintptr_t *languageobjectptr_t;
+typedef uintptr_t *omrobjectptr_t;
+typedef uintptr_t *omrarrayptr_t;
 
-#if defined (OMR_GC_COMPRESSED_POINTERS)
+#if defined(OMR_GC_COMPRESSED_POINTERS)
 typedef uint32_t fomrobject_t;
 typedef uint32_t fomrarray_t;
 #else

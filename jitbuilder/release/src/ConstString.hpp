@@ -16,21 +16,21 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  ******************************************************************************/
 
-
 #ifndef CONSTSTRING_INCL
 #define CONSTSTRING_INCL
 
 #include "ilgen/MethodBuilder.hpp"
 
-namespace TR { class TypeDictionary; }
+namespace TR {
+class TypeDictionary;
+}
 
-typedef void (ConstStringFunctionType)();
+typedef void(ConstStringFunctionType)();
 
-class ConstStringMethod : public TR::MethodBuilder
-   {
-   public:
-   ConstStringMethod(TR::TypeDictionary *);
-   virtual bool buildIL();
-   };
+class ConstStringMethod : public TR::MethodBuilder {
+public:
+  ConstStringMethod(TR::TypeDictionary *);
+  virtual bool buildIL();
+};
 
 #endif // !defined(CONSTSTRING_INCL)

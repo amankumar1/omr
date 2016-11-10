@@ -1,0 +1,16 @@
+---
+Language:        Cpp
+# BasedOnStyle:  LLVM
+IncludeCategories:
+  - Regex: '^"omrcfg\.h"$'
+    Priority: -1
+  - Regex: '^"\.*"$'
+    Priority: 2
+  - Regex: '^<.*>$'
+    Priority: 3
+  - Regex: '^(<|").*\.inc("|>)$'
+    Priority: 4
+SortIncludes:    true
+Standard:        Cpp11
+...
+

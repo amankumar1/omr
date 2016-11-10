@@ -16,21 +16,21 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  ******************************************************************************/
 
-
 #ifndef ITERATIVEFIB_INCL
 #define ITERATIVEFIB_INCL
 
 #include "ilgen/MethodBuilder.hpp"
 
-namespace TR { class TypeDictionary; }
+namespace TR {
+class TypeDictionary;
+}
 
-typedef int32_t (IterativeFibFunctionType)(int32_t);
+typedef int32_t(IterativeFibFunctionType)(int32_t);
 
-class IterativeFibonnaciMethod : public TR::MethodBuilder
-   {
-   public:
-   IterativeFibonnaciMethod(TR::TypeDictionary *types);
-   virtual bool buildIL();
-   };
+class IterativeFibonnaciMethod : public TR::MethodBuilder {
+public:
+  IterativeFibonnaciMethod(TR::TypeDictionary *types);
+  virtual bool buildIL();
+};
 
 #endif // !defined(ITERATIVEFIB_INCL)

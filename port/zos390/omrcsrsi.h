@@ -13,7 +13,8 @@
  *      http://www.opensource.org/licenses/apache2.0.php
  *
  * Contributors:
- *    Multiple authors (IBM Corp.) - initial API and implementation and/or initial documentation
+ *    Multiple authors (IBM Corp.) - initial API and implementation and/or
+ *initial documentation
  *******************************************************************************/
 #ifndef OMRCSRSI_H_
 #define OMRCSRSI_H_
@@ -69,7 +70,7 @@ BOOLEAN j9csrsi_is_vmh(const j9csrsi_t *session);
  *  of chars written to buf. Any other return value indicates an error.
  */
 int32_t j9csrsi_get_vmhpidentifier(const j9csrsi_t *session, uint32_t position,
-								   char *buf, uint32_t len);
+                                   char *buf, uint32_t len);
 
 /** Get cpctype (i.e., hw model number)
  *  @param[in] session Pointer to j9csrsi session
@@ -80,8 +81,6 @@ int32_t j9csrsi_get_vmhpidentifier(const j9csrsi_t *session, uint32_t position,
  *  @return A number greater than 0 in case of success. This is the number
  *  of chars written to buf. Any other return value indicates an error.
  */
-int32_t j9csrsi_get_cpctype(const j9csrsi_t *session, char *buf,
-							uint32_t len);
+int32_t j9csrsi_get_cpctype(const j9csrsi_t *session, char *buf, uint32_t len);
 
 #endif /* OMRCSRSI_H_ */
-

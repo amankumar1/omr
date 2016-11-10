@@ -13,17 +13,18 @@
  *      http://www.opensource.org/licenses/apache2.0.php
  *
  * Contributors:
- *    Multiple authors (IBM Corp.) - initial API and implementation and/or initial documentation
+ *    Multiple authors (IBM Corp.) - initial API and implementation and/or
+ *initial documentation
  *******************************************************************************/
 
 #ifndef _PREFIXPATH_
 #define _PREFIXPATH_
 /* Insert a prefix (COMPILER_HEADER_PATH_PREFIX) before the path */
 #ifndef COMPILER_HEADER_PATH_PREFIX
-#define COMPILER_HEADER_PATH_PREFIX /usr/include
+#define COMPILER_HEADER_PATH_PREFIX / usr / include
 #endif
 #define STR2(x) <##x##>
 /* Need to do double indirection to force the macro to be expanded */
 #define STR(x) STR2(x)
-#define PREFIXPATH(h) STR(COMPILER_HEADER_PATH_PREFIX/h)
+#define PREFIXPATH(h) STR(COMPILER_HEADER_PATH_PREFIX / h)
 #endif

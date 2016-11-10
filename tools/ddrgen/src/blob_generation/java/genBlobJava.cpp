@@ -22,26 +22,26 @@
 
 #include <stdio.h>
 
-#include "genBlob.hpp"
 #include "genBinaryBlob.hpp"
+#include "genBlob.hpp"
 #include "genSuperset.hpp"
 
 DDR_RC
-genBlob(struct OMRPortLibrary *portLibrary, Symbol_IR *const ir, const char *supersetFile, const char *blobFile)
-{
-	JavaSupersetGenerator supersetGenerator;
-	DDR_RC rc = supersetGenerator.printSuperset(portLibrary, ir, supersetFile);
+genBlob(struct OMRPortLibrary *portLibrary, Symbol_IR *const ir,
+        const char *supersetFile, const char *blobFile) {
+  JavaSupersetGenerator supersetGenerator;
+  DDR_RC rc = supersetGenerator.printSuperset(portLibrary, ir, supersetFile);
 
-	if (DDR_RC_OK == rc) {
-		printf("Superset written to file: %s\n", supersetFile);
+  if (DDR_RC_OK == rc) {
+    printf("Superset written to file: %s\n", supersetFile);
 
-		JavaBlobGenerator blobGenerator;
-		rc = blobGenerator.genBinaryBlob(portLibrary, ir, blobFile);
-	}
+    JavaBlobGenerator blobGenerator;
+    rc = blobGenerator.genBinaryBlob(portLibrary, ir, blobFile);
+  }
 
-	if (DDR_RC_OK == rc) {
-		printf("Blob written to file: %s\n", blobFile);
-	}
+  if (DDR_RC_OK == rc) {
+    printf("Blob written to file: %s\n", blobFile);
+  }
 
-	return rc;
+  return rc;
 }

@@ -13,36 +13,37 @@
  *      http://www.opensource.org/licenses/apache2.0.php
  *
  * Contributors:
- *    Multiple authors (IBM Corp.) - initial API and implementation and/or initial documentation
+ *    Multiple authors (IBM Corp.) - initial API and implementation and/or
+ *initial documentation
  *******************************************************************************/
 
 #include "omrportptb.h"
-
 
 /**
  * @internal
  * @brief  Per Thread Buffer Support
  *
- * Free all memory associated with a per thread buffer, including any memory it may
+ * Free all memory associated with a per thread buffer, including any memory it
+ * may
  * have allocated.
  *
  * @param[in] portLibrary The port library.
- * @param[in] ptBuffers pointer to the PortlibPTBuffers struct that contains the buffers
+ * @param[in] ptBuffers pointer to the PortlibPTBuffers struct that contains the
+ * buffers
  */
-void
-omrport_free_ptBuffer(struct OMRPortLibrary *portLibrary, PortlibPTBuffers_t ptBuffer)
-{
-	if (NULL != ptBuffer) {
-		if (NULL != ptBuffer->errorMessageBuffer) {
-			portLibrary->mem_free_memory(portLibrary, ptBuffer->errorMessageBuffer);
-			ptBuffer->errorMessageBufferSize = 0;
-		}
-		if (NULL != ptBuffer->reportedMessageBuffer) {
-			portLibrary->mem_free_memory(portLibrary, ptBuffer->reportedMessageBuffer);
-			ptBuffer->reportedMessageBufferSize = 0;
-		}
+void omrport_free_ptBuffer(struct OMRPortLibrary *portLibrary,
+                           PortlibPTBuffers_t ptBuffer) {
+  if (NULL != ptBuffer) {
+    if (NULL != ptBuffer->errorMessageBuffer) {
+      portLibrary->mem_free_memory(portLibrary, ptBuffer->errorMessageBuffer);
+      ptBuffer->errorMessageBufferSize = 0;
+    }
+    if (NULL != ptBuffer->reportedMessageBuffer) {
+      portLibrary->mem_free_memory(portLibrary,
+                                   ptBuffer->reportedMessageBuffer);
+      ptBuffer->reportedMessageBufferSize = 0;
+    }
 
-		portLibrary->mem_free_memory(portLibrary, ptBuffer);
-	}
+    portLibrary->mem_free_memory(portLibrary, ptBuffer);
+  }
 }
-

@@ -18,23 +18,20 @@
 
 #include "ilgen/IlInjector.hpp"
 
-namespace TR { class TypeDictionary; }
+namespace TR {
+class TypeDictionary;
+}
 
-namespace TestCompiler
-{
-class SimplifierFoldAndIlInjector : public TR::IlInjector
-   {
-   public:
+namespace TestCompiler {
+class SimplifierFoldAndIlInjector : public TR::IlInjector {
+public:
+  TR_ALLOC(TR_Memory::IlGenerator)
 
-   TR_ALLOC(TR_Memory::IlGenerator)
+  SimplifierFoldAndIlInjector(TR::TypeDictionary *types, TestDriver *test)
+      : TR::IlInjector(types, test) {
+    // Void
+  }
 
-   SimplifierFoldAndIlInjector(TR::TypeDictionary* types, TestDriver* test)
-   :
-      TR::IlInjector(types, test)
-      {
-      // Void
-      }
-
-   bool injectIL();
-   };
+  bool injectIL();
+};
 }

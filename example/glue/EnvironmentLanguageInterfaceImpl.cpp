@@ -16,98 +16,81 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-#include "Collector.hpp"
 #include "EnvironmentLanguageInterfaceImpl.hpp"
+#include "Collector.hpp"
 #include "EnvironmentStandard.hpp"
 #include "Forge.hpp"
 #include "GCExtensionsBase.hpp"
 
-
-MM_EnvironmentLanguageInterfaceImpl::MM_EnvironmentLanguageInterfaceImpl(MM_EnvironmentBase *env)
-	: MM_EnvironmentLanguageInterface(env)
-{
-	_typeId = __FUNCTION__;
+MM_EnvironmentLanguageInterfaceImpl::MM_EnvironmentLanguageInterfaceImpl(
+    MM_EnvironmentBase *env)
+    : MM_EnvironmentLanguageInterface(env) {
+  _typeId = __FUNCTION__;
 };
 
 MM_EnvironmentLanguageInterfaceImpl *
-MM_EnvironmentLanguageInterfaceImpl::newInstance(MM_EnvironmentBase *env)
-{
-	MM_EnvironmentLanguageInterfaceImpl *eli = NULL;
+MM_EnvironmentLanguageInterfaceImpl::newInstance(MM_EnvironmentBase *env) {
+  MM_EnvironmentLanguageInterfaceImpl *eli = NULL;
 
-	eli = (MM_EnvironmentLanguageInterfaceImpl *)env->getForge()->allocate(sizeof(MM_EnvironmentLanguageInterfaceImpl), MM_AllocationCategory::FIXED, OMR_GET_CALLSITE());
-	if (NULL != eli ) {
-		new(eli) MM_EnvironmentLanguageInterfaceImpl(env);
-		if (!eli ->initialize(env)) {
-			eli->kill(env);
-			eli = NULL;
-		}
-	}
+  eli = (MM_EnvironmentLanguageInterfaceImpl *)env->getForge()->allocate(
+      sizeof(MM_EnvironmentLanguageInterfaceImpl), MM_AllocationCategory::FIXED,
+      OMR_GET_CALLSITE());
+  if (NULL != eli) {
+    new (eli) MM_EnvironmentLanguageInterfaceImpl(env);
+    if (!eli->initialize(env)) {
+      eli->kill(env);
+      eli = NULL;
+    }
+  }
 
-	return eli;
+  return eli;
 }
 
-void
-MM_EnvironmentLanguageInterfaceImpl::kill(MM_EnvironmentBase *env)
-{
-	tearDown(env);
-	env->getForge()->free(this);
+void MM_EnvironmentLanguageInterfaceImpl::kill(MM_EnvironmentBase *env) {
+  tearDown(env);
+  env->getForge()->free(this);
 }
 
 /**
  * Initialize the collector's internal structures and values.
  * @return true if initialization completed, false otherwise
  */
-bool
-MM_EnvironmentLanguageInterfaceImpl::initialize(MM_EnvironmentBase *env)
-{
-	return true;
+bool MM_EnvironmentLanguageInterfaceImpl::initialize(MM_EnvironmentBase *env) {
+  return true;
 }
 
 /**
  * Free any internal structures associated to the receiver.
  */
-void
-MM_EnvironmentLanguageInterfaceImpl::tearDown(MM_EnvironmentBase *env)
-{
-}
+void MM_EnvironmentLanguageInterfaceImpl::tearDown(MM_EnvironmentBase *env) {}
 
-#if defined (OMR_GC_THREAD_LOCAL_HEAP)
+#if defined(OMR_GC_THREAD_LOCAL_HEAP)
 /**
  * Disable inline TLH allocates by hiding the real heap allocation address from
  * JIT/Interpreter in realHeapAlloc and setting heapALloc == HeapTop so TLH
  * looks full.
  *
  */
-void
-MM_EnvironmentLanguageInterfaceImpl::disableInlineTLHAllocate()
-{
-}
+void MM_EnvironmentLanguageInterfaceImpl::disableInlineTLHAllocate() {}
 
 /**
  * Re-enable inline TLH allocate by restoring heapAlloc from realHeapAlloc
  */
-void
-MM_EnvironmentLanguageInterfaceImpl::enableInlineTLHAllocate()
-{
-}
+void MM_EnvironmentLanguageInterfaceImpl::enableInlineTLHAllocate() {}
 
 /**
- * Determine if inline TLH allocate is enabled; its enabled if realheapAlloc is NULL.
- * @return TRUE if inline TLH allocates currently enabled for this thread; FALSE otheriwse
+ * Determine if inline TLH allocate is enabled; its enabled if realheapAlloc is
+ * NULL.
+ * @return TRUE if inline TLH allocates currently enabled for this thread; FALSE
+ * otheriwse
  */
-bool
-MM_EnvironmentLanguageInterfaceImpl::isInlineTLHAllocateEnabled()
-{
-	return false;
+bool MM_EnvironmentLanguageInterfaceImpl::isInlineTLHAllocateEnabled() {
+  return false;
 }
 #endif /* OMR_GC_THREAD_LOCAL_HEAP */
 
-void
-MM_EnvironmentLanguageInterfaceImpl::parallelMarkTask_setup(MM_EnvironmentBase *env)
-{
-}
+void MM_EnvironmentLanguageInterfaceImpl::parallelMarkTask_setup(
+    MM_EnvironmentBase *env) {}
 
-void
-MM_EnvironmentLanguageInterfaceImpl::parallelMarkTask_cleanup(MM_EnvironmentBase *envBase)
-{
-}
+void MM_EnvironmentLanguageInterfaceImpl::parallelMarkTask_cleanup(
+    MM_EnvironmentBase *envBase) {}

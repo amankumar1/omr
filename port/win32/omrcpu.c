@@ -13,7 +13,8 @@
  *      http://www.opensource.org/licenses/apache2.0.php
  *
  * Contributors:
- *    Multiple authors (IBM Corp.) - initial API and implementation and/or initial documentation
+ *    Multiple authors (IBM Corp.) - initial API and implementation and/or
+ *initial documentation
  *******************************************************************************/
 
 /**
@@ -24,45 +25,40 @@
  * Functions setting CPU attributes.
  */
 
-
 #include <windows.h>
 #include "omrport.h"
-
 
 /**
  * PortLibrary startup.
  *
- * This function is called during startup of the portLibrary.  Any resources that are required for
- * the exit operations may be created here.  All resources created here should be destroyed
+ * This function is called during startup of the portLibrary.  Any resources
+ * that are required for
+ * the exit operations may be created here.  All resources created here should
+ * be destroyed
  * in @ref omrcpu_shutdown.
  *
  * @param[in] portLibrary The port library
  *
- * @return 0 on success, negative error code on failure.  Error code values returned are
+ * @return 0 on success, negative error code on failure.  Error code values
+ * returned are
  * \arg OMRPORT_ERROR_STARTUP_CPU
  *
  * @note Most implementations will simply return success.
  */
-int32_t
-omrcpu_startup(struct OMRPortLibrary *portLibrary)
-{
-	return 0;
-}
+int32_t omrcpu_startup(struct OMRPortLibrary *portLibrary) { return 0; }
 
 /**
  * PortLibrary shutdown.
  *
- * This function is called during shutdown of the portLibrary.  Any resources that were created by @ref omrcpu_startup
+ * This function is called during shutdown of the portLibrary.  Any resources
+ * that were created by @ref omrcpu_startup
  * should be destroyed here.
  *
  * @param[in] portLibrary The port library
  *
  * @note Most implementations will be empty.
  */
-void
-omrcpu_shutdown(struct OMRPortLibrary *portLibrary)
-{
-}
+void omrcpu_shutdown(struct OMRPortLibrary *portLibrary) {}
 
 /**
  * @brief CPU Control operations.
@@ -73,16 +69,12 @@ omrcpu_shutdown(struct OMRPortLibrary *portLibrary)
  * @param[in] memoryPointer The base address of memory to flush.
  * @param[in] byteAmount Number of bytes to flush.
  */
-void
-omrcpu_flush_icache(struct OMRPortLibrary *portLibrary, void *memoryPointer, uintptr_t byteAmount)
-{
-	FlushInstructionCache(GetCurrentProcess(), memoryPointer, byteAmount);
+void omrcpu_flush_icache(struct OMRPortLibrary *portLibrary,
+                         void *memoryPointer, uintptr_t byteAmount) {
+  FlushInstructionCache(GetCurrentProcess(), memoryPointer, byteAmount);
 }
 
-int32_t
-omrcpu_get_cache_line_size(struct OMRPortLibrary *portLibrary, int32_t *lineSize)
-{
-	return OMRPORT_ERROR_NOT_SUPPORTED_ON_THIS_PLATFORM;
+int32_t omrcpu_get_cache_line_size(struct OMRPortLibrary *portLibrary,
+                                   int32_t *lineSize) {
+  return OMRPORT_ERROR_NOT_SUPPORTED_ON_THIS_PLATFORM;
 }
-
-

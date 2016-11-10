@@ -16,12 +16,11 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-
 #ifndef THREADTESTHELP_H_INCLUDED
 #define THREADTESTHELP_H_INCLUDED
 
-#include <stdio.h>
 #include <stdint.h>
+#include <stdio.h>
 
 #include "omrTest.h"
 #include "thread_api.h"
@@ -30,16 +29,18 @@
 extern "C" {
 #endif /* defined(__cplusplus) */
 
-#define VERBOSE_JOIN(_threadToJoin, _expectedRc) \
-	do { \
-		intptr_t _rc = 0; \
-		EXPECT_EQ((_expectedRc), _rc = omrthread_join(_threadToJoin)); \
-		if (_rc & J9THREAD_ERR_OS_ERRNO_SET) { \
-			printf("omrthread_join() returned os_errno=%d\n", (int)omrthread_get_os_errno()); \
-		} \
-	} while(0)
+#define VERBOSE_JOIN(_threadToJoin, _expectedRc)                               \
+  do {                                                                         \
+    intptr_t _rc = 0;                                                          \
+    EXPECT_EQ((_expectedRc), _rc = omrthread_join(_threadToJoin));             \
+    if (_rc & J9THREAD_ERR_OS_ERRNO_SET) {                                     \
+      printf("omrthread_join() returned os_errno=%d\n",                        \
+             (int)omrthread_get_os_errno());                                   \
+    }                                                                          \
+  } while (0)
 
-void createJoinableThread(omrthread_t *newThread, omrthread_entrypoint_t entryProc, void *entryArg);
+void createJoinableThread(omrthread_t *newThread,
+                          omrthread_entrypoint_t entryProc, void *entryArg);
 
 #if defined(__cplusplus)
 }

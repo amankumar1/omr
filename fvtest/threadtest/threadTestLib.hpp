@@ -16,30 +16,28 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-
 #ifndef THREADTESTLIB_HPP_INCLUDED
 #define THREADTESTLIB_HPP_INCLUDED
 
-#include <stdio.h>
 #include <assert.h>
+#include <stdio.h>
 
 #include "omrcfg.h"
+#include "common/threaddef.h"
 #include "omrthread.h"
 #include "thrtypes.h"
-#include "common/threaddef.h"
 
 class CThread;
 class CMonitor;
 class CRWMutex;
 
-#include "DbgMsg.hpp"
-#include "CThread.hpp"
-#include "CMonitor.hpp"
 #include "CEnterExit.hpp"
 #include "CEnterExitLooper.hpp"
+#include "CMonitor.hpp"
 #include "CNotifier.hpp"
+#include "CThread.hpp"
 #include "CWaitNotifyLooper.hpp"
 #include "CWaiter.hpp"
+#include "DbgMsg.hpp"
 
 #endif /* THREADTESTLIB_HPP_INCLUDED */
-

@@ -18,4 +18,4 @@
 
 #include "Members.hpp"
 
-Members::~Members() {};
+Members::~Members(){};

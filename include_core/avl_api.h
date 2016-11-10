@@ -28,9 +28,9 @@
 *
 */
 
-#include "omrport.h"
-#include "omravldefines.h"
 #include "omravl.h"
+#include "omravldefines.h"
+#include "omrport.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -44,9 +44,7 @@ extern "C" {
 * @param *nodeToDelete
 * @return J9AVLTreeNode *
 */
-J9AVLTreeNode *
-avl_delete(J9AVLTree *tree, J9AVLTreeNode *nodeToDelete);
-
+J9AVLTreeNode *avl_delete(J9AVLTree *tree, J9AVLTreeNode *nodeToDelete);
 
 /**
 * @brief
@@ -54,9 +52,7 @@ avl_delete(J9AVLTree *tree, J9AVLTreeNode *nodeToDelete);
 * @param *nodeToInsert
 * @return J9AVLTreeNode *
 */
-J9AVLTreeNode *
-avl_insert(J9AVLTree *tree, J9AVLTreeNode *nodeToInsert);
-
+J9AVLTreeNode *avl_insert(J9AVLTree *tree, J9AVLTreeNode *nodeToInsert);
 
 /**
 * @brief
@@ -64,9 +60,7 @@ avl_insert(J9AVLTree *tree, J9AVLTreeNode *nodeToInsert);
 * @param searchValue
 * @return J9AVLTreeNode *
 */
-J9AVLTreeNode *
-avl_search(J9AVLTree *tree, uintptr_t searchValue);
-
+J9AVLTreeNode *avl_search(J9AVLTree *tree, uintptr_t searchValue);
 
 #ifdef __cplusplus
 }

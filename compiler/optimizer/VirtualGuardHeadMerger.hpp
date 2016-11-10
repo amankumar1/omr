@@ -19,27 +19,26 @@
 #ifndef VIRTUALGUARDHEADMERGER_INCL
 #define VIRTUALGUARDHEADMERGER_INCL
 
-#include <stdint.h>                           // for int32_t
-#include "optimizer/Optimization.hpp"         // for Optimization
-#include "optimizer/OptimizationManager.hpp"  // for OptimizationManager
+#include <stdint.h>                          // for int32_t
+#include "optimizer/Optimization.hpp"        // for Optimization
+#include "optimizer/OptimizationManager.hpp" // for OptimizationManager
 
-namespace TR { class Block; }
+namespace TR {
+class Block;
+}
 
-class TR_VirtualGuardHeadMerger : public TR::Optimization
-   {
-   public:
-   TR_VirtualGuardHeadMerger(TR::OptimizationManager *manager)
-      : TR::Optimization(manager)
-      {}
-   static TR::Optimization *create(TR::OptimizationManager *manager)
-      {
-      return new (manager->allocator()) TR_VirtualGuardHeadMerger(manager);
-      }
+class TR_VirtualGuardHeadMerger : public TR::Optimization {
+public:
+  TR_VirtualGuardHeadMerger(TR::OptimizationManager *manager)
+      : TR::Optimization(manager) {}
+  static TR::Optimization *create(TR::OptimizationManager *manager) {
+    return new (manager->allocator()) TR_VirtualGuardHeadMerger(manager);
+  }
 
-   virtual int32_t perform();
-   private:
-   void tailSplitBlock(TR::Block * block, TR::Block * cold1);
-   };
+  virtual int32_t perform();
+
+private:
+  void tailSplitBlock(TR::Block *block, TR::Block *cold1);
+};
 
 #endif
-

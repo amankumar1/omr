@@ -19,24 +19,29 @@
 #ifndef TR_LOCALDEADSTOREELIMINATION_INCL
 #define TR_LOCALDEADSTOREELIMINATION_INCL
 
-#include <stdint.h>                           // for int32_t
-#include "env/TRMemory.hpp"                   // for Allocator, etc
-#include "cs2/tableof.h"                      // for TableOf
-#include "il/Node.hpp"                        // for vcount_t, rcount_t
+#include <stdint.h>         // for int32_t
+#include "cs2/tableof.h"    // for TableOf
+#include "env/TRMemory.hpp" // for Allocator, etc
+#include "il/Node.hpp"      // for vcount_t, rcount_t
 #include "infra/deque.hpp"
-#include "optimizer/Optimization.hpp"         // for Optimization
-#include "optimizer/OptimizationManager.hpp"  // for OptimizationManager
+#include "optimizer/Optimization.hpp"        // for Optimization
+#include "optimizer/OptimizationManager.hpp" // for OptimizationManager
 
-namespace TR { class Block; }
-namespace TR { class NodeChecklist; }
-namespace TR { class TreeTop; }
+namespace TR {
+class Block;
+}
+namespace TR {
+class NodeChecklist;
+}
+namespace TR {
+class TreeTop;
+}
 template <class T> class List;
 
 typedef TR::SparseBitVector SharedSparseBitVector;
 typedef TR::SparseBitVector SharedBitVector;
 
-namespace TR
-{
+namespace TR {
 
 /**
  * Class LocalDeadStoreElimination
@@ -53,76 +58,76 @@ namespace TR
  * use it implicitly (through aliases).
  */
 
-class LocalDeadStoreElimination : public TR::Optimization
-   {
-   public:
-   // Performs local dead store elimination within
-   // a basic block.
-   //
-   LocalDeadStoreElimination(TR::OptimizationManager *manager);
-   static TR::Optimization *create(TR::OptimizationManager *manager);
+class LocalDeadStoreElimination : public TR::Optimization {
+public:
+  // Performs local dead store elimination within
+  // a basic block.
+  //
+  LocalDeadStoreElimination(TR::OptimizationManager *manager);
+  static TR::Optimization *create(TR::OptimizationManager *manager);
 
-   virtual int32_t perform();
-   virtual int32_t performOnBlock(TR::Block *);
-   virtual void prePerformOnBlocks();
-   virtual void postPerformOnBlocks();
+  virtual int32_t perform();
+  virtual int32_t performOnBlock(TR::Block *);
+  virtual void prePerformOnBlocks();
+  virtual void postPerformOnBlocks();
 
-   protected:
+protected:
+  virtual bool isNonRemovableStore(TR::Node *storeNode,
+                                   bool &seenIdentityStore);
 
-   virtual bool isNonRemovableStore(TR::Node *storeNode, bool &seenIdentityStore);
+private:
+  struct PendingIdentityStore {
+    TR::TreeTop *treeTop;
+    TR::Node *storeNode;
+    TR::Node *loadNode;
+  };
 
-   private:
+  typedef TR::Node *StoreNode;
 
-   struct PendingIdentityStore
-      {
-      TR::TreeTop *treeTop;
-      TR::Node    *storeNode;
-      TR::Node    *loadNode;
-      };
+  typedef CS2::TableOf<PendingIdentityStore, TR::Allocator>
+      PendingIdentityStoreTable;
+  typedef TR::deque<StoreNode> StoreNodeTable;
+  typedef TR::BitVector LDSBitVector;
 
-   typedef TR::Node *StoreNode;
+  inline TR::LocalDeadStoreElimination *self();
 
-   typedef CS2::TableOf<PendingIdentityStore, TR::Allocator> PendingIdentityStoreTable;
-   typedef TR::deque<StoreNode> StoreNodeTable;
-   typedef TR::BitVector LDSBitVector;
+  bool isIdentityStore(TR::Node *);
+  void examineNode(TR::Node *, int32_t, TR::Node *, SharedBitVector &);
+  void transformBlock(TR::TreeTop *, TR::TreeTop *);
+  bool isEntireNodeRemovable(TR::Node *);
+  void setExternalReferenceCountToTree(TR::Node *node,
+                                       rcount_t *externalReferenceCount);
+  bool seenIdenticalStore(TR::Node *);
+  bool areLhsOfStoresSyntacticallyEquivalent(TR::Node *, TR::Node *);
+  void adjustStoresInfo(TR::Node *, SharedBitVector &);
+  TR::Node *getAnchorNode(TR::Node *parentNode, int32_t nodeIndex, TR::Node *,
+                          TR::TreeTop *, TR::NodeChecklist &visited);
 
-   inline TR::LocalDeadStoreElimination *self();
+  void setupReferenceCounts(TR::Node *);
+  void eliminateDeadObjectInitializations();
+  void findLocallyAllocatedObjectUses(LDSBitVector &, TR::Node *, int32_t,
+                                      TR::Node *, vcount_t);
+  bool examineNewUsesForKill(TR::Node *, TR::Node *, List<TR::Node> *,
+                             List<TR::Node> *, TR::Node *, int32_t, vcount_t);
+  void killStoreNodes(TR::Node *);
 
-   bool isIdentityStore(TR::Node *);
-   void examineNode(TR::Node *, int32_t, TR::Node *, SharedBitVector &);
-   void transformBlock(TR::TreeTop *, TR::TreeTop *);
-   bool isEntireNodeRemovable(TR::Node *);
-   void setExternalReferenceCountToTree(TR::Node *node, rcount_t *externalReferenceCount);
-    bool seenIdenticalStore(TR::Node *);
-   bool areLhsOfStoresSyntacticallyEquivalent(TR::Node *, TR::Node *);
-   void adjustStoresInfo(TR::Node *, SharedBitVector &);
-   TR::Node *getAnchorNode(TR::Node *parentNode, int32_t nodeIndex, TR::Node *, TR::TreeTop *, TR::NodeChecklist& visited);
+  TR::TreeTop *removeStoreTree(TR::TreeTop *treeTop);
 
-   void setupReferenceCounts(TR::Node *);
-   void eliminateDeadObjectInitializations();
-   void findLocallyAllocatedObjectUses(LDSBitVector &, TR::Node *, int32_t, TR::Node *, vcount_t);
-   bool examineNewUsesForKill(TR::Node *, TR::Node *, List<TR::Node> *, List<TR::Node> *, TR::Node *, int32_t, vcount_t);
-   void killStoreNodes(TR::Node *);
+  bool isFirstReferenceToNode(TR::Node *parent, int32_t index, TR::Node *node);
+  void setIsFirstReferenceToNode(TR::Node *parent, int32_t index,
+                                 TR::Node *node);
 
-   TR::TreeTop *removeStoreTree(TR::TreeTop *treeTop);
+protected:
+  TR::TreeTop *_curTree;
 
-   bool isFirstReferenceToNode(TR::Node *parent, int32_t index, TR::Node *node);
-   void setIsFirstReferenceToNode(TR::Node *parent, int32_t index, TR::Node *node);
+private:
+  StoreNodeTable *_storeNodes;
+  PendingIdentityStoreTable *_pendingIdentityStores;
 
-   protected:
-
-   TR::TreeTop                      *_curTree;
-
-   private:
-
-   StoreNodeTable                   *_storeNodes;
-   PendingIdentityStoreTable        *_pendingIdentityStores;
-
-   bool                              _blockContainsReturn;
-   bool                              _treesChanged;
-   bool                              _treesAnchored;
-   };
-
+  bool _blockContainsReturn;
+  bool _treesChanged;
+  bool _treesAnchored;
+};
 }
 
 #endif

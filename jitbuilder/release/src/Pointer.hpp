@@ -16,29 +16,28 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  ******************************************************************************/
 
-
 #ifndef POINTER_INCL
 #define POINTER_INCL
 
 #include "ilgen/MethodBuilder.hpp"
 
-namespace TR { class TypeDictionary; }
+namespace TR {
+class TypeDictionary;
+}
 
-typedef void (PointerFunctionType)(int32_t *, float *, double **);
+typedef void(PointerFunctionType)(int32_t *, float *, double **);
 
-class PointerMethod : public TR::MethodBuilder
-   {
-   private:
+class PointerMethod : public TR::MethodBuilder {
+private:
+  void PrintString(TR::IlBuilder *bldr, const char *s);
+  TR::IlType *pInt32;
+  TR::IlType *pFloat;
+  TR::IlType *pDouble;
+  TR::IlType *ppDouble;
 
-   void PrintString (TR::IlBuilder *bldr, const char *s);
-   TR::IlType *pInt32;
-   TR::IlType *pFloat;
-   TR::IlType *pDouble;
-   TR::IlType *ppDouble;
-
-   public:
-   PointerMethod(TR::TypeDictionary *);
-   virtual bool buildIL();
-   };
+public:
+  PointerMethod(TR::TypeDictionary *);
+  virtual bool buildIL();
+};
 
 #endif // !defined(POINTER_INCL)

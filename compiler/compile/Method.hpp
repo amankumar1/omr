@@ -22,5 +22,3 @@
 #include "compile/OMRMethod.hpp"
 
 #endif
-
-

@@ -13,7 +13,8 @@
  *      http://www.opensource.org/licenses/apache2.0.php
  *
  * Contributors:
- *    Multiple authors (IBM Corp.) - initial API and implementation and/or initial documentation
+ *    Multiple authors (IBM Corp.) - initial API and implementation and/or
+ *initial documentation
  *******************************************************************************/
 
 /**
@@ -22,8 +23,6 @@
  * @brief Timer utilities
  */
 #include "omrport.h"
-
-
 
 /**
  * Query OS for timestamp.
@@ -34,10 +33,8 @@
  *
  * @return 0 on failure, time value in milliseconds on success.
  */
-int64_t
-omrtime_current_time_millis(struct OMRPortLibrary *portLibrary)
-{
-	return 0;
+int64_t omrtime_current_time_millis(struct OMRPortLibrary *portLibrary) {
+  return 0;
 }
 
 /**
@@ -46,13 +43,10 @@ omrtime_current_time_millis(struct OMRPortLibrary *portLibrary)
  *
  * @param[in] portLibrary The port library.
  *
- * @return platform-dependent time value in nanoseconds. 0 or -ve numbers may be returned.
+ * @return platform-dependent time value in nanoseconds. 0 or -ve numbers may be
+ * returned.
  */
-int64_t
-omrtime_nano_time(struct OMRPortLibrary *portLibrary)
-{
-	return 0;
-}
+int64_t omrtime_nano_time(struct OMRPortLibrary *portLibrary) { return 0; }
 
 /**
  * Query OS for timestamp.
@@ -62,11 +56,7 @@ omrtime_nano_time(struct OMRPortLibrary *portLibrary)
  *
  * @return 0 on failure, time value on success.
  */
-uint64_t
-omrtime_hires_clock(struct OMRPortLibrary *portLibrary)
-{
-	return 0;
-}
+uint64_t omrtime_hires_clock(struct OMRPortLibrary *portLibrary) { return 0; }
 /**
  * Query OS for clock frequency
  * Retrieves the frequency of the high-resolution performance counter.
@@ -75,21 +65,22 @@ omrtime_hires_clock(struct OMRPortLibrary *portLibrary)
  *
  * @return 0 on failure, number of ticks per second on success.
  */
-uint64_t
-omrtime_hires_frequency(struct OMRPortLibrary *portLibrary)
-{
-	return 0;
+uint64_t omrtime_hires_frequency(struct OMRPortLibrary *portLibrary) {
+  return 0;
 }
 /**
- * Calculate time difference between two hires clock timer values @ref omrtime_hires_clock.
+ * Calculate time difference between two hires clock timer values @ref
+ * omrtime_hires_clock.
  *
- * Given a start and end time determine how much time elapsed.  Return the value as
+ * Given a start and end time determine how much time elapsed.  Return the value
+ * as
  * requested by the required resolution
  *
  * @param[in] portLibrary The port library.
  * @param[in] startTime Timer value at start of timing interval
  * @param[in] endTime Timer value at end of timing interval
- * @param[in] requiredResolution Returned timer resolution as a fraction of a second.  For example:
+ * @param[in] requiredResolution Returned timer resolution as a fraction of a
+ * second.  For example:
  *  \arg 1 to report elapsed time in seconds
  *  \arg 1,000 to report elapsed time in milliseconds
  *  \arg 1,000,000 to report elapsed time in microseconds
@@ -102,10 +93,10 @@ omrtime_hires_frequency(struct OMRPortLibrary *portLibrary)
  *  \arg OMRPORT_TIME_DELTA_IN_MICROSECONDS return timer value in micoseconds.
  *  \arg OMRPORT_TIME_DELTA_IN_NANOSECONDS return timer value in nanoseconds.
  */
-uint64_t
-omrtime_hires_delta(struct OMRPortLibrary *portLibrary, uint64_t startTime, uint64_t endTime, uint64_t requiredResolution)
-{
-	return 0;
+uint64_t omrtime_hires_delta(struct OMRPortLibrary *portLibrary,
+                             uint64_t startTime, uint64_t endTime,
+                             uint64_t requiredResolution) {
+  return 0;
 }
 /**
  * Query OS for timestamp.
@@ -116,11 +107,7 @@ omrtime_hires_delta(struct OMRPortLibrary *portLibrary, uint64_t startTime, uint
  * @return 0 on failure, time value in milliseconds on success.
  * @deprecated Use @ref omrtime_hires_clock and @ref omrtime_hires_delta
  */
-uintptr_t
-omrtime_msec_clock(struct OMRPortLibrary *portLibrary)
-{
-	return 0;
-}
+uintptr_t omrtime_msec_clock(struct OMRPortLibrary *portLibrary) { return 0; }
 /**
  * Query OS for timestamp.
  * Retrieve the current value of system clock and convert to microseconds.
@@ -130,60 +117,51 @@ omrtime_msec_clock(struct OMRPortLibrary *portLibrary)
  * @return 0 on failure, time value in microseconds on success.
  * @deprecated Use @ref omrtime_hires_clock and @ref omrtime_hires_delta
  */
-uintptr_t
-omrtime_usec_clock(struct OMRPortLibrary *portLibrary)
-{
-	return 0;
-}
+uintptr_t omrtime_usec_clock(struct OMRPortLibrary *portLibrary) { return 0; }
 /**
  * Query OS for timestamp.
  * Retrieve calendar time in nanoseconds since the Epoch.
  * Some platforms do not support nanosecond resolution, in this case
- * the highest calendar time resolution supported will be converted to nanoseconds.
+ * the highest calendar time resolution supported will be converted to
+ * nanoseconds.
  *
  * @param[in] portLibrary The port library.
- * @param[out] success Indicates if the call was successful 
- *  
+ * @param[out] success Indicates if the call was successful
+ *
  * @return time value in nanoseconds on success.
  *
  */
-uint64_t
-omrtime_current_time_nanos(struct OMRPortLibrary *portLibrary, uintptr_t *success)
-{
-	return 0;
+uint64_t omrtime_current_time_nanos(struct OMRPortLibrary *portLibrary,
+                                    uintptr_t *success) {
+  return 0;
 }
 /**
  * PortLibrary shutdown.
  *
- * This function is called during shutdown of the portLibrary.  Any resources that were created by @ref omrtime_startup
+ * This function is called during shutdown of the portLibrary.  Any resources
+ * that were created by @ref omrtime_startup
  * should be destroyed here.
  *
  * @param[in] portLib The port library.
  *
  * @note Most implementations will be empty.
  */
-void
-omrtime_shutdown(struct OMRPortLibrary *portLibrary)
-{
-}
+void omrtime_shutdown(struct OMRPortLibrary *portLibrary) {}
 /**
  * PortLibrary startup.
  *
- * This function is called during startup of the portLibrary.  Any resources that are required for
- * the time operations may be created here.  All resources created here should be destroyed
+ * This function is called during startup of the portLibrary.  Any resources
+ * that are required for
+ * the time operations may be created here.  All resources created here should
+ * be destroyed
  * in @ref omrtime_shutdown.
  *
  * @param[in] portLibrary The port library.
  *
- * @return 0 on success, negative error code on failure.  Error code values returned are
+ * @return 0 on success, negative error code on failure.  Error code values
+ * returned are
  * \arg OMRPORT_ERROR_STARTUP_TIME
  *
  * @note Most implementations will simply return success.
  */
-int32_t
-omrtime_startup(struct OMRPortLibrary *portLibrary)
-{
-	return 0;
-}
-
-
+int32_t omrtime_startup(struct OMRPortLibrary *portLibrary) { return 0; }

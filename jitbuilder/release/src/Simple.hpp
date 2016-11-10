@@ -16,17 +16,15 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  ******************************************************************************/
 
-
 #ifndef SIMPLE_INCL
 #define SIMPLE_IMPL
 
 #include "ilgen/MethodBuilder.hpp"
 
-class SimpleMethod : public TR::MethodBuilder
-   {
-   public:
-   SimpleMethod(TR::TypeDictionary *);
-   virtual bool buildIL();
-   };
+class SimpleMethod : public TR::MethodBuilder {
+public:
+  SimpleMethod(TR::TypeDictionary *);
+  virtual bool buildIL();
+};
 
 #endif // !defined(POINTER_INCL)

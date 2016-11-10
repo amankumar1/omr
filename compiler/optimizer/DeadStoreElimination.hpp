@@ -19,10 +19,12 @@
 #ifndef DEADSTOR_INCL
 #define DEADSTOR_INCL
 
-#include "optimizer/OptimizationManager.hpp"
 #include "optimizer/IsolatedStoreElimination.hpp"
+#include "optimizer/OptimizationManager.hpp"
 
-namespace TR { class Optimization; }
+namespace TR {
+class Optimization;
+}
 
 // Dead Store Elimination
 //
@@ -33,23 +35,20 @@ namespace TR { class Optimization; }
 //
 // This class is derived from Isolated Store Elimination, which uses the use/def
 // information if it is available and uses a tree walk if it isn't. When entered
-// through this class there will always be use/def information unless it can't be
+// through this class there will always be use/def information unless it can't
+// be
 // built for size reasons.
 //
 
-
-class TR_DeadStoreElimination : public TR_IsolatedStoreElimination
-   {
-   public:
-
-   // Performs dead store elimination using the
-   // use/def values of relevant nodes.
-   //
-   TR_DeadStoreElimination(TR::OptimizationManager *manager);
-   static TR::Optimization *create(TR::OptimizationManager *manager)
-      {
-      return new (manager->allocator()) TR_DeadStoreElimination(manager);
-      }
-   };
+class TR_DeadStoreElimination : public TR_IsolatedStoreElimination {
+public:
+  // Performs dead store elimination using the
+  // use/def values of relevant nodes.
+  //
+  TR_DeadStoreElimination(TR::OptimizationManager *manager);
+  static TR::Optimization *create(TR::OptimizationManager *manager) {
+    return new (manager->allocator()) TR_DeadStoreElimination(manager);
+  }
+};
 
 #endif

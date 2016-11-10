@@ -24,12 +24,12 @@
 #if defined(J9ZOS390)
 #include "atoe.h"
 #endif
+#include "omrcfg.h"
 #include <stdio.h>
 #include <string.h>
-#include "omrcfg.h"
 #include "omrcomp.h"
-#include "omrthread.h"
 #include "omrport.h"
+#include "omrthread.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -41,7 +41,8 @@ extern "C" {
 
 #if defined(AIXPPC) || defined(LINUX) || defined(J9ZOS390) || defined(OSX)
 #define SPEC_PTHREAD_API
-#endif /* defined(AIXPPC) || defined(LINUX) || defined(J9ZOS390) || defined(OSX) */
+#endif /* defined(AIXPPC) || defined(LINUX) || defined(J9ZOS390) ||            \
+          defined(OSX) */
 
 #ifndef ASSERT
 #define ASSERT(x) assert(x)

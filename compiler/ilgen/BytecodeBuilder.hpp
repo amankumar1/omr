@@ -16,7 +16,6 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  ******************************************************************************/
 
-
 #ifndef BYTECODE_BUILDER_INCL
 #define BYTECODE_BUILDER_INCL
 
@@ -27,60 +26,60 @@
 
 #include "ilgen/IlBuilder.hpp"
 
-namespace TR { class BytecodeBuilder; }
-namespace TR { class MethodBuilder; }
+namespace TR {
+class BytecodeBuilder;
+}
+namespace TR {
+class MethodBuilder;
+}
 
-namespace OMR
-{
+namespace OMR {
 
-class BytecodeBuilder : public TR::IlBuilder
-   {
+class BytecodeBuilder : public TR::IlBuilder {
 public:
-   TR_ALLOC(TR_Memory::IlGenerator)
+  TR_ALLOC(TR_Memory::IlGenerator)
 
-   BytecodeBuilder(TR::MethodBuilder *methodBuilder, int32_t bcIndex, char *name=NULL);
+  BytecodeBuilder(TR::MethodBuilder *methodBuilder, int32_t bcIndex,
+                  char *name = NULL);
 
-   virtual bool isBytecodeBuilder() { return true; }
+  virtual bool isBytecodeBuilder() { return true; }
 
-   virtual uint32_t countBlocks();
+  virtual uint32_t countBlocks();
 
-   void AddFallThroughBuilder(TR::BytecodeBuilder *ftb);
+  void AddFallThroughBuilder(TR::BytecodeBuilder *ftb);
 
-   void AddSuccessorBuilders(uint32_t numBuilders, ...);
-   void AddSuccessorBuilder(TR::BytecodeBuilder *b) { AddSuccessorBuilders(1, b); }
-
+  void AddSuccessorBuilders(uint32_t numBuilders, ...);
+  void AddSuccessorBuilder(TR::BytecodeBuilder *b) {
+    AddSuccessorBuilders(1, b);
+  }
 
 protected:
-   virtual void appendBlock(TR::Block *block = 0, bool addEdge=true);
+  virtual void appendBlock(TR::Block *block = 0, bool addEdge = true);
 
-   TR::BytecodeBuilder       * _fallThroughBuilder;
-   List<TR::BytecodeBuilder> * _successorBuilders;
-   int32_t                     _bcIndex;
-   char                      * _name;
+  TR::BytecodeBuilder *_fallThroughBuilder;
+  List<TR::BytecodeBuilder> *_successorBuilders;
+  int32_t _bcIndex;
+  char *_name;
 
-   void addAllSuccessorBuildersToWorklist();
-   bool connectTrees();
-   virtual void setHandlerInfo(uint32_t catchType);
-   };
+  void addAllSuccessorBuildersToWorklist();
+  bool connectTrees();
+  virtual void setHandlerInfo(uint32_t catchType);
+};
 
 } // namespace OMR
 
-
 #if defined(PUT_OMR_BYTECODEBUILDER_INTO_TR)
 
-namespace TR
-{
-   class BytecodeBuilder : public OMR::BytecodeBuilder
-      {
-      public:
-         BytecodeBuilder(TR::MethodBuilder *methodBuilder, int32_t bcIndex, char *name=NULL)
-            : OMR::BytecodeBuilder(methodBuilder, bcIndex, name)
-            { }
-         void initialize(TR::IlGeneratorMethodDetails * details,
-                           TR::ResolvedMethodSymbol     * methodSymbol,
-                           TR::FrontEnd                 * fe,
-                           TR::SymbolReferenceTable     * symRefTab); 
-      };
+namespace TR {
+class BytecodeBuilder : public OMR::BytecodeBuilder {
+public:
+  BytecodeBuilder(TR::MethodBuilder *methodBuilder, int32_t bcIndex,
+                  char *name = NULL)
+      : OMR::BytecodeBuilder(methodBuilder, bcIndex, name) {}
+  void initialize(TR::IlGeneratorMethodDetails *details,
+                  TR::ResolvedMethodSymbol *methodSymbol, TR::FrontEnd *fe,
+                  TR::SymbolReferenceTable *symRefTab);
+};
 
 } // namespace TR
 

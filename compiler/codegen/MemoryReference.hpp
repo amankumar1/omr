@@ -19,18 +19,13 @@
 #ifndef TR_MEMORY_REFERENCE_INCL
 #define TR_MEMORY_REFERENCE_INCL
 
-#include "codegen/OMRMemoryReference.hpp"  // for MemoryReferenceConnector
+#include "codegen/OMRMemoryReference.hpp" // for MemoryReferenceConnector
 
-namespace TR
-{
-class OMR_EXTENSIBLE MemoryReference : public OMR::MemoryReferenceConnector
-   {
-   public:
-
-   MemoryReference() :
-      OMR::MemoryReferenceConnector() {};
-
-   };
+namespace TR {
+class OMR_EXTENSIBLE MemoryReference : public OMR::MemoryReferenceConnector {
+public:
+  MemoryReference() : OMR::MemoryReferenceConnector(){};
+};
 }
 
 #endif

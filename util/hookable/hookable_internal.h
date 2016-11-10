@@ -34,10 +34,8 @@
 extern "C" {
 #endif
 
-
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* hookable_internal_h */
-

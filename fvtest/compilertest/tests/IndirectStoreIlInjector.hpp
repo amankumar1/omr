@@ -20,22 +20,20 @@
 #define TEST_INDIRECTSTOREIILINJECTOR_INCL
 
 #include "ilgen/BinaryOpIlInjector.hpp"
-namespace TR { class TypeDictionary; }
+namespace TR {
+class TypeDictionary;
+}
 
-namespace TestCompiler
-{
-class IndirectStoreIlInjector : public BinaryOpIlInjector
-   {
-   public:
-   IndirectStoreIlInjector(TR::TypeDictionary *types, TestDriver *test, TR::ILOpCodes opCode)
-   : BinaryOpIlInjector(types, test, opCode)
-   {
-   }
+namespace TestCompiler {
+class IndirectStoreIlInjector : public BinaryOpIlInjector {
+public:
+  IndirectStoreIlInjector(TR::TypeDictionary *types, TestDriver *test,
+                          TR::ILOpCodes opCode)
+      : BinaryOpIlInjector(types, test, opCode) {}
 
-   TR_ALLOC(TR_Memory::IlGenerator)
-   bool injectIL();
-
-   };
+  TR_ALLOC(TR_Memory::IlGenerator)
+  bool injectIL();
+};
 
 } // namespace TestCompiler
 

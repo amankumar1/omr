@@ -28,19 +28,19 @@
 #include "omrcfg.h"
 
 typedef struct OMRMemCategory {
-	const char *const name;
-	const uint32_t categoryCode;
-	uintptr_t liveBytes;
-	uintptr_t liveBytesLockWord;
-	uintptr_t liveAllocations;
-	uintptr_t liveAllocationsLockWord;
-	const uint32_t numberOfChildren;
-	const uint32_t *const children;
+  const char *const name;
+  const uint32_t categoryCode;
+  uintptr_t liveBytes;
+  uintptr_t liveBytesLockWord;
+  uintptr_t liveAllocations;
+  uintptr_t liveAllocationsLockWord;
+  const uint32_t numberOfChildren;
+  const uint32_t *const children;
 } OMRMemCategory;
 
 typedef struct OMRMemCategorySet {
-	uint32_t numberOfCategories;
-	OMRMemCategory **categories;
+  uint32_t numberOfCategories;
+  OMRMemCategory **categories;
 } OMRMemCategorySet;
 
 /*
@@ -65,8 +65,10 @@ typedef struct OMRMemCategorySet {
 #define OMRMEM_CATEGORY_TRACE 0x80000007
 #define OMRMEM_CATEGORY_OMRTI 0x80000008
 
-/* Special memory category for *unused* sections of regions allocated for <32bit allocations on 64 bit.
- * The used sections will be accounted for under the categories they are used by. */
+/* Special memory category for *unused* sections of regions allocated for <32bit
+ * allocations on 64 bit.
+ * The used sections will be accounted for under the categories they are used
+ * by. */
 #define OMRMEM_CATEGORY_PORT_LIBRARY_UNUSED_ALLOCATE32_REGIONS 0x80000009
 #define OMRMEM_CATEGORY_MM_RUNTIME_HEAP 0x8000000A
 
@@ -85,34 +87,49 @@ typedef struct OMRMemCategorySet {
 
 /* Helper macro to convert the category codes to indices starting from 0 */
 #define OMRMEM_LANGUAGE_CATEGORY_LIMIT 0x7FFFFFFF
-#define OMRMEM_OMR_CATEGORY_INDEX_FROM_CODE(code) (((uint32_t)0x7FFFFFFF) & (code))
+#define OMRMEM_OMR_CATEGORY_INDEX_FROM_CODE(code)                              \
+  (((uint32_t)0x7FFFFFFF) & (code))
 
-#define OMRMEM_CATEGORY_NO_CHILDREN(description, code) \
-	static OMRMemCategory _omrmem_category_##code = {description, code, 0, 0, 0, 0, 0, NULL}
-#define OMRMEM_CATEGORY_1_CHILD(description, code, c1) \
-	static uint32_t _omrmem_##code##_child_categories[] = {c1}; \
-	static OMRMemCategory _omrmem_category_##code = {description, code, 0, 0, 0, 0, 1, _omrmem_##code##_child_categories}
-#define OMRMEM_CATEGORY_2_CHILDREN(description, code, c1, c2) \
-	static uint32_t _omrmem_##code##_child_categories[] = {c1, c2}; \
-	static OMRMemCategory _omrmem_category_##code = {description, code, 0, 0, 0, 0, 2, _omrmem_##code##_child_categories}
-#define OMRMEM_CATEGORY_3_CHILDREN(description, code, c1, c2, c3) \
-	static uint32_t _omrmem_##code##_child_categories[] = {c1, c2, c3}; \
-	static OMRMemCategory _omrmem_category_##code = {description, code, 0, 0, 0, 0, 3, _omrmem_##code##_child_categories}
-#define OMRMEM_CATEGORY_4_CHILDREN(description, code, c1, c2, c3, c4) \
-	static uint32_t _omrmem_##code##_child_categories[] = {c1, c2, c3, c4}; \
-	static OMRMemCategory _omrmem_category_##code = {description, code, 0, 0, 0, 0, 4, _omrmem_##code##_child_categories}
-#define OMRMEM_CATEGORY_5_CHILDREN(description, code, c1, c2, c3, c4, c5) \
-	static uint32_t _omrmem_##code##_child_categories[] = {c1, c2, c3, c4, c5}; \
-	static OMRMemCategory _omrmem_category_##code = {description, code, 0, 0, 0, 0, 5, _omrmem_##code##_child_categories}
-#define OMRMEM_CATEGORY_6_CHILDREN(description, code, c1, c2, c3, c4, c5, c6) \
-	static uint32_t _omrmem_##code##_child_categories[] = {c1, c2, c3, c4, c5, c6}; \
-	static OMRMemCategory _omrmem_category_##code = {description, code, 0, 0, 0, 0, 6, _omrmem_##code##_child_categories}
-#define OMRMEM_CATEGORY_7_CHILDREN(description, code, c1, c2, c3, c4, c5, c6, c7) \
-	static uint32_t _omrmem_##code##_child_categories[] = {c1, c2, c3, c4, c5, c6, c7}; \
-	static OMRMemCategory _omrmem_category_##code = {description, code, 0, 0, 0, 0, 7, _omrmem_##code##_child_categories}
-#define OMRMEM_CATEGORY_8_CHILDREN(description, code, c1, c2, c3, c4, c5, c6, c7, c8) \
-	static uint32_t _omrmem_##code##_child_categories[] = {c1, c2, c3, c4, c5, c6, c7, c8}; \
-	static OMRMemCategory _omrmem_category_##code = {description, code, 0, 0, 0, 0, 8, _omrmem_##code##_child_categories}
+#define OMRMEM_CATEGORY_NO_CHILDREN(description, code)                         \
+  static OMRMemCategory _omrmem_category_##code = {description, code, 0, 0,    \
+                                                   0,           0,    0, NULL}
+#define OMRMEM_CATEGORY_1_CHILD(description, code, c1)                         \
+  static uint32_t _omrmem_##code##_child_categories[] = {c1};                  \
+  static OMRMemCategory _omrmem_category_##code = {                            \
+      description, code, 0, 0, 0, 0, 1, _omrmem_##code##_child_categories}
+#define OMRMEM_CATEGORY_2_CHILDREN(description, code, c1, c2)                  \
+  static uint32_t _omrmem_##code##_child_categories[] = {c1, c2};              \
+  static OMRMemCategory _omrmem_category_##code = {                            \
+      description, code, 0, 0, 0, 0, 2, _omrmem_##code##_child_categories}
+#define OMRMEM_CATEGORY_3_CHILDREN(description, code, c1, c2, c3)              \
+  static uint32_t _omrmem_##code##_child_categories[] = {c1, c2, c3};          \
+  static OMRMemCategory _omrmem_category_##code = {                            \
+      description, code, 0, 0, 0, 0, 3, _omrmem_##code##_child_categories}
+#define OMRMEM_CATEGORY_4_CHILDREN(description, code, c1, c2, c3, c4)          \
+  static uint32_t _omrmem_##code##_child_categories[] = {c1, c2, c3, c4};      \
+  static OMRMemCategory _omrmem_category_##code = {                            \
+      description, code, 0, 0, 0, 0, 4, _omrmem_##code##_child_categories}
+#define OMRMEM_CATEGORY_5_CHILDREN(description, code, c1, c2, c3, c4, c5)      \
+  static uint32_t _omrmem_##code##_child_categories[] = {c1, c2, c3, c4, c5};  \
+  static OMRMemCategory _omrmem_category_##code = {                            \
+      description, code, 0, 0, 0, 0, 5, _omrmem_##code##_child_categories}
+#define OMRMEM_CATEGORY_6_CHILDREN(description, code, c1, c2, c3, c4, c5, c6)  \
+  static uint32_t _omrmem_##code##_child_categories[] = {c1, c2, c3,           \
+                                                         c4, c5, c6};          \
+  static OMRMemCategory _omrmem_category_##code = {                            \
+      description, code, 0, 0, 0, 0, 6, _omrmem_##code##_child_categories}
+#define OMRMEM_CATEGORY_7_CHILDREN(description, code, c1, c2, c3, c4, c5, c6,  \
+                                   c7)                                         \
+  static uint32_t _omrmem_##code##_child_categories[] = {c1, c2, c3, c4,       \
+                                                         c5, c6, c7};          \
+  static OMRMemCategory _omrmem_category_##code = {                            \
+      description, code, 0, 0, 0, 0, 7, _omrmem_##code##_child_categories}
+#define OMRMEM_CATEGORY_8_CHILDREN(description, code, c1, c2, c3, c4, c5, c6,  \
+                                   c7, c8)                                     \
+  static uint32_t _omrmem_##code##_child_categories[] = {c1, c2, c3, c4,       \
+                                                         c5, c6, c7, c8};      \
+  static OMRMemCategory _omrmem_category_##code = {                            \
+      description, code, 0, 0, 0, 0, 8, _omrmem_##code##_child_categories}
 
 #define CATEGORY_TABLE_ENTRY(name) &_omrmem_category_##name
 

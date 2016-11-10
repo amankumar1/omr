@@ -22,87 +22,72 @@
 #pragma once
 
 #include <deque>
-#include "env/TypedAllocator.hpp"
 #include "env/TRMemory.hpp"
+#include "env/TypedAllocator.hpp"
 
 namespace TR {
 
 template <typename T>
-class deque : public std::deque<T, typed_allocator<T, Allocator> >
-   {
+class deque : public std::deque<T, typed_allocator<T, Allocator>> {
 public:
-   typedef typed_allocator<T, Allocator> allocator_type;
-   typedef std::deque<T, typed_allocator<T, Allocator> > container_type;
-   typedef typename allocator_type::value_type value_type;
-   typedef typename allocator_type::reference reference;
-   typedef typename allocator_type::const_reference const_reference;
-   /*
-    * This would ideally use the parent deque's size_type.  However, such usage
-    * runs into two-phase lookup problems when compiling with MSVC++ 2010.
-    */
-   typedef std::size_t size_type;
+  typedef typed_allocator<T, Allocator> allocator_type;
+  typedef std::deque<T, typed_allocator<T, Allocator>> container_type;
+  typedef typename allocator_type::value_type value_type;
+  typedef typename allocator_type::reference reference;
+  typedef typename allocator_type::const_reference const_reference;
+  /*
+   * This would ideally use the parent deque's size_type.  However, such usage
+   * runs into two-phase lookup problems when compiling with MSVC++ 2010.
+   */
+  typedef std::size_t size_type;
 
-   explicit deque(const Allocator &allocator);
-   explicit deque(size_type size, const Allocator &allocator);
-   explicit deque(size_type size, const T& initialValue, const Allocator &allocator);
-   template <typename InputIterator> deque(InputIterator first, InputIterator last, const Allocator &allocator);
-   deque(const deque<T> &x);
-   ~deque();
+  explicit deque(const Allocator &allocator);
+  explicit deque(size_type size, const Allocator &allocator);
+  explicit deque(size_type size, const T &initialValue,
+                 const Allocator &allocator);
+  template <typename InputIterator>
+  deque(InputIterator first, InputIterator last, const Allocator &allocator);
+  deque(const deque<T> &x);
+  ~deque();
 
-   reference operator[](size_type index);
-   const_reference operator[](size_type index) const;
-   };
-
+  reference operator[](size_type index);
+  const_reference operator[](size_type index) const;
+};
 }
 
 template <typename T>
-TR::deque<T>::deque(const Allocator &allocator) :
-   container_type(allocator_type(allocator))
-   {
-   }
+TR::deque<T>::deque(const Allocator &allocator)
+    : container_type(allocator_type(allocator)) {}
 
 template <typename T>
-TR::deque<T>::deque(size_type size, const Allocator &allocator) :
-   container_type(size, T(), allocator_type(allocator))
-   {
-   }
+TR::deque<T>::deque(size_type size, const Allocator &allocator)
+    : container_type(size, T(), allocator_type(allocator)) {}
 
 template <typename T>
-TR::deque<T>::deque(size_type size, const T& initialValue, const Allocator &allocator) :
-   container_type(size, initialValue, allocator_type(allocator))
-   {
-   }
+TR::deque<T>::deque(size_type size, const T &initialValue,
+                    const Allocator &allocator)
+    : container_type(size, initialValue, allocator_type(allocator)) {}
 
 template <typename T>
 template <typename InputIterator>
-TR::deque<T>::deque(InputIterator first, InputIterator last, const Allocator &allocator) :
-   container_type(first, last, allocator_type(allocator))
-   {
-   }
+TR::deque<T>::deque(InputIterator first, InputIterator last,
+                    const Allocator &allocator)
+    : container_type(first, last, allocator_type(allocator)) {}
 
 template <typename T>
-TR::deque<T>::deque(const deque<T> &other) :
-   container_type(other)
-   {
-   }
+TR::deque<T>::deque(const deque<T> &other) : container_type(other) {}
+
+template <typename T> TR::deque<T>::~deque() {}
 
 template <typename T>
-TR::deque<T>::~deque()
-   {
-   }
+typename TR::deque<T>::reference TR::deque<T>::operator[](size_type index) {
+  return this->at(index);
+}
 
 template <typename T>
-typename TR::deque<T>::reference
-TR::deque<T>::operator [](size_type index)
-   {
-   return this->at(index);
-   }
-
-template <typename T>
-typename TR::deque<T>::const_reference
-TR::deque<T>::operator [](size_type index) const
-   {
-   return this->at(index);
-   }
+typename TR::deque<T>::const_reference TR::deque<T>::
+operator[](size_type index) const {
+  return this->at(index);
+}
 
 #endif // DEQUE_HPP

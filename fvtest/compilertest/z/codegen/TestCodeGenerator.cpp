@@ -16,21 +16,15 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-
 #include "codegen/CodeGenerator.hpp"
 #include "codegen/TRSystemLinkage.hpp"
 #include "compile/Compilation.hpp"
 #include "env/CompilerEnv.hpp"
 
-namespace TestCompiler
-{
-namespace Z
-{
+namespace TestCompiler {
+namespace Z {
 
-CodeGenerator::CodeGenerator() :
-   TestCompiler::CodeGenerator()
-   {
-   }
+CodeGenerator::CodeGenerator() : TestCompiler::CodeGenerator() {}
 
 } // namespace Z
 } // namespace TestCompiler

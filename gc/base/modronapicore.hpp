@@ -16,7 +16,6 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-
 #ifndef MODRONAPICORE_HPP_
 #define MODRONAPICORE_HPP_
 
@@ -27,8 +26,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-const char* omrgc_get_version(OMR_VM *omrVM);
-extern uintptr_t omrgc_condYieldFromGC(OMR_VMThread *omrVMThread, uintptr_t componentType);
+const char *omrgc_get_version(OMR_VM *omrVM);
+extern uintptr_t omrgc_condYieldFromGC(OMR_VMThread *omrVMThread,
+                                       uintptr_t componentType);
 void *omrgc_walkLWNRLockTracePool(void *omrVM, pool_state *state);
 #ifdef __cplusplus
 }

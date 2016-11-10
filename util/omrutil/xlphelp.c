@@ -19,41 +19,39 @@
 #include "omrport.h"
 
 /**
- * Returns a string representing the type of page indicated by the given pageFlags.
+ * Returns a string representing the type of page indicated by the given
+ * pageFlags.
  * Useful when printing page type.
  *
  * @param[in] pageFlags indicates type of the page.
  *
  * @return pointer to string representing the page type.
  */
-const char *
-getPageTypeString(uintptr_t pageFlags)
-{
-	if (0 != (OMRPORT_VMEM_PAGE_FLAG_PAGEABLE & pageFlags)) {
-		return "pageable";
-	} else if (0 != (OMRPORT_VMEM_PAGE_FLAG_FIXED & pageFlags)) {
-		return "nonpageable";
-	} else {
-		return "not used";
-	}
+const char *getPageTypeString(uintptr_t pageFlags) {
+  if (0 != (OMRPORT_VMEM_PAGE_FLAG_PAGEABLE & pageFlags)) {
+    return "pageable";
+  } else if (0 != (OMRPORT_VMEM_PAGE_FLAG_FIXED & pageFlags)) {
+    return "nonpageable";
+  } else {
+    return "not used";
+  }
 }
 
 /**
- * Returns a string representing the type of page indicated by the given pageFlags.
+ * Returns a string representing the type of page indicated by the given
+ * pageFlags.
  * Useful when printing page type.
  *
  * @param[in] pageFlags indicates type of the page.
  *
  * @return pointer to string representing the page type.
  */
-const char *
-getPageTypeStringWithLeadingSpace(uintptr_t pageFlags)
-{
-	if (0 != (OMRPORT_VMEM_PAGE_FLAG_PAGEABLE & pageFlags)) {
-		return " pageable";
-	} else if (0 != (OMRPORT_VMEM_PAGE_FLAG_FIXED & pageFlags)) {
-		return " nonpageable";
-	} else {
-		return "";
-	}
+const char *getPageTypeStringWithLeadingSpace(uintptr_t pageFlags) {
+  if (0 != (OMRPORT_VMEM_PAGE_FLAG_PAGEABLE & pageFlags)) {
+    return " pageable";
+  } else if (0 != (OMRPORT_VMEM_PAGE_FLAG_FIXED & pageFlags)) {
+    return " nonpageable";
+  } else {
+    return "";
+  }
 }

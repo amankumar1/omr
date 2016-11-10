@@ -16,7 +16,6 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-
 #ifndef UNIXTHREADATTR_H_
 #define UNIXTHREADATTR_H_
 
@@ -31,8 +30,8 @@ extern "C" {
  * for consistency
  */
 typedef struct unixthread_attr {
-	omrthread_attr hdr; /* must be first member */
-	pthread_attr_t pattr;
+  omrthread_attr hdr; /* must be first member */
+  pthread_attr_t pattr;
 } unixthread_attr;
 
 typedef struct unixthread_attr *unixthread_attr_t;

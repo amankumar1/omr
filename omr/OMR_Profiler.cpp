@@ -19,20 +19,18 @@
 #include "omrprofiler.h"
 #include "ut_omrti.h"
 
-void
-omr_ras_sampleStackTraceStart(OMR_VMThread *omrVMThread, const void *methodKey)
-{
-	Trc_OMRPROF_MethodSampleStart(omrVMThread, methodKey);
+void omr_ras_sampleStackTraceStart(OMR_VMThread *omrVMThread,
+                                   const void *methodKey) {
+  Trc_OMRPROF_MethodSampleStart(omrVMThread, methodKey);
 }
 
-void
-omr_ras_sampleStackTraceContinue(OMR_VMThread *omrVMThread, const void *methodKey)
-{
-	Trc_OMRPROF_MethodSampleContinue(omrVMThread, methodKey);
+void omr_ras_sampleStackTraceContinue(OMR_VMThread *omrVMThread,
+                                      const void *methodKey) {
+  Trc_OMRPROF_MethodSampleContinue(omrVMThread, methodKey);
 }
 
 BOOLEAN
-omr_ras_sampleStackEnabled(void)
-{
-	return (TrcEnabled_Trc_OMRPROF_MethodSampleStart || TrcEnabled_Trc_OMRPROF_MethodSampleContinue);
+omr_ras_sampleStackEnabled(void) {
+  return (TrcEnabled_Trc_OMRPROF_MethodSampleStart ||
+          TrcEnabled_Trc_OMRPROF_MethodSampleContinue);
 }

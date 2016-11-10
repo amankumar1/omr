@@ -16,24 +16,24 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  ******************************************************************************/
 
-
 #ifndef SWITCH_INCL
 #define SWITCH_INCL
 
 #include "ilgen/MethodBuilder.hpp"
 
-namespace TR { class TypeDictionary; }
+namespace TR {
+class TypeDictionary;
+}
 
-typedef void (SwitchFunctionType)(int32_t);
+typedef void(SwitchFunctionType)(int32_t);
 
-class SwitchMethod : public TR::MethodBuilder
-   {
-   private:
-   void PrintString(TR::IlBuilder *bldr, const char *s);
+class SwitchMethod : public TR::MethodBuilder {
+private:
+  void PrintString(TR::IlBuilder *bldr, const char *s);
 
-   public:
-   SwitchMethod(TR::TypeDictionary *);
-   virtual bool buildIL();
-   };
+public:
+  SwitchMethod(TR::TypeDictionary *);
+  virtual bool buildIL();
+};
 
 #endif // !defined(SWITCH_INCL)

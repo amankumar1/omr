@@ -16,7 +16,6 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-
 #include "omrcfg.h"
 #include "modronopt.h"
 
@@ -26,25 +25,14 @@
 /**
  * Free the receiver and all associated resources.
  */
-void
-MM_SweepPoolManager::kill(MM_EnvironmentBase *env)
-{
-	tearDown(env);
-	env->getForge()->free(this);
+void MM_SweepPoolManager::kill(MM_EnvironmentBase *env) {
+  tearDown(env);
+  env->getForge()->free(this);
 }
 
 /**
  * Tear down internal structures.
  */
-void
-MM_SweepPoolManager::tearDown(MM_EnvironmentBase *env)
-{
-	
-}
+void MM_SweepPoolManager::tearDown(MM_EnvironmentBase *env) {}
 
-bool
-MM_SweepPoolManager::initialize(MM_EnvironmentBase *env)
-{
-	return true;
-}
-
+bool MM_SweepPoolManager::initialize(MM_EnvironmentBase *env) { return true; }

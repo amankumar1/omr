@@ -37,51 +37,52 @@ class MM_Task;
  * @todo Provide define documentation
  * @ingroup GC_Base_Core
  */
-#define J9MODRON_HANDLE_NEXT_WORK_UNIT(envPtr) envPtr->_currentTask->handleNextWorkUnit(envPtr)
+#define J9MODRON_HANDLE_NEXT_WORK_UNIT(envPtr)                                 \
+  envPtr->_currentTask->handleNextWorkUnit(envPtr)
 
 /**
  * @todo Provide class documentation
  * @ingroup GC_Base_Core
  */
-class MM_Dispatcher : public MM_BaseVirtual
-{
+class MM_Dispatcher : public MM_BaseVirtual {
 private:
-	MM_Task *_task;
-	
-protected:
-	bool initialize(MM_EnvironmentBase *env);
+  MM_Task *_task;
 
-	virtual void prepareThreadsForTask(MM_EnvironmentBase *env, MM_Task *task);
-	virtual void acceptTask(MM_EnvironmentBase *env);
-	virtual void completeTask(MM_EnvironmentBase *env);
-	virtual void cleanupAfterTask(MM_EnvironmentBase *env);
+protected:
+  bool initialize(MM_EnvironmentBase *env);
+
+  virtual void prepareThreadsForTask(MM_EnvironmentBase *env, MM_Task *task);
+  virtual void acceptTask(MM_EnvironmentBase *env);
+  virtual void completeTask(MM_EnvironmentBase *env);
+  virtual void cleanupAfterTask(MM_EnvironmentBase *env);
 
 public:
-	static MM_Dispatcher *newInstance(MM_EnvironmentBase *env);
-	virtual void kill(MM_EnvironmentBase *env);
-	virtual bool startUpThreads();
-	virtual void shutDownThreads();
+  static MM_Dispatcher *newInstance(MM_EnvironmentBase *env);
+  virtual void kill(MM_EnvironmentBase *env);
+  virtual bool startUpThreads();
+  virtual void shutDownThreads();
 
-	virtual bool condYieldFromGCWrapper(MM_EnvironmentBase *env, uint64_t timeSlack = 0) { return false; }
+  virtual bool condYieldFromGCWrapper(MM_EnvironmentBase *env,
+                                      uint64_t timeSlack = 0) {
+    return false;
+  }
 
-	MMINLINE virtual uintptr_t threadCount() { return 1; }
-	MMINLINE virtual uintptr_t threadCountMaximum() { return 1; }
-	MMINLINE virtual uintptr_t activeThreadCount() { return 1; }
+  MMINLINE virtual uintptr_t threadCount() { return 1; }
+  MMINLINE virtual uintptr_t threadCountMaximum() { return 1; }
+  MMINLINE virtual uintptr_t activeThreadCount() { return 1; }
 
-	void run(MM_EnvironmentBase *env, MM_Task *task);
-	virtual void reinitAfterFork(MM_EnvironmentBase *env, uintptr_t newThreadCount) {}
+  void run(MM_EnvironmentBase *env, MM_Task *task);
+  virtual void reinitAfterFork(MM_EnvironmentBase *env,
+                               uintptr_t newThreadCount) {}
 
-	/**
-	 * Create a Dispatcher object.
-	 */
-	MM_Dispatcher(MM_EnvironmentBase *env) :
-		MM_BaseVirtual(),
-		_task(NULL)
-	{
-		_typeId = __FUNCTION__;
-	};
-	
-	friend class MM_Task;
+  /**
+   * Create a Dispatcher object.
+   */
+  MM_Dispatcher(MM_EnvironmentBase *env) : MM_BaseVirtual(), _task(NULL) {
+    _typeId = __FUNCTION__;
+  };
+
+  friend class MM_Task;
 };
 
 #endif /* DISPATCHER_HPP_ */

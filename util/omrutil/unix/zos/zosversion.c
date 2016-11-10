@@ -39,26 +39,25 @@
  * z/OS 1.6 or z/OS.e 1.6 	OS/390 		16.00 		03
  */
 BOOLEAN
-zos_version_at_least(double min_release, double min_version)
-{
-	struct utsname sysinfo;
-	int rc;
+zos_version_at_least(double min_release, double min_version) {
+  struct utsname sysinfo;
+  int rc;
 
-	rc = uname(&sysinfo);
-	if (rc >= 0) {
-		double release;
-		double version;
+  rc = uname(&sysinfo);
+  if (rc >= 0) {
+    double release;
+    double version;
 
-		release = strtod(sysinfo.release, NULL);
-		version = strtod(sysinfo.version, NULL);
+    release = strtod(sysinfo.release, NULL);
+    version = strtod(sysinfo.version, NULL);
 
-		if (min_release < release) {
-			return TRUE;
-		} else if (min_release == release) {
-			if (min_version <= version) {
-				return TRUE;
-			}
-		}
-	}
-	return FALSE;
+    if (min_release < release) {
+      return TRUE;
+    } else if (min_release == release) {
+      if (min_version <= version) {
+        return TRUE;
+      }
+    }
+  }
+  return FALSE;
 }

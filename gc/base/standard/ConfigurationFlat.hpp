@@ -35,16 +35,21 @@ public:
 protected:
 private:
 public:
-	static MM_Configuration* newInstance(MM_EnvironmentBase* env, MM_ConfigurationLanguageInterface* configurationLanguageInterface);
+  static MM_Configuration *newInstance(
+      MM_EnvironmentBase *env,
+      MM_ConfigurationLanguageInterface *configurationLanguageInterface);
 
-	virtual MM_MemorySpace* createDefaultMemorySpace(MM_EnvironmentBase* env, MM_Heap* heap, MM_InitializationParameters* parameters);
+  virtual MM_MemorySpace *
+  createDefaultMemorySpace(MM_EnvironmentBase *env, MM_Heap *heap,
+                           MM_InitializationParameters *parameters);
 
-	MM_ConfigurationFlat(MM_EnvironmentBase* env, MM_ConfigurationLanguageInterface* configurationLanguageInterface)
-		: MM_ConfigurationStandard(env, configurationLanguageInterface)
-	{
-		_typeId = __FUNCTION__;
-	};
-	
+  MM_ConfigurationFlat(
+      MM_EnvironmentBase *env,
+      MM_ConfigurationLanguageInterface *configurationLanguageInterface)
+      : MM_ConfigurationStandard(env, configurationLanguageInterface) {
+    _typeId = __FUNCTION__;
+  };
+
 protected:
 private:
 };

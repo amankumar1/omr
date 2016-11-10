@@ -16,8 +16,8 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-#include "omrTest.h"
 #include "gcTestHelpers.hpp"
+#include "omrTest.h"
 
 extern "C" {
 int testMain(int argc, char **argv, char **envp);
@@ -25,25 +25,26 @@ int testMain(int argc, char **argv, char **envp);
 
 GCTestEnvironment *gcTestEnv;
 
-int
-testMain(int argc, char **argv, char **envp)
-{
-	int result = 1;
+int testMain(int argc, char **argv, char **envp) {
+  int result = 1;
 
-	gcTestEnv = (GCTestEnvironment *)testing::AddGlobalTestEnvironment(new GCTestEnvironment(argc, argv));
-	/* This must be called before InitGoogleTest. Because we need to initialize the parameter vector before InitGoogleTest
-	 * calls INSTANTIATE_TEST_CASE_P and takes the vector. */
-	gcTestEnv->GCTestSetUp();
+  gcTestEnv = (GCTestEnvironment *)testing::AddGlobalTestEnvironment(
+      new GCTestEnvironment(argc, argv));
+  /* This must be called before InitGoogleTest. Because we need to initialize
+   * the parameter vector before InitGoogleTest
+   * calls INSTANTIATE_TEST_CASE_P and takes the vector. */
+  gcTestEnv->GCTestSetUp();
 
-	/*
-	 * ASSERT_NO_FATAL_FAILURE() cannot be used in non-void function. Therefore,
-	 * we need to use HasFatalFailure() to check for fatal failures in sub-routine.
-	 */
-	if (!testing::Test::HasFatalFailure()) {
-		::testing::InitGoogleTest(&argc, argv);
-		result = RUN_ALL_TESTS();
-	}
+  /*
+   * ASSERT_NO_FATAL_FAILURE() cannot be used in non-void function. Therefore,
+   * we need to use HasFatalFailure() to check for fatal failures in
+   * sub-routine.
+   */
+  if (!testing::Test::HasFatalFailure()) {
+    ::testing::InitGoogleTest(&argc, argv);
+    result = RUN_ALL_TESTS();
+  }
 
-	gcTestEnv->GCTestTearDown();
-	return result;
+  gcTestEnv->GCTestTearDown();
+  return result;
 }

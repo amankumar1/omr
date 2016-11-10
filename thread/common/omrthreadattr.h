@@ -16,7 +16,6 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-
 #ifndef J9THREADATTR_H_
 #define J9THREADATTR_H_
 
@@ -29,13 +28,13 @@ extern "C" {
  * definition as a header.
  */
 typedef struct omrthread_attr {
-	uint32_t size; /* size of this structure */
-	uint32_t category; /* thread category */
-	uintptr_t stacksize;
-	omrthread_schedpolicy_t schedpolicy;
-	omrthread_prio_t priority; /* ignored if schedpolicy == INHERIT. */
-	omrthread_detachstate_t detachstate;
-	const char *name;
+  uint32_t size;     /* size of this structure */
+  uint32_t category; /* thread category */
+  uintptr_t stacksize;
+  omrthread_schedpolicy_t schedpolicy;
+  omrthread_prio_t priority; /* ignored if schedpolicy == INHERIT. */
+  omrthread_detachstate_t detachstate;
+  const char *name;
 } omrthread_attr;
 
 #ifdef __cplusplus

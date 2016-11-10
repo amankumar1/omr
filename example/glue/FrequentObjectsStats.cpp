@@ -16,8 +16,8 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 #include "FrequentObjectsStats.hpp"
-#include "GCExtensionsBase.hpp"
 #include "EnvironmentBase.hpp"
+#include "GCExtensionsBase.hpp"
 #include "ModronAssertions.h"
 
 /**
@@ -26,46 +26,33 @@
  * @return the new instance, or NULL on failure.
  */
 MM_FrequentObjectsStats *
-MM_FrequentObjectsStats::newInstance(MM_EnvironmentBase *env)
-{
-	/* DO NOTHING */
-	return NULL;
+MM_FrequentObjectsStats::newInstance(MM_EnvironmentBase *env) {
+  /* DO NOTHING */
+  return NULL;
 }
 
-
-bool
-MM_FrequentObjectsStats::initialize(MM_EnvironmentBase *env)
-{
-	/* DO NOTHING */
-	return false;
+bool MM_FrequentObjectsStats::initialize(MM_EnvironmentBase *env) {
+  /* DO NOTHING */
+  return false;
 }
 
-void
-MM_FrequentObjectsStats::tearDown(MM_EnvironmentBase *env)
-{
-	/* DO NOTHING */
-	return;
+void MM_FrequentObjectsStats::tearDown(MM_EnvironmentBase *env) {
+  /* DO NOTHING */
+  return;
 }
 
-
-void
-MM_FrequentObjectsStats::kill(MM_EnvironmentBase *env)
-{
-	/* DO NOTHING */
-	return;
+void MM_FrequentObjectsStats::kill(MM_EnvironmentBase *env) {
+  /* DO NOTHING */
+  return;
 }
 
-void
-MM_FrequentObjectsStats::traceStats(MM_EnvironmentBase *env)
-{
-	/* DO NOTHING */
-	return;
+void MM_FrequentObjectsStats::traceStats(MM_EnvironmentBase *env) {
+  /* DO NOTHING */
+  return;
 }
 
-void
-MM_FrequentObjectsStats::merge(MM_FrequentObjectsStats* frequentObjectsStats)
-{
-	/* DO NOTHING */
-	return;
+void MM_FrequentObjectsStats::merge(
+    MM_FrequentObjectsStats *frequentObjectsStats) {
+  /* DO NOTHING */
+  return;
 }
-
