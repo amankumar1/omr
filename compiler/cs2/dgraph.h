@@ -34,9 +34,9 @@
 // 'DirectedGraphEdge'.
 // -----------------------------------------------------------------------------
 
-#include "cs2/bitvectr.h"
-#include "cs2/listof.h"
 #include "cs2/tableof.h"
+#include "cs2/listof.h"
+#include "cs2/bitvectr.h"
 
 namespace CS2 {
 

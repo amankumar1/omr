@@ -21,6 +21,7 @@
 
 #include <stddef.h>                   // for NULL
 #include <stdint.h>                   // for int32_t, uint32_t
+#include "cs2/allocator.h"            // for Allocator
 #include "cs2/arrayof.h"              // for ArrayOf
 #include "cs2/tableof.h"              // for TableOf
 #include "env/TRMemory.hpp"           // for Allocator, TR_Memory, etc

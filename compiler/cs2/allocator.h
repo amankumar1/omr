@@ -28,9 +28,9 @@
 
 #include <memory.h>
 #include <stdio.h>
-#include "cs2/arrayof.h"
 #include "cs2/cs2.h"
 #include "cs2/hashtab.h"
+#include "cs2/arrayof.h"
 
 namespace CS2 {
 
