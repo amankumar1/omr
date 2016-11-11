@@ -24,75 +24,60 @@
 
 #include "infra/Timer.hpp"
 
-#include <stdint.h>              // for uint32_t
-#include <stdio.h>               // for sprintf, NULL
-#include <string.h>              // for strcpy, strlen
+#include <stdint.h> // for uint32_t
+#include <stdio.h>  // for sprintf, NULL
+#include <string.h> // for strcpy, strlen
 #include "compile/Compilation.hpp"
 #include "env/CompilerEnv.hpp"
 #include "env/IO.hpp"
-#include "env/TRMemory.hpp"      // for TR_Memory
-#include "infra/Array.hpp"       // for TR_Array
+#include "env/TRMemory.hpp" // for TR_Memory
+#include "infra/Array.hpp"  // for TR_Array
 
-void TR_SingleTimer::initialize(const char *title, TR_Memory * trMemory)
-   {
-   // *this    swipeable for debugging purposes
-   if (title)
-      {
-      _phaseTitle = (char *)trMemory->allocateHeapMemory( strlen(title)+1 );
-      strcpy(_phaseTitle, title);
-      }
-   else
-      _phaseTitle = NULL;
-   _total = 0;
-   _start = 0;
-   _timerRunning = false;
-   }
+void TR_SingleTimer::initialize(const char *title, TR_Memory *trMemory) {
+  // *this    swipeable for debugging purposes
+  if (title) {
+    _phaseTitle = (char *)trMemory->allocateHeapMemory(strlen(title) + 1);
+    strcpy(_phaseTitle, title);
+  } else
+    _phaseTitle = NULL;
+  _total = 0;
+  _start = 0;
+  _timerRunning = false;
+}
 
-void TR_SingleTimer::startTiming(TR::Compilation *comp)
-   {
-   if (!_timerRunning)
-      {
-      _start = TR::Compiler->vm.getHighResClock(comp);
-      _timerRunning = true;
-      }
-   }
+void TR_SingleTimer::startTiming(TR::Compilation *comp) {
+  if (!_timerRunning) {
+    _start = TR::Compiler->vm.getHighResClock(comp);
+    _timerRunning = true;
+  }
+}
 
-uint32_t TR_SingleTimer::stopTiming(TR::Compilation *comp)
-   {
-   if (_timerRunning)
-      {
-      _total += TR::Compiler->vm.getHighResClock(comp) - _start;
-      _timerRunning = false;
-      }
-   return (uint32_t) _total;
-   }
+uint32_t TR_SingleTimer::stopTiming(TR::Compilation *comp) {
+  if (_timerRunning) {
+    _total += TR::Compiler->vm.getHighResClock(comp) - _start;
+    _timerRunning = false;
+  }
+  return (uint32_t)_total;
+}
 
+char *TR_SingleTimer::timeTakenString(TR::Compilation *comp) {
+  // *this    swipeable for debugging purposes
+  static char timeString[32];
+  uint32_t mins, uSecs, totalSecs, frequency;
+  double fSecs;
 
-char *TR_SingleTimer::timeTakenString(TR::Compilation *comp)
-   {
-   // *this    swipeable for debugging purposes
-   static char timeString[32];
-   uint32_t    mins,
-               uSecs,
-               totalSecs,
-               frequency;
-   double      fSecs;
+  frequency = TR::Compiler->vm.getHighResClockResolution(comp);
+  if (frequency != 0) {
+    totalSecs = _total / frequency;
+    uSecs = _total % frequency;
 
-   frequency = TR::Compiler->vm.getHighResClockResolution(comp);
-   if (frequency != 0)
-      {
-      totalSecs = _total / frequency;
-      uSecs =     _total % frequency;
+    mins = totalSecs / 60;
+    fSecs = totalSecs % 60;
+    fSecs += (double)uSecs / (double)frequency;
 
-      mins = totalSecs / 60;
-      fSecs = totalSecs % 60;
-      fSecs += (double)uSecs / (double)frequency;
-
-      sprintf(timeString,"%2d:%.6f", mins, fSecs);
-      }
-   else
-      {
-      sprintf(timeString,"* * * * timer not supported!\n");
-      }
-   return timeString;
-   }
+    sprintf(timeString, "%2d:%.6f", mins, fSecs);
+  } else {
+    sprintf(timeString, "* * * * timer not supported!\n");
+  }
+  return timeString;
+}

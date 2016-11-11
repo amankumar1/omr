@@ -20,30 +20,26 @@
 #define JITBUILDER_CODEGENERATORBASE_INCL
 
 /*
- * The following #define and typedef must appear before any #includes in this file
+ * The following #define and typedef must appear before any #includes in this
+ * file
  */
 #ifndef JITBUILDER_CODEGENERATORBASE_CONNECTOR
 #define JITBUILDER_CODEGENERATORBASE_CONNECTOR
-namespace JitBuilder { class CodeGenerator; }
-namespace JitBuilder { typedef CodeGenerator CodeGeneratorConnector; }
+namespace JitBuilder {
+class CodeGenerator;
+}
+namespace JitBuilder {
+typedef CodeGenerator CodeGeneratorConnector;
+}
 #endif
-
 
 #include "codegen/OMRCodeGenerator.hpp"
 
-namespace JitBuilder
-{
+namespace JitBuilder {
 
-class OMR_EXTENSIBLE CodeGenerator : public OMR::CodeGeneratorConnector
-   {
-   public:
-
-   CodeGenerator() :
-      OMR::CodeGeneratorConnector() {}
-
-   };
-
+class OMR_EXTENSIBLE CodeGenerator : public OMR::CodeGeneratorConnector {
+public:
+  CodeGenerator() : OMR::CodeGeneratorConnector() {}
+};
 }
 #endif // !defined(JITBUILDER_CODEGENERATORBASE_INCL)
-
-

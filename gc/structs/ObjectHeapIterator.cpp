@@ -20,6 +20,5 @@
  * @file
  * @ingroup GC_Structs
  */
- 
-#include "ObjectHeapIterator.hpp"
 
+#include "ObjectHeapIterator.hpp"

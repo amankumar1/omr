@@ -19,16 +19,11 @@
 #ifndef TR_TREE_EVALUATOR_INCL
 #define TR_TREE_EVALUATOR_INCL
 
-#include "codegen/OMRTreeEvaluator.hpp"  // for TreeEvaluatorConnector
+#include "codegen/OMRTreeEvaluator.hpp" // for TreeEvaluatorConnector
 
-namespace TR
-{
+namespace TR {
 
-class TreeEvaluator: public OMR::TreeEvaluatorConnector
-   {
-
-   };
-
+class TreeEvaluator : public OMR::TreeEvaluatorConnector {};
 }
 
 #endif

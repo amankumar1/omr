@@ -22,49 +22,44 @@
 #include <set>
 #include <string>
 
+#include "Scanner.hpp"
 #include "config.hpp"
 #include "genBlob.hpp"
-#include "Scanner.hpp"
 
 using std::set;
 using std::string;
 
-enum SymbolType {
-	CLASS,
-	STRUCT,
-	ENUM,
-	UNION,
-	BASE,
-	TYPEDEF,
-	NAMESPACE
-};
+enum SymbolType { CLASS, STRUCT, ENUM, UNION, BASE, TYPEDEF, NAMESPACE };
 
-class Type
-{
+class Type {
 protected:
-	SymbolType _symbolType;
+  SymbolType _symbolType;
 
 public:
-	std::string _name;
-	size_t _sizeOf; /* Size of type in bytes */
+  std::string _name;
+  size_t _sizeOf; /* Size of type in bytes */
 
-	Type(SymbolType symbolType, size_t size);
-	virtual ~Type();
+  Type(SymbolType symbolType, size_t size);
+  virtual ~Type();
 
-	SymbolType getSymbolType();
-	virtual bool isAnonymousType();
-	friend bool operator==(Type const& lhs, Type const& rhs);
-	virtual bool equal(Type const& type, set<Type const*> *checked) const;
-	virtual void replaceType(Type *typeToReplace, Type *replaceWith);
+  SymbolType getSymbolType();
+  virtual bool isAnonymousType();
+  friend bool operator==(Type const &lhs, Type const &rhs);
+  virtual bool equal(Type const &type, set<Type const *> *checked) const;
+  virtual void replaceType(Type *typeToReplace, Type *replaceWith);
 
-	virtual string getFullName();
-	virtual string getSymbolTypeName();
+  virtual string getFullName();
+  virtual string getSymbolTypeName();
 
-	/* Visitor pattern functions to allow the scanner/generator to dispatch functionality based on type. */
-	virtual DDR_RC scanChildInfo(Scanner *scanner, void *data);
-	virtual DDR_RC enumerateType(BlobGenerator *blobGenerator, bool addFieldsOnly);
-	virtual DDR_RC buildBlob(BlobGenerator *blobGenerator, bool addFieldsOnly, string prefix);
-	virtual DDR_RC printToSuperset(SupersetGenerator *supersetGenerator, bool addFieldsOnly, string prefix);
+  /* Visitor pattern functions to allow the scanner/generator to dispatch
+   * functionality based on type. */
+  virtual DDR_RC scanChildInfo(Scanner *scanner, void *data);
+  virtual DDR_RC enumerateType(BlobGenerator *blobGenerator,
+                               bool addFieldsOnly);
+  virtual DDR_RC buildBlob(BlobGenerator *blobGenerator, bool addFieldsOnly,
+                           string prefix);
+  virtual DDR_RC printToSuperset(SupersetGenerator *supersetGenerator,
+                                 bool addFieldsOnly, string prefix);
 };
 
 #endif /* TYPE_HPP */

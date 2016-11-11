@@ -19,13 +19,11 @@
 #ifndef ILOPCODES_INCL
 #define ILOPCODES_INCL
 
-namespace TR
-   {
-     enum ILOpCodes
-     {
-     #include "il/ILOpCodesEnum.hpp"
-     NumIlOps
-     };
-   }
+namespace TR {
+enum ILOpCodes {
+#include "il/ILOpCodesEnum.hpp"
+  NumIlOps
+};
+}
 
 #endif

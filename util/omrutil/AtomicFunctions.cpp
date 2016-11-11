@@ -16,59 +16,39 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  ******************************************************************************/
 
-#include "omrutilbase.h"
 #include "AtomicSupport.hpp"
+#include "omrutilbase.h"
 
-uintptr_t
-compareAndSwapUDATA(uintptr_t *location, uintptr_t oldValue, uintptr_t newValue, uintptr_t *spinlock)
-{
-	return VM_AtomicSupport::lockCompareExchange(location, oldValue, newValue);
+uintptr_t compareAndSwapUDATA(uintptr_t *location, uintptr_t oldValue,
+                              uintptr_t newValue, uintptr_t *spinlock) {
+  return VM_AtomicSupport::lockCompareExchange(location, oldValue, newValue);
 }
 
-uintptr_t
-compareAndSwapUDATANoSpinlock(uintptr_t *location, uintptr_t oldValue, uintptr_t newValue)
-{
-	return VM_AtomicSupport::lockCompareExchange(location, oldValue, newValue);
+uintptr_t compareAndSwapUDATANoSpinlock(uintptr_t *location, uintptr_t oldValue,
+                                        uintptr_t newValue) {
+  return VM_AtomicSupport::lockCompareExchange(location, oldValue, newValue);
 }
 
-uint32_t
-compareAndSwapU32(uint32_t *location, uint32_t oldValue, uint32_t newValue, uintptr_t *spinlock)
-{
-	return VM_AtomicSupport::lockCompareExchangeU32(location, oldValue, newValue);
+uint32_t compareAndSwapU32(uint32_t *location, uint32_t oldValue,
+                           uint32_t newValue, uintptr_t *spinlock) {
+  return VM_AtomicSupport::lockCompareExchangeU32(location, oldValue, newValue);
 }
 
-uint32_t
-compareAndSwapU32NoSpinlock(uint32_t *location, uint32_t oldValue, uint32_t newValue)
-{
-	return VM_AtomicSupport::lockCompareExchangeU32(location, oldValue, newValue);
+uint32_t compareAndSwapU32NoSpinlock(uint32_t *location, uint32_t oldValue,
+                                     uint32_t newValue) {
+  return VM_AtomicSupport::lockCompareExchangeU32(location, oldValue, newValue);
 }
 
-void
-issueReadBarrier(void)
-{
-	VM_AtomicSupport::readBarrier();
+void issueReadBarrier(void) { VM_AtomicSupport::readBarrier(); }
+
+void issueReadWriteBarrier(void) { VM_AtomicSupport::readWriteBarrier(); }
+
+void issueWriteBarrier(void) { VM_AtomicSupport::writeBarrier(); }
+
+uintptr_t addAtomic(volatile uintptr_t *address, uintptr_t addend) {
+  return VM_AtomicSupport::add(address, addend);
 }
 
-void
-issueReadWriteBarrier(void)
-{
-	VM_AtomicSupport::readWriteBarrier();
-}
-
-void
-issueWriteBarrier(void)
-{
-	VM_AtomicSupport::writeBarrier();
-}
- 
-uintptr_t
-addAtomic(volatile uintptr_t *address, uintptr_t addend)
-{
-	return VM_AtomicSupport::add(address, addend);
-}
-
-uintptr_t
-subtractAtomic(volatile uintptr_t *address, uintptr_t value)
-{
-	return VM_AtomicSupport::subtract(address, value);
+uintptr_t subtractAtomic(volatile uintptr_t *address, uintptr_t value) {
+  return VM_AtomicSupport::subtract(address, value);
 }

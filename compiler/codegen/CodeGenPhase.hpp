@@ -19,21 +19,19 @@
 #ifndef TR_CODEGENPHASE_INCL
 #define TR_CODEGENPHASE_INCL
 
-#include "infra/Annotations.hpp"
 #include "codegen/OMRCodeGenPhase.hpp"
+#include "infra/Annotations.hpp"
 
-namespace TR { class CodeGenerator; }
+namespace TR {
+class CodeGenerator;
+}
 
-namespace TR
-{
+namespace TR {
 
-class OMR_EXTENSIBLE CodeGenPhase: public OMR::CodeGenPhaseConnector
-   {
-   public:
-
-   CodeGenPhase(TR::CodeGenerator * cg): OMR::CodeGenPhaseConnector(cg) {}
-   };
-
+class OMR_EXTENSIBLE CodeGenPhase : public OMR::CodeGenPhaseConnector {
+public:
+  CodeGenPhase(TR::CodeGenerator *cg) : OMR::CodeGenPhaseConnector(cg) {}
+};
 }
 
 #endif

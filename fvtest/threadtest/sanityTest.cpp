@@ -16,87 +16,67 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-
-#include "threadTestLib.hpp"
 #include "sanityTestHelper.hpp"
+#include "threadTestLib.hpp"
 
 #include "omrTest.h"
 #include "testHelper.hpp"
 
 extern ThreadTestEnvironment *omrTestEnv;
 
-class SanityTest: public ::testing::Test
-{
+class SanityTest : public ::testing::Test {
 public:
-	static unsigned int runTime;
-protected:
+  static unsigned int runTime;
 
-	static void
-	SetUpTestCase(void)
-	{
-		/* parse the command line options */
-		for (int32_t i = 1; i < omrTestEnv->_argc; i++) {
-			if (0 == strncmp(omrTestEnv->_argv[i], "-runTime=", strlen("-runTime="))) {
-				sscanf(&omrTestEnv->_argv[i][strlen("-runTime=")], "%u", &runTime);
-			}
-		}
-	}
+protected:
+  static void SetUpTestCase(void) {
+    /* parse the command line options */
+    for (int32_t i = 1; i < omrTestEnv->_argc; i++) {
+      if (0 ==
+          strncmp(omrTestEnv->_argv[i], "-runTime=", strlen("-runTime="))) {
+        sscanf(&omrTestEnv->_argv[i][strlen("-runTime=")], "%u", &runTime);
+      }
+    }
+  }
 };
 unsigned int SanityTest::runTime = 10; /* default test run time of 10 seconds */
 
-TEST_F(SanityTest, simpleSanity)
-{
-	SimpleSanity();
+TEST_F(SanityTest, simpleSanity) { SimpleSanity(); }
+
+TEST_F(SanityTest, SanityTestSingleThread) { SanityTestNThreads(1, runTime); }
+
+TEST_F(SanityTest, SanityTestTwoThreads) { SanityTestNThreads(2, runTime); }
+
+TEST_F(SanityTest, SanityTestFourThreads) { SanityTestNThreads(4, runTime); }
+
+TEST_F(SanityTest, QuickNDirtyPerformanceTest) {
+  QuickNDirtyPerformanceTest(runTime);
 }
 
-TEST_F(SanityTest, SanityTestSingleThread)
-{
-	SanityTestNThreads(1, runTime);
-}
+TEST_F(SanityTest, TestWaitNotify) { TestWaitNotify(runTime); }
 
-TEST_F(SanityTest, SanityTestTwoThreads)
-{
-	SanityTestNThreads(2, runTime);
-}
+TEST_F(SanityTest, TestBlockingQueue) {
+  bool ok = true;
+  bool caseok = true;
 
-TEST_F(SanityTest, SanityTestFourThreads)
-{
-	SanityTestNThreads(4, runTime);
-}
+  omrthread_t self;
+  omrthread_attach_ex(&self, J9THREAD_ATTR_DEFAULT);
 
-TEST_F(SanityTest, QuickNDirtyPerformanceTest)
-{
-	QuickNDirtyPerformanceTest(runTime);
-}
-
-TEST_F(SanityTest, TestWaitNotify)
-{
-	TestWaitNotify(runTime);
-}
-
-TEST_F(SanityTest, TestBlockingQueue)
-{
-	bool ok = true;
-	bool caseok = true;
-
-	omrthread_t self;
-	omrthread_attach_ex(&self, J9THREAD_ATTR_DEFAULT);
-
-	DbgMsg::println("\nTesting blocking queue sanity");
-	DbgMsg::changeIndent(+1);
-	CThread cself(self);
-	DbgMsg::println("1 thread");
-	caseok = TestBlockingQueue(cself, 1);
-	DbgMsg::println(caseok ? "ok" : "failed");
-	ok = ok && caseok;
-	DbgMsg::println("2 threads");
-	caseok = TestBlockingQueue(cself, 2);
-	DbgMsg::println(caseok ? "ok" : "failed");
-	ok = ok && caseok;
-	DbgMsg::println("3 threads\t");
-	caseok = TestBlockingQueue(cself, 3);
-	DbgMsg::println(caseok ? "ok" : "failed");
-	ok = ok && caseok;
-	DbgMsg::changeIndent(-1);
-	DbgMsg::println(ok ? "ok" : "failed");
+  DbgMsg::println("\nTesting blocking queue sanity");
+  DbgMsg::changeIndent(+1);
+  CThread cself(self);
+  DbgMsg::println("1 thread");
+  caseok = TestBlockingQueue(cself, 1);
+  DbgMsg::println(caseok ? "ok" : "failed");
+  ok = ok && caseok;
+  DbgMsg::println("2 threads");
+  caseok = TestBlockingQueue(cself, 2);
+  DbgMsg::println(caseok ? "ok" : "failed");
+  ok = ok && caseok;
+  DbgMsg::println("3 threads\t");
+  caseok = TestBlockingQueue(cself, 3);
+  DbgMsg::println(caseok ? "ok" : "failed");
+  ok = ok && caseok;
+  DbgMsg::changeIndent(-1);
+  DbgMsg::println(ok ? "ok" : "failed");
 }

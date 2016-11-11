@@ -16,28 +16,27 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-#include "compile/Compilation.hpp"
-#include "env/FrontEnd.hpp"
-#include "compile/Method.hpp"
 #include "tests/Qux2IlInjector.hpp"
+#include "compile/Compilation.hpp"
+#include "compile/Method.hpp"
+#include "env/FrontEnd.hpp"
 
-namespace TestCompiler
-{
+namespace TestCompiler {
 
-bool
-Qux2IlInjector::injectIL()
-   {
-   createBlocks(1);
-   // Block 2: blocks(0)
-   // int32_t i = parameter;
-   // i = i * 2;
-   // return i;
-   TR::SymbolReference *newIndexSymRef = newTemp(Int32);
-   storeToTemp(newIndexSymRef, intParameter());
-   storeToTemp(newIndexSymRef, createWithoutSymRef(TR::imul, 2, loadTemp(newIndexSymRef), iconst(2)));
-   returnValue(loadTemp(newIndexSymRef));
+bool Qux2IlInjector::injectIL() {
+  createBlocks(1);
+  // Block 2: blocks(0)
+  // int32_t i = parameter;
+  // i = i * 2;
+  // return i;
+  TR::SymbolReference *newIndexSymRef = newTemp(Int32);
+  storeToTemp(newIndexSymRef, intParameter());
+  storeToTemp(
+      newIndexSymRef,
+      createWithoutSymRef(TR::imul, 2, loadTemp(newIndexSymRef), iconst(2)));
+  returnValue(loadTemp(newIndexSymRef));
 
-   return true;
-   }
+  return true;
+}
 
 } // namespace TestCompiler

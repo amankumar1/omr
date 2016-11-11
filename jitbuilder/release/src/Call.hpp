@@ -16,19 +16,17 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  ******************************************************************************/
 
-
 #ifndef CALL_INCL
 #define CALL_INCL
 
 #include "ilgen/MethodBuilder.hpp"
 
-typedef int32_t (CallFunctionType)(int32_t);
+typedef int32_t(CallFunctionType)(int32_t);
 
-class CallMethod : public TR::MethodBuilder
-   {
-   public:
-   CallMethod(TR::TypeDictionary *types);
-   virtual bool buildIL();
-   };
+class CallMethod : public TR::MethodBuilder {
+public:
+  CallMethod(TR::TypeDictionary *types);
+  virtual bool buildIL();
+};
 
 #endif // !defined(CALL_INCL)

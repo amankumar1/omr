@@ -16,18 +16,12 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-
 #include "RegionPoolGeneric.hpp"
 
-bool 
-MM_RegionPoolGeneric::initialize(MM_EnvironmentBase *env)
-{
-	return MM_RegionPool::initialize(env);
+bool MM_RegionPoolGeneric::initialize(MM_EnvironmentBase *env) {
+  return MM_RegionPool::initialize(env);
 }
 
-void 
-MM_RegionPoolGeneric::tearDown(MM_EnvironmentBase *env)
-{
-	MM_RegionPool::tearDown(env);
+void MM_RegionPoolGeneric::tearDown(MM_EnvironmentBase *env) {
+  MM_RegionPool::tearDown(env);
 }
-

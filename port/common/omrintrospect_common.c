@@ -13,7 +13,8 @@
  *      http://www.opensource.org/licenses/apache2.0.php
  *
  * Contributors:
- *    Multiple authors (IBM Corp.) - initial API and implementation and/or initial documentation
+ *    Multiple authors (IBM Corp.) - initial API and implementation and/or
+ *initial documentation
  *******************************************************************************/
 
 /**
@@ -25,18 +26,17 @@
 #include "omrintrospect_common.h"
 
 const char *error_descriptions[] = {
-	"success",
-	"memory allocation failure",
-	"deadline expired",
-	"unable to count threads",
-	"failed to suspend process",
-	"failed to resume process",
-	"failure while collecting threads",
-	"initialisation failed",
-	"caller supplied invalid walk state",
-	"signal setup failed",
-	"signal received from external process",
-	"native stacks not available on this platform",
-	"memory fault while constructing backtrace",
-	"thread collection in progress on another thread"
-};
+    "success",
+    "memory allocation failure",
+    "deadline expired",
+    "unable to count threads",
+    "failed to suspend process",
+    "failed to resume process",
+    "failure while collecting threads",
+    "initialisation failed",
+    "caller supplied invalid walk state",
+    "signal setup failed",
+    "signal received from external process",
+    "native stacks not available on this platform",
+    "memory fault while constructing backtrace",
+    "thread collection in progress on another thread"};

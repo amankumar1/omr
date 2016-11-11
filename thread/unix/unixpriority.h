@@ -20,7 +20,6 @@
 
 #include "thrdsup.h"
 
-
 /**
  * Returns the policy from the priority at the requested
  * index in the priority_map[] if realtime scheduling is being used,
@@ -29,9 +28,6 @@
  * @return J9_DEFAULT_SCHED for non-realtime VMs or the appropriate
  * 		   scheduling policy stored in the priority map for realtime VMs
  */
-int
-omrthread_get_scheduling_policy(omrthread_prio_t omrthreadPriority);
+int omrthread_get_scheduling_policy(omrthread_prio_t omrthreadPriority);
 
-#endif     /* unixpriority_h */
-
-
+#endif /* unixpriority_h */

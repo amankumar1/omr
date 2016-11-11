@@ -16,40 +16,37 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  ******************************************************************************/
 
-
 #ifndef STRUCTARRAY_INCL
 #define STRUCTARRAY_INCL
 
 #include "ilgen/MethodBuilder.hpp"
 
-namespace TR { class TypeDictionary; }
+namespace TR {
+class TypeDictionary;
+}
 
-typedef void* (CreateStructArrayFunctionType)(int);
+typedef void *(CreateStructArrayFunctionType)(int);
 
-typedef void (ReadStructArrayFunctionType)(void*, int);
+typedef void(ReadStructArrayFunctionType)(void *, int);
 
-class CreateStructArrayMethod : public TR::MethodBuilder
-   {
-   private:
+class CreateStructArrayMethod : public TR::MethodBuilder {
+private:
+  TR::IlType *StructType;
+  TR::IlType *pStructType;
 
-   TR::IlType *StructType;
-   TR::IlType *pStructType;
+public:
+  CreateStructArrayMethod(TR::TypeDictionary *);
+  virtual bool buildIL();
+};
 
-   public:
-   CreateStructArrayMethod(TR::TypeDictionary *);
-   virtual bool buildIL();
-   };
+class ReadStructArrayMethod : public TR::MethodBuilder {
+private:
+  TR::IlType *StructType;
+  TR::IlType *pStructType;
 
-class ReadStructArrayMethod : public TR::MethodBuilder
-   {
-   private:
-
-   TR::IlType *StructType;
-   TR::IlType *pStructType;
-
-   public:
-   ReadStructArrayMethod(TR::TypeDictionary *);
-   virtual bool buildIL();
-   };
+public:
+  ReadStructArrayMethod(TR::TypeDictionary *);
+  virtual bool buildIL();
+};
 
 #endif // !defined(LOCALARRAY_INCL)

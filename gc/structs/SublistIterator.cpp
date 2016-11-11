@@ -32,14 +32,12 @@
  * @return the next sublist puddle
  * @return NULL if there are no more puddles
  */
-MM_SublistPuddle *
-GC_SublistIterator::nextList()
-{
-	if(NULL != _currentPuddle) {
-		_currentPuddle = _currentPuddle->_next;
-	} else {
-		_currentPuddle = _sublistPool->_list;
-	}
-	
-	return _currentPuddle;
+MM_SublistPuddle *GC_SublistIterator::nextList() {
+  if (NULL != _currentPuddle) {
+    _currentPuddle = _currentPuddle->_next;
+  } else {
+    _currentPuddle = _sublistPool->_list;
+  }
+
+  return _currentPuddle;
 }

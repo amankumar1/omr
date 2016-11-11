@@ -16,7 +16,6 @@
 *    Multiple authors (IBM Corp.) - initial implementation and documentation
 *******************************************************************************/
 
-
 /**
  * Description: Calls an extensible class static member function on
  *    an abstract class using scope resolution, which is allowed.
@@ -24,26 +23,30 @@
 
 #define OMR_EXTENSIBLE __attribute__((annotate("OMR_Extensible")))
 
-namespace TR  { class ExtClass; }         // forward declaration required to declared `self()`
+namespace TR {
+class ExtClass;
+} // forward declaration required to declared `self()`
 
-namespace OMR
-{
+namespace OMR {
 
-class OMR_EXTENSIBLE ExtClass
-   {
-   public:
-   TR::ExtClass * self();         // declaration of down cast function
+class OMR_EXTENSIBLE ExtClass {
+public:
+  TR::ExtClass *self(); // declaration of down cast function
 
-   static void functionCalled();  // function to be called
-   void callingFunction();        // function that will make call
-                                  //   using scope resolution
-   };
+  static void functionCalled(); // function to be called
+  void callingFunction();       // function that will make call
+                                //   using scope resolution
+};
 
 } // namespace OMR
 
-namespace TR { class OMR_EXTENSIBLE ExtClass : public OMR::ExtClass {}; }
+namespace TR {
+class OMR_EXTENSIBLE ExtClass : public OMR::ExtClass {};
+}
 
-TR::ExtClass * OMR::ExtClass::self() { return static_cast<TR::ExtClass *>(this); }
+TR::ExtClass *OMR::ExtClass::self() {
+  return static_cast<TR::ExtClass *>(this);
+}
 
 void OMR::ExtClass::functionCalled() {}
 

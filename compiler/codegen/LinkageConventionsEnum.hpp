@@ -21,15 +21,14 @@
 
 // Linkage conventions
 //
-enum TR_LinkageConventions
-   {
-   TR_Private           = 0,
-   TR_System            = 1,
-   TR_AllRegister       = 2,
-   TR_InterpretedStatic = 3,
-   TR_Helper            = 4,
-   TR_J9JNILinkage      = 5,
-   TR_NumLinkages       = 6
-   };
+enum TR_LinkageConventions {
+  TR_Private = 0,
+  TR_System = 1,
+  TR_AllRegister = 2,
+  TR_InterpretedStatic = 3,
+  TR_Helper = 4,
+  TR_J9JNILinkage = 5,
+  TR_NumLinkages = 6
+};
 
 #endif

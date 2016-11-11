@@ -34,31 +34,40 @@ class MM_EnvironmentBase;
 class MM_MemorySubSpaceSemiSpace;
 class MM_Scavenger;
 
-class MM_ConfigurationGenerational : public MM_ConfigurationStandard
-{
-/* Data members / Types */
+class MM_ConfigurationGenerational : public MM_ConfigurationStandard {
+  /* Data members / Types */
 public:
 protected:
 private:
-
-/* Methods */
+  /* Methods */
 public:
-	static MM_Configuration *newInstance(MM_EnvironmentBase *env, MM_ConfigurationLanguageInterface* configurationLanguageInterface);
+  static MM_Configuration *newInstance(
+      MM_EnvironmentBase *env,
+      MM_ConfigurationLanguageInterface *configurationLanguageInterface);
 
-	virtual MM_MemorySpace *createDefaultMemorySpace(MM_EnvironmentBase *env, MM_Heap *heap, MM_InitializationParameters *parameters);
-	virtual MM_Heap *createHeapWithManager(MM_EnvironmentBase *env, UDATA heapBytesRequested, MM_HeapRegionManager *regionManager);
+  virtual MM_MemorySpace *
+  createDefaultMemorySpace(MM_EnvironmentBase *env, MM_Heap *heap,
+                           MM_InitializationParameters *parameters);
+  virtual MM_Heap *createHeapWithManager(MM_EnvironmentBase *env,
+                                         UDATA heapBytesRequested,
+                                         MM_HeapRegionManager *regionManager);
 
-	virtual void defaultMemorySpaceAllocated(MM_GCExtensionsBase *extensions, void* defaultMemorySpace);
-	
-	MM_ConfigurationGenerational(MM_EnvironmentBase *env, MM_ConfigurationLanguageInterface* configurationLanguageInterface) :
-		MM_ConfigurationStandard(env, configurationLanguageInterface)
-	{
-		_typeId = __FUNCTION__;
-	};
-	
+  virtual void defaultMemorySpaceAllocated(MM_GCExtensionsBase *extensions,
+                                           void *defaultMemorySpace);
+
+  MM_ConfigurationGenerational(
+      MM_EnvironmentBase *env,
+      MM_ConfigurationLanguageInterface *configurationLanguageInterface)
+      : MM_ConfigurationStandard(env, configurationLanguageInterface) {
+    _typeId = __FUNCTION__;
+  };
+
 protected:
-	virtual bool initializeEnvironment(MM_EnvironmentBase *env);
-	MM_MemorySubSpaceSemiSpace *createSemiSpace(MM_EnvironmentBase *envBase, MM_Heap *heap, MM_Scavenger *scavenger, MM_InitializationParameters *parameters, UDATA numaNode = UDATA_MAX);
+  virtual bool initializeEnvironment(MM_EnvironmentBase *env);
+  MM_MemorySubSpaceSemiSpace *createSemiSpace(
+      MM_EnvironmentBase *envBase, MM_Heap *heap, MM_Scavenger *scavenger,
+      MM_InitializationParameters *parameters, UDATA numaNode = UDATA_MAX);
+
 private:
 };
 

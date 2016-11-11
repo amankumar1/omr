@@ -23,24 +23,25 @@
 
 #include "omrport.h"
 
-#include "config.hpp"
 #include "Type.hpp"
+#include "config.hpp"
 
 using std::vector;
 
 class Symbol_IR {
 public:
-	std::vector<Type *> _types;
+  std::vector<Type *> _types;
 
-	~Symbol_IR();
+  ~Symbol_IR();
 
-	DDR_RC applyOverrideList(OMRPortLibrary *portLibrary, const char *overrideFiles);
-	DDR_RC computeOffsets();
-	DDR_RC removeDuplicates();
+  DDR_RC applyOverrideList(OMRPortLibrary *portLibrary,
+                           const char *overrideFiles);
+  DDR_RC computeOffsets();
+  DDR_RC removeDuplicates();
 
 private:
-	DDR_RC applyOverrides(OMRPortLibrary *portLibrary, const char *overrideFile);
-	DDR_RC computeFieldOffsets(Type *type);
+  DDR_RC applyOverrides(OMRPortLibrary *portLibrary, const char *overrideFile);
+  DDR_RC computeFieldOffsets(Type *type);
 };
 
 #endif /* SYMBOL_IR_HPP */

@@ -19,78 +19,52 @@
 #include "Type.hpp"
 
 Type::Type(SymbolType symbolType, size_t size)
-	: _symbolType(symbolType), _sizeOf(size)
-{
-}
+    : _symbolType(symbolType), _sizeOf(size) {}
 
 Type::~Type() {}
 
-SymbolType
-Type::getSymbolType()
-{
-	return _symbolType;
+SymbolType Type::getSymbolType() { return _symbolType; }
+
+bool Type::isAnonymousType() { return false; }
+
+bool operator==(Type const &lhs, Type const &rhs) {
+  set<Type const *> checked;
+  return lhs.equal(rhs, &checked);
 }
 
-bool
-Type::isAnonymousType()
-{
-	return false;
+bool Type::equal(Type const &type, set<Type const *> *checked) const {
+  return checked->find(this) != checked->end() ||
+         ((_name == (type._name)) && (_sizeOf == type._sizeOf) &&
+          (_symbolType == type._symbolType));
 }
 
-bool
-operator==(Type const& lhs, Type const& rhs)
-{
-	set <Type const*> checked;
-	return lhs.equal(rhs, &checked);
+void Type::replaceType(Type *typeToReplace, Type *replaceWith) {
+  /* Nothing to replace in base types. */
 }
 
-bool
-Type::equal(Type const& type, set<Type const*> *checked) const
-{
-	return checked->find(this) != checked->end()
-		|| ((_name == (type._name))
-		&& (_sizeOf == type._sizeOf)
-		&& (_symbolType == type._symbolType));
-}
+string Type::getFullName() { return _name; }
 
-void
-Type::replaceType(Type *typeToReplace, Type *replaceWith)
-{
-	/* Nothing to replace in base types. */
-}
+string Type::getSymbolTypeName() { return ""; }
 
-string
-Type::getFullName()
-{
-	return _name;
-}
-
-string
-Type::getSymbolTypeName()
-{
-	return "";
+DDR_RC
+Type::scanChildInfo(Scanner *scanner, void *data) {
+  return scanner->dispatchScanChildInfo(this, data);
 }
 
 DDR_RC
-Type::scanChildInfo(Scanner *scanner, void *data)
-{
-	return scanner->dispatchScanChildInfo(this, data);
+Type::enumerateType(BlobGenerator *blobGenerator, bool addFieldsOnly) {
+  return blobGenerator->dispatchEnumerateType(this, addFieldsOnly);
 }
 
 DDR_RC
-Type::enumerateType(BlobGenerator *blobGenerator, bool addFieldsOnly)
-{
-	return blobGenerator->dispatchEnumerateType(this, addFieldsOnly);
+Type::buildBlob(BlobGenerator *blobGenerator, bool addFieldsOnly,
+                string prefix) {
+  return blobGenerator->dispatchBuildBlob(this, addFieldsOnly, prefix);
 }
 
 DDR_RC
-Type::buildBlob(BlobGenerator *blobGenerator, bool addFieldsOnly, string prefix)
-{
-	return blobGenerator->dispatchBuildBlob(this, addFieldsOnly, prefix);
-}
-
-DDR_RC
-Type::printToSuperset(SupersetGenerator *supersetGenerator, bool addFieldsOnly, string prefix = "")
-{
-	return supersetGenerator->dispatchPrintToSuperset(this, addFieldsOnly, prefix);
+Type::printToSuperset(SupersetGenerator *supersetGenerator, bool addFieldsOnly,
+                      string prefix = "") {
+  return supersetGenerator->dispatchPrintToSuperset(this, addFieldsOnly,
+                                                    prefix);
 }

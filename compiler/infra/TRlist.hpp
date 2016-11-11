@@ -22,25 +22,20 @@
 #undef min
 #include <list>
 #undef round
+#include "env/TRMemory.hpp" // for TR_Memory, etc
 #include "env/TypedAllocator.hpp"
-#include "env/TRMemory.hpp"  // for TR_Memory, etc
-namespace TR
-   {
-   template <class T> class list : public std::list<T, TR::typed_allocator<T, TR::Allocator> >
-      {
-      public:
-         list(TR::typed_allocator<T, TR::Allocator> ta) :
-         std::list<T, TR::typed_allocator<T, TR::Allocator> > (ta)
-            {
-            }
+namespace TR {
+template <class T>
+class list : public std::list<T, TR::typed_allocator<T, TR::Allocator>> {
+public:
+  list(TR::typed_allocator<T, TR::Allocator> ta)
+      : std::list<T, TR::typed_allocator<T, TR::Allocator>>(ta) {}
 
 #if defined(OSX)
-         void remove(const T& value)
-            {
-            this->remove_if([value](const T& value2){return value == value2;});
-            }
+  void remove(const T &value) {
+    this->remove_if([value](const T &value2) { return value == value2; });
+  }
 #endif
-
-      };
-   }
+};
+}
 #endif

@@ -16,7 +16,7 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  ******************************************************************************/
 
-#if defined(WIN32) || defined (WIN64)
+#if defined(WIN32) || defined(WIN64)
 
 #ifdef BOOLEAN
 /* There is a collision between J9's definition of BOOLEAN and WIN32 headers */

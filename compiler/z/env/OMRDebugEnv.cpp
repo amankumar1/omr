@@ -16,25 +16,21 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-#pragma csect(CODE,"OMRZDebugEnv#C")
-#pragma csect(STATIC,"OMRZDebugEnv#S")
-#pragma csect(TEST,"OMRZDebugEnv#T")
-
+#pragma csect(CODE, "OMRZDebugEnv#C")
+#pragma csect(STATIC, "OMRZDebugEnv#S")
+#pragma csect(TEST, "OMRZDebugEnv#T")
 
 #include "env/DebugEnv.hpp"
 
-OMR::Z::DebugEnv::DebugEnv() :
-      OMR::DebugEnv()
-   {
+OMR::Z::DebugEnv::DebugEnv() : OMR::DebugEnv() {
 
 #ifdef TR_TARGET_64BIT
-   _hexAddressWidthInChars = 16;
-   _hexAddressFieldWidthInChars = 18;
-   _codeByteColumnWidth = 28;
+  _hexAddressWidthInChars = 16;
+  _hexAddressFieldWidthInChars = 18;
+  _codeByteColumnWidth = 28;
 #else
-   _hexAddressWidthInChars = 8;
-   _hexAddressFieldWidthInChars = 10;
-   _codeByteColumnWidth = 28;
+  _hexAddressWidthInChars = 8;
+  _hexAddressFieldWidthInChars = 10;
+  _codeByteColumnWidth = 28;
 #endif
-
-   }
+}

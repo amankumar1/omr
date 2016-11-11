@@ -23,10 +23,10 @@
  * @ddr_namespace: default
  */
 
-#include "omr.h"
-#include "objectdescription.h"
-#include "omrcomp.h"
 #include "j9nongenerated.h"
+#include "objectdescription.h"
+#include "omr.h"
+#include "omrcomp.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -34,17 +34,25 @@ extern "C" {
 
 /* Runtime API */
 
-/* Base GC allocation flag bits are defined in omrgc.h and languages can define additional flags. The
- * OMR_GC_Allocate*(...) methods receive these flags and pass them through to the OMR allocator with
- * the exception of the OMR_GC_ALLOCATE_NO_GC flag, which these methods set or clear as required.
+/* Base GC allocation flag bits are defined in omrgc.h and languages can define
+ * additional flags. The
+ * OMR_GC_Allocate*(...) methods receive these flags and pass them through to
+ * the OMR allocator with
+ * the exception of the OMR_GC_ALLOCATE_NO_GC flag, which these methods set or
+ * clear as required.
  *
- * Allocation categories are expected to be defined in the language object model (glue/GC_ObjectModel).
+ * Allocation categories are expected to be defined in the language object model
+ * (glue/GC_ObjectModel).
  */
-omrobjectptr_t OMR_GC_Allocate(OMR_VMThread * omrVMThread, uintptr_t allocationCategory, uintptr_t size, uintptr_t allocateFlags);
+omrobjectptr_t OMR_GC_Allocate(OMR_VMThread *omrVMThread,
+                               uintptr_t allocationCategory, uintptr_t size,
+                               uintptr_t allocateFlags);
 
-omrobjectptr_t OMR_GC_AllocateNoGC(OMR_VMThread * omrVMThread, uintptr_t allocationCategory, uintptr_t size, uintptr_t allocateFlagss);
+omrobjectptr_t OMR_GC_AllocateNoGC(OMR_VMThread *omrVMThread,
+                                   uintptr_t allocationCategory, uintptr_t size,
+                                   uintptr_t allocateFlagss);
 
-omr_error_t OMR_GC_SystemCollect(OMR_VMThread* omrVMThread, uint32_t gcCode);
+omr_error_t OMR_GC_SystemCollect(OMR_VMThread *omrVMThread, uint32_t gcCode);
 
 #ifdef __cplusplus
 } /* extern "C" { */

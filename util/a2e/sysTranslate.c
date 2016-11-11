@@ -13,35 +13,34 @@
  *      http://www.opensource.org/licenses/apache2.0.php
  *
  * Contributors:
- *    Multiple authors (IBM Corp.) - initial API and implementation and/or initial documentation
+ *    Multiple authors (IBM Corp.) - initial API and implementation and/or
+ *initial documentation
  *******************************************************************************/
 
 #pragma map(sysTranslate, "SYSXLATE")
 #include <builtins.h>
 
-char *
-sysTranslate(const char *source, int length, char *trtable, char *xlate_buf)
-{
-	int i;
+char *sysTranslate(const char *source, int length, char *trtable,
+                   char *xlate_buf) {
+  int i;
 
-	memcpy(xlate_buf, source, length);  /* copy source to target */
+  memcpy(xlate_buf, source, length); /* copy source to target */
 
-	i = 0;
+  i = 0;
 
 #if __COMPILER_VER >= 0x41050000
-	/* If the compiler level supports the fast builtin for translation, use it
-	 * on the first n*256 bytes of the string
-	 */
-	for (; length > 255; i += 256, length -= 256) {
-		__tr(xlate_buf + i, trtable, 255);
-
-	}
+  /* If the compiler level supports the fast builtin for translation, use it
+   * on the first n*256 bytes of the string
+   */
+  for (; length > 255; i += 256, length -= 256) {
+    __tr(xlate_buf + i, trtable, 255);
+  }
 #endif
 
-	for (; length > 0; i++, length--) {      /* translate */
-		xlate_buf[i] = trtable[source[i]];
-	}
+  for (; length > 0; i++, length--) { /* translate */
+    xlate_buf[i] = trtable[source[i]];
+  }
 
-	xlate_buf[i] = '\0';                /* null terminate */
-	return xlate_buf;
+  xlate_buf[i] = '\0'; /* null terminate */
+  return xlate_buf;
 }

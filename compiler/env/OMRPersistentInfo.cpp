@@ -18,8 +18,6 @@
 
 #include "env/PersistentInfo.hpp"
 
-TR::PersistentInfo *
-OMR::PersistentInfo::self()
-   {
-   return static_cast<TR::PersistentInfo*>(this);
-   }
+TR::PersistentInfo *OMR::PersistentInfo::self() {
+  return static_cast<TR::PersistentInfo *>(this);
+}

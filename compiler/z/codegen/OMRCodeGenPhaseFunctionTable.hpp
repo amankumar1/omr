@@ -21,10 +21,10 @@
  * Only valid static methods within CodeGenPhase class should be included.
  */
 
-
-// The entries in this file must be kept in sync with compiler/z/codegen/OMRCodeGenPhaseEnum.hpp
+// The entries in this file must be kept in sync with
+// compiler/z/codegen/OMRCodeGenPhaseEnum.hpp
 #include "compiler/codegen/OMRCodeGenPhaseFunctionTable.hpp"
 
-TR::CodeGenPhase::performMarkLoadAsZeroOrSignExtensionPhase,                              //markLoadAsZeroOrSignExtension
-TR::CodeGenPhase::performSetBranchOnCountFlagPhase,
-
+TR::CodeGenPhase::
+    performMarkLoadAsZeroOrSignExtensionPhase, // markLoadAsZeroOrSignExtension
+    TR::CodeGenPhase::performSetBranchOnCountFlagPhase,

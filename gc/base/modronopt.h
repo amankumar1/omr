@@ -16,7 +16,6 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-
 /**
  * @file
  * @ingroup GC_Base_Core
@@ -35,4 +34,3 @@
 /** @} */
 
 #endif /* MODRONOPT_H_ */
-

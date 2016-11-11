@@ -16,7 +16,6 @@
 *    Multiple authors (IBM Corp.) - initial implementation and documentation
 *******************************************************************************/
 
-
 /**
  * Description: An annotated extensible class is direct parent of
  *    of a class that is not annotated, which is not allowed as
@@ -25,6 +24,9 @@
 
 #define OMR_EXTENSIBLE __attribute__((annotate("OMR_Extensible")))
 
-namespace OMR { class OMR_EXTENSIBLE Class1Marked {}; }
-namespace IBM { class Class1Unmarked : public OMR::Class1Marked {}; }
-
+namespace OMR {
+class OMR_EXTENSIBLE Class1Marked {};
+}
+namespace IBM {
+class Class1Unmarked : public OMR::Class1Marked {};
+}

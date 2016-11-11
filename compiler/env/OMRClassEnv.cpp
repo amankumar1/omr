@@ -16,18 +16,16 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  ******************************************************************************/
 
-#include <stddef.h>                   // for NULL
-#include <stdint.h>                   // for int32_t, int64_t, uint32_t
+#include <stddef.h> // for NULL
+#include <stdint.h> // for int32_t, int64_t, uint32_t
 #include <string.h>
 #include "env/CompilerEnv.hpp"
-#include "env/jittypes.h"             // for uintptrj_t, intptrj_t
-#include "infra/Assert.hpp"           // for TR_ASSERT
+#include "env/jittypes.h"   // for uintptrj_t, intptrj_t
+#include "infra/Assert.hpp" // for TR_ASSERT
 
-
-char *
-OMR::ClassEnv::classNameChars(TR::Compilation *comp, TR::SymbolReference *symRef, int32_t & len)
-   {
-   char *name = "<no class name>";
-   len = strlen(name);
-   return name;
-   }
+char *OMR::ClassEnv::classNameChars(TR::Compilation *comp,
+                                    TR::SymbolReference *symRef, int32_t &len) {
+  char *name = "<no class name>";
+  len = strlen(name);
+  return name;
+}

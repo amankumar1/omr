@@ -16,33 +16,32 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  ******************************************************************************/
 
-
 #ifndef LINKEDLIST_INCL
 #define LINKEDLIST_INCL
 
 #include "ilgen/MethodBuilder.hpp"
 
-namespace TR { class TypeDictionary; }
+namespace TR {
+class TypeDictionary;
+}
 
-typedef struct Element
-   {
-   struct Element *next;
-   int16_t key;
-   int32_t val;
-   } Element;
+typedef struct Element {
+  struct Element *next;
+  int16_t key;
+  int32_t val;
+} Element;
 
-typedef int32_t (LinkedListFunctionType)(Element *, int16_t);
+typedef int32_t(LinkedListFunctionType)(Element *, int16_t);
 
-class LinkedListMethod : public TR::MethodBuilder
-   {
-   private:
-   TR::IlReference *_keyRef;
-   TR::IlReference *_valRef;
-   TR::IlReference *_nextRef;
+class LinkedListMethod : public TR::MethodBuilder {
+private:
+  TR::IlReference *_keyRef;
+  TR::IlReference *_valRef;
+  TR::IlReference *_nextRef;
 
-   public:
-   LinkedListMethod(TR::TypeDictionary *);
-   virtual bool buildIL();
-   };
+public:
+  LinkedListMethod(TR::TypeDictionary *);
+  virtual bool buildIL();
+};
 
 #endif // !defined(LINKEDLIST_INCL)

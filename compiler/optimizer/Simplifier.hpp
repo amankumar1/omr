@@ -21,19 +21,16 @@
 
 #include "optimizer/OMRSimplifier.hpp"
 
-namespace TR { class OptimizationManager; }
+namespace TR {
+class OptimizationManager;
+}
 
-namespace TR
-{
+namespace TR {
 
-class Simplifier : public OMR::Simplifier
-   {
-   public:
-
-   Simplifier(TR::OptimizationManager *manager) :
-      OMR::Simplifier(manager) {}
-   };
-
+class Simplifier : public OMR::Simplifier {
+public:
+  Simplifier(TR::OptimizationManager *manager) : OMR::Simplifier(manager) {}
+};
 }
 
 #endif

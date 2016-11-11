@@ -20,22 +20,22 @@
 #include "cs2/llistof.h"
 
 struct pair {
-  pair(int _a, int _b): a(_a), b(_b) {}
-  int a,b;
+  pair(int _a, int _b) : a(_a), b(_b) {}
+  int a, b;
 };
 
-std::ostream &operator<< (std::ostream &out, struct pair &p) {
-  return out << "(" << p.a << ":" << p.b <<")";
+std::ostream &operator<<(std::ostream &out, struct pair &p) {
+  return out << "(" << p.a << ":" << p.b << ")";
 }
 
 int main() {
   CS2::check_allocator<> ca;
-  typedef CS2::LinkedListOf<pair, CS2::check_allocator<> > LIST;
+  typedef CS2::LinkedListOf<pair, CS2::check_allocator<>> LIST;
   LIST lp(ca);
 
   bool isAddedToEnd = false;
-  for (int i=0; i<10; i++) {
-    lp.Add(pair(i,i*i), isAddedToEnd);
+  for (int i = 0; i < 10; i++) {
+    lp.Add(pair(i, i * i), isAddedToEnd);
     isAddedToEnd = !isAddedToEnd;
   }
 
@@ -46,27 +46,26 @@ int main() {
   std::cout << "\n";
 
   // test stack-based methods
-  int i=0;
-  while (!lp.IsEmpty())
-    {
+  int i = 0;
+  while (!lp.IsEmpty()) {
     pair &p = *lp.Head();
     int a = p.a;
     std::cout << "[" << p.a << "," << p.b << "] ";
     lp.Pop();
 
     if (a > 0)
-      lp.Push(pair(a-1, a));
+      lp.Push(pair(a - 1, a));
     else
       std::cout << "\n";
     i++;
-    }
+  }
 
-  for (int i=0; i<10; i++) {
-    lp.Add(pair(i,i*i), true);
+  for (int i = 0; i < 10; i++) {
+    lp.Add(pair(i, i * i), true);
   }
 
   LIST l2(lp, lp);
-  l2.Add(pair(3,5), true);
+  l2.Add(pair(3, 5), true);
 
   std::cout << l2 << "\n";
 

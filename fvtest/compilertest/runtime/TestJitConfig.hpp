@@ -19,21 +19,22 @@
 #ifndef TEST_JITCONFIG_HPP
 #define TEST_JITCONFIG_HPP
 
-#include "env/TRMemory.hpp"
 #include "env/FEBase.hpp"
 #include "env/JitConfig.hpp"
+#include "env/TRMemory.hpp"
 
-namespace TestCompiler { class FrontEnd; }
+namespace TestCompiler {
+class FrontEnd;
+}
 
-// Singleton JitConfig. The only instance of this is TestCompiler::FrontEnd::_jitConfig
-namespace TestCompiler
-{
-struct JitConfig : public TR::JitConfig
-   {
-   private:
-   friend class TR::FEBase<FrontEnd>;
-   JitConfig() : TR::JitConfig() {}
-   };
+// Singleton JitConfig. The only instance of this is
+// TestCompiler::FrontEnd::_jitConfig
+namespace TestCompiler {
+struct JitConfig : public TR::JitConfig {
+private:
+  friend class TR::FEBase<FrontEnd>;
+  JitConfig() : TR::JitConfig() {}
+};
 } // namespace TestCompiler
 
 #endif

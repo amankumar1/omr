@@ -19,20 +19,17 @@
 #ifndef OMR_MACHINE_INCL
 #define OMR_MACHINE_INCL
 
-#include "codegen/OMRMachine.hpp"  // for MachineBaseConnector
+#include "codegen/OMRMachine.hpp" // for MachineBaseConnector
 
-namespace TR { class CodeGenerator; }
+namespace TR {
+class CodeGenerator;
+}
 
-namespace TR
-{
-class OMR_EXTENSIBLE Machine : public OMR::MachineConnector
-   {
-   public:
-
-   Machine(TR::CodeGenerator *cg) :
-      OMR::MachineConnector(cg) {};
-
-   };
+namespace TR {
+class OMR_EXTENSIBLE Machine : public OMR::MachineConnector {
+public:
+  Machine(TR::CodeGenerator *cg) : OMR::MachineConnector(cg){};
+};
 }
 
 #endif

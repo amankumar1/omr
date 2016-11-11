@@ -22,23 +22,25 @@
 #include "ClassType.hpp"
 
 /* This type represents both class and struct types */
-class ClassUDT: public ClassType
-{
+class ClassUDT : public ClassType {
 public:
-	ClassUDT *_superClass;
-	bool _isClass;
+  ClassUDT *_superClass;
+  bool _isClass;
 
-	ClassUDT(size_t size, bool isClass = true, unsigned int lineNumber = 0);
-	virtual ~ClassUDT();
+  ClassUDT(size_t size, bool isClass = true, unsigned int lineNumber = 0);
+  virtual ~ClassUDT();
 
-	virtual bool equal(Type const& type, set<Type const*> *checked) const;
-	virtual void replaceType(Type *typeToReplace, Type *replaceWith);
-	virtual string getSymbolTypeName();
+  virtual bool equal(Type const &type, set<Type const *> *checked) const;
+  virtual void replaceType(Type *typeToReplace, Type *replaceWith);
+  virtual string getSymbolTypeName();
 
-	virtual DDR_RC scanChildInfo(Scanner *scanner, void *data);
-	virtual DDR_RC enumerateType(BlobGenerator *blobGenerator, bool addFieldsOnly);
-	virtual DDR_RC buildBlob(BlobGenerator *blobGenerator, bool addFieldsOnly, string prefix);
-	virtual DDR_RC printToSuperset(SupersetGenerator *supersetGenerator, bool addFieldsOnly, string prefix);
+  virtual DDR_RC scanChildInfo(Scanner *scanner, void *data);
+  virtual DDR_RC enumerateType(BlobGenerator *blobGenerator,
+                               bool addFieldsOnly);
+  virtual DDR_RC buildBlob(BlobGenerator *blobGenerator, bool addFieldsOnly,
+                           string prefix);
+  virtual DDR_RC printToSuperset(SupersetGenerator *supersetGenerator,
+                                 bool addFieldsOnly, string prefix);
 };
 
 #endif /* CLASSUDT_HPP */

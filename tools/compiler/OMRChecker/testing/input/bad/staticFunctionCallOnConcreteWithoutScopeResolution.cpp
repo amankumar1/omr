@@ -16,7 +16,6 @@
 *    Multiple authors (IBM Corp.) - initial implementation and documentation
 *******************************************************************************/
 
-
 /**
  * Description: Calls an extensible class static member function
  *    wihtout scope resolution, which is not allowed.
@@ -24,20 +23,20 @@
 
 #define OMR_EXTENSIBLE __attribute__((annotate("OMR_Extensible")))
 
-namespace OMR
-{
+namespace OMR {
 
-class OMR_EXTENSIBLE ExtClass
-   {
-   public:
-   static void functionCalled();  // function to be called
-   void callingFunction();        // function that will make call
-                                  //   without scope resolution
-   };
+class OMR_EXTENSIBLE ExtClass {
+public:
+  static void functionCalled(); // function to be called
+  void callingFunction();       // function that will make call
+                                //   without scope resolution
+};
 
 } // namespace OMR
 
-namespace TR { class OMR_EXTENSIBLE ExtClass : public OMR::ExtClass {}; }
+namespace TR {
+class OMR_EXTENSIBLE ExtClass : public OMR::ExtClass {};
+}
 
 void OMR::ExtClass::functionCalled() {}
 

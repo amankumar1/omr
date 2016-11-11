@@ -26,10 +26,10 @@
 
 /**
  * This file is used to house any strange tricks that Modron must perform
- * to get around ZOS platform quirks. 
+ * to get around ZOS platform quirks.
  */
 
-/** 
+/**
  * On ZOS, ar command does not export long symbol names on certain releases.
  * So, certain objects containing such long symbol names end up unresolved.
  * To resolve, we place a hack short symbol name in the object and reference
@@ -47,4 +47,3 @@ extern int j9zos390LinkTrickPhysicalSubArenaVirtualMemorySemiSpace;
 #endif /* J9ZOS390 */
 
 #endif /* ZOSLINKAGE_HPP_ */
-

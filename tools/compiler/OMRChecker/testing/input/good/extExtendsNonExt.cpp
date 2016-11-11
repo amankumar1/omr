@@ -16,7 +16,6 @@
 *    Multiple authors (IBM Corp.) - initial implementation and documentation
 *******************************************************************************/
 
-
 /*
  * Description: One extensible class inherits from one
  *    non-extensible class.
@@ -24,7 +23,12 @@
 
 #define OMR_EXTENSIBLE __attribute__((annotate("OMR_Extensible")))
 
-namespace OMR { class NonExtClass {}; }
-namespace OMR { class OMR_EXTENSIBLE ExtClass : public OMR::NonExtClass {}; }
-namespace TR  { class OMR_EXTENSIBLE ExtClass : public OMR::ExtClass{}; }
-
+namespace OMR {
+class NonExtClass {};
+}
+namespace OMR {
+class OMR_EXTENSIBLE ExtClass : public OMR::NonExtClass {};
+}
+namespace TR {
+class OMR_EXTENSIBLE ExtClass : public OMR::ExtClass {};
+}

@@ -27,7 +27,6 @@
 
 #define myMapToTypeMacro2 23
 
-
 /*
  * @ddr_namespace: map_to_type=MapToTypeTest3
  */

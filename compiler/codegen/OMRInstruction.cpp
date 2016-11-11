@@ -16,252 +16,194 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-#include "codegen/CodeGenerator.hpp"               // for CodeGenerator
-#include "codegen/InstOpCode.hpp"                  // for InstOpCode, etc
-#include "codegen/Instruction.hpp"                 // for Instruction
-#include "codegen/Register.hpp"                    // for Register
-#include "compile/Compilation.hpp"                 // for Compilation
-#include "il/TreeTop.hpp"                          // for TreeTop
-#include "il/TreeTop_inlines.hpp"                  // for TreeTop::getNode
-#include "infra/Assert.hpp"                        // for TR_ASSERT
-#include "ras/Debug.hpp"                           // for TR_DebugBase
+#include "codegen/CodeGenerator.hpp" // for CodeGenerator
+#include "codegen/InstOpCode.hpp"    // for InstOpCode, etc
+#include "codegen/Instruction.hpp"   // for Instruction
+#include "codegen/Register.hpp"      // for Register
+#include "compile/Compilation.hpp"   // for Compilation
+#include "il/TreeTop.hpp"            // for TreeTop
+#include "il/TreeTop_inlines.hpp"    // for TreeTop::getNode
+#include "infra/Assert.hpp"          // for TR_ASSERT
+#include "ras/Debug.hpp"             // for TR_DebugBase
 
-namespace TR { class Node; }
+namespace TR {
+class Node;
+}
 
-TR::Instruction *
-OMR::Instruction::self()
-   {
-   return static_cast<TR::Instruction *>(this);
-   }
+TR::Instruction *OMR::Instruction::self() {
+  return static_cast<TR::Instruction *>(this);
+}
 
-namespace OMR
-{
-Instruction::Instruction(
-      TR::CodeGenerator *cg,
-      TR::InstOpCode::Mnemonic op,
-      TR::Node *node) :
-   _opcode(op),
-   _next(0),
-   _prev(TR::comp()->getAppendInstruction()),
-   _node(node),
-   _binaryEncodingBuffer(0),
-   _binaryLength(0),
-   _estimatedBinaryLength(0),
-   _cg(cg),
-   _liveLocals(0),
-   _liveMonitors(0),
-   _registerSaveDescription(0),
-   _gc()
-   {
-   TR_ASSERT(node || !debug("checkByteCodeInfo"), "TR::Node * not passed to OMR::Instruction ctor");
+namespace OMR {
+Instruction::Instruction(TR::CodeGenerator *cg, TR::InstOpCode::Mnemonic op,
+                         TR::Node *node)
+    : _opcode(op), _next(0), _prev(TR::comp()->getAppendInstruction()),
+      _node(node), _binaryEncodingBuffer(0), _binaryLength(0),
+      _estimatedBinaryLength(0), _cg(cg), _liveLocals(0), _liveMonitors(0),
+      _registerSaveDescription(0), _gc() {
+  TR_ASSERT(node || !debug("checkByteCodeInfo"),
+            "TR::Node * not passed to OMR::Instruction ctor");
 
-   TR::Compilation *comp = cg->comp();
+  TR::Compilation *comp = cg->comp();
 
-   if (self()->getPrev())
-      {
-      _prev->setNext(self());
+  if (self()->getPrev()) {
+    _prev->setNext(self());
+    comp->setAppendInstruction(self());
+    _index = (_prev->getIndex() + INSTRUCTION_INDEX_INCREMENT) & ~FlagsMask;
+  } else {
+    self()->setNext(comp->getFirstInstruction());
+    self()->setPrev(0);
+    TR::Instruction *first = comp->getFirstInstruction();
+
+    if (first) {
+      first->setPrev(self());
+      _index = first->getIndex() / 2;
+      if (!_node) {
+        _node = first->_node;
+      }
+    } else {
+      _index = INSTRUCTION_INDEX_INCREMENT;
+      if (!_node) {
+        _node = comp->getStartTree()->getNode();
+      }
+    }
+
+    comp->setFirstInstruction(self());
+
+    if (comp->getAppendInstruction() == 0) {
       comp->setAppendInstruction(self());
-      _index = (_prev->getIndex()+INSTRUCTION_INDEX_INCREMENT) & ~FlagsMask;
+    }
+  }
+
+  if (cg->getDebug()) {
+    cg->getDebug()->newInstruction(self());
+  }
+}
+
+Instruction::Instruction(TR::CodeGenerator *cg,
+                         TR::Instruction *precedingInstruction,
+                         TR::InstOpCode::Mnemonic op, TR::Node *node)
+    : _opcode(op), _node(node), _binaryEncodingBuffer(0), _binaryLength(0),
+      _estimatedBinaryLength(0), _cg(cg), _liveLocals(0), _liveMonitors(0),
+      _registerSaveDescription(0), _gc() {
+
+  TR::Compilation *comp = cg->comp();
+
+  if (precedingInstruction != 0) {
+    self()->setNext(precedingInstruction->getNext());
+    self()->setPrev(precedingInstruction);
+
+    if (precedingInstruction->getNext()) {
+      precedingInstruction->getNext()->setPrev(self());
+      TIndex prevIndex = precedingInstruction->getIndex();
+      TIndex nextIndex = precedingInstruction->getNext()->getIndex();
+      // TODO: This will do the wrong thing if nextIndex < prevIndex, but as
+      // long as it doesn't affect the flags it won't hurt
+      _index = (prevIndex + ((nextIndex - prevIndex) / 2)) & ~FlagsMask;
+    } else {
+      _index =
+          (precedingInstruction->getIndex() + INSTRUCTION_INDEX_INCREMENT) &
+          ~FlagsMask;
+      comp->setAppendInstruction(self());
+    }
+
+    precedingInstruction->setNext(self());
+
+    if (!_node) {
+      _node = precedingInstruction->_node;
+    }
+  } else {
+    self()->setNext(comp->getFirstInstruction());
+    self()->setPrev(0);
+    TR::Instruction *first = comp->getFirstInstruction();
+
+    if (first) {
+      first->setPrev(self());
+      _index = first->getIndex() / 2;
+      if (!_node) {
+        _node = first->_node;
       }
-   else
-      {
-      self()->setNext(comp->getFirstInstruction());
-      self()->setPrev(0);
-      TR::Instruction *first = comp->getFirstInstruction();
-
-      if (first)
-         {
-         first->setPrev(self());
-         _index = first->getIndex() / 2;
-         if (!_node)
-            {
-            _node = first->_node;
-            }
-         }
-      else
-         {
-         _index = INSTRUCTION_INDEX_INCREMENT;
-         if (!_node)
-            {
-            _node = comp->getStartTree()->getNode();
-            }
-         }
-
-      comp->setFirstInstruction(self());
-
-      if (comp->getAppendInstruction() == 0)
-         {
-         comp->setAppendInstruction(self());
-         }
+    } else {
+      _index = INSTRUCTION_INDEX_INCREMENT;
+      if (!_node) {
+        _node = comp->getStartTree()->getNode();
       }
+    }
 
-   if (cg->getDebug())
-      {
-      cg->getDebug()->newInstruction(self());
-      }
+    comp->setFirstInstruction(self());
 
-   }
+    if (comp->getAppendInstruction() == 0) {
+      comp->setAppendInstruction(self());
+    }
+  }
 
-Instruction::Instruction(
-      TR::CodeGenerator *cg,
-      TR::Instruction *precedingInstruction,
-      TR::InstOpCode::Mnemonic op,
-      TR::Node *node) :
-   _opcode(op),
-   _node(node),
-   _binaryEncodingBuffer(0),
-   _binaryLength(0),
-   _estimatedBinaryLength(0),
-   _cg(cg),
-   _liveLocals(0),
-   _liveMonitors(0),
-   _registerSaveDescription(0),
-   _gc()
-   {
+  if (cg->getDebug()) {
+    cg->getDebug()->newInstruction(self());
+  }
+}
 
-   TR::Compilation *comp = cg->comp();
+TR::Instruction *Instruction::move(TR::Instruction *newLocation) {
+  TR_ASSERT(self() != newLocation,
+            "An instruction cannot be its own predecessor");
 
-   if (precedingInstruction != 0)
-      {
-      self()->setNext(precedingInstruction->getNext());
-      self()->setPrev(precedingInstruction);
+  TR::Instruction *prev = self()->getPrev();
+  TR::Instruction *next = self()->getNext();
 
-      if (precedingInstruction->getNext())
-         {
-         precedingInstruction->getNext()->setPrev(self());
-         TIndex prevIndex = precedingInstruction->getIndex();
-         TIndex nextIndex = precedingInstruction->getNext()->getIndex();
-         // TODO: This will do the wrong thing if nextIndex < prevIndex, but as long as it doesn't affect the flags it won't hurt
-         _index = (prevIndex + ((nextIndex - prevIndex) / 2)) & ~FlagsMask;
-         }
-      else
-         {
-         _index = (precedingInstruction->getIndex() + INSTRUCTION_INDEX_INCREMENT) & ~FlagsMask;
-         comp->setAppendInstruction(self());
-         }
+  if (prev) {
+    prev->setNext(next);
+  }
 
-      precedingInstruction->setNext(self());
+  if (next) {
+    next->setPrev(prev);
+  }
 
-      if (!_node)
-         {
-         _node = precedingInstruction->_node;
-         }
-      }
-   else
-      {
-      self()->setNext(comp->getFirstInstruction());
-      self()->setPrev(0);
-      TR::Instruction *first = comp->getFirstInstruction();
+  TR::Instruction *newLocNext = newLocation->getNext();
+  if (newLocNext) {
+    newLocNext->setPrev(self());
+  }
 
-      if (first)
-         {
-         first->setPrev(self());
-         _index = first->getIndex() / 2;
-         if (!_node)
-            {
-            _node = first->_node;
-            }
-         }
-      else
-         {
-         _index = INSTRUCTION_INDEX_INCREMENT;
-         if (!_node)
-            {
-            _node = comp->getStartTree()->getNode();
-            }
-         }
+  self()->setNext(newLocNext);
+  self()->setPrev(newLocation);
+  newLocation->setNext(self());
 
-      comp->setFirstInstruction(self());
+  // TODO: Updating this instruction's index might be worth while
 
-      if (comp->getAppendInstruction() == 0)
-         {
-         comp->setAppendInstruction(self());
-         }
-      }
+  return self();
+}
 
-   if (cg->getDebug())
-      {
-      cg->getDebug()->newInstruction(self());
-      }
+void Instruction::remove() {
+  TR::Instruction *prev = self()->getPrev();
+  TR::Instruction *next = self()->getNext();
 
-   }
+  if (prev) {
+    prev->setNext(next);
+  }
+  if (next) {
+    next->setPrev(prev);
+  }
+}
 
-TR::Instruction *
-Instruction::move(TR::Instruction *newLocation)
-   {
-   TR_ASSERT(self() != newLocation, "An instruction cannot be its own predecessor");
+void Instruction::useRegister(TR::Register *reg) {
 
-   TR::Instruction *prev = self()->getPrev();
-   TR::Instruction *next = self()->getNext();
+  if (reg->getStartOfRange() == 0 ||
+      (reg->getStartOfRange()->getIndex() > self()->getIndex()) &&
+          !self()->cg()->getIsInOOLSection()) {
+    reg->setStartOfRange(self());
+  }
 
-   if (prev)
-      {
-      prev->setNext(next);
-      }
+  if (reg->getEndOfRange() == 0 ||
+      (reg->getEndOfRange()->getIndex() < self()->getIndex()) &&
+          !self()->cg()->getIsInOOLSection()) {
+    reg->setEndOfRange(self());
+  }
 
-   if (next)
-      {
-      next->setPrev(prev);
-      }
+  if (self()->cg()->getEnableRegisterUsageTracking()) {
+    self()->cg()->recordSingleRegisterUse(reg);
+  }
 
-   TR::Instruction *newLocNext = newLocation->getNext();
-   if (newLocNext)
-      {
-      newLocNext->setPrev(self());
-      }
+  reg->incTotalUseCount();
 
-   self()->setNext(newLocNext);
-   self()->setPrev(newLocation);
-   newLocation->setNext(self());
-
-   // TODO: Updating this instruction's index might be worth while
-
-   return self();
-   }
-
-void
-Instruction::remove()
-   {
-   TR::Instruction *prev = self()->getPrev();
-   TR::Instruction *next = self()->getNext();
-
-   if (prev)
-      {
-      prev->setNext(next);
-
-      }
-   if (next)
-      {
-      next->setPrev(prev);
-      }
-   }
-
-void
-Instruction::useRegister(TR::Register *reg)
-   {
-
-   if (reg->getStartOfRange() == 0 ||
-       (reg->getStartOfRange()->getIndex() > self()->getIndex()) &&
-       !self()->cg()->getIsInOOLSection())
-      {
-      reg->setStartOfRange(self());
-      }
-
-   if (reg->getEndOfRange() == 0 ||
-       (reg->getEndOfRange()->getIndex() < self()->getIndex()) &&
-       !self()->cg()->getIsInOOLSection())
-      {
-      reg->setEndOfRange(self());
-      }
-
-   if (self()->cg()->getEnableRegisterUsageTracking())
-      {
-      self()->cg()->recordSingleRegisterUse(reg);
-      }
-
-   reg->incTotalUseCount();
-
-   if (self()->cg()->getIsInOOLSection())
-      reg->incOutOfLineUseCount();
-   }
+  if (self()->cg()->getIsInOOLSection())
+    reg->incOutOfLineUseCount();
+}
 }

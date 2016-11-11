@@ -21,22 +21,21 @@
 
 #include <vector>
 
-#include "Members.hpp"
 #include "Macro.hpp"
+#include "Members.hpp"
 #include "Type.hpp"
 
-class UDT : public Type
-{
+class UDT : public Type {
 public:
-	UDT *_outerUDT;
-	unsigned int _lineNumber;
+  UDT *_outerUDT;
+  unsigned int _lineNumber;
 
-	UDT(SymbolType symbolType, size_t size, unsigned int lineNumber = 0);
-	virtual ~UDT();
+  UDT(SymbolType symbolType, size_t size, unsigned int lineNumber = 0);
+  virtual ~UDT();
 
-	virtual bool equal(Type const& type, set<Type const*> *checked) const;
-	virtual void replaceType(Type *typeToReplace, Type *replaceWith);
-	virtual string getFullName();
+  virtual bool equal(Type const &type, set<Type const *> *checked) const;
+  virtual void replaceType(Type *typeToReplace, Type *replaceWith);
+  virtual string getFullName();
 };
 
 #endif /* UDT_HPP */

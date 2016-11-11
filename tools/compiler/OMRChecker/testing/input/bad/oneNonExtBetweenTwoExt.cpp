@@ -16,19 +16,30 @@
 *    Multiple authors (IBM Corp.) - initial implementation and documentation
 *******************************************************************************/
 
-
 /**
  * Description: An non-extensible class between two extensible classes,
- *    in an extensible class hierarchy, which is not allowed. 
+ *    in an extensible class hierarchy, which is not allowed.
  */
 
 #define OMR_EXTENSIBLE __attribute__((annotate("OMR_Extensible")))
 
-namespace OMR { class OMR_EXTENSIBLE Class1Ext {}; }
-namespace TR  { class OMR_EXTENSIBLE Class1Ext : public OMR::Class1Ext {}; }
+namespace OMR {
+class OMR_EXTENSIBLE Class1Ext {};
+}
+namespace TR {
+class OMR_EXTENSIBLE Class1Ext : public OMR::Class1Ext {};
+}
 
-namespace OMR { class Class2NonExt : public TR::Class1Ext {}; }
-namespace TR  { class Class2NonExt : public OMR::Class2NonExt {}; }
+namespace OMR {
+class Class2NonExt : public TR::Class1Ext {};
+}
+namespace TR {
+class Class2NonExt : public OMR::Class2NonExt {};
+}
 
-namespace OMR { class OMR_EXTENSIBLE Class3Ext : public TR::Class2NonExt {}; }
-namespace TR  { class OMR_EXTENSIBLE Class3Ext : public OMR::Class3Ext {}; }
+namespace OMR {
+class OMR_EXTENSIBLE Class3Ext : public TR::Class2NonExt {};
+}
+namespace TR {
+class OMR_EXTENSIBLE Class3Ext : public OMR::Class3Ext {};
+}

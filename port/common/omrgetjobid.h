@@ -13,7 +13,8 @@
  *      http://www.opensource.org/licenses/apache2.0.php
  *
  * Contributors:
- *    Multiple authors (IBM Corp.) - initial API and implementation and/or initial documentation
+ *    Multiple authors (IBM Corp.) - initial API and implementation and/or
+ *initial documentation
  *******************************************************************************/
 
 #ifndef omrgetjobid_h
@@ -31,6 +32,7 @@
  *
  * @return 0 on success, size of required buffer on failure.
  */
-uintptr_t omrget_jobid(struct OMRPortLibrary *portLibrary, char *jobid, uintptr_t length);
+uintptr_t omrget_jobid(struct OMRPortLibrary *portLibrary, char *jobid,
+                       uintptr_t length);
 
-#endif     /* omrgetjobid_h */
+#endif /* omrgetjobid_h */

@@ -22,5 +22,5 @@ using namespace llvm;
 using namespace clang;
 
 // Register OMRChecker checking action in a plugin registry.
-static FrontendPluginRegistry::Add<OMRChecker::CheckingAction>
-X("omr-checker", "OMR checker");
+static FrontendPluginRegistry::Add<OMRChecker::CheckingAction> X("omr-checker",
+                                                                 "OMR checker");

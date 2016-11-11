@@ -13,7 +13,8 @@
  *      http://www.opensource.org/licenses/apache2.0.php
  *
  * Contributors:
- *    Multiple authors (IBM Corp.) - initial API and implementation and/or initial documentation
+ *    Multiple authors (IBM Corp.) - initial API and implementation and/or
+ *initial documentation
  *******************************************************************************/
 
 #ifndef omrportptb_h
@@ -28,17 +29,22 @@
  * @ingroup Port
  * @brief Per Thread Buffers
  *
- * Per thread buffers are used to store information that is not sharable among the threads.
- * For example when an OS system call fails the error code associated with that error is
- * relevant to the thread that called the OS function; it has no meaning to any other thread.
+ * Per thread buffers are used to store information that is not sharable among
+ * the threads.
+ * For example when an OS system call fails the error code associated with that
+ * error is
+ * relevant to the thread that called the OS function; it has no meaning to any
+ * other thread.
  *
- * This file contains the structure of the per thread buffers.  @see omrtlshelpers.c for details on accessing
+ * This file contains the structure of the per thread buffers.  @see
+ * omrtlshelpers.c for details on accessing
  * these buffers..
  */
 
 #include "omrport.h"
 
-#define J9ERROR_DEFAULT_BUFFER_SIZE 256 /**< default customized error message size if we need to create one */
+#define J9ERROR_DEFAULT_BUFFER_SIZE                                            \
+  256 /**< default customized error message size if we need to create one */
 
 /**
  * @typedef
@@ -46,17 +52,21 @@
  * Storage for data related to the threads state.
  */
 typedef struct PortlibPTBuffers_struct {
-	struct PortlibPTBuffers_struct *next; /**< Next per thread buffer */
-	struct PortlibPTBuffers_struct *previous; /**< Previous per thread buffer */
+  struct PortlibPTBuffers_struct *next;     /**< Next per thread buffer */
+  struct PortlibPTBuffers_struct *previous; /**< Previous per thread buffer */
 
-	int32_t platformErrorCode; /**< error code as reported by the OS */
-	int32_t portableErrorCode; /**< error code translated to portable format by application */
-	char *errorMessageBuffer; /**< last saved error message, either customized or from OS */
-	uint32_t errorMessageBufferSize; /**< error message buffer size */
+  int32_t platformErrorCode; /**< error code as reported by the OS */
+  int32_t portableErrorCode; /**< error code translated to portable format by
+                                application */
+  char
+      *errorMessageBuffer; /**< last saved error message, either customized or
+                              from OS */
+  uint32_t errorMessageBufferSize; /**< error message buffer size */
 
-	int32_t reportedErrorCode; /**< last reported error code */
-	char *reportedMessageBuffer; /**< last reported error message, either customized or from OS */
-	uint32_t reportedMessageBufferSize; /**< reported message buffer size */
+  int32_t reportedErrorCode;          /**< last reported error code */
+  char *reportedMessageBuffer;        /**< last reported error message, either
+                                         customized or from OS */
+  uint32_t reportedMessageBufferSize; /**< reported message buffer size */
 } PortlibPTBuffers_struct;
 
 /**
@@ -66,9 +76,7 @@ typedef struct PortlibPTBuffers_struct {
  */
 typedef struct PortlibPTBuffers_struct *PortlibPTBuffers_t;
 
-void omrport_free_ptBuffer(struct OMRPortLibrary *portLibrary, PortlibPTBuffers_t ptBuffer);
+void omrport_free_ptBuffer(struct OMRPortLibrary *portLibrary,
+                           PortlibPTBuffers_t ptBuffer);
 
-
-#endif     /* omrportptb_h */
-
-
+#endif /* omrportptb_h */

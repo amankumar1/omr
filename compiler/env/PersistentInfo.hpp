@@ -23,17 +23,12 @@
 
 class TR_PersistentMemory;
 
-namespace TR
-{
+namespace TR {
 
-class PersistentInfo : public OMR::PersistentInfoConnector
-   {
-   public:
-
-   PersistentInfo(TR_PersistentMemory *pm) :
-         OMR::PersistentInfoConnector(pm)
-      {}
-   };
+class PersistentInfo : public OMR::PersistentInfoConnector {
+public:
+  PersistentInfo(TR_PersistentMemory *pm) : OMR::PersistentInfoConnector(pm) {}
+};
 }
 
 #endif

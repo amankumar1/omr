@@ -18,17 +18,10 @@
 
 #include "env/SegmentProvider.hpp"
 
-TR::SegmentProvider::~SegmentProvider() throw()
-   {
-   }
+TR::SegmentProvider::~SegmentProvider() throw() {}
 
-TR::SegmentProvider::SegmentProvider(size_t defaultSegmentSize) :
-   _defaultSegmentSize(defaultSegmentSize)
-   {
-   }
+TR::SegmentProvider::SegmentProvider(size_t defaultSegmentSize)
+    : _defaultSegmentSize(defaultSegmentSize) {}
 
-TR::SegmentProvider::SegmentProvider(const SegmentProvider &other) :
-   _defaultSegmentSize(other._defaultSegmentSize)
-   {
-   }
-
+TR::SegmentProvider::SegmentProvider(const SegmentProvider &other)
+    : _defaultSegmentSize(other._defaultSegmentSize) {}

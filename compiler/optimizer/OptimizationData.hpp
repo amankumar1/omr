@@ -19,25 +19,22 @@
 #ifndef TR_OPTIMIZATIONDATA_INCL
 #define TR_OPTIMIZATIONDATA_INCL
 
-#include "compile/Compilation.hpp"      // for Compilation
-#include "env/TRMemory.hpp"             // for Allocator, Allocatable, etc
+#include "compile/Compilation.hpp" // for Compilation
+#include "env/TRMemory.hpp"        // for Allocator, Allocatable, etc
 
-namespace TR
-{
+namespace TR {
 
-class OptimizationData : public TR::Allocatable<OptimizationData, TR::Allocator>
-	{
-	public:
+class OptimizationData
+    : public TR::Allocatable<OptimizationData, TR::Allocator> {
+public:
+  OptimizationData(TR::Compilation *comp) : _comp(comp) {}
 
-	OptimizationData(TR::Compilation *comp) : _comp(comp) {}
+  TR::Compilation *comp() { return _comp; }
+  TR::Allocator allocator() { return comp()->allocator(); }
 
-	TR::Compilation *comp() { return _comp; }
-	TR::Allocator allocator() { return comp()->allocator(); }
-
-	private:
-	TR::Compilation *_comp;
-	};
-
+private:
+  TR::Compilation *_comp;
+};
 }
 
 #endif

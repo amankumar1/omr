@@ -20,49 +20,49 @@
 #define OMR_DEBUG_ENV_INCL
 
 /*
- * The following #define and typedef must appear before any #includes in this file
+ * The following #define and typedef must appear before any #includes in this
+ * file
  */
 #ifndef OMR_DEBUG_ENV_CONNECTOR
 #define OMR_DEBUG_ENV_CONNECTOR
-namespace OMR { class DebugEnv; }
-namespace OMR { typedef OMR::DebugEnv DebugEnvConnector; }
+namespace OMR {
+class DebugEnv;
+}
+namespace OMR {
+typedef OMR::DebugEnv DebugEnvConnector;
+}
 #endif
 
-
-#include "infra/Annotations.hpp"  // for OMR_EXTENSIBLE
 #include "env/jittypes.h"
+#include "infra/Annotations.hpp" // for OMR_EXTENSIBLE
 
-namespace OMR
-{
+namespace OMR {
 
-class OMR_EXTENSIBLE DebugEnv
-   {
+class OMR_EXTENSIBLE DebugEnv {
 public:
-   DebugEnv() {}
+  DebugEnv() {}
 
-   void breakPoint();
+  void breakPoint();
 
-   char *extraAssertMessage(TR::Compilation *comp) { return ""; }
+  char *extraAssertMessage(TR::Compilation *comp) { return ""; }
 
-   int32_t hexAddressWidthInChars() { return _hexAddressWidthInChars; }
+  int32_t hexAddressWidthInChars() { return _hexAddressWidthInChars; }
 
-   // Deprecate in favour of 'pointerPrintfMaxLenInChars' ?
-   //
-   int32_t hexAddressFieldWidthInChars() { return _hexAddressFieldWidthInChars; }
+  // Deprecate in favour of 'pointerPrintfMaxLenInChars' ?
+  //
+  int32_t hexAddressFieldWidthInChars() { return _hexAddressFieldWidthInChars; }
 
-   int32_t codeByteColumnWidth() { return _codeByteColumnWidth; }
+  int32_t codeByteColumnWidth() { return _codeByteColumnWidth; }
 
-   int32_t pointerPrintfMaxLenInChars() { return _hexAddressFieldWidthInChars; }
+  int32_t pointerPrintfMaxLenInChars() { return _hexAddressFieldWidthInChars; }
 
 protected:
+  int32_t _hexAddressWidthInChars;
 
-   int32_t _hexAddressWidthInChars;
+  int32_t _hexAddressFieldWidthInChars;
 
-   int32_t _hexAddressFieldWidthInChars;
-
-   int32_t _codeByteColumnWidth;
-   };
-
+  int32_t _codeByteColumnWidth;
+};
 }
 
 #endif

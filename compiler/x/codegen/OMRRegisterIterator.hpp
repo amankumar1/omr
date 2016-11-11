@@ -20,47 +20,50 @@
 #define OMR_X86_REGISTER_ITERATOR_INCL
 
 /*
- * The following #define and typedef must appear before any #includes in this file
+ * The following #define and typedef must appear before any #includes in this
+ * file
  */
 #ifndef OMR_REGISTER_ITERATOR_CONNECTOR
 #define OMR_REGISTER_ITERATOR_CONNECTOR
-namespace OMR { namespace X86 { class RegisterIterator; } }
-namespace OMR { typedef OMR::X86::RegisterIterator RegisterIteratorConnector; }
+namespace OMR {
+namespace X86 {
+class RegisterIterator;
+}
+}
+namespace OMR {
+typedef OMR::X86::RegisterIterator RegisterIteratorConnector;
+}
 #else
 #error OMR::X86::RegisterIterator expected to be a primary connector, but a OMR connector is already defined
 #endif
 
 #include "compiler/codegen/OMRRegisterIterator.hpp"
 
-#include <stdint.h>                       // for int32_t
-#include "codegen/RegisterConstants.hpp"  // for TR_RegisterKinds
+#include <stdint.h>                      // for int32_t
+#include "codegen/RegisterConstants.hpp" // for TR_RegisterKinds
 
-namespace TR { class Machine; }
-namespace OMR
-{
-
-namespace X86
-{
-
-class OMR_EXTENSIBLE RegisterIterator
-   {
-   public:
-   RegisterIterator(TR::Machine *machine, TR_RegisterKinds kind);
-
-   TR::Register *getFirst();
-   TR::Register *getCurrent();
-   TR::Register *getNext();
-
-   private:
-
-   TR::Machine *_machine;
-   int32_t _firstRegIndex;
-   int32_t _lastRegIndex;
-   int32_t _cursor;
-   };
-
+namespace TR {
+class Machine;
 }
+namespace OMR {
 
+namespace X86 {
+
+class OMR_EXTENSIBLE RegisterIterator {
+public:
+  RegisterIterator(TR::Machine *machine, TR_RegisterKinds kind);
+
+  TR::Register *getFirst();
+  TR::Register *getCurrent();
+  TR::Register *getNext();
+
+private:
+  TR::Machine *_machine;
+  int32_t _firstRegIndex;
+  int32_t _lastRegIndex;
+  int32_t _cursor;
+};
+}
 }
 
 #endif

@@ -24,23 +24,25 @@
 
 using std::vector;
 
-class EnumUDT: public UDT
-{
+class EnumUDT : public UDT {
 public:
-	vector<EnumMember *> _enumMembers;
+  vector<EnumMember *> _enumMembers;
 
-	EnumUDT(unsigned int lineNumber = 0);
-	virtual ~EnumUDT();
+  EnumUDT(unsigned int lineNumber = 0);
+  virtual ~EnumUDT();
 
-	bool isAnonymousType();
-	virtual bool equal(Type const& type, set<Type const*> *checked) const;
-	virtual void replaceType(Type *typeToReplace, Type *replaceWith);
-	virtual string getSymbolTypeName();
+  bool isAnonymousType();
+  virtual bool equal(Type const &type, set<Type const *> *checked) const;
+  virtual void replaceType(Type *typeToReplace, Type *replaceWith);
+  virtual string getSymbolTypeName();
 
-	virtual DDR_RC scanChildInfo(Scanner *scanner, void *data);
-	virtual DDR_RC enumerateType(BlobGenerator *blobGenerator, bool addFieldsOnly);
-	virtual DDR_RC buildBlob(BlobGenerator *blobGenerator, bool addFieldsOnly, string prefix);
-	virtual DDR_RC printToSuperset(SupersetGenerator *supersetGenerator, bool addFieldsOnly, string prefix);
+  virtual DDR_RC scanChildInfo(Scanner *scanner, void *data);
+  virtual DDR_RC enumerateType(BlobGenerator *blobGenerator,
+                               bool addFieldsOnly);
+  virtual DDR_RC buildBlob(BlobGenerator *blobGenerator, bool addFieldsOnly,
+                           string prefix);
+  virtual DDR_RC printToSuperset(SupersetGenerator *supersetGenerator,
+                                 bool addFieldsOnly, string prefix);
 };
 
 #endif /* ENUMUDT_HPP */

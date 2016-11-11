@@ -17,15 +17,11 @@
  *******************************************************************************/
 #include <stdio.h>
 
-//Array without a length
+// Array without a length
 struct SNoLengthArray {
-	int numElements;
-	int intArr[];
+  int numElements;
+  int intArr[];
 };
 struct SNoLengthArray instanceOfSNoLengthArray;
 
-void
-sample4(void)
-{
-	printf("\nsample4\n");
-}
+void sample4(void) { printf("\nsample4\n"); }

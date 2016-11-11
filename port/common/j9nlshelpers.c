@@ -13,12 +13,11 @@
  *      http://www.opensource.org/licenses/apache2.0.php
  *
  * Contributors:
- *    Multiple authors (IBM Corp.) - initial API and implementation and/or initial documentation
+ *    Multiple authors (IBM Corp.) - initial API and implementation and/or
+ *initial documentation
  *******************************************************************************/
 
 #include "omrnlshelpers.h"
-
-
 
 /**
  * @internal
@@ -26,13 +25,11 @@
  *
  * @param[in] portLibrary The port library
  */
-void
-nls_determine_locale(struct OMRPortLibrary *portLibrary)
-{
-	J9NLSDataCache *nls = &portLibrary->portGlobals->nls_data;
-	char languageProp[3] = "en";
-	char countryProp[3] = "US";
+void nls_determine_locale(struct OMRPortLibrary *portLibrary) {
+  J9NLSDataCache *nls = &portLibrary->portGlobals->nls_data;
+  char languageProp[3] = "en";
+  char countryProp[3] = "US";
 
-	strcpy(nls->language, languageProp);
-	strcpy(nls->region, countryProp);
+  strcpy(nls->language, languageProp);
+  strcpy(nls->region, countryProp);
 }

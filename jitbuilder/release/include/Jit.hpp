@@ -18,7 +18,9 @@
 
 #include <stdint.h>
 
-namespace TR { class MethodBuilder; }
+namespace TR {
+class MethodBuilder;
+}
 class TR_Memory;
 
 extern "C" bool initializeJit();

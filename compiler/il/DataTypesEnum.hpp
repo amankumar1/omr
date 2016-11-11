@@ -17,4 +17,3 @@
  ******************************************************************************/
 
 // This file is used by projects to define their own data types
-

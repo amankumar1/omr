@@ -20,60 +20,68 @@
 #define JITBUILDER_CODECACHEMANAGER_INCL
 
 /*
- * The following #defines and typedefs must appear before any #includes in this file
+ * The following #defines and typedefs must appear before any #includes in this
+ * file
  */
 
 #ifndef JITBUILDER_CODECACHEMANAGER_COMPOSED
 #define JITBUILDER_CODECACHEMANAGER_COMPOSED
-namespace JitBuilder { class CodeCacheManager; }
-namespace JitBuilder { typedef CodeCacheManager CodeCacheManagerConnector; }
+namespace JitBuilder {
+class CodeCacheManager;
+}
+namespace JitBuilder {
+typedef CodeCacheManager CodeCacheManagerConnector;
+}
 #endif
 
 #include <stddef.h>
 #include <stdint.h>
 #include "runtime/OMRCodeCacheManager.hpp"
 
-namespace TR { class CodeCacheMemorySegment; }
-namespace TR { class CodeCache; }
-namespace TR { class CodeCacheManager; }
+namespace TR {
+class CodeCacheMemorySegment;
+}
+namespace TR {
+class CodeCache;
+}
+namespace TR {
+class CodeCacheManager;
+}
 
-namespace JitBuilder
-{
+namespace JitBuilder {
 
 class JitConfig;
 class FrontEnd;
 
-class OMR_EXTENSIBLE CodeCacheManager : public OMR::CodeCacheManagerConnector
-   {
-   TR::CodeCacheManager *self();
+class OMR_EXTENSIBLE CodeCacheManager : public OMR::CodeCacheManagerConnector {
+  TR::CodeCacheManager *self();
 
 public:
-   CodeCacheManager(TR_FrontEnd *fe) : OMR::CodeCacheManagerConnector(fe)
-      {
-      _codeCacheManager = reinterpret_cast<TR::CodeCacheManager *>(this);
-      }
+  CodeCacheManager(TR_FrontEnd *fe) : OMR::CodeCacheManagerConnector(fe) {
+    _codeCacheManager = reinterpret_cast<TR::CodeCacheManager *>(this);
+  }
 
-   void *operator new(size_t s, TR::CodeCacheManager *m) { return m; }
+  void *operator new(size_t s, TR::CodeCacheManager *m) { return m; }
 
-   static TR::CodeCacheManager *instance()  { return _codeCacheManager; }
-   static JitConfig *jitConfig()            { return _jitConfig; }
-   FrontEnd *pyfe()                         { return reinterpret_cast<FrontEnd *>(fe()); }
+  static TR::CodeCacheManager *instance() { return _codeCacheManager; }
+  static JitConfig *jitConfig() { return _jitConfig; }
+  FrontEnd *pyfe() { return reinterpret_cast<FrontEnd *>(fe()); }
 
-   TR::CodeCache *initialize(bool useConsolidatedCache, uint32_t numberOfCodeCachesToCreateAtStartup);
+  TR::CodeCache *initialize(bool useConsolidatedCache,
+                            uint32_t numberOfCodeCachesToCreateAtStartup);
 
-   void *getMemory(size_t sizeInBytes);
-   void  freeMemory(void *memoryToFree);
+  void *getMemory(size_t sizeInBytes);
+  void freeMemory(void *memoryToFree);
 
-   TR::CodeCacheMemorySegment *allocateCodeCacheSegment(size_t segmentSize,
-                                                        size_t &codeCacheSizeToAllocate,
-                                                        void *preferredStartAddress);
+  TR::CodeCacheMemorySegment *
+  allocateCodeCacheSegment(size_t segmentSize, size_t &codeCacheSizeToAllocate,
+                           void *preferredStartAddress);
 
-private :
-   static TR::CodeCacheManager *_codeCacheManager;
-   static JitConfig *_jitConfig;
-   //static TR::GlobalAllocator & _allocator;
-   };
-
+private:
+  static TR::CodeCacheManager *_codeCacheManager;
+  static JitConfig *_jitConfig;
+  // static TR::GlobalAllocator & _allocator;
+};
 
 } // namespace JitBuilder
 

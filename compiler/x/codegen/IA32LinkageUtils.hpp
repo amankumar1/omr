@@ -19,22 +19,25 @@
 #ifndef IA32_LINKAGEUTILS_INCL
 #define IA32_LINKAGEUTILS_INCL
 
-namespace TR { class CodeGenerator; }
-namespace TR { class Node; }
-namespace TR { class Register; }
+namespace TR {
+class CodeGenerator;
+}
+namespace TR {
+class Node;
+}
+namespace TR {
+class Register;
+}
 
-namespace TR
-{
+namespace TR {
 
-class IA32LinkageUtils
-   {
-   public:
-
-   static TR::Register *pushIntegerWordArg(TR::Node *child, TR::CodeGenerator *cg);
-   static TR::Register *pushLongArg(TR::Node *child, TR::CodeGenerator *cg);
-   static TR::Register *pushFloatArg(TR::Node *child, TR::CodeGenerator *cg);
-   static TR::Register *pushDoubleArg(TR::Node *child, TR::CodeGenerator *cg);
-   };
-
+class IA32LinkageUtils {
+public:
+  static TR::Register *pushIntegerWordArg(TR::Node *child,
+                                          TR::CodeGenerator *cg);
+  static TR::Register *pushLongArg(TR::Node *child, TR::CodeGenerator *cg);
+  static TR::Register *pushFloatArg(TR::Node *child, TR::CodeGenerator *cg);
+  static TR::Register *pushDoubleArg(TR::Node *child, TR::CodeGenerator *cg);
+};
 }
 #endif

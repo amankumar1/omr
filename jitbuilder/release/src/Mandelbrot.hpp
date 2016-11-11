@@ -16,23 +16,21 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-
 #ifndef MANDELBROT_INCL
 #define MANDELBROT_INCL
 
 #include "ilgen/MethodBuilder.hpp"
 
-typedef void (MandelbrotFunctionType)(int32_t, uint8_t *buffer, double *cr0);
+typedef void(MandelbrotFunctionType)(int32_t, uint8_t *buffer, double *cr0);
 
-class MandelbrotMethod : public TR::MethodBuilder
-   {
-   private:
-   TR::IlType *pInt8;
-   TR::IlType *pDouble;
+class MandelbrotMethod : public TR::MethodBuilder {
+private:
+  TR::IlType *pInt8;
+  TR::IlType *pDouble;
 
-   public:
-   MandelbrotMethod(TR::TypeDictionary *types);
-   virtual bool buildIL();
-   };
+public:
+  MandelbrotMethod(TR::TypeDictionary *types);
+  virtual bool buildIL();
+};
 
 #endif // !defined(MANDELBROT_INCL)

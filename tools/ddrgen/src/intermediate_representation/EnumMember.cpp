@@ -18,11 +18,6 @@
 
 #include "EnumMember.hpp"
 
-EnumMember::EnumMember()
-{
-	_value = 0;
-}
+EnumMember::EnumMember() { _value = 0; }
 
-EnumMember::~EnumMember()
-{
-}
+EnumMember::~EnumMember() {}

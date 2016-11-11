@@ -17,14 +17,13 @@
  *******************************************************************************/
 
 #include "codegen/CodeGenerator.hpp"
-#include "codegen/TreeEvaluator.hpp"
 #include "codegen/PPCEvaluator.hpp"
-#include "p/codegen/GenerateInstructions.hpp"
+#include "codegen/TreeEvaluator.hpp"
+#include "env/CompilerEnv.hpp"
 #include "env/FrontEnd.hpp"
 #include "il/Node.hpp"
 #include "il/Node_inlines.hpp"
-#include "env/CompilerEnv.hpp"
+#include "p/codegen/GenerateInstructions.hpp"
 
-
-#define NOT_IMPLEMENTED { TR_ASSERT(0, "This function is not implemented in JitBuilder"); }
-
+#define NOT_IMPLEMENTED                                                        \
+  { TR_ASSERT(0, "This function is not implemented in JitBuilder"); }

@@ -16,7 +16,6 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-
 #include "omr.h"
 
 #include "OverflowSegregated.hpp"
@@ -31,26 +30,27 @@
  * @return pointer to the new object
  */
 MM_WorkPacketsSegregated *
-MM_WorkPacketsSegregated::newInstance(MM_EnvironmentBase *env)
-{
-	MM_WorkPacketsSegregated *workPackets;
+MM_WorkPacketsSegregated::newInstance(MM_EnvironmentBase *env) {
+  MM_WorkPacketsSegregated *workPackets;
 
-	workPackets = (MM_WorkPacketsSegregated *)env->getForge()->allocate(sizeof(MM_WorkPacketsSegregated), MM_AllocationCategory::WORK_PACKETS, OMR_GET_CALLSITE());
-	if (NULL != workPackets) {
-		new(workPackets) MM_WorkPacketsSegregated(env);
-		if (!workPackets->initialize(env)) {
-			workPackets->kill(env);
-			workPackets = NULL;
-		}
-	}
+  workPackets = (MM_WorkPacketsSegregated *)env->getForge()->allocate(
+      sizeof(MM_WorkPacketsSegregated), MM_AllocationCategory::WORK_PACKETS,
+      OMR_GET_CALLSITE());
+  if (NULL != workPackets) {
+    new (workPackets) MM_WorkPacketsSegregated(env);
+    if (!workPackets->initialize(env)) {
+      workPackets->kill(env);
+      workPackets = NULL;
+    }
+  }
 
-	return workPackets;
+  return workPackets;
 }
 
 MM_WorkPacketOverflow *
-MM_WorkPacketsSegregated::createOverflowHandler(MM_EnvironmentBase *env, MM_WorkPackets *workPackets)
-{
-	return MM_OverflowSegregated::newInstance(env, this);
+MM_WorkPacketsSegregated::createOverflowHandler(MM_EnvironmentBase *env,
+                                                MM_WorkPackets *workPackets) {
+  return MM_OverflowSegregated::newInstance(env, this);
 }
 
 #endif /* OMR_GC_SEGREGATED_HEAP */

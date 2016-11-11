@@ -20,30 +20,31 @@
 #define OMR_REGISTER_DEPENDENCY_INCL
 
 /*
- * The following #define and typedef must appear before any #includes in this file
+ * The following #define and typedef must appear before any #includes in this
+ * file
  */
 #ifndef OMR_REGISTER_DEPENDENCY_CONNECTOR
 #define OMR_REGISTER_DEPENDENCY_CONNECTOR
-   namespace OMR { class RegisterDependencyConditions; }
-   namespace OMR { typedef OMR::RegisterDependencyConditions RegisterDependencyConditionsConnector; }
+namespace OMR {
+class RegisterDependencyConditions;
+}
+namespace OMR {
+typedef OMR::RegisterDependencyConditions RegisterDependencyConditionsConnector;
+}
 #endif
 
-#include "env/TRMemory.hpp"  // for TR_Memory, etc
 #include "codegen/RegisterDependencyStruct.hpp"
+#include "env/TRMemory.hpp" // for TR_Memory, etc
 
-namespace OMR
-{
+namespace OMR {
 
-class RegisterDependencyConditions
-   {
-   protected:
-   RegisterDependencyConditions() {};
+class RegisterDependencyConditions {
+protected:
+  RegisterDependencyConditions(){};
 
-   public:
-   TR_ALLOC(TR_Memory::RegisterDependencyConditions)
-
-   };
-
+public:
+  TR_ALLOC(TR_Memory::RegisterDependencyConditions)
+};
 }
 
 #endif

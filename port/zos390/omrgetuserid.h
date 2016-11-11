@@ -13,7 +13,8 @@
  *      http://www.opensource.org/licenses/apache2.0.php
  *
  * Contributors:
- *    Multiple authors (IBM Corp.) - initial API and implementation and/or initial documentation
+ *    Multiple authors (IBM Corp.) - initial API and implementation and/or
+ *initial documentation
  *******************************************************************************/
 
 #ifndef omrgetuserid_h
@@ -23,6 +24,4 @@
 
 uintptr_t omrget_userid(char *userid, uintptr_t length);
 
-#endif     /* omrgetuserid_h */
-
-
+#endif /* omrgetuserid_h */

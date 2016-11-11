@@ -19,8 +19,6 @@
 #ifndef OMR_RECOGNIZEDMETHODS_ENUM_INCL
 #define OMR_RECOGNIZEDMETHODS_ENUM_INCL
 
-   FirstOMRMethod,
-   unknownMethod = 0,
-   LastOMRMethod = unknownMethod,
+FirstOMRMethod, unknownMethod = 0, LastOMRMethod = unknownMethod,
 
 #endif

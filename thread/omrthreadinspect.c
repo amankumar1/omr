@@ -18,13 +18,13 @@
 #ifndef root_omrthread_inspect_c
 #define root_omrthread_inspect_c
 
-/** Super-evil.  This file is referenced via the Smalltalk virtualModuleObjectFiles
-	mechanism which isn't vpath aware.  Just link directly to the to actual implementation
-	below.
+/** Super-evil.  This file is referenced via the Smalltalk
+   virtualModuleObjectFiles
+        mechanism which isn't vpath aware.  Just link directly to the to actual
+   implementation
+        below.
  */
 
 #include "common/omrthreadinspect.c"
 
-#endif     /* root_omrthread_inspect_h */
-
-
+#endif /* root_omrthread_inspect_h */

@@ -29,25 +29,25 @@
 #endif
 
 #include <stdlib.h>
-/* We include stddef.h for the PALM, because this is where size_t is defined for that platform. */
+/* We include stddef.h for the PALM, because this is where size_t is defined for
+ * that platform. */
 #include <stddef.h>
 
 /**
  * Base Class
  * @ingroup GC_Base_Core
  */
-class MM_Base
-{
+class MM_Base {
 private:
 protected:
 public:
-	void *operator new(size_t size, void *memoryPtr) { return memoryPtr; }
-	void operator delete(void *, void *) {}
+  void *operator new(size_t size, void *memoryPtr) { return memoryPtr; }
+  void operator delete(void *, void *) {}
 
-	/**
-	 * Create a Base object.
-	 */
-	MM_Base() {}
+  /**
+   * Create a Base object.
+   */
+  MM_Base() {}
 };
 
 #endif /* BASE_HPP_ */

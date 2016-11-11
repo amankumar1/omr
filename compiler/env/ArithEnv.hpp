@@ -22,17 +22,12 @@
 #include "env/OMRArithEnv.hpp"
 #include "infra/Annotations.hpp"
 
-namespace TR
-{
+namespace TR {
 
-class OMR_EXTENSIBLE ArithEnv : public OMR::ArithEnvConnector
-   {
+class OMR_EXTENSIBLE ArithEnv : public OMR::ArithEnvConnector {
 public:
-
-   ArithEnv() : OMR::ArithEnvConnector() {}
-
-   };
-
+  ArithEnv() : OMR::ArithEnvConnector() {}
+};
 }
 
 #endif

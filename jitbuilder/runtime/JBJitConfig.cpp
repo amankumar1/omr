@@ -17,15 +17,11 @@
  *******************************************************************************/
 
 #include "runtime/JBJitConfig.hpp"
-#include "env/FrontEnd.hpp"
-#include "runtime/CodeCache.hpp"
 #include <sys/mman.h>
 #include <unistd.h>
+#include "env/FrontEnd.hpp"
+#include "runtime/CodeCache.hpp"
 
 #if defined(TR_HOST_POWER)
 //#include "p/codegen/PPCTableOfConstants.hpp"
 #endif
-
-
-
-

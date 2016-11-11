@@ -20,8 +20,6 @@
 #include "il/Node.hpp"
 #include "il/Node_inlines.hpp"
 
-extern "C"
-   {
-   void *fwdHalfWordCopyTable = 0;
-   };
-
+extern "C" {
+void *fwdHalfWordCopyTable = 0;
+};

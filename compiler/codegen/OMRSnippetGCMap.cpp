@@ -17,31 +17,21 @@
  *******************************************************************************/
 
 #include <stdint.h>
-#include "codegen/GCStackAtlas.hpp"
-#include "codegen/SnippetGCMap.hpp"
 #include "codegen/CodeGenerator.hpp"
+#include "codegen/GCStackAtlas.hpp"
 #include "codegen/Instruction.hpp"
+#include "codegen/SnippetGCMap.hpp"
 
+void OMR::SnippetGCMap::registerStackMap(TR::Instruction *instruction,
+                                         TR::CodeGenerator *cg) {
+  if (_stackMap) {
+    _stackMap->addToAtlas(instruction, cg);
+  }
+}
 
-void
-OMR::SnippetGCMap::registerStackMap(
-      TR::Instruction *instruction,
-      TR::CodeGenerator *cg)
-   {
-   if (_stackMap)
-      {
-      _stackMap->addToAtlas(instruction, cg);
-      }
-   }
-
-
-void
-OMR::SnippetGCMap::registerStackMap(
-      uint8_t *callSiteAddress,
-      TR::CodeGenerator *cg)
-   {
-   if (_stackMap)
-      {
-      _stackMap->addToAtlas(callSiteAddress, cg);
-      }
-   }
+void OMR::SnippetGCMap::registerStackMap(uint8_t *callSiteAddress,
+                                         TR::CodeGenerator *cg) {
+  if (_stackMap) {
+    _stackMap->addToAtlas(callSiteAddress, cg);
+  }
+}

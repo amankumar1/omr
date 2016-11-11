@@ -21,15 +21,16 @@
 
 #include "ilgen/MethodBuilder.hpp"
 
-namespace TR { class TypeDictionary; }
+namespace TR {
+class TypeDictionary;
+}
 
-typedef int32_t (NestedLoopFunctionType)(int32_t);
+typedef int32_t(NestedLoopFunctionType)(int32_t);
 
-class NestedLoopMethod : public TR::MethodBuilder
-   {
-   public:
-   NestedLoopMethod(TR::TypeDictionary *types);
-   virtual bool buildIL();
-   };
+class NestedLoopMethod : public TR::MethodBuilder {
+public:
+  NestedLoopMethod(TR::TypeDictionary *types);
+  virtual bool buildIL();
+};
 
 #endif // !defined(NESTEDLOOP_INCL)

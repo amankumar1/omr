@@ -23,15 +23,12 @@
 
 class TR_FrontEnd;
 
-namespace TR
-{
+namespace TR {
 
-class OMR_EXTENSIBLE CodeCacheManager : public OMR::CodeCacheManagerConnector
-   {
-   public:
-   CodeCacheManager(TR_FrontEnd *fe) : OMR::CodeCacheManagerConnector(fe) { }
-   };
-
+class OMR_EXTENSIBLE CodeCacheManager : public OMR::CodeCacheManagerConnector {
+public:
+  CodeCacheManager(TR_FrontEnd *fe) : OMR::CodeCacheManagerConnector(fe) {}
+};
 }
 
 #endif

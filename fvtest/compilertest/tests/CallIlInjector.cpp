@@ -16,29 +16,27 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-#include "compile/Compilation.hpp"
-#include "env/FrontEnd.hpp"
-#include "compile/Method.hpp"
-#include "ilgen/TypeDictionary.hpp"
 #include "tests/CallIlInjector.hpp"
+#include "compile/Compilation.hpp"
+#include "compile/Method.hpp"
+#include "env/FrontEnd.hpp"
+#include "ilgen/TypeDictionary.hpp"
 #include "tests/OpCodesTest.hpp"
 
-namespace TestCompiler
-{
+namespace TestCompiler {
 
-bool
-CallIlInjector::injectIL()
-   {
-   if (!isOpCodeSupported())
-      return false;
-   OpCodesTest *test = static_cast<OpCodesTest *>(_test);
-   createBlocks(1);
-   // Block 2: blocks(0)
-   // return function()
-   TR::ResolvedMethod *resolvedCompilee = test->resolvedMethod(_dataType);
-   returnValue(callFunction(resolvedCompilee, _types->PrimitiveType(_dataType), 1, parm(1)));
+bool CallIlInjector::injectIL() {
+  if (!isOpCodeSupported())
+    return false;
+  OpCodesTest *test = static_cast<OpCodesTest *>(_test);
+  createBlocks(1);
+  // Block 2: blocks(0)
+  // return function()
+  TR::ResolvedMethod *resolvedCompilee = test->resolvedMethod(_dataType);
+  returnValue(callFunction(resolvedCompilee, _types->PrimitiveType(_dataType),
+                           1, parm(1)));
 
-   return true;
-   }
+  return true;
+}
 
 } // namespace TestCompiler

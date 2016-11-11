@@ -21,38 +21,36 @@
 
 #include <string.h>
 
-#include "omrport.h"
 #include "omrTest.h"
 #include "omrTestHelpers.h"
+#include "omrport.h"
 #include "testEnvironment.hpp"
 
-class ThreadExtendedTestEnvironment: public BaseEnvironment
-{
-/*
- * Data members
- */
+class ThreadExtendedTestEnvironment : public BaseEnvironment {
+  /*
+   * Data members
+   */
 private:
 protected:
 public:
-	uint32_t grindTime;
+  uint32_t grindTime;
 
-/*
-* Function members
-*/
+  /*
+  * Function members
+  */
 private:
 protected:
 public:
-	ThreadExtendedTestEnvironment(int argc, char **argv, OMRPortLibrary *portLibrary) :
-		BaseEnvironment(argc, argv),
-		grindTime(0)
-	{
-		for (int i = 1; i < argc; i++) {
-			if (strncmp(argv[i], "-grind=", strlen("-grind=")) == 0) {
-				sscanf(&argv[i][strlen("-grind=")], "%u", &grindTime);
-			}
-		}
-		portLib = portLibrary;
-	}
+  ThreadExtendedTestEnvironment(int argc, char **argv,
+                                OMRPortLibrary *portLibrary)
+      : BaseEnvironment(argc, argv), grindTime(0) {
+    for (int i = 1; i < argc; i++) {
+      if (strncmp(argv[i], "-grind=", strlen("-grind=")) == 0) {
+        sscanf(&argv[i][strlen("-grind=")], "%u", &grindTime);
+      }
+    }
+    portLib = portLibrary;
+  }
 };
 
 /**

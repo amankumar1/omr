@@ -16,30 +16,25 @@
 *    Multiple authors (IBM Corp.) - initial implementation and documentation
 *******************************************************************************/
 
-
 /**
  * Description: Calls a non-member static with a namespace.
  */
 
 #define OMR_EXTENSIBLE __attribute__((annotate("OMR_Extensible")))
 
-
 namespace Space {
 
-static void functionCalled() {}  // function to be called
+static void functionCalled() {} // function to be called
 
 } // namespace Space
-
 
 namespace OMR {
 
 class OMR_EXTENSIBLE ExtClass {
-   public:
-   void callingFunction();        // function that will make call
+public:
+  void callingFunction(); // function that will make call
 };
 
 } // namespace OMR
 
-
 void OMR::ExtClass::callingFunction() { Space::functionCalled(); }
-

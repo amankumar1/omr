@@ -23,47 +23,46 @@
 #include "omrport.h"
 
 /* OMR Imports */
+#include <vector>
+#include "StartupManagerImpl.hpp"
 #include "omr.h"
 #include "omrExampleVM.hpp"
 #include "omrgcstartup.hpp"
 #include "omrvm.h"
-#include "StartupManagerImpl.hpp"
 #include "testEnvironment.hpp"
-#include <vector>
 
-class GCTestEnvironment: public BaseEnvironment
-{
-	/*
-	 * Data members
-	 */
+class GCTestEnvironment : public BaseEnvironment {
+  /*
+   * Data members
+   */
 public:
-	OMR_VM_Example exampleVM;
-	std::vector<const char *> params;
-	bool keepLog;
+  OMR_VM_Example exampleVM;
+  std::vector<const char *> params;
+  bool keepLog;
 
-	/*
-	 * Function members
-	 */
+  /*
+   * Function members
+   */
 private:
-	void initParams();
-	void clearParams();
+  void initParams();
+  void clearParams();
 
 public:
-	/*
-	 * Initialization/Finalization for gctest can be performed only once per process, even with --gtest_repeat on.
-	 */
-	void GCTestSetUp();
-	void GCTestTearDown();
+  /*
+   * Initialization/Finalization for gctest can be performed only once per
+   * process, even with --gtest_repeat on.
+   */
+  void GCTestSetUp();
+  void GCTestTearDown();
 
 public:
-	GCTestEnvironment(int argc, char **argv)
-	: BaseEnvironment(argc, argv), keepLog(false)
-	{
-	}
+  GCTestEnvironment(int argc, char **argv)
+      : BaseEnvironment(argc, argv), keepLog(false) {}
 };
 
 /**
- * To help detect memory leaks, print out the amount of physical memory and virtual memory consumed by the test process.
+ * To help detect memory leaks, print out the amount of physical memory and
+ * virtual memory consumed by the test process.
  *
  * @param[in] The caller place
  * @param[in] portLib The port library

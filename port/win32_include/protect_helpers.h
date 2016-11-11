@@ -13,7 +13,8 @@
  *      http://www.opensource.org/licenses/apache2.0.php
  *
  * Contributors:
- *    Multiple authors (IBM Corp.) - initial API and implementation and/or initial documentation
+ *    Multiple authors (IBM Corp.) - initial API and implementation and/or
+ *initial documentation
  *******************************************************************************/
 
 #ifndef protect_helpers_h
@@ -22,9 +23,12 @@
 /**
  * @internal @file
  * @ingroup Port
- * @brief Helpers for protecting shared memory regions in the virtual address space (used by omrmmap and j9shmem).
+ * @brief Helpers for protecting shared memory regions in the virtual address
+ * space (used by omrmmap and j9shmem).
  */
 
-intptr_t protect_memory(struct OMRPortLibrary *portLibrary, void *address, uintptr_t length, uintptr_t flags);
-uintptr_t protect_region_granularity(struct OMRPortLibrary *portLibrary, void *address);
+intptr_t protect_memory(struct OMRPortLibrary *portLibrary, void *address,
+                        uintptr_t length, uintptr_t flags);
+uintptr_t protect_region_granularity(struct OMRPortLibrary *portLibrary,
+                                     void *address);
 #endif /*  protect_helpers_h */

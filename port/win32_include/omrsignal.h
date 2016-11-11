@@ -13,7 +13,8 @@
  *      http://www.opensource.org/licenses/apache2.0.php
  *
  * Contributors:
- *    Multiple authors (IBM Corp.) - initial API and implementation and/or initial documentation
+ *    Multiple authors (IBM Corp.) - initial API and implementation and/or
+ *initial documentation
  *******************************************************************************/
 
 #ifndef omrsignal_h
@@ -22,17 +23,15 @@
 #include "omrcomp.h"
 
 typedef struct J9Win32SignalInfo {
-	uint32_t type;
-	void *handlerAddress;
-	void *handlerAddress2;
-	struct _EXCEPTION_RECORD *ExceptionRecord;
-	struct _CONTEXT *ContextRecord;
-	void *moduleBaseAddress;
-	uint32_t offsetInDLL;
-	uint32_t threadId;
-	char moduleName[_MAX_PATH];
+  uint32_t type;
+  void *handlerAddress;
+  void *handlerAddress2;
+  struct _EXCEPTION_RECORD *ExceptionRecord;
+  struct _CONTEXT *ContextRecord;
+  void *moduleBaseAddress;
+  uint32_t offsetInDLL;
+  uint32_t threadId;
+  char moduleName[_MAX_PATH];
 } J9Win32SignalInfo;
 
-#endif     /* omrsignal_h */
-
-
+#endif /* omrsignal_h */

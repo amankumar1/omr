@@ -19,30 +19,29 @@
 #ifndef TR_ILGENERATOR_METHOD_DETAILS_INCL
 #define TR_ILGENERATOR_METHOD_DETAILS_INCL
 
-#include "infra/Annotations.hpp"
 #include "ilgen/JBIlGeneratorMethodDetails.hpp"
+#include "infra/Annotations.hpp"
 
 class TR_ResolvedMethod;
-namespace TR { class ResolvedMethod; }
+namespace TR {
+class ResolvedMethod;
+}
 
-namespace TR
-{
+namespace TR {
 
-class OMR_EXTENSIBLE IlGeneratorMethodDetails : public JitBuilder::IlGeneratorMethodDetailsConnector
-   {
+class OMR_EXTENSIBLE IlGeneratorMethodDetails
+    : public JitBuilder::IlGeneratorMethodDetailsConnector {
 
 public:
+  IlGeneratorMethodDetails()
+      : JitBuilder::IlGeneratorMethodDetailsConnector() {}
 
-   IlGeneratorMethodDetails() :
-      JitBuilder::IlGeneratorMethodDetailsConnector() {}
+  IlGeneratorMethodDetails(TR::ResolvedMethod *method)
+      : JitBuilder::IlGeneratorMethodDetailsConnector(method) {}
 
-   IlGeneratorMethodDetails(TR::ResolvedMethod *method) :
-      JitBuilder::IlGeneratorMethodDetailsConnector(method) {}
-
-   IlGeneratorMethodDetails(TR_ResolvedMethod *method) :
-      JitBuilder::IlGeneratorMethodDetailsConnector(method) {}
-
-   };
+  IlGeneratorMethodDetails(TR_ResolvedMethod *method)
+      : JitBuilder::IlGeneratorMethodDetailsConnector(method) {}
+};
 }
 
 #endif

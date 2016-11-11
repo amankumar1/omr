@@ -22,35 +22,34 @@
 #include <string>
 #include <vector>
 
-class Modifiers
-{
+class Modifiers {
 public:
-	std::vector<size_t> _arrayLengths;
-	int _modifierFlags;
-	size_t _offset;
-	int _pointerCount;
-	int _referenceCount;
+  std::vector<size_t> _arrayLengths;
+  int _modifierFlags;
+  size_t _offset;
+  int _pointerCount;
+  int _referenceCount;
 
-	static const int MODIFIER_FLAGS = 31;
-	static const int NO_MOD = 0;
-	static const int CONST_TYPE = 1;
-	static const int VOLATILE_TYPE = 2;
-	static const int UNALIGNED_TYPE = 4;
-	static const int RESTRICT_TYPE = 8;
-	static const int SHARED_TYPE = 16;
-	static const std::string MODIFIER_NAMES[];
+  static const int MODIFIER_FLAGS = 31;
+  static const int NO_MOD = 0;
+  static const int CONST_TYPE = 1;
+  static const int VOLATILE_TYPE = 2;
+  static const int UNALIGNED_TYPE = 4;
+  static const int RESTRICT_TYPE = 8;
+  static const int SHARED_TYPE = 16;
+  static const std::string MODIFIER_NAMES[];
 
-	Modifiers();
-	~Modifiers();
+  Modifiers();
+  ~Modifiers();
 
-	std::string getPointerType();
-	std::string getModifierNames();
-	void addArrayDimension(int length);
-	bool isArray();
-	size_t getArrayLength(unsigned int i);
-	size_t getArrayDimensions();
-	size_t getSize(size_t typeSize);
-	bool operator==(Modifiers const& type) const;
+  std::string getPointerType();
+  std::string getModifierNames();
+  void addArrayDimension(int length);
+  bool isArray();
+  size_t getArrayLength(unsigned int i);
+  size_t getArrayDimensions();
+  size_t getSize(size_t typeSize);
+  bool operator==(Modifiers const &type) const;
 };
 
 #endif /* MODIFIERS_HPP */

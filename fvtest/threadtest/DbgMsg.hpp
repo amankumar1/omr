@@ -16,12 +16,10 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-
 #ifndef DBGMSG_HPP_INCLUDED
 #define DBGMSG_HPP_INCLUDED
 
-namespace DbgMsg
-{
+namespace DbgMsg {
 void print(const char *pMsg, ...);
 void println(const char *pMsg, ...);
 void printRaw(const char *pMsg, ...);

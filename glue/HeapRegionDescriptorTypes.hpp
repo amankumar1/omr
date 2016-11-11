@@ -22,5 +22,4 @@
 typedef struct MM_HeapRegionDescriptorStandardExtension {
 } MM_HeapRegionDescriptorStandardExtension;
 
-
 #endif /* HEAPREGIONDESCRIPTORTYPES_HPP_ */

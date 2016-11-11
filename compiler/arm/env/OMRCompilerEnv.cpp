@@ -16,21 +16,17 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
+#include "env/CPU.hpp"
 #include "env/CompilerEnv.hpp"
 #include "env/Environment.hpp"
-#include "env/CPU.hpp"
 #include "env/defines.h"
 
-
-void
-OMR::ARM::CompilerEnv::initializeTargetEnvironment()
-   {
-   OMR::CompilerEnv::initializeTargetEnvironment();
+void OMR::ARM::CompilerEnv::initializeTargetEnvironment() {
+  OMR::CompilerEnv::initializeTargetEnvironment();
 
 #if defined(ARMGNUEABI)
-    target.setEABI(true);
+  target.setEABI(true);
 #else
-    target.setEABI(false);
+  target.setEABI(false);
 #endif
-
-   }
+}

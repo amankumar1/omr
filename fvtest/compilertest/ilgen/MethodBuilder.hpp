@@ -16,7 +16,6 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  ******************************************************************************/
 
-
 #ifndef TEST_METHODBUILDER_INCL
 #define TEST_METHODBUILDER_INCL
 
@@ -25,52 +24,40 @@
 #define PUT_TEST_METHODBUILDER_INTO_TR
 #endif
 
-
 #include "compiler/ilgen/MethodBuilder.hpp"
 
 class TR_Memory;
 
-namespace TestCompiler
-{
+namespace TestCompiler {
 
 class TestDriver;
 
-class MethodBuilder : public OMR::MethodBuilder
-   {
+class MethodBuilder : public OMR::MethodBuilder {
 public:
-   TR_ALLOC(TR_Memory::IlGenerator)
+  TR_ALLOC(TR_Memory::IlGenerator)
 
-   MethodBuilder(TR::TypeDictionary *types)
-      : OMR::MethodBuilder(types)
-      {
-      }
+  MethodBuilder(TR::TypeDictionary *types) : OMR::MethodBuilder(types) {}
 
-   MethodBuilder(TR::TypeDictionary *types, TestDriver *test)
-      : OMR::MethodBuilder(types)
-      {
-      // need to explicitly initialize TestCompiler::IlInjector layer
-      setMethodAndTest(NULL, test);
-      }
-   };
+  MethodBuilder(TR::TypeDictionary *types, TestDriver *test)
+      : OMR::MethodBuilder(types) {
+    // need to explicitly initialize TestCompiler::IlInjector layer
+    setMethodAndTest(NULL, test);
+  }
+};
 
 } // namespace TestCompiler
 
-
 #if defined(PUT_TEST_METHODBUILDER_INTO_TR)
 
-namespace TR
-{
-   class MethodBuilder : public TestCompiler::MethodBuilder
-      {
-      public:
-         MethodBuilder(TR::TypeDictionary *types)
-            : TestCompiler::MethodBuilder(types)
-            { }
+namespace TR {
+class MethodBuilder : public TestCompiler::MethodBuilder {
+public:
+  MethodBuilder(TR::TypeDictionary *types)
+      : TestCompiler::MethodBuilder(types) {}
 
-         MethodBuilder(TR::TypeDictionary *types, TestCompiler::TestDriver *test)
-            : TestCompiler::MethodBuilder(types, test)
-            { }
-      };
+  MethodBuilder(TR::TypeDictionary *types, TestCompiler::TestDriver *test)
+      : TestCompiler::MethodBuilder(types, test) {}
+};
 
 } // namespace TR
 

@@ -19,21 +19,22 @@
 #ifndef JITBUILDER_JITCONFIG_HPP
 #define JITBUILDER_JITCONFIG_HPP
 
-#include "env/TRMemory.hpp"
 #include "env/FEBase.hpp"
 #include "env/JitConfig.hpp"
+#include "env/TRMemory.hpp"
 
-namespace JitBuilder { class FrontEnd; }
+namespace JitBuilder {
+class FrontEnd;
+}
 
-// Singleton JitConfig. The only instance of this is JitBuilder::FrontEnd::_jitConfig
-namespace JitBuilder
-{
-struct JitConfig : public TR::JitConfig
-   {
-   private:
-   friend class TR::FEBase<FrontEnd>;
-   JitConfig() : TR::JitConfig() {}
-   };
+// Singleton JitConfig. The only instance of this is
+// JitBuilder::FrontEnd::_jitConfig
+namespace JitBuilder {
+struct JitConfig : public TR::JitConfig {
+private:
+  friend class TR::FEBase<FrontEnd>;
+  JitConfig() : TR::JitConfig() {}
+};
 } // namespace JitBuilder
 
 #endif // !defined(JITBUILDER_JITCONFIG_HPP)

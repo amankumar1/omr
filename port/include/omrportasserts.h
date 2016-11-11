@@ -13,27 +13,28 @@
  *      http://www.opensource.org/licenses/apache2.0.php
  *
  * Contributors:
- *    Multiple authors (IBM Corp.) - initial API and implementation and/or initial documentation
+ *    Multiple authors (IBM Corp.) - initial API and implementation and/or
+ *initial documentation
  *******************************************************************************/
 
 #ifndef omrportasserts_h
 #define omrportasserts_h
 
-#include "ut_omrport.h"
 #include <assert.h>
+#include "ut_omrport.h"
 
-#define Assert_PRT_true_wrapper(arg) \
-	do { \
-		if (!(arg)) { \
-			Assert_PRT_true(FALSE && (arg)); \
-			assert(FALSE && (arg)); \
-		} \
-	} while(0)
+#define Assert_PRT_true_wrapper(arg)                                           \
+  do {                                                                         \
+    if (!(arg)) {                                                              \
+      Assert_PRT_true(FALSE && (arg));                                         \
+      assert(FALSE && (arg));                                                  \
+    }                                                                          \
+  } while (0)
 
-#define Assert_PRT_ShouldNeverHappen_wrapper() \
-	do { \
-		Trc_PRT_Assert_ShouldNeverHappen(); \
-		assert(FALSE); \
-	} while (0)
+#define Assert_PRT_ShouldNeverHappen_wrapper()                                 \
+  do {                                                                         \
+    Trc_PRT_Assert_ShouldNeverHappen();                                        \
+    assert(FALSE);                                                             \
+  } while (0)
 
 #endif /* omrportasserts_h */

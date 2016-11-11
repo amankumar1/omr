@@ -18,25 +18,25 @@
 
 #include "il/symbol/OMRSymbol.hpp"
 
-#include <stddef.h>                            // for size_t
-#include <stdint.h>                            // for uint32_t, int32_t, etc
-#include <string.h>                            // for memcmp, strncmp
-#include "codegen/FrontEnd.hpp"                // for TR_FrontEnd
-#include "compile/Compilation.hpp"             // for Compilation
-#include "compile/ResolvedMethod.hpp"          // for TR_ResolvedMethod
-#include "compile/SymbolReferenceTable.hpp"    // for SymbolReferenceTable
-#include "env/KnownObjectTable.hpp"            // for KnownObjectTable, etc
-#include "env/ObjectModel.hpp"                 // for ObjectModel
+#include <stddef.h>                         // for size_t
+#include <stdint.h>                         // for uint32_t, int32_t, etc
+#include <string.h>                         // for memcmp, strncmp
+#include "codegen/FrontEnd.hpp"             // for TR_FrontEnd
+#include "compile/Compilation.hpp"          // for Compilation
+#include "compile/ResolvedMethod.hpp"       // for TR_ResolvedMethod
+#include "compile/SymbolReferenceTable.hpp" // for SymbolReferenceTable
+#include "env/KnownObjectTable.hpp"         // for KnownObjectTable, etc
+#include "env/ObjectModel.hpp"              // for ObjectModel
 #include "env/TRMemory.hpp"
-#include "il/DataTypes.hpp"                    // for DataType
-#include "il/Symbol.hpp"                       // for Symbol
-#include "il/SymbolReference.hpp"              // for SymbolReference
-#include "il/symbol/AutomaticSymbol.hpp"       // for AutomaticSymbol
-#include "il/symbol/RegisterMappedSymbol.hpp"  // for RegisterMappedSymbol
-#include "il/symbol/StaticSymbol.hpp"          // for StaticSymbol
-#include "infra/Assert.hpp"                    // for TR_ASSERT
-#include "infra/Flags.hpp"                     // for flags32_t
-#include "ras/Debug.hpp"                       // for TR_DebugBase
+#include "il/DataTypes.hpp"                   // for DataType
+#include "il/Symbol.hpp"                      // for Symbol
+#include "il/SymbolReference.hpp"             // for SymbolReference
+#include "il/symbol/AutomaticSymbol.hpp"      // for AutomaticSymbol
+#include "il/symbol/RegisterMappedSymbol.hpp" // for RegisterMappedSymbol
+#include "il/symbol/StaticSymbol.hpp"         // for StaticSymbol
+#include "infra/Assert.hpp"                   // for TR_ASSERT
+#include "infra/Flags.hpp"                    // for flags32_t
+#include "ras/Debug.hpp"                      // for TR_DebugBase
 
 /**
  * Downcast to concrete instance
@@ -47,959 +47,722 @@
  *
  * This must be a static_cast or else the downcast will be unsafe.
  */
-TR::Symbol *
-OMR::Symbol::self()
-   {
-   return static_cast<TR::Symbol *>( this);
-   }
+TR::Symbol *OMR::Symbol::self() { return static_cast<TR::Symbol *>(this); }
 
 template <typename AllocatorType>
-TR::Symbol * OMR::Symbol::create(AllocatorType m)
-   {
-   return new (m) TR::Symbol();
-   }
+TR::Symbol *OMR::Symbol::create(AllocatorType m) {
+  return new (m) TR::Symbol();
+}
 
 template <typename AllocatorType>
-TR::Symbol * OMR::Symbol::create(AllocatorType m, TR::DataType d)
-   {
-   return new (m) TR::Symbol(d);
-   }
+TR::Symbol *OMR::Symbol::create(AllocatorType m, TR::DataType d) {
+  return new (m) TR::Symbol(d);
+}
 
 template <typename AllocatorType>
-TR::Symbol * OMR::Symbol::create(AllocatorType m, TR::DataType d, uint32_t s)
-   {
-   return new (m) TR::Symbol(d,s);
-   }
+TR::Symbol *OMR::Symbol::create(AllocatorType m, TR::DataType d, uint32_t s) {
+  return new (m) TR::Symbol(d, s);
+}
 
-OMR::Symbol::Symbol(TR::DataType d) :
-   _size(0),
-   _name(0),
-   _flags(0),
-   _flags2(0),
-   _localIndex(0),
-   _restrictedRegisterNumber(-1)
-   {
-   self()->setDataType(d);
-   }
+OMR::Symbol::Symbol(TR::DataType d)
+    : _size(0), _name(0), _flags(0), _flags2(0), _localIndex(0),
+      _restrictedRegisterNumber(-1) {
+  self()->setDataType(d);
+}
 
-OMR::Symbol::Symbol(TR::DataType d, uint32_t size) :
-   _name(0),
-   _flags(0),
-   _flags2(0),
-   _localIndex(0),
-   _restrictedRegisterNumber(-1)
-   {
-   self()->setDataType(d);
-   _size = size;
-   }
+OMR::Symbol::Symbol(TR::DataType d, uint32_t size)
+    : _name(0), _flags(0), _flags2(0), _localIndex(0),
+      _restrictedRegisterNumber(-1) {
+  self()->setDataType(d);
+  _size = size;
+}
 
-bool
-OMR::Symbol::isReferenced()
-   {
-   return self()->isVariableSizeSymbol() && self()->castToVariableSizeSymbol()->isReferenced();
-   }
+bool OMR::Symbol::isReferenced() {
+  return self()->isVariableSizeSymbol() &&
+         self()->castToVariableSizeSymbol()->isReferenced();
+}
 
-bool
-OMR::Symbol::dontEliminateStores(TR::Compilation *comp, bool isForLocalDeadStore)
-   {
-   return (self()->isAuto() && _flags.testAny(PinningArrayPointer)) ||
-          (self()->isParm() && _flags.testAny(ReinstatedReceiver)) ||
-          _flags.testAny(HoldsMonitoredObject) ||
-          (comp->getSymRefTab()->findThisRangeExtensionSymRef() && (self() == comp->getSymRefTab()->findThisRangeExtensionSymRef()->getSymbol()));
-   }
+bool OMR::Symbol::dontEliminateStores(TR::Compilation *comp,
+                                      bool isForLocalDeadStore) {
+  return (self()->isAuto() && _flags.testAny(PinningArrayPointer)) ||
+         (self()->isParm() && _flags.testAny(ReinstatedReceiver)) ||
+         _flags.testAny(HoldsMonitoredObject) ||
+         (comp->getSymRefTab()->findThisRangeExtensionSymRef() &&
+          (self() ==
+           comp->getSymRefTab()->findThisRangeExtensionSymRef()->getSymbol()));
+}
 
-uint32_t
-OMR::Symbol::getNumberOfSlots()
-   {
-   uint32_t numSlots = self()->getRoundedSize()/self()->convertTypeToSize(TR::Address);
+uint32_t OMR::Symbol::getNumberOfSlots() {
+  uint32_t numSlots =
+      self()->getRoundedSize() / self()->convertTypeToSize(TR::Address);
 
-   // We should always give at least 1 slot.
-   //  This is specifically for the case of an int type on 64bit pltfrms
-   return (numSlots? numSlots : 1);
-   }
+  // We should always give at least 1 slot.
+  //  This is specifically for the case of an int type on 64bit pltfrms
+  return (numSlots ? numSlots : 1);
+}
 
-TR::DataType
-OMR::Symbol::convertSigCharToType(char sigChar)
-   {
-   switch (sigChar)
-      {
-      case 'Z': return TR::Int8;
-      case 'B': return TR::Int8;
-      case 'C': return TR::Int16;
-      case 'S': return TR::Int16;
-      case 'I': return TR::Int32;
-      case 'J': return TR::Int64;
-      case 'F': return TR::Float;
-      case 'D': return TR::Double;
-      case 'L':
-      case '[': return TR::Address;
-      }
-   TR_ASSERT(0, "unknown signature character");
-   return TR::Int32;
-   }
+TR::DataType OMR::Symbol::convertSigCharToType(char sigChar) {
+  switch (sigChar) {
+  case 'Z':
+    return TR::Int8;
+  case 'B':
+    return TR::Int8;
+  case 'C':
+    return TR::Int16;
+  case 'S':
+    return TR::Int16;
+  case 'I':
+    return TR::Int32;
+  case 'J':
+    return TR::Int64;
+  case 'F':
+    return TR::Float;
+  case 'D':
+    return TR::Double;
+  case 'L':
+  case '[':
+    return TR::Address;
+  }
+  TR_ASSERT(0, "unknown signature character");
+  return TR::Int32;
+}
 
 /**
  * Sets the data type of a symbol, and the size, if the size can be inferred
  * from the data type.
  */
-void
-OMR::Symbol::setDataType(TR::DataType dt)
-   {
-   uint32_t inferredSize = TR::DataType::getSize(dt);
-   if (inferredSize)
-      {
-      _size = inferredSize;
-      }
-   _flags.setValue(DataTypeMask, dt);
-   }
+void OMR::Symbol::setDataType(TR::DataType dt) {
+  uint32_t inferredSize = TR::DataType::getSize(dt);
+  if (inferredSize) {
+    _size = inferredSize;
+  }
+  _flags.setValue(DataTypeMask, dt);
+}
 
-uint32_t
-OMR::Symbol::getRoundedSize()
-   {
-   int32_t roundedSize = (int32_t)((self()->getSize()+3)&(~3)); // cast explicitly
-   return roundedSize ? roundedSize : 4;
-   }
+uint32_t OMR::Symbol::getRoundedSize() {
+  int32_t roundedSize =
+      (int32_t)((self()->getSize() + 3) & (~3)); // cast explicitly
+  return roundedSize ? roundedSize : 4;
+}
 
-uint32_t
-OMR::Symbol::convertTypeToSize(TR::DataType dt)
-   {
-   //TR_ASSERT(dt != TR::Aggregate, "Cannot be called for aggregates");
-   return TR::DataType::getSize(dt);
-   }
+uint32_t OMR::Symbol::convertTypeToSize(TR::DataType dt) {
+  // TR_ASSERT(dt != TR::Aggregate, "Cannot be called for aggregates");
+  return TR::DataType::getSize(dt);
+}
 
-uint32_t
-OMR::Symbol::convertTypeToNumberOfSlots(TR::DataType dt)
-   {
-   return (dt == TR::Int64 || dt == TR::Double)? 2 : 1;
-   }
+uint32_t OMR::Symbol::convertTypeToNumberOfSlots(TR::DataType dt) {
+  return (dt == TR::Int64 || dt == TR::Double) ? 2 : 1;
+}
 
-int32_t
-OMR::Symbol::getOffset()
-   {
-   TR::RegisterMappedSymbol * r = self()->getRegisterMappedSymbol();
-   return r ? r->getOffset() : 0;
-   }
+int32_t OMR::Symbol::getOffset() {
+  TR::RegisterMappedSymbol *r = self()->getRegisterMappedSymbol();
+  return r ? r->getOffset() : 0;
+}
 
 /**
  * Flag functions
  */
 
-bool
-OMR::Symbol::isCollectedReference()
-   {
-   return (self()->getDataType()==TR::Address || self()->isLocalObject()) && !self()->isNotCollected();
-   }
-
-bool
-OMR::Symbol::isInternalPointerAuto()
-   {
-   return (self()->isInternalPointer() && self()->isAuto());
-   }
-
-bool
-OMR::Symbol::isNamed()
-   {
-   return self()->isStatic() && _flags.testAny(IsNamed);
-   }
-
-void
-OMR::Symbol::setSpillTempAuto()
-   {
-   TR_ASSERT(self()->isAuto(), "assertion failure");
-   _flags.set(SpillTemp);
-   }
-
-bool
-OMR::Symbol::isSpillTempAuto()
-   {
-   return self()->isAuto() && _flags.testAny(SpillTemp);
-   }
-
-void
-OMR::Symbol::setLocalObject()
-   {
-   TR_ASSERT(self()->isAuto(), "assertion failure");
-   _flags.set(IsLocalObject);
-   }
-
-bool
-OMR::Symbol::isLocalObject()
-   {
-   return self()->isAuto() && _flags.testAny(IsLocalObject);
-   }
-
-void
-OMR::Symbol::setBehaveLikeNonTemp()
-   {
-   TR_ASSERT(self()->isAuto(), "assertion failure");
-   _flags.set(BehaveLikeNonTemp);
-   }
-
-bool
-OMR::Symbol::behaveLikeNonTemp()
-   {
-   return self()->isAuto() && _flags.testAny(BehaveLikeNonTemp);
-   }
-
-void
-OMR::Symbol::setPinningArrayPointer()
-   {
-   TR_ASSERT(self()->isAuto(), "assertion failure");
-   _flags.set(PinningArrayPointer);
-   }
-
-bool
-OMR::Symbol::isPinningArrayPointer()
-   {
-   return self()->isAuto() && _flags.testAny(PinningArrayPointer);
-   }
-
-bool
-OMR::Symbol::isRegisterSymbol()
-   {
-   return self()->isAuto() && _flags.testAny(RegisterAuto);
-   }
-
-void
-OMR::Symbol::setIsRegisterSymbol()
-   {
-   _flags.set(RegisterAuto);
-   }
-
-void
-OMR::Symbol::setAutoAddressTaken()
-   {
-   TR_ASSERT(self()->isAuto(), "assertion failure");
-   _flags.set(AutoAddressTaken);
-   }
-
-bool
-OMR::Symbol::isAutoAddressTaken()
-   {
-   return self()->isAuto() && _flags.testAny(AutoAddressTaken);
-   }
-
-void
-OMR::Symbol::setSpillTempLoaded()
-   {
-   if (self()->isAuto()) // For non auto spills (ie. to original location) we can't optimize removing spills
-     _flags.set(SpillTempLoaded);
-   }
-
-bool
-OMR::Symbol::isSpillTempLoaded()
-   {
-   return self()->isSpillTempAuto() && _flags.testAny(SpillTempLoaded);
-   }
-
-void
-OMR::Symbol::setAutoMarkerSymbol()
-   {
-   TR_ASSERT(self()->isAuto(), "assertion failure");
-   _flags.set(AutoMarkerSymbol);
-   }
-
-bool
-OMR::Symbol::isAutoMarkerSymbol()
-   {
-   return (self()->isAuto() && _flags.testAny(AutoMarkerSymbol));
-   }
-
-void
-OMR::Symbol::setVariableSizeSymbol()
-   {
-   TR_ASSERT(self()->isAuto(), "assertion failure");
-   _flags.set(VariableSizeSymbol);
-   }
-
-bool
-OMR::Symbol::isVariableSizeSymbol()
-   {
-   return (self()->isAuto() && _flags.testAny(VariableSizeSymbol));
-   }
-
-void
-OMR::Symbol::setThisTempForObjectCtor()
-   {
-   TR_ASSERT(self()->isAuto(), "assertion failure");
-   _flags.set(ThisTempForObjectCtor);
-   }
-
-bool
-OMR::Symbol::isThisTempForObjectCtor()
-   {
-   return self()->isAuto() && _flags.testAny(ThisTempForObjectCtor);
-   }
-
-void
-OMR::Symbol::setParmHasToBeOnStack()
-   {
-   TR_ASSERT(self()->isParm(), "assertion failure");
-   _flags.set(ParmHasToBeOnStack);
-   }
-
-bool
-OMR::Symbol::isParmHasToBeOnStack()
-   {
-   return self()->isParm() && _flags.testAny(ParmHasToBeOnStack);
-   }
-
-void
-OMR::Symbol::setReferencedParameter()
-   {
-   TR_ASSERT(self()->isParm(), "assertion failure");
-   _flags.set(ReferencedParameter);
-   }
-
-void
-OMR::Symbol::resetReferencedParameter()
-   {
-   TR_ASSERT(self()->isParm(), "assertion failure");
-   _flags.reset(ReferencedParameter);
-   }
-
-bool
-OMR::Symbol::isReferencedParameter()
-   {
-   return self()->isParm() && _flags.testAny(ReferencedParameter);
-   }
-
-void
-OMR::Symbol::setReinstatedReceiver()
-   {
-   TR_ASSERT(isParm(), "assertion failure");
-   _flags.set(ReinstatedReceiver);
-   }
-
-bool
-OMR::Symbol::isReinstatedReceiver()
-   {
-   return self()->isParm() && _flags.testAny(ReinstatedReceiver);
-   }
-
-void
-OMR::Symbol::setConstString()
-   {
-   TR_ASSERT(self()->isStatic(), "assertion failure");
-   _flags.set(ConstString);
-   }
-
-bool
-OMR::Symbol::isConstString()
-   {
-   return self()->isStatic() && _flags.testAny(ConstString);
-   }
-
-void
-OMR::Symbol::setAddressIsCPIndexOfStatic(bool b)
-   {
-   TR_ASSERT(self()->isStatic(), "assertion failure");
-   _flags.set(AddressIsCPIndexOfStatic, b);
-   }
-
-bool
-OMR::Symbol::addressIsCPIndexOfStatic()
-   {
-   return self()->isStatic() && _flags.testAny(AddressIsCPIndexOfStatic);
-   }
-
-bool
-OMR::Symbol::isRecognizedStatic()
-   {
-   return self()->isStatic() && _flags.testAny(RecognizedStatic);
-   }
-
-void
-OMR::Symbol::setCompiledMethod()
-   {
-   TR_ASSERT(self()->isStatic(), "assertion failure");
-   _flags.set(CompiledMethod);
-   }
-
-bool
-OMR::Symbol::isCompiledMethod()
-   {
-   return self()->isStatic() && _flags.testAny(CompiledMethod);
-   }
-
-void
-OMR::Symbol::setStartPC()
-   {
-   TR_ASSERT(self()->isStatic(), "assertion failure");
-   _flags.set(StartPC);
-   }
-
-bool
-OMR::Symbol::isStartPC()
-   {
-   return self()->isStatic() && _flags.testAny(StartPC);
-   }
-
-void
-OMR::Symbol::setCountForRecompile()
-   {
-   TR_ASSERT(self()->isStatic(), "assertion failure");
-   _flags.set(CountForRecompile);
-   }
-
-bool
-OMR::Symbol::isCountForRecompile()
-   {
-   return self()->isStatic() && _flags.testAny(CountForRecompile);
-   }
-
-void
-OMR::Symbol::setRecompilationCounter()
-   {
-   TR_ASSERT(self()->isStatic(), "assertion failure");
-   _flags.set(RecompilationCounter);
-   }
-
-bool
-OMR::Symbol::isRecompilationCounter()
-   {
-   return self()->isStatic() && _flags.testAny(RecompilationCounter);
-   }
-
-void
-OMR::Symbol::setGCRPatchPoint()
-   {
-   TR_ASSERT(self()->isStatic(), "assertion failure");
-   _flags.set(GCRPatchPoint);
-   }
-
-bool
-OMR::Symbol::isGCRPatchPoint()
-   {
-   return self()->isStatic() && _flags.testAny(GCRPatchPoint);
-   }
-
-bool
-OMR::Symbol::isJittedMethod()
-   {
-   return self()->isResolvedMethod() && _flags.testAny(IsJittedMethod);
-   }
-
-void
-OMR::Symbol::setArrayShadowSymbol()
-   {
-   TR_ASSERT(self()->isShadow(), "assertion failure");
-   _flags.set(ArrayShadow);
-   }
-
-bool
-OMR::Symbol::isArrayShadowSymbol()
-   {
-   return self()->isShadow() && _flags.testAny(ArrayShadow);
-   }
-
-bool
-OMR::Symbol::isRecognizedShadow()
-   {
-   return self()->isShadow() && _flags.testAny(RecognizedShadow);
-   }
-
-void
-OMR::Symbol::setArrayletShadowSymbol()
-   {
-   TR_ASSERT(self()->isShadow(), "assertion failure");
-   _flags.set(ArrayletShadow);
-   }
-
-bool
-OMR::Symbol::isArrayletShadowSymbol()
-   {
-   return self()->isShadow() && _flags.testAny(ArrayletShadow);
-   }
-
-void
-OMR::Symbol::setPythonLocalVariableShadowSymbol()
-   {
-   TR_ASSERT(self()->isShadow(), "assertion failure");
-   _flags.set(PythonLocalVariable);
-   }
-
-bool
-OMR::Symbol::isPythonLocalVariableShadowSymbol()
-   {
-   return self()->isShadow() && _flags.testAny(PythonLocalVariable);
-   }
-
-void
-OMR::Symbol::setGlobalFragmentShadowSymbol()
-   {
-   TR_ASSERT(self()->isShadow(), "assertion failure");
-   _flags.set(GlobalFragmentShadow);
-   }
-
-bool
-OMR::Symbol::isGlobalFragmentShadowSymbol()
-   {
-   return self()->isShadow() && _flags.testAny(GlobalFragmentShadow);
-   }
-
-void
-OMR::Symbol::setMemoryTypeShadowSymbol()
-   {
-   TR_ASSERT(self()->isShadow(), "assertion failure");
-   _flags.set(MemoryTypeShadow);
-   }
-
-bool
-OMR::Symbol::isMemoryTypeShadowSymbol()
-   {
-   return self()->isShadow() && _flags.testAny(MemoryTypeShadow);
-   }
-
-void
-OMR::Symbol::setPythonConstantShadowSymbol()
-   {
-   TR_ASSERT(self()->isShadow(), "assertion failure");
-   _flags.set(PythonConstant);
-   }
-
-bool
-OMR::Symbol::isPythonConstantShadowSymbol()
-   {
-   return self()->isShadow() && _flags.testAny(PythonConstant);
-   }
-
-void
-OMR::Symbol::setPythonNameShadowSymbol()
-   {
-   TR_ASSERT(self()->isShadow(), "assertion failure");
-   _flags.set(PythonName);
-   }
-
-bool
-OMR::Symbol::isPythonNameShadowSymbol()
-   {
-   return self()->isShadow() && _flags.testAny(PythonName);
-   }
-
-void
-OMR::Symbol::setStartOfColdInstructionStream()
-   {
-   TR_ASSERT(self()->isLabel(), "assertion failure"); _flags.set(StartOfColdInstructionStream);
-   }
-
-bool
-OMR::Symbol::isStartOfColdInstructionStream()
-   {
-   return self()->isLabel() && _flags.testAny(StartOfColdInstructionStream);
-   }
-
-void
-OMR::Symbol::setStartInternalControlFlow()
-   {
-   TR_ASSERT(self()->isLabel(), "assertion failure"); _flags.set(StartInternalControlFlow);
-   }
-
-bool
-OMR::Symbol::isStartInternalControlFlow()
-   {
-   return self()->isLabel() && _flags.testAny(StartInternalControlFlow) && !self()->isGlobalLabel();
-   }
-
-void
-OMR::Symbol::setEndInternalControlFlow()
-   {
-   TR_ASSERT(self()->isLabel(), "assertion failure"); _flags.set(EndInternalControlFlow);
-   }
-
-bool
-OMR::Symbol::isEndInternalControlFlow()
-   {
-   return self()->isLabel() && !self()->isGlobalLabel() && _flags.testAny(EndInternalControlFlow) && !self()->isGlobalLabel();
-   }
-
-void
-OMR::Symbol::setVMThreadLive()
-   {
-   TR_ASSERT(self()->isLabel(), "assertion failure"); _flags.set(IsVMThreadLive);
-   }
-
-bool
-OMR::Symbol::isVMThreadLive()
-   {
-   return self()->isLabel() && _flags.testAny(IsVMThreadLive);
-   }
-
-void
-OMR::Symbol::setInternalControlFlowMerge()
-   {
-   TR_ASSERT(self()->isLabel(), "assertion failure"); _flags.set(InternalControlFlowMerge);
-   }
-
-bool
-OMR::Symbol::isInternalControlFlowMerge()
-   {
-   return self()->isLabel() && _flags.testAny(InternalControlFlowMerge);
-   }
-
-void
-OMR::Symbol::setEndOfColdInstructionStream()
-   {
-   TR_ASSERT(self()->isLabel(), "assertion failure"); _flags.set(EndOfColdInstructionStream);
-   }
-
-bool
-OMR::Symbol::isEndOfColdInstructionStream()
-   {
-   return self()->isLabel() && _flags.testAny(EndOfColdInstructionStream);
-   }
-
-void
-OMR::Symbol::setNonLinear()
-   {
-   _flags.set(NonLinear);
-   }
-
-bool
-OMR::Symbol::isNonLinear()
-   {
-   return (self()->isLabel() && _flags.testValue(OOLMask, (StartOfColdInstructionStream|NonLinear)));
-   }
-
-void
-OMR::Symbol::setGlobalLabel()
-   {
-   TR_ASSERT(self()->isLabel(), "assertion failure"); _flags.setValue(LabelKindMask, IsGlobalLabel);
-   }
-
-bool
-OMR::Symbol::isGlobalLabel()
-   {
-   return self()->isLabel() && _flags.testValue(LabelKindMask, IsGlobalLabel);
-   }
-
-void
-OMR::Symbol::setRelativeLabel()
-   {
-   TR_ASSERT(self()->isLabel(), "assertion failure"); _flags2.set(RelativeLabel);
-   }
-
-bool
-OMR::Symbol::isRelativeLabel()
-   {
-   return self()->isLabel() && _flags2.testAny(RelativeLabel);
-   }
-
-void
-OMR::Symbol::setConstMethodType()
-   {
-   TR_ASSERT(self()->isStatic(), "assertion failure");
-   _flags2.set(ConstMethodType);
-   }
-
-bool
-OMR::Symbol::isConstMethodType()
-   {
-   return self()->isStatic() && _flags2.testAny(ConstMethodType);
-   }
-
-void
-OMR::Symbol::setConstMethodHandle()
-   {
-   TR_ASSERT(self()->isStatic(), "assertion failure");
-   _flags2.set(ConstMethodHandle);
-   }
-
-bool
-OMR::Symbol::isConstMethodHandle()
-   {
-   return self()->isStatic() && _flags2.testAny(ConstMethodHandle);
-   }
-
-bool
-OMR::Symbol::isConstObjectRef()
-   {
-   return self()->isStatic() && (_flags.testAny(ConstString) || _flags2.testAny(ConstMethodType|ConstMethodHandle));
-   }
-
-bool
-OMR::Symbol::isStaticField()
-   {
-   return self()->isStatic() && !(self()->isConstObjectRef() || self()->isClassObject() || self()->isAddressOfClassObject() || self()->isConst());
-   }
-
-bool
-OMR::Symbol::isFixedObjectRef()
-   {
-   return self()->isConstObjectRef() || self()->isCallSiteTableEntry() || self()->isMethodTypeTableEntry();
-   }
-
-void
-OMR::Symbol::setCallSiteTableEntry()
-   {
-   TR_ASSERT(isStatic(), "assertion failure");
-   _flags2.set(CallSiteTableEntry);
-   }
-
-bool
-OMR::Symbol::isCallSiteTableEntry()
-   {
-   return self()->isStatic() && _flags2.testAny(CallSiteTableEntry);
-   }
-
-void
-OMR::Symbol::setMethodTypeTableEntry()
-   {
-   TR_ASSERT(self()->isStatic(), "assertion failure");
-   _flags2.set(MethodTypeTableEntry);
-   }
-
-bool
-OMR::Symbol::isMethodTypeTableEntry()
-   {
-   return self()->isStatic() && _flags2.testAny(MethodTypeTableEntry);
-   }
-
-void
-OMR::Symbol::setNotDataAddress()
-   {
-   TR_ASSERT(self()->isStatic(), "assertion failure");
-   _flags2.set(NotDataAddress);
-   }
-
-bool
-OMR::Symbol::isNotDataAddress()
-   {
-   return self()->isStatic() && _flags2.testAny(NotDataAddress);
-   }
-
-void
-OMR::Symbol::setUnsafeShadowSymbol()
-   {
-   TR_ASSERT(self()->isShadow(), "assertion failure"); _flags2.set(UnsafeShadow);
-   }
-
-bool
-OMR::Symbol::isUnsafeShadowSymbol()
-   {
-   return self()->isShadow() && _flags2.testAny(UnsafeShadow);
-   }
-
-void
-OMR::Symbol::setNamedShadowSymbol()
-   {
-   TR_ASSERT(self()->isShadow(), "assertion failure"); _flags2.set(NamedShadow);
-   }
-
-bool
-OMR::Symbol::isNamedShadowSymbol()
-   {
-   return self()->isShadow() && _flags2.testAny(NamedShadow);
-   }
-
-TR::DataType
-OMR::Symbol::getType()
-   {
-   return self()->getDataType();
-   }
-
-bool
-OMR::Symbol::isMethod()
-   {
-   return self()->getKind() == IsMethod || self()->getKind() == IsResolvedMethod;
-   }
-
-bool
-OMR::Symbol::isRegisterMappedSymbol()
-   {
-   return self()->getKind() <= LastRegisterMapped;
-   }
-
-bool
-OMR::Symbol::isAutoOrParm()
-   {
-   return self()->getKind() <= IsParameter;
-   }
-
-bool
-OMR::Symbol::isRegularShadow()
-   {
-   return self()->isShadow() && !self()->isAutoField() && !self()->isParmField();
-   }
-
-bool
-OMR::Symbol::isSyncVolatile()
-   {
-   return self()->isVolatile();
-   }
-
-TR::RegisterMappedSymbol *
-OMR::Symbol::getRegisterMappedSymbol()
-   {
-   return self()->isRegisterMappedSymbol() ? (TR::RegisterMappedSymbol *)this : 0;
-   }
-
-TR::AutomaticSymbol *
-OMR::Symbol::getAutoSymbol()
-   {
-   return self()->isAuto() ? (TR::AutomaticSymbol *)this : 0;
-   }
-
-TR::ParameterSymbol *
-OMR::Symbol::getParmSymbol()
-   {
-   return self()->isParm() ? (TR::ParameterSymbol *)this : 0;
-   }
-
-TR::AutomaticSymbol *
-OMR::Symbol::getInternalPointerAutoSymbol()
-   {
-   return self()->isInternalPointerAuto() ? (TR::AutomaticSymbol *)this : 0;
-   }
-
-TR::AutomaticSymbol *
-OMR::Symbol::getLocalObjectSymbol()
-   {
-   return self()->isLocalObject() ? (TR::AutomaticSymbol *)this : 0;
-   }
-
-TR::StaticSymbol *
-OMR::Symbol::getStaticSymbol()
-   {
-   return self()->isStatic() ? (TR::StaticSymbol *)this : 0;
-   }
-
-TR::MethodSymbol *
-OMR::Symbol::getMethodSymbol()
-   {
-   return self()->isMethod() ? (TR::MethodSymbol *)this : 0;
-   }
-
-TR::ResolvedMethodSymbol *
-OMR::Symbol::getResolvedMethodSymbol()
-   {
-   return self()->isResolvedMethod() ? (TR::ResolvedMethodSymbol *)this : 0;
-   }
-
-TR::Symbol *
-OMR::Symbol::getShadowSymbol()
-   {
-   return self()->isShadow() ? (TR::Symbol *)this : 0;
-   }
-
-TR::RegisterMappedSymbol *
-OMR::Symbol::getMethodMetaDataSymbol()
-   {
-   return self()->isMethodMetaData() ? (TR::RegisterMappedSymbol *)this : 0;
-   }
-
-TR::LabelSymbol *
-OMR::Symbol::getLabelSymbol()
-   {
-   return self()->isLabel() ? (TR::LabelSymbol *)this : 0;
-   }
-
-TR::ResolvedMethodSymbol *
-OMR::Symbol::getJittedMethodSymbol()
-   {
-   return self()->isJittedMethod() ? (TR::ResolvedMethodSymbol *)this : 0;
-   }
-
-TR::StaticSymbol *
-OMR::Symbol::getCallSiteTableEntrySymbol()
-   {
-   return self()->isCallSiteTableEntry()? self()->castToCallSiteTableEntrySymbol() : NULL;
-   }
-
-TR::StaticSymbol *
-OMR::Symbol::getMethodTypeTableEntrySymbol()
-   {
-   return self()->isMethodTypeTableEntry()? self()->castToMethodTypeTableEntrySymbol() : NULL;
-   }
-
-TR::Symbol *
-OMR::Symbol::getNamedShadowSymbol()
-   {
-   return self()->isNamedShadowSymbol() ? (TR::Symbol *)this : 0;
-   }
-
-TR::AutomaticSymbol *
-OMR::Symbol::getRegisterSymbol()
-   {
-   return self()->isRegisterSymbol() ? (TR::AutomaticSymbol *)this : 0;
-   }
-
-TR::StaticSymbol *
-OMR::Symbol::getRecognizedStaticSymbol()
-   {
-   return self()->isRecognizedStatic() ? (TR::StaticSymbol*)this : 0;
-   }
-
-TR::AutomaticSymbol *
-OMR::Symbol::getVariableSizeSymbol()
-   {
-   return self()->isVariableSizeSymbol() ? (TR::AutomaticSymbol *)this : 0;
-   }
+bool OMR::Symbol::isCollectedReference() {
+  return (self()->getDataType() == TR::Address || self()->isLocalObject()) &&
+         !self()->isNotCollected();
+}
+
+bool OMR::Symbol::isInternalPointerAuto() {
+  return (self()->isInternalPointer() && self()->isAuto());
+}
+
+bool OMR::Symbol::isNamed() {
+  return self()->isStatic() && _flags.testAny(IsNamed);
+}
+
+void OMR::Symbol::setSpillTempAuto() {
+  TR_ASSERT(self()->isAuto(), "assertion failure");
+  _flags.set(SpillTemp);
+}
+
+bool OMR::Symbol::isSpillTempAuto() {
+  return self()->isAuto() && _flags.testAny(SpillTemp);
+}
+
+void OMR::Symbol::setLocalObject() {
+  TR_ASSERT(self()->isAuto(), "assertion failure");
+  _flags.set(IsLocalObject);
+}
+
+bool OMR::Symbol::isLocalObject() {
+  return self()->isAuto() && _flags.testAny(IsLocalObject);
+}
+
+void OMR::Symbol::setBehaveLikeNonTemp() {
+  TR_ASSERT(self()->isAuto(), "assertion failure");
+  _flags.set(BehaveLikeNonTemp);
+}
+
+bool OMR::Symbol::behaveLikeNonTemp() {
+  return self()->isAuto() && _flags.testAny(BehaveLikeNonTemp);
+}
+
+void OMR::Symbol::setPinningArrayPointer() {
+  TR_ASSERT(self()->isAuto(), "assertion failure");
+  _flags.set(PinningArrayPointer);
+}
+
+bool OMR::Symbol::isPinningArrayPointer() {
+  return self()->isAuto() && _flags.testAny(PinningArrayPointer);
+}
+
+bool OMR::Symbol::isRegisterSymbol() {
+  return self()->isAuto() && _flags.testAny(RegisterAuto);
+}
+
+void OMR::Symbol::setIsRegisterSymbol() { _flags.set(RegisterAuto); }
+
+void OMR::Symbol::setAutoAddressTaken() {
+  TR_ASSERT(self()->isAuto(), "assertion failure");
+  _flags.set(AutoAddressTaken);
+}
+
+bool OMR::Symbol::isAutoAddressTaken() {
+  return self()->isAuto() && _flags.testAny(AutoAddressTaken);
+}
+
+void OMR::Symbol::setSpillTempLoaded() {
+  if (self()->isAuto()) // For non auto spills (ie. to original location) we
+                        // can't optimize removing spills
+    _flags.set(SpillTempLoaded);
+}
+
+bool OMR::Symbol::isSpillTempLoaded() {
+  return self()->isSpillTempAuto() && _flags.testAny(SpillTempLoaded);
+}
+
+void OMR::Symbol::setAutoMarkerSymbol() {
+  TR_ASSERT(self()->isAuto(), "assertion failure");
+  _flags.set(AutoMarkerSymbol);
+}
+
+bool OMR::Symbol::isAutoMarkerSymbol() {
+  return (self()->isAuto() && _flags.testAny(AutoMarkerSymbol));
+}
+
+void OMR::Symbol::setVariableSizeSymbol() {
+  TR_ASSERT(self()->isAuto(), "assertion failure");
+  _flags.set(VariableSizeSymbol);
+}
+
+bool OMR::Symbol::isVariableSizeSymbol() {
+  return (self()->isAuto() && _flags.testAny(VariableSizeSymbol));
+}
+
+void OMR::Symbol::setThisTempForObjectCtor() {
+  TR_ASSERT(self()->isAuto(), "assertion failure");
+  _flags.set(ThisTempForObjectCtor);
+}
+
+bool OMR::Symbol::isThisTempForObjectCtor() {
+  return self()->isAuto() && _flags.testAny(ThisTempForObjectCtor);
+}
+
+void OMR::Symbol::setParmHasToBeOnStack() {
+  TR_ASSERT(self()->isParm(), "assertion failure");
+  _flags.set(ParmHasToBeOnStack);
+}
+
+bool OMR::Symbol::isParmHasToBeOnStack() {
+  return self()->isParm() && _flags.testAny(ParmHasToBeOnStack);
+}
+
+void OMR::Symbol::setReferencedParameter() {
+  TR_ASSERT(self()->isParm(), "assertion failure");
+  _flags.set(ReferencedParameter);
+}
+
+void OMR::Symbol::resetReferencedParameter() {
+  TR_ASSERT(self()->isParm(), "assertion failure");
+  _flags.reset(ReferencedParameter);
+}
+
+bool OMR::Symbol::isReferencedParameter() {
+  return self()->isParm() && _flags.testAny(ReferencedParameter);
+}
+
+void OMR::Symbol::setReinstatedReceiver() {
+  TR_ASSERT(isParm(), "assertion failure");
+  _flags.set(ReinstatedReceiver);
+}
+
+bool OMR::Symbol::isReinstatedReceiver() {
+  return self()->isParm() && _flags.testAny(ReinstatedReceiver);
+}
+
+void OMR::Symbol::setConstString() {
+  TR_ASSERT(self()->isStatic(), "assertion failure");
+  _flags.set(ConstString);
+}
+
+bool OMR::Symbol::isConstString() {
+  return self()->isStatic() && _flags.testAny(ConstString);
+}
+
+void OMR::Symbol::setAddressIsCPIndexOfStatic(bool b) {
+  TR_ASSERT(self()->isStatic(), "assertion failure");
+  _flags.set(AddressIsCPIndexOfStatic, b);
+}
+
+bool OMR::Symbol::addressIsCPIndexOfStatic() {
+  return self()->isStatic() && _flags.testAny(AddressIsCPIndexOfStatic);
+}
+
+bool OMR::Symbol::isRecognizedStatic() {
+  return self()->isStatic() && _flags.testAny(RecognizedStatic);
+}
+
+void OMR::Symbol::setCompiledMethod() {
+  TR_ASSERT(self()->isStatic(), "assertion failure");
+  _flags.set(CompiledMethod);
+}
+
+bool OMR::Symbol::isCompiledMethod() {
+  return self()->isStatic() && _flags.testAny(CompiledMethod);
+}
+
+void OMR::Symbol::setStartPC() {
+  TR_ASSERT(self()->isStatic(), "assertion failure");
+  _flags.set(StartPC);
+}
+
+bool OMR::Symbol::isStartPC() {
+  return self()->isStatic() && _flags.testAny(StartPC);
+}
+
+void OMR::Symbol::setCountForRecompile() {
+  TR_ASSERT(self()->isStatic(), "assertion failure");
+  _flags.set(CountForRecompile);
+}
+
+bool OMR::Symbol::isCountForRecompile() {
+  return self()->isStatic() && _flags.testAny(CountForRecompile);
+}
+
+void OMR::Symbol::setRecompilationCounter() {
+  TR_ASSERT(self()->isStatic(), "assertion failure");
+  _flags.set(RecompilationCounter);
+}
+
+bool OMR::Symbol::isRecompilationCounter() {
+  return self()->isStatic() && _flags.testAny(RecompilationCounter);
+}
+
+void OMR::Symbol::setGCRPatchPoint() {
+  TR_ASSERT(self()->isStatic(), "assertion failure");
+  _flags.set(GCRPatchPoint);
+}
+
+bool OMR::Symbol::isGCRPatchPoint() {
+  return self()->isStatic() && _flags.testAny(GCRPatchPoint);
+}
+
+bool OMR::Symbol::isJittedMethod() {
+  return self()->isResolvedMethod() && _flags.testAny(IsJittedMethod);
+}
+
+void OMR::Symbol::setArrayShadowSymbol() {
+  TR_ASSERT(self()->isShadow(), "assertion failure");
+  _flags.set(ArrayShadow);
+}
+
+bool OMR::Symbol::isArrayShadowSymbol() {
+  return self()->isShadow() && _flags.testAny(ArrayShadow);
+}
+
+bool OMR::Symbol::isRecognizedShadow() {
+  return self()->isShadow() && _flags.testAny(RecognizedShadow);
+}
+
+void OMR::Symbol::setArrayletShadowSymbol() {
+  TR_ASSERT(self()->isShadow(), "assertion failure");
+  _flags.set(ArrayletShadow);
+}
+
+bool OMR::Symbol::isArrayletShadowSymbol() {
+  return self()->isShadow() && _flags.testAny(ArrayletShadow);
+}
+
+void OMR::Symbol::setPythonLocalVariableShadowSymbol() {
+  TR_ASSERT(self()->isShadow(), "assertion failure");
+  _flags.set(PythonLocalVariable);
+}
+
+bool OMR::Symbol::isPythonLocalVariableShadowSymbol() {
+  return self()->isShadow() && _flags.testAny(PythonLocalVariable);
+}
+
+void OMR::Symbol::setGlobalFragmentShadowSymbol() {
+  TR_ASSERT(self()->isShadow(), "assertion failure");
+  _flags.set(GlobalFragmentShadow);
+}
+
+bool OMR::Symbol::isGlobalFragmentShadowSymbol() {
+  return self()->isShadow() && _flags.testAny(GlobalFragmentShadow);
+}
+
+void OMR::Symbol::setMemoryTypeShadowSymbol() {
+  TR_ASSERT(self()->isShadow(), "assertion failure");
+  _flags.set(MemoryTypeShadow);
+}
+
+bool OMR::Symbol::isMemoryTypeShadowSymbol() {
+  return self()->isShadow() && _flags.testAny(MemoryTypeShadow);
+}
+
+void OMR::Symbol::setPythonConstantShadowSymbol() {
+  TR_ASSERT(self()->isShadow(), "assertion failure");
+  _flags.set(PythonConstant);
+}
+
+bool OMR::Symbol::isPythonConstantShadowSymbol() {
+  return self()->isShadow() && _flags.testAny(PythonConstant);
+}
+
+void OMR::Symbol::setPythonNameShadowSymbol() {
+  TR_ASSERT(self()->isShadow(), "assertion failure");
+  _flags.set(PythonName);
+}
+
+bool OMR::Symbol::isPythonNameShadowSymbol() {
+  return self()->isShadow() && _flags.testAny(PythonName);
+}
+
+void OMR::Symbol::setStartOfColdInstructionStream() {
+  TR_ASSERT(self()->isLabel(), "assertion failure");
+  _flags.set(StartOfColdInstructionStream);
+}
+
+bool OMR::Symbol::isStartOfColdInstructionStream() {
+  return self()->isLabel() && _flags.testAny(StartOfColdInstructionStream);
+}
+
+void OMR::Symbol::setStartInternalControlFlow() {
+  TR_ASSERT(self()->isLabel(), "assertion failure");
+  _flags.set(StartInternalControlFlow);
+}
+
+bool OMR::Symbol::isStartInternalControlFlow() {
+  return self()->isLabel() && _flags.testAny(StartInternalControlFlow) &&
+         !self()->isGlobalLabel();
+}
+
+void OMR::Symbol::setEndInternalControlFlow() {
+  TR_ASSERT(self()->isLabel(), "assertion failure");
+  _flags.set(EndInternalControlFlow);
+}
+
+bool OMR::Symbol::isEndInternalControlFlow() {
+  return self()->isLabel() && !self()->isGlobalLabel() &&
+         _flags.testAny(EndInternalControlFlow) && !self()->isGlobalLabel();
+}
+
+void OMR::Symbol::setVMThreadLive() {
+  TR_ASSERT(self()->isLabel(), "assertion failure");
+  _flags.set(IsVMThreadLive);
+}
+
+bool OMR::Symbol::isVMThreadLive() {
+  return self()->isLabel() && _flags.testAny(IsVMThreadLive);
+}
+
+void OMR::Symbol::setInternalControlFlowMerge() {
+  TR_ASSERT(self()->isLabel(), "assertion failure");
+  _flags.set(InternalControlFlowMerge);
+}
+
+bool OMR::Symbol::isInternalControlFlowMerge() {
+  return self()->isLabel() && _flags.testAny(InternalControlFlowMerge);
+}
+
+void OMR::Symbol::setEndOfColdInstructionStream() {
+  TR_ASSERT(self()->isLabel(), "assertion failure");
+  _flags.set(EndOfColdInstructionStream);
+}
+
+bool OMR::Symbol::isEndOfColdInstructionStream() {
+  return self()->isLabel() && _flags.testAny(EndOfColdInstructionStream);
+}
+
+void OMR::Symbol::setNonLinear() { _flags.set(NonLinear); }
+
+bool OMR::Symbol::isNonLinear() {
+  return (
+      self()->isLabel() &&
+      _flags.testValue(OOLMask, (StartOfColdInstructionStream | NonLinear)));
+}
+
+void OMR::Symbol::setGlobalLabel() {
+  TR_ASSERT(self()->isLabel(), "assertion failure");
+  _flags.setValue(LabelKindMask, IsGlobalLabel);
+}
+
+bool OMR::Symbol::isGlobalLabel() {
+  return self()->isLabel() && _flags.testValue(LabelKindMask, IsGlobalLabel);
+}
+
+void OMR::Symbol::setRelativeLabel() {
+  TR_ASSERT(self()->isLabel(), "assertion failure");
+  _flags2.set(RelativeLabel);
+}
+
+bool OMR::Symbol::isRelativeLabel() {
+  return self()->isLabel() && _flags2.testAny(RelativeLabel);
+}
+
+void OMR::Symbol::setConstMethodType() {
+  TR_ASSERT(self()->isStatic(), "assertion failure");
+  _flags2.set(ConstMethodType);
+}
+
+bool OMR::Symbol::isConstMethodType() {
+  return self()->isStatic() && _flags2.testAny(ConstMethodType);
+}
+
+void OMR::Symbol::setConstMethodHandle() {
+  TR_ASSERT(self()->isStatic(), "assertion failure");
+  _flags2.set(ConstMethodHandle);
+}
+
+bool OMR::Symbol::isConstMethodHandle() {
+  return self()->isStatic() && _flags2.testAny(ConstMethodHandle);
+}
+
+bool OMR::Symbol::isConstObjectRef() {
+  return self()->isStatic() &&
+         (_flags.testAny(ConstString) ||
+          _flags2.testAny(ConstMethodType | ConstMethodHandle));
+}
+
+bool OMR::Symbol::isStaticField() {
+  return self()->isStatic() &&
+         !(self()->isConstObjectRef() || self()->isClassObject() ||
+           self()->isAddressOfClassObject() || self()->isConst());
+}
+
+bool OMR::Symbol::isFixedObjectRef() {
+  return self()->isConstObjectRef() || self()->isCallSiteTableEntry() ||
+         self()->isMethodTypeTableEntry();
+}
+
+void OMR::Symbol::setCallSiteTableEntry() {
+  TR_ASSERT(isStatic(), "assertion failure");
+  _flags2.set(CallSiteTableEntry);
+}
+
+bool OMR::Symbol::isCallSiteTableEntry() {
+  return self()->isStatic() && _flags2.testAny(CallSiteTableEntry);
+}
+
+void OMR::Symbol::setMethodTypeTableEntry() {
+  TR_ASSERT(self()->isStatic(), "assertion failure");
+  _flags2.set(MethodTypeTableEntry);
+}
+
+bool OMR::Symbol::isMethodTypeTableEntry() {
+  return self()->isStatic() && _flags2.testAny(MethodTypeTableEntry);
+}
+
+void OMR::Symbol::setNotDataAddress() {
+  TR_ASSERT(self()->isStatic(), "assertion failure");
+  _flags2.set(NotDataAddress);
+}
+
+bool OMR::Symbol::isNotDataAddress() {
+  return self()->isStatic() && _flags2.testAny(NotDataAddress);
+}
+
+void OMR::Symbol::setUnsafeShadowSymbol() {
+  TR_ASSERT(self()->isShadow(), "assertion failure");
+  _flags2.set(UnsafeShadow);
+}
+
+bool OMR::Symbol::isUnsafeShadowSymbol() {
+  return self()->isShadow() && _flags2.testAny(UnsafeShadow);
+}
+
+void OMR::Symbol::setNamedShadowSymbol() {
+  TR_ASSERT(self()->isShadow(), "assertion failure");
+  _flags2.set(NamedShadow);
+}
+
+bool OMR::Symbol::isNamedShadowSymbol() {
+  return self()->isShadow() && _flags2.testAny(NamedShadow);
+}
+
+TR::DataType OMR::Symbol::getType() { return self()->getDataType(); }
+
+bool OMR::Symbol::isMethod() {
+  return self()->getKind() == IsMethod || self()->getKind() == IsResolvedMethod;
+}
+
+bool OMR::Symbol::isRegisterMappedSymbol() {
+  return self()->getKind() <= LastRegisterMapped;
+}
+
+bool OMR::Symbol::isAutoOrParm() { return self()->getKind() <= IsParameter; }
+
+bool OMR::Symbol::isRegularShadow() {
+  return self()->isShadow() && !self()->isAutoField() && !self()->isParmField();
+}
+
+bool OMR::Symbol::isSyncVolatile() { return self()->isVolatile(); }
+
+TR::RegisterMappedSymbol *OMR::Symbol::getRegisterMappedSymbol() {
+  return self()->isRegisterMappedSymbol() ? (TR::RegisterMappedSymbol *)this
+                                          : 0;
+}
+
+TR::AutomaticSymbol *OMR::Symbol::getAutoSymbol() {
+  return self()->isAuto() ? (TR::AutomaticSymbol *)this : 0;
+}
+
+TR::ParameterSymbol *OMR::Symbol::getParmSymbol() {
+  return self()->isParm() ? (TR::ParameterSymbol *)this : 0;
+}
+
+TR::AutomaticSymbol *OMR::Symbol::getInternalPointerAutoSymbol() {
+  return self()->isInternalPointerAuto() ? (TR::AutomaticSymbol *)this : 0;
+}
+
+TR::AutomaticSymbol *OMR::Symbol::getLocalObjectSymbol() {
+  return self()->isLocalObject() ? (TR::AutomaticSymbol *)this : 0;
+}
+
+TR::StaticSymbol *OMR::Symbol::getStaticSymbol() {
+  return self()->isStatic() ? (TR::StaticSymbol *)this : 0;
+}
+
+TR::MethodSymbol *OMR::Symbol::getMethodSymbol() {
+  return self()->isMethod() ? (TR::MethodSymbol *)this : 0;
+}
+
+TR::ResolvedMethodSymbol *OMR::Symbol::getResolvedMethodSymbol() {
+  return self()->isResolvedMethod() ? (TR::ResolvedMethodSymbol *)this : 0;
+}
+
+TR::Symbol *OMR::Symbol::getShadowSymbol() {
+  return self()->isShadow() ? (TR::Symbol *)this : 0;
+}
+
+TR::RegisterMappedSymbol *OMR::Symbol::getMethodMetaDataSymbol() {
+  return self()->isMethodMetaData() ? (TR::RegisterMappedSymbol *)this : 0;
+}
+
+TR::LabelSymbol *OMR::Symbol::getLabelSymbol() {
+  return self()->isLabel() ? (TR::LabelSymbol *)this : 0;
+}
+
+TR::ResolvedMethodSymbol *OMR::Symbol::getJittedMethodSymbol() {
+  return self()->isJittedMethod() ? (TR::ResolvedMethodSymbol *)this : 0;
+}
+
+TR::StaticSymbol *OMR::Symbol::getCallSiteTableEntrySymbol() {
+  return self()->isCallSiteTableEntry()
+             ? self()->castToCallSiteTableEntrySymbol()
+             : NULL;
+}
+
+TR::StaticSymbol *OMR::Symbol::getMethodTypeTableEntrySymbol() {
+  return self()->isMethodTypeTableEntry()
+             ? self()->castToMethodTypeTableEntrySymbol()
+             : NULL;
+}
+
+TR::Symbol *OMR::Symbol::getNamedShadowSymbol() {
+  return self()->isNamedShadowSymbol() ? (TR::Symbol *)this : 0;
+}
+
+TR::AutomaticSymbol *OMR::Symbol::getRegisterSymbol() {
+  return self()->isRegisterSymbol() ? (TR::AutomaticSymbol *)this : 0;
+}
+
+TR::StaticSymbol *OMR::Symbol::getRecognizedStaticSymbol() {
+  return self()->isRecognizedStatic() ? (TR::StaticSymbol *)this : 0;
+}
+
+TR::AutomaticSymbol *OMR::Symbol::getVariableSizeSymbol() {
+  return self()->isVariableSizeSymbol() ? (TR::AutomaticSymbol *)this : 0;
+}
 
 /*
  * Static factory methods
  */
 template <typename AllocatorType>
-TR::Symbol * OMR::Symbol::createShadow(AllocatorType m)
-   {
-   TR::Symbol * sym = new (m) TR::Symbol();
-   sym->_flags.setValue(KindMask, IsShadow);
-   return sym;
-   }
+TR::Symbol *OMR::Symbol::createShadow(AllocatorType m) {
+  TR::Symbol *sym = new (m) TR::Symbol();
+  sym->_flags.setValue(KindMask, IsShadow);
+  return sym;
+}
 
 template <typename AllocatorType>
-TR::Symbol * OMR::Symbol::createShadow(AllocatorType m, TR::DataType d)
-   {
-   TR::Symbol * sym = new (m) TR::Symbol(d);
-   sym->_flags.setValue(KindMask, IsShadow);
-   return sym;
-   }
+TR::Symbol *OMR::Symbol::createShadow(AllocatorType m, TR::DataType d) {
+  TR::Symbol *sym = new (m) TR::Symbol(d);
+  sym->_flags.setValue(KindMask, IsShadow);
+  return sym;
+}
 
 template <typename AllocatorType>
-TR::Symbol * OMR::Symbol::createShadow(AllocatorType m, TR::DataType d, uint32_t s)
-   {
-   TR::Symbol * sym = new (m) TR::Symbol(d,s);
-   sym->_flags.setValue(KindMask, IsShadow);
-   return sym;
-   }
+TR::Symbol *OMR::Symbol::createShadow(AllocatorType m, TR::DataType d,
+                                      uint32_t s) {
+  TR::Symbol *sym = new (m) TR::Symbol(d, s);
+  sym->_flags.setValue(KindMask, IsShadow);
+  return sym;
+}
 
 template <typename AllocatorType>
-TR::Symbol * OMR::Symbol::createNamedShadow(AllocatorType m, TR::DataType d, uint32_t s, char *name)
-   {
-   auto * sym = createShadow(m,d,s);
-   sym->_name = name;
-   sym->_flags2.set(NamedShadow);
-   return sym;
-   }
+TR::Symbol *OMR::Symbol::createNamedShadow(AllocatorType m, TR::DataType d,
+                                           uint32_t s, char *name) {
+  auto *sym = createShadow(m, d, s);
+  sym->_name = name;
+  sym->_flags2.set(NamedShadow);
+  return sym;
+}
 
 /*
  * Explicit instantiation of factories for each TR_Memory type.
  */
 
-template TR::Symbol * OMR::Symbol::create(TR_StackMemory);
-template TR::Symbol * OMR::Symbol::create(TR_HeapMemory);
-template TR::Symbol * OMR::Symbol::create(PERSISTENT_NEW_DECLARE);
+template TR::Symbol *OMR::Symbol::create(TR_StackMemory);
+template TR::Symbol *OMR::Symbol::create(TR_HeapMemory);
+template TR::Symbol *OMR::Symbol::create(PERSISTENT_NEW_DECLARE);
 
-template TR::Symbol * OMR::Symbol::create(TR_StackMemory, TR::DataType);
-template TR::Symbol * OMR::Symbol::create(TR_HeapMemory, TR::DataType);
-template TR::Symbol * OMR::Symbol::create(PERSISTENT_NEW_DECLARE, TR::DataType);
+template TR::Symbol *OMR::Symbol::create(TR_StackMemory, TR::DataType);
+template TR::Symbol *OMR::Symbol::create(TR_HeapMemory, TR::DataType);
+template TR::Symbol *OMR::Symbol::create(PERSISTENT_NEW_DECLARE, TR::DataType);
 
-template TR::Symbol * OMR::Symbol::create(TR_StackMemory, TR::DataType, uint32_t);
-template TR::Symbol * OMR::Symbol::create(TR_HeapMemory, TR::DataType, uint32_t);
-template TR::Symbol * OMR::Symbol::create(PERSISTENT_NEW_DECLARE, TR::DataType, uint32_t);
+template TR::Symbol *OMR::Symbol::create(TR_StackMemory, TR::DataType,
+                                         uint32_t);
+template TR::Symbol *OMR::Symbol::create(TR_HeapMemory, TR::DataType, uint32_t);
+template TR::Symbol *OMR::Symbol::create(PERSISTENT_NEW_DECLARE, TR::DataType,
+                                         uint32_t);
 
-template TR::Symbol * OMR::Symbol::createShadow(TR_StackMemory);
-template TR::Symbol * OMR::Symbol::createShadow(TR_HeapMemory);
-template TR::Symbol * OMR::Symbol::createShadow(PERSISTENT_NEW_DECLARE);
+template TR::Symbol *OMR::Symbol::createShadow(TR_StackMemory);
+template TR::Symbol *OMR::Symbol::createShadow(TR_HeapMemory);
+template TR::Symbol *OMR::Symbol::createShadow(PERSISTENT_NEW_DECLARE);
 
-template TR::Symbol * OMR::Symbol::createShadow(TR_StackMemory,         TR::DataType);
-template TR::Symbol * OMR::Symbol::createShadow(TR_HeapMemory,          TR::DataType);
-template TR::Symbol * OMR::Symbol::createShadow(PERSISTENT_NEW_DECLARE, TR::DataType);
+template TR::Symbol *OMR::Symbol::createShadow(TR_StackMemory, TR::DataType);
+template TR::Symbol *OMR::Symbol::createShadow(TR_HeapMemory, TR::DataType);
+template TR::Symbol *OMR::Symbol::createShadow(PERSISTENT_NEW_DECLARE,
+                                               TR::DataType);
 
-template TR::Symbol * OMR::Symbol::createShadow(TR_StackMemory,         TR::DataType, uint32_t);
-template TR::Symbol * OMR::Symbol::createShadow(TR_HeapMemory,          TR::DataType, uint32_t);
-template TR::Symbol * OMR::Symbol::createShadow(PERSISTENT_NEW_DECLARE, TR::DataType, uint32_t);
+template TR::Symbol *OMR::Symbol::createShadow(TR_StackMemory, TR::DataType,
+                                               uint32_t);
+template TR::Symbol *OMR::Symbol::createShadow(TR_HeapMemory, TR::DataType,
+                                               uint32_t);
+template TR::Symbol *OMR::Symbol::createShadow(PERSISTENT_NEW_DECLARE,
+                                               TR::DataType, uint32_t);
 
-template TR::Symbol * OMR::Symbol::createNamedShadow(TR_StackMemory,         TR::DataType, uint32_t, char *);
-template TR::Symbol * OMR::Symbol::createNamedShadow(TR_HeapMemory,          TR::DataType, uint32_t, char *);
-template TR::Symbol * OMR::Symbol::createNamedShadow(PERSISTENT_NEW_DECLARE, TR::DataType, uint32_t, char *);
+template TR::Symbol *
+OMR::Symbol::createNamedShadow(TR_StackMemory, TR::DataType, uint32_t, char *);
+template TR::Symbol *OMR::Symbol::createNamedShadow(TR_HeapMemory, TR::DataType,
+                                                    uint32_t, char *);
+template TR::Symbol *OMR::Symbol::createNamedShadow(PERSISTENT_NEW_DECLARE,
+                                                    TR::DataType, uint32_t,
+                                                    char *);

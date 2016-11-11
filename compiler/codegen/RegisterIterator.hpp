@@ -19,22 +19,20 @@
 #ifndef TR_REGISTER_ITERATOR_INCL
 #define TR_REGISTER_ITERATOR_INCL
 
-#include "codegen/RegisterConstants.hpp"
 #include "codegen/OMRRegisterIterator.hpp"
+#include "codegen/RegisterConstants.hpp"
 
-namespace TR { class Machine; }
+namespace TR {
+class Machine;
+}
 
-namespace TR
-{
+namespace TR {
 
-class OMR_EXTENSIBLE RegisterIterator : public OMR::RegisterIteratorConnector
-   {
-   public:
-
-   RegisterIterator(TR::Machine *machine, TR_RegisterKinds kind): OMR::RegisterIteratorConnector(machine, kind) {}
-
-   };
-
+class OMR_EXTENSIBLE RegisterIterator : public OMR::RegisterIteratorConnector {
+public:
+  RegisterIterator(TR::Machine *machine, TR_RegisterKinds kind)
+      : OMR::RegisterIteratorConnector(machine, kind) {}
+};
 }
 
 #endif

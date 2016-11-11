@@ -55,14 +55,13 @@
  *
  */
 
-
 // OMR_NORETURN
 #if defined(_MSC_VER)
 #define OMR_NORETURN _declspec(noreturn)
 #elif defined(__GNUC__)
-#define OMR_NORETURN __attribute__ ((noreturn))
+#define OMR_NORETURN __attribute__((noreturn))
 #elif defined(__IBMCPP__)
-#define OMR_NORETURN __attribute__ ((noreturn))
+#define OMR_NORETURN __attribute__((noreturn))
 #else
 #warning "Noreturn attribute undefined for this platform."
 #define OMR_NORETURN
@@ -79,11 +78,11 @@
 // TODO: check if the definition of these macros is too broad,
 //       __builtin_expect() may not have any effect on xlC
 #if defined(TR_HOST_X86) && defined(WIN32)
-   #define OMR_LIKELY(expr) (expr)
-   #define OMR_UNLIKELY(expr) (expr)
+#define OMR_LIKELY(expr) (expr)
+#define OMR_UNLIKELY(expr) (expr)
 #else
-   #define OMR_LIKELY(expr)   __builtin_expect((expr), 1)
-   #define OMR_UNLIKELY(expr) __builtin_expect((expr), 0)
+#define OMR_LIKELY(expr) __builtin_expect((expr), 1)
+#define OMR_UNLIKELY(expr) __builtin_expect((expr), 0)
 #endif
 
 #endif

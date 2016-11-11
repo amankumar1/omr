@@ -16,7 +16,6 @@
 *    Multiple authors (IBM Corp.) - initial implementation and documentation
 *******************************************************************************/
 
-
 /**
  * Description: Two extensible classes inherit from the same
  *    non-extensible class. This is an error because only one
@@ -29,8 +28,16 @@
 
 #define OMR_EXTENSIBLE __attribute__((annotate("OMR_Extensible")))
 
-namespace OMR { class NonExtClass {}; }
-namespace TR  { class NonExtClass : public OMR::NonExtClass {}; }
+namespace OMR {
+class NonExtClass {};
+}
+namespace TR {
+class NonExtClass : public OMR::NonExtClass {};
+}
 
-namespace OMR { class OMR_EXTENSIBLE FirstExtClass : public TR::NonExtClass {}; }
-namespace OMR { class OMR_EXTENSIBLE SeconExtClass : public TR::NonExtClass {}; }
+namespace OMR {
+class OMR_EXTENSIBLE FirstExtClass : public TR::NonExtClass {};
+}
+namespace OMR {
+class OMR_EXTENSIBLE SeconExtClass : public TR::NonExtClass {};
+}

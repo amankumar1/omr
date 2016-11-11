@@ -24,26 +24,26 @@
 
 namespace TestCompiler {
 
-class LimitFileTest : public ::testing::Test
-   {
-   public:
-   LimitFileTest();
-   ~LimitFileTest();
+class LimitFileTest : public ::testing::Test {
+public:
+  LimitFileTest();
+  ~LimitFileTest();
 
-   void createVLog(const char *vlog, const char *limitFile = NULL);
-   void createAndCheckVLog(const char *vlog, const char *limitFile = NULL, int *iNegLine = NULL);
+  void createVLog(const char *vlog, const char *limitFile = NULL);
+  void createAndCheckVLog(const char *vlog, const char *limitFile = NULL,
+                          int *iNegLine = NULL);
 
-   void checkVLogForMethod(const char *vlog, const char *method, bool compiled, int *foundOnLine = NULL);
+  void checkVLogForMethod(const char *vlog, const char *method, bool compiled,
+                          int *foundOnLine = NULL);
 
-   private:
-   std::vector<const char *> _vlog;
+private:
+  std::vector<const char *> _vlog;
 
-   bool fileExists(const char *name);
-   void generateVLog(const char *vlog, const char *limitFile = NULL);
+  bool fileExists(const char *name);
+  void generateVLog(const char *vlog, const char *limitFile = NULL);
 
-   void compileTests();
-   };
-
+  void compileTests();
+};
 }
 
 #endif // !defined(TEST_LIMITFILE_INCL)

@@ -26,17 +26,16 @@
  *
  * Ensure the port library is properly setup to run heap operations.
  */
-TEST(PortHeapTest, Initialization)
-{
-	OMRPORT_ACCESS_FROM_OMRPORT(portTestEnv->getPortLibrary());
+TEST(PortHeapTest, Initialization) {
+  OMRPORT_ACCESS_FROM_OMRPORT(portTestEnv->getPortLibrary());
 
-	OMRTEST_EXPECT_NOT_NULL(OMRPORTLIB->heap_create);
+  OMRTEST_EXPECT_NOT_NULL(OMRPORTLIB->heap_create);
 
-	OMRTEST_EXPECT_NOT_NULL(OMRPORTLIB->heap_allocate);
+  OMRTEST_EXPECT_NOT_NULL(OMRPORTLIB->heap_allocate);
 
-	OMRTEST_EXPECT_NOT_NULL(OMRPORTLIB->heap_free);
+  OMRTEST_EXPECT_NOT_NULL(OMRPORTLIB->heap_free);
 
-	OMRTEST_EXPECT_NOT_NULL(OMRPORTLIB->heap_reallocate);
+  OMRTEST_EXPECT_NOT_NULL(OMRPORTLIB->heap_reallocate);
 
-	OMRTEST_EXPECT_NOT_NULL(OMRPORTLIB->heap_query_size);
+  OMRTEST_EXPECT_NOT_NULL(OMRPORTLIB->heap_query_size);
 }

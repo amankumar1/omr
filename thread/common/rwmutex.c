@@ -18,62 +18,63 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "threaddef.h"
 #include "thread_internal.h"
+#include "threaddef.h"
 
-#undef  ASSERT
+#undef ASSERT
 #define ASSERT(x) /**/
 
 typedef struct RWMutex {
-	omrthread_monitor_t syncMon;
-	intptr_t status;
-	omrthread_t writer;
+  omrthread_monitor_t syncMon;
+  intptr_t status;
+  omrthread_t writer;
 } RWMutex;
 
-#define ASSERT_RWMUTEX(m)\
-    ASSERT((m));\
-    ASSERT((m)->syncMon);
+#define ASSERT_RWMUTEX(m)                                                      \
+  ASSERT((m));                                                                 \
+  ASSERT((m)->syncMon);
 
-#define RWMUTEX_STATUS_IDLE(m)     ((m)->status == 0)
-#define RWMUTEX_STATUS_READING(m)  ((m)->status > 0)
-#define RWMUTEX_STATUS_WRITING(m)  ((m)->status < 0)
+#define RWMUTEX_STATUS_IDLE(m) ((m)->status == 0)
+#define RWMUTEX_STATUS_READING(m) ((m)->status > 0)
+#define RWMUTEX_STATUS_WRITING(m) ((m)->status < 0)
 
 /**
  * Acquire and initialize a new read/write mutex from the threading library.
  *
- * @param[out] handle pointer to a omrthread_rwmutex_t to be set to point to the new mutex
+ * @param[out] handle pointer to a omrthread_rwmutex_t to be set to point to the
+ * new mutex
  * @param[in] flags initial flag values for the mutex
  * @return J9THREAD_RWMUTEX_OK on success
  *
  * @see omrthread_rwmutex_destroy
  */
-intptr_t
-omrthread_rwmutex_init(omrthread_rwmutex_t *handle, uintptr_t flags, const char *name)
-{
-	omrthread_library_t lib = GLOBAL_DATA(default_library);
-	intptr_t ret = J9THREAD_RWMUTEX_OK;
-	RWMutex *mutex = NULL;
+intptr_t omrthread_rwmutex_init(omrthread_rwmutex_t *handle, uintptr_t flags,
+                                const char *name) {
+  omrthread_library_t lib = GLOBAL_DATA(default_library);
+  intptr_t ret = J9THREAD_RWMUTEX_OK;
+  RWMutex *mutex = NULL;
 
 #if defined(OMR_THR_FORK_SUPPORT)
-	ASSERT(0 != lib->rwmutexPool);
-	GLOBAL_LOCK_SIMPLE(lib);
-	mutex = (RWMutex *)pool_newElement(lib->rwmutexPool);
-	GLOBAL_UNLOCK_SIMPLE(lib);
-#else /* defined(OMR_THR_FORK_SUPPORT) */
-	mutex = (RWMutex *)omrthread_allocate_memory(lib, sizeof(RWMutex), OMRMEM_CATEGORY_THREADS);
+  ASSERT(0 != lib->rwmutexPool);
+  GLOBAL_LOCK_SIMPLE(lib);
+  mutex = (RWMutex *)pool_newElement(lib->rwmutexPool);
+  GLOBAL_UNLOCK_SIMPLE(lib);
+#else  /* defined(OMR_THR_FORK_SUPPORT) */
+  mutex = (RWMutex *)omrthread_allocate_memory(lib, sizeof(RWMutex),
+                                               OMRMEM_CATEGORY_THREADS);
 #endif /* defined(OMR_THR_FORK_SUPPORT) */
-	if (NULL == mutex) {
-		ret = J9THREAD_RWMUTEX_FAIL;
-	} else {
-		omrthread_monitor_init_with_name(&mutex->syncMon, 0, (char *)name);
-		mutex->status = 0;
-		mutex->writer = 0;
+  if (NULL == mutex) {
+    ret = J9THREAD_RWMUTEX_FAIL;
+  } else {
+    omrthread_monitor_init_with_name(&mutex->syncMon, 0, (char *)name);
+    mutex->status = 0;
+    mutex->writer = 0;
 
-		ASSERT(handle);
-		*handle = mutex;
-	}
+    ASSERT(handle);
+    *handle = mutex;
+  }
 
-	return ret;
+  return ret;
 }
 
 /**
@@ -90,24 +91,22 @@ omrthread_rwmutex_init(omrthread_rwmutex_t *handle, uintptr_t flags, const char 
  *
  * @see omrthread_rwmutex_init
  */
-intptr_t
-omrthread_rwmutex_destroy(omrthread_rwmutex_t mutex)
-{
-	omrthread_library_t lib = GLOBAL_DATA(default_library);
-	ASSERT(mutex);
-	ASSERT(mutex->syncMon);
-	ASSERT(0 == mutex->status);
-	ASSERT(0 == mutex->writer);
-	omrthread_monitor_destroy(mutex->syncMon);
+intptr_t omrthread_rwmutex_destroy(omrthread_rwmutex_t mutex) {
+  omrthread_library_t lib = GLOBAL_DATA(default_library);
+  ASSERT(mutex);
+  ASSERT(mutex->syncMon);
+  ASSERT(0 == mutex->status);
+  ASSERT(0 == mutex->writer);
+  omrthread_monitor_destroy(mutex->syncMon);
 #if defined(OMR_THR_FORK_SUPPORT)
-	ASSERT(0 != lib->rwmutexPool);
-	GLOBAL_LOCK_SIMPLE(lib);
-	pool_removeElement(lib->rwmutexPool, mutex);
-	GLOBAL_UNLOCK_SIMPLE(lib);
-#else /* defined(OMR_THR_FORK_SUPPORT) */
-	omrthread_free_memory(lib, mutex);
+  ASSERT(0 != lib->rwmutexPool);
+  GLOBAL_LOCK_SIMPLE(lib);
+  pool_removeElement(lib->rwmutexPool, mutex);
+  GLOBAL_UNLOCK_SIMPLE(lib);
+#else  /* defined(OMR_THR_FORK_SUPPORT) */
+  omrthread_free_memory(lib, mutex);
 #endif /* defined(OMR_THR_FORK_SUPPORT) */
-	return J9THREAD_RWMUTEX_OK;
+  return J9THREAD_RWMUTEX_OK;
 }
 
 /**
@@ -135,23 +134,21 @@ omrthread_rwmutex_destroy(omrthread_rwmutex_t mutex)
  *
  * @see omrthread_rwmutex_exit_read
  */
-intptr_t
-omrthread_rwmutex_enter_read(omrthread_rwmutex_t mutex)
-{
-	ASSERT_RWMUTEX(mutex);
-	if (mutex->writer == omrthread_self()) {
-		return J9THREAD_RWMUTEX_OK;
-	}
+intptr_t omrthread_rwmutex_enter_read(omrthread_rwmutex_t mutex) {
+  ASSERT_RWMUTEX(mutex);
+  if (mutex->writer == omrthread_self()) {
+    return J9THREAD_RWMUTEX_OK;
+  }
 
-	omrthread_monitor_enter(mutex->syncMon);
+  omrthread_monitor_enter(mutex->syncMon);
 
-	while (mutex->status < 0) {
-		omrthread_monitor_wait(mutex->syncMon);
-	}
-	mutex->status++;
+  while (mutex->status < 0) {
+    omrthread_monitor_wait(mutex->syncMon);
+  }
+  mutex->status++;
 
-	omrthread_monitor_exit(mutex->syncMon);
-	return J9THREAD_RWMUTEX_OK;
+  omrthread_monitor_exit(mutex->syncMon);
+  return J9THREAD_RWMUTEX_OK;
 }
 
 /**
@@ -163,24 +160,22 @@ omrthread_rwmutex_enter_read(omrthread_rwmutex_t mutex)
  * @see omrthread_rwmutex_enter_read
  *
  */
-intptr_t
-omrthread_rwmutex_exit_read(omrthread_rwmutex_t mutex)
-{
-	ASSERT_RWMUTEX(mutex);
-	if (mutex->writer == omrthread_self()) {
-		return J9THREAD_RWMUTEX_OK;
-	}
+intptr_t omrthread_rwmutex_exit_read(omrthread_rwmutex_t mutex) {
+  ASSERT_RWMUTEX(mutex);
+  if (mutex->writer == omrthread_self()) {
+    return J9THREAD_RWMUTEX_OK;
+  }
 
-	omrthread_monitor_enter(mutex->syncMon);
+  omrthread_monitor_enter(mutex->syncMon);
 
-	mutex->status--;
-	if (0 == mutex->status) {
-		omrthread_monitor_notify(mutex->syncMon);
-	}
+  mutex->status--;
+  if (0 == mutex->status) {
+    omrthread_monitor_notify(mutex->syncMon);
+  }
 
-	omrthread_monitor_exit(mutex->syncMon);
+  omrthread_monitor_exit(mutex->syncMon);
 
-	return J9THREAD_RWMUTEX_OK;
+  return J9THREAD_RWMUTEX_OK;
 }
 
 /**
@@ -208,31 +203,29 @@ omrthread_rwmutex_exit_read(omrthread_rwmutex_t mutex)
  *
  * @see omrthread_rwmutex_exit_write
  */
-intptr_t
-omrthread_rwmutex_enter_write(omrthread_rwmutex_t mutex)
-{
-	omrthread_t self = omrthread_self();
-	ASSERT_RWMUTEX(mutex);
+intptr_t omrthread_rwmutex_enter_write(omrthread_rwmutex_t mutex) {
+  omrthread_t self = omrthread_self();
+  ASSERT_RWMUTEX(mutex);
 
-	/* recursive? */
-	if (mutex->writer == self) {
-		mutex->status--;
-		return J9THREAD_RWMUTEX_OK;
-	}
+  /* recursive? */
+  if (mutex->writer == self) {
+    mutex->status--;
+    return J9THREAD_RWMUTEX_OK;
+  }
 
-	omrthread_monitor_enter(mutex->syncMon);
+  omrthread_monitor_enter(mutex->syncMon);
 
-	while (mutex->status != 0) {
-		omrthread_monitor_wait(mutex->syncMon);
-	}
-	mutex->status--;
-	mutex->writer = self;
+  while (mutex->status != 0) {
+    omrthread_monitor_wait(mutex->syncMon);
+  }
+  mutex->status--;
+  mutex->writer = self;
 
-	ASSERT(RWMUTEX_STATUS_WRITING(mutex));
+  ASSERT(RWMUTEX_STATUS_WRITING(mutex));
 
-	omrthread_monitor_exit(mutex->syncMon);
+  omrthread_monitor_exit(mutex->syncMon);
 
-	return J9THREAD_RWMUTEX_OK;
+  return J9THREAD_RWMUTEX_OK;
 }
 
 /**
@@ -246,32 +239,30 @@ omrthread_rwmutex_enter_write(omrthread_rwmutex_t mutex)
  *
  * @see omrthread_rwmutex_exit_write
  */
-intptr_t
-omrthread_rwmutex_try_enter_write(omrthread_rwmutex_t mutex)
-{
-	omrthread_t self = omrthread_self();
-	ASSERT_RWMUTEX(mutex);
+intptr_t omrthread_rwmutex_try_enter_write(omrthread_rwmutex_t mutex) {
+  omrthread_t self = omrthread_self();
+  ASSERT_RWMUTEX(mutex);
 
-	/* recursive? */
-	if (mutex->writer == self) {
-		mutex->status--;
-		return J9THREAD_RWMUTEX_OK;
-	}
+  /* recursive? */
+  if (mutex->writer == self) {
+    mutex->status--;
+    return J9THREAD_RWMUTEX_OK;
+  }
 
-	omrthread_monitor_enter(mutex->syncMon);
-	if (mutex->status != 0) {
-		/* must get out */
-		omrthread_monitor_exit(mutex->syncMon);
-		return J9THREAD_RWMUTEX_WOULDBLOCK;
-	}
-	mutex->status--;
-	mutex->writer = self;
+  omrthread_monitor_enter(mutex->syncMon);
+  if (mutex->status != 0) {
+    /* must get out */
+    omrthread_monitor_exit(mutex->syncMon);
+    return J9THREAD_RWMUTEX_WOULDBLOCK;
+  }
+  mutex->status--;
+  mutex->writer = self;
 
-	ASSERT(RWMUTEX_STATUS_WRITING(mutex));
+  ASSERT(RWMUTEX_STATUS_WRITING(mutex));
 
-	omrthread_monitor_exit(mutex->syncMon);
+  omrthread_monitor_exit(mutex->syncMon);
 
-	return J9THREAD_RWMUTEX_OK;
+  return J9THREAD_RWMUTEX_OK;
 }
 
 /**
@@ -284,37 +275,36 @@ omrthread_rwmutex_try_enter_write(omrthread_rwmutex_t mutex)
  * @see omrthread_rwmutex_try_enter_write
  *
  */
-intptr_t
-omrthread_rwmutex_exit_write(omrthread_rwmutex_t mutex)
-{
-	ASSERT_RWMUTEX(mutex);
-	ASSERT(mutex->writer == omrthread_self());
-	ASSERT(RWMUTEX_STATUS_WRITING(mutex));
-	omrthread_monitor_enter(mutex->syncMon);
+intptr_t omrthread_rwmutex_exit_write(omrthread_rwmutex_t mutex) {
+  ASSERT_RWMUTEX(mutex);
+  ASSERT(mutex->writer == omrthread_self());
+  ASSERT(RWMUTEX_STATUS_WRITING(mutex));
+  omrthread_monitor_enter(mutex->syncMon);
 
-	mutex->status++;
-	if (0 == mutex->status) {
-		mutex->writer = NULL;
-		omrthread_monitor_notify_all(mutex->syncMon);
-	}
+  mutex->status++;
+  if (0 == mutex->status) {
+    mutex->writer = NULL;
+    omrthread_monitor_notify_all(mutex->syncMon);
+  }
 
-	omrthread_monitor_exit(mutex->syncMon);
-	return J9THREAD_RWMUTEX_OK;
+  omrthread_monitor_exit(mutex->syncMon);
+  return J9THREAD_RWMUTEX_OK;
 }
 
 /**
  * check if the mutex is in writing state.
  * for performance reason, the method would not use syncMon and
- * would return true if either RWMUTEX_STATUS_WRITING(mutex) or mutex->writer != NULL is true.
- * it is not 100% reliable for generic case. it is only for detecting logic error purpose.
+ * would return true if either RWMUTEX_STATUS_WRITING(mutex) or mutex->writer !=
+ * NULL is true.
+ * it is not 100% reliable for generic case. it is only for detecting logic
+ * error purpose.
  *
  * @param mutex a mutex to be tested
  * @return BOOLEAN return true if the mutex is in the writing state.
  */
 BOOLEAN
-omrthread_rwmutex_is_writelocked(omrthread_rwmutex_t mutex)
-{
-	return (RWMUTEX_STATUS_WRITING(mutex) || (0 != mutex->writer));
+omrthread_rwmutex_is_writelocked(omrthread_rwmutex_t mutex) {
+  return (RWMUTEX_STATUS_WRITING(mutex) || (0 != mutex->writer));
 }
 
 #if defined(OMR_THR_FORK_SUPPORT)
@@ -323,28 +313,28 @@ omrthread_rwmutex_is_writelocked(omrthread_rwmutex_t mutex)
  * @param [in] self thread
  * @return void
  */
-void
-omrthread_rwmutex_reset(omrthread_rwmutex_t rwmutex, omrthread_t self)
-{
-	if (RWMUTEX_STATUS_READING(rwmutex)) {
-		fprintf(stderr, "ERROR: found read-locked rwmutex during post-fork reset!\n");
-		abort();
-	}
-	if (rwmutex->writer != self) {
-		/* If another thread was writing or reading and the current thread is not blocked,
-		 * reset it. If current thread is writer, it stays writer. The syncMon is reset
-		 * by postForkResetMonitors().
-		 */
-		rwmutex->writer = NULL;
-		rwmutex->status = 0;
-	}
+void omrthread_rwmutex_reset(omrthread_rwmutex_t rwmutex, omrthread_t self) {
+  if (RWMUTEX_STATUS_READING(rwmutex)) {
+    fprintf(stderr,
+            "ERROR: found read-locked rwmutex during post-fork reset!\n");
+    abort();
+  }
+  if (rwmutex->writer != self) {
+    /* If another thread was writing or reading and the current thread is not
+     * blocked,
+     * reset it. If current thread is writer, it stays writer. The syncMon is
+     * reset
+     * by postForkResetMonitors().
+     */
+    rwmutex->writer = NULL;
+    rwmutex->status = 0;
+  }
 }
 
-J9Pool *
-omrthread_rwmutex_init_pool(omrthread_library_t library)
-{
-	return pool_new(sizeof(RWMutex), 0, 0, 0, OMR_GET_CALLSITE(), OMRMEM_CATEGORY_THREADS, omrthread_mallocWrapper, omrthread_freeWrapper, library);
+J9Pool *omrthread_rwmutex_init_pool(omrthread_library_t library) {
+  return pool_new(sizeof(RWMutex), 0, 0, 0, OMR_GET_CALLSITE(),
+                  OMRMEM_CATEGORY_THREADS, omrthread_mallocWrapper,
+                  omrthread_freeWrapper, library);
 }
 
 #endif /* defined(OMR_THR_FORK_SUPPORT) */
-

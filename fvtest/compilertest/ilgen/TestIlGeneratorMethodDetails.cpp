@@ -17,53 +17,43 @@
  *******************************************************************************/
 
 #include "codegen/FrontEnd.hpp"
+#include "compile/Compilation.hpp"
+#include "compile/InlineBlock.hpp"
+#include "compile/Method.hpp"
+#include "compile/ResolvedMethod.hpp"
+#include "env/FrontEnd.hpp"
+#include "env/IO.hpp"
 #include "ilgen/IlGeneratorMethodDetails_inlines.hpp"
 #include "ilgen/IlInjector.hpp"
-#include "env/FrontEnd.hpp"
-#include "compile/Method.hpp"
-#include "compile/Compilation.hpp"
-#include "compile/ResolvedMethod.hpp"
-#include "compile/InlineBlock.hpp"
-#include "env/IO.hpp"
 
-namespace TestCompiler
-{
+namespace TestCompiler {
 
-IlGeneratorMethodDetails::IlGeneratorMethodDetails(TR_ResolvedMethod *method) :
-   _method(static_cast<TR::ResolvedMethod *>(method))
-   {
-   }
+IlGeneratorMethodDetails::IlGeneratorMethodDetails(TR_ResolvedMethod *method)
+    : _method(static_cast<TR::ResolvedMethod *>(method)) {}
 
+bool IlGeneratorMethodDetails::sameAs(TR::IlGeneratorMethodDetails &other,
+                                      TR_FrontEnd *fe) {
+  return self()->getMethod() == other.getMethod();
+}
 
-bool
-IlGeneratorMethodDetails::sameAs(TR::IlGeneratorMethodDetails & other, TR_FrontEnd *fe)
-   {
-   return self()->getMethod() == other.getMethod();
-   }
+TR_IlGenerator *IlGeneratorMethodDetails::getIlGenerator(
+    TR::ResolvedMethodSymbol *methodSymbol, TR_FrontEnd *fe,
+    TR::Compilation *comp, TR::SymbolReferenceTable *symRefTab,
+    bool forceClassLookahead, TR_InlineBlocks *blocksToInline) {
+  TR_ASSERT(forceClassLookahead == false,
+            "IlGenerator does not support class lookahead");
+  TR_ASSERT(blocksToInline == 0,
+            "IlGenerator does not yet support partial inlining");
+  TR::ResolvedMethod *method =
+      static_cast<TR::ResolvedMethod *>(methodSymbol->getResolvedMethod());
+  return (TR_IlGenerator *)method->getInjector(
+      self(), methodSymbol, static_cast<TR::FrontEnd *>(fe), symRefTab);
+}
 
+void IlGeneratorMethodDetails::print(TR_FrontEnd *fe, TR::FILE *file) {
+  if (file == NULL)
+    return;
 
-TR_IlGenerator *
-IlGeneratorMethodDetails::getIlGenerator(TR::ResolvedMethodSymbol *methodSymbol,
-                                         TR_FrontEnd * fe,
-                                         TR::Compilation *comp,
-                                         TR::SymbolReferenceTable *symRefTab,
-                                         bool forceClassLookahead,
-                                         TR_InlineBlocks *blocksToInline)
-   {
-   TR_ASSERT(forceClassLookahead == false, "IlGenerator does not support class lookahead");
-   TR_ASSERT(blocksToInline == 0, "IlGenerator does not yet support partial inlining");
-   TR::ResolvedMethod *method = static_cast<TR::ResolvedMethod *>(methodSymbol->getResolvedMethod());
-   return (TR_IlGenerator *) method->getInjector(self(), methodSymbol, static_cast<TR::FrontEnd *>(fe), symRefTab);
-   }
-
-
-void
-IlGeneratorMethodDetails::print(TR_FrontEnd *fe, TR::FILE *file)
-   {
-   if (file == NULL)
-      return;
-
-   trfprintf(file, "( %p )", self()->getMethod());
-   }
-
+  trfprintf(file, "( %p )", self()->getMethod());
+}
 }

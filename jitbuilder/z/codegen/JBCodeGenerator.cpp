@@ -16,21 +16,15 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-
 #include "codegen/CodeGenerator.hpp"
 #include "codegen/TRSystemLinkage.hpp"
 #include "compile/Compilation.hpp"
 #include "env/CompilerEnv.hpp"
 
-namespace JitBuilder
-{
-namespace Z
-{
+namespace JitBuilder {
+namespace Z {
 
-CodeGenerator::CodeGenerator() :
-   JitBuilder::CodeGenerator()
-   {
-   }
+CodeGenerator::CodeGenerator() : JitBuilder::CodeGenerator() {}
 
 } // namespace Z
 } // namespace JitBuilder

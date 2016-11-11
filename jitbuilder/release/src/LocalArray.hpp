@@ -16,25 +16,24 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  ******************************************************************************/
 
-
 #ifndef LOCALARRAY_INCL
 #define LOCALARRAY_INCL
 
 #include "ilgen/MethodBuilder.hpp"
 
-namespace TR { class TypeDictionary; }
+namespace TR {
+class TypeDictionary;
+}
 
-typedef void (LocalArrayFunctionType)(int64_t);
+typedef void(LocalArrayFunctionType)(int64_t);
 
-class LocalArrayMethod : public TR::MethodBuilder
-   {
-   private:
+class LocalArrayMethod : public TR::MethodBuilder {
+private:
+  TR::IlType *pInt64;
 
-   TR::IlType *pInt64;
-
-   public:
-   LocalArrayMethod(TR::TypeDictionary *);
-   virtual bool buildIL();
-   };
+public:
+  LocalArrayMethod(TR::TypeDictionary *);
+  virtual bool buildIL();
+};
 
 #endif // !defined(LOCALARRAY_INCL)

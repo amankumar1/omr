@@ -25,33 +25,36 @@
 
 #include "EnvironmentBase.hpp"
 
-class MM_EnvironmentLanguageInterfaceImpl : public MM_EnvironmentLanguageInterface
-{
+class MM_EnvironmentLanguageInterfaceImpl
+    : public MM_EnvironmentLanguageInterface {
 private:
 protected:
 public:
-
 private:
 protected:
-	virtual bool initialize(MM_EnvironmentBase *env);
-	virtual void tearDown(MM_EnvironmentBase *env);
+  virtual bool initialize(MM_EnvironmentBase *env);
+  virtual void tearDown(MM_EnvironmentBase *env);
 
-	MM_EnvironmentLanguageInterfaceImpl(MM_EnvironmentBase *env);
+  MM_EnvironmentLanguageInterfaceImpl(MM_EnvironmentBase *env);
 
 public:
-	static MM_EnvironmentLanguageInterfaceImpl *newInstance(MM_EnvironmentBase *env);
-	virtual void kill(MM_EnvironmentBase *env);
+  static MM_EnvironmentLanguageInterfaceImpl *
+  newInstance(MM_EnvironmentBase *env);
+  virtual void kill(MM_EnvironmentBase *env);
 
-	static MM_EnvironmentLanguageInterfaceImpl *getInterface(MM_EnvironmentLanguageInterface *linterface) { return (MM_EnvironmentLanguageInterfaceImpl *)linterface; }
+  static MM_EnvironmentLanguageInterfaceImpl *
+  getInterface(MM_EnvironmentLanguageInterface *linterface) {
+    return (MM_EnvironmentLanguageInterfaceImpl *)linterface;
+  }
 
-#if defined (OMR_GC_THREAD_LOCAL_HEAP)
-	virtual void disableInlineTLHAllocate();
-	virtual void enableInlineTLHAllocate();
-	virtual bool isInlineTLHAllocateEnabled();
+#if defined(OMR_GC_THREAD_LOCAL_HEAP)
+  virtual void disableInlineTLHAllocate();
+  virtual void enableInlineTLHAllocate();
+  virtual bool isInlineTLHAllocateEnabled();
 #endif /* OMR_GC_THREAD_LOCAL_HEAP */
 
-	virtual void parallelMarkTask_setup(MM_EnvironmentBase *env);
-	virtual void parallelMarkTask_cleanup(MM_EnvironmentBase *env);
+  virtual void parallelMarkTask_setup(MM_EnvironmentBase *env);
+  virtual void parallelMarkTask_cleanup(MM_EnvironmentBase *env);
 };
 
 #endif /* ENVIRONMENTLANGUAGEINTERFACEIMPL_HPP_ */

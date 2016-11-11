@@ -13,7 +13,8 @@
  *      http://www.opensource.org/licenses/apache2.0.php
  *
  * Contributors:
- *    Multiple authors (IBM Corp.) - initial API and implementation and/or initial documentation
+ *    Multiple authors (IBM Corp.) - initial API and implementation and/or
+ *initial documentation
  *******************************************************************************/
 
 /**
@@ -25,4 +26,5 @@
 #include "omrport.h"
 #include "omrportpriv.h"
 
-uintptr_t renameDump(struct OMRPortLibrary *portLibrary, char *filename, pid_t pid, int signalNumber);
+uintptr_t renameDump(struct OMRPortLibrary *portLibrary, char *filename,
+                     pid_t pid, int signalNumber);

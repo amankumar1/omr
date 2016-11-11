@@ -19,26 +19,23 @@
 #ifndef TR_OptimizationUtil_INCL
 #define TR_OptimizationUtil_INCL
 
-#include "compile/Compilation.hpp"      // for Compilation
-#include "env/TRMemory.hpp"             // for Allocator, Allocatable, etc
+#include "compile/Compilation.hpp" // for Compilation
+#include "env/TRMemory.hpp"        // for Allocator, Allocatable, etc
 
-namespace TR
-{
+namespace TR {
 
-class OptimizationUtil: public TR::Allocatable<OptimizationUtil, TR::Allocator>
-	{
-	public:
+class OptimizationUtil
+    : public TR::Allocatable<OptimizationUtil, TR::Allocator> {
+public:
+  OptimizationUtil(TR::Compilation *comp) : _comp(comp) {}
 
-	OptimizationUtil(TR::Compilation *comp) : _comp(comp) {}
+  TR::Compilation *comp() { return _comp; }
+  TR_FrontEnd *fe() { return _comp->fe(); }
+  TR::Allocator allocator() { return comp()->allocator(); }
+  TR_Memory *trMemory() { return comp()->trMemory(); }
 
-	TR::Compilation *comp() { return _comp; }
-   TR_FrontEnd *fe() {return _comp->fe(); }
-	TR::Allocator allocator() { return comp()->allocator(); }
-   TR_Memory * trMemory()                    { return comp()->trMemory(); }
-
-	private:
-	TR::Compilation *_comp;
-	};
-
+private:
+  TR::Compilation *_comp;
+};
 }
 #endif

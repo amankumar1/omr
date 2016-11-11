@@ -19,32 +19,29 @@
 #include "UnionUDT.hpp"
 
 UnionUDT::UnionUDT(size_t size, unsigned int lineNumber)
-	: ClassType(UNION, size, lineNumber)
-{
-}
+    : ClassType(UNION, size, lineNumber) {}
 
-UnionUDT::~UnionUDT() {};
+UnionUDT::~UnionUDT(){};
 
 DDR_RC
-UnionUDT::scanChildInfo(Scanner *scanner, void *data)
-{
-	return scanner->dispatchScanChildInfo(this, data);
+UnionUDT::scanChildInfo(Scanner *scanner, void *data) {
+  return scanner->dispatchScanChildInfo(this, data);
 }
 
 DDR_RC
-UnionUDT::enumerateType(BlobGenerator *blobGenerator, bool addFieldsOnly)
-{
-	return blobGenerator->dispatchEnumerateType(this, addFieldsOnly);
+UnionUDT::enumerateType(BlobGenerator *blobGenerator, bool addFieldsOnly) {
+  return blobGenerator->dispatchEnumerateType(this, addFieldsOnly);
 }
 
 DDR_RC
-UnionUDT::buildBlob(BlobGenerator *blobGenerator, bool addFieldsOnly, string prefix)
-{
-	return blobGenerator->dispatchBuildBlob(this, addFieldsOnly, prefix);
+UnionUDT::buildBlob(BlobGenerator *blobGenerator, bool addFieldsOnly,
+                    string prefix) {
+  return blobGenerator->dispatchBuildBlob(this, addFieldsOnly, prefix);
 }
 
 DDR_RC
-UnionUDT::printToSuperset(SupersetGenerator *supersetGenerator, bool addFieldsOnly, string prefix = "")
-{
-	return supersetGenerator->dispatchPrintToSuperset(this, addFieldsOnly, prefix);
+UnionUDT::printToSuperset(SupersetGenerator *supersetGenerator,
+                          bool addFieldsOnly, string prefix = "") {
+  return supersetGenerator->dispatchPrintToSuperset(this, addFieldsOnly,
+                                                    prefix);
 }

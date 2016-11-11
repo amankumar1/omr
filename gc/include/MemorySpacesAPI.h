@@ -40,7 +40,8 @@ extern "C" {
 #define MEMORY_SPACE_DESCRIPTION_FLAT "Flat MemorySpace Description"
 
 #define MEMORY_SPACE_NAME_GENERATIONAL "Generational"
-#define MEMORY_SPACE_DESCRIPTION_GENERATIONAL "Generational MemorySpace Description"
+#define MEMORY_SPACE_DESCRIPTION_GENERATIONAL                                  \
+  "Generational MemorySpace Description"
 
 #define MEMORY_SPACE_NAME_METRONOME "Metronome"
 #define MEMORY_SPACE_DESCRIPTION_METRONOME "Metronome MemorySpace Description"
@@ -64,14 +65,16 @@ extern "C" {
 #define MEMORY_SUBSPACE_DESCRIPTION_GENERIC "Generic MemorySubSpace Description"
 
 #define MEMORY_SUBSPACE_NAME_SEMISPACE "SemiSpace"
-#define MEMORY_SUBSPACE_DESCRIPTION_SEMISPACE "SemiSpace MemorySubSpace Description"
+#define MEMORY_SUBSPACE_DESCRIPTION_SEMISPACE                                  \
+  "SemiSpace MemorySubSpace Description"
 
 #define MEMORY_SUBSPACE_NAME_GENERATIONAL "Generational"
-#define MEMORY_SUBSPACE_DESCRIPTION_GENERATIONAL "Generational MemorySubSpace Description"
+#define MEMORY_SUBSPACE_DESCRIPTION_GENERATIONAL                               \
+  "Generational MemorySubSpace Description"
 
 #define MEMORY_SUBSPACE_NAME_METRONOME "Metronome"
-#define MEMORY_SUBSPACE_DESCRIPTION_METRONOME "Metronome MemorySubSpace Description"
-
+#define MEMORY_SUBSPACE_DESCRIPTION_METRONOME                                  \
+  "Metronome MemorySubSpace Description"
 
 #ifdef __cplusplus
 } /* extern "C" { */

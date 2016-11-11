@@ -17,12 +17,12 @@
  *******************************************************************************/
 
 #include <limits.h>
-#include <stdio.h>
 #include <stdint.h>
-#include "compile/Method.hpp"
-#include "il/DataTypes.hpp"
-#include "gtest/gtest.h"
+#include <stdio.h>
 #include "OMRTestEnv.hpp"
+#include "compile/Method.hpp"
+#include "gtest/gtest.h"
+#include "il/DataTypes.hpp"
 
 #ifdef MS_WINDOWS
 #undef BYTE
@@ -32,28 +32,25 @@
 #include <dlfcn.h>
 #endif
 
-int main(int argc, char **argv)
-   {
-   bool useOMRTestEnv = true;
+int main(int argc, char **argv) {
+  bool useOMRTestEnv = true;
 
-   /* Disable OMRTestEnv on some tests. This is needed when the test
-    * wants to initialize the JIT with special options which cannot be
-    * easily cleaned up.
-    */
-   const char *exitAssertFlag="--gtest_internal_run_death_test=";
-   for(int i = 0; i < argc; ++i)
-      {
-      if(!strncmp(argv[i], exitAssertFlag, strlen(exitAssertFlag))
-         && strstr(argv[i], "LimitFileTest.cpp"))
-         {
-         useOMRTestEnv = false;
-         }
-      }
+  /* Disable OMRTestEnv on some tests. This is needed when the test
+   * wants to initialize the JIT with special options which cannot be
+   * easily cleaned up.
+   */
+  const char *exitAssertFlag = "--gtest_internal_run_death_test=";
+  for (int i = 0; i < argc; ++i) {
+    if (!strncmp(argv[i], exitAssertFlag, strlen(exitAssertFlag)) &&
+        strstr(argv[i], "LimitFileTest.cpp")) {
+      useOMRTestEnv = false;
+    }
+  }
 
-   ::testing::InitGoogleTest(&argc, argv);
+  ::testing::InitGoogleTest(&argc, argv);
 
-   if(useOMRTestEnv)
-      ::testing::AddGlobalTestEnvironment(new TestCompiler::OMRTestEnv);
+  if (useOMRTestEnv)
+    ::testing::AddGlobalTestEnvironment(new TestCompiler::OMRTestEnv);
 
-   return RUN_ALL_TESTS();
-   }
+  return RUN_ALL_TESTS();
+}

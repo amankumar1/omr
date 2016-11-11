@@ -20,94 +20,112 @@
 #define OMR_VMENV_INCL
 
 /*
- * The following #define and typedef must appear before any #includes in this file
+ * The following #define and typedef must appear before any #includes in this
+ * file
  */
 #ifndef OMR_VMENV_CONNECTOR
 #define OMR_VMENV_CONNECTOR
-namespace OMR { class VMEnv; }
-namespace OMR { typedef OMR::VMEnv VMEnvConnector; }
+namespace OMR {
+class VMEnv;
+}
+namespace OMR {
+typedef OMR::VMEnv VMEnvConnector;
+}
 #endif
 
-#include <stdint.h>        // for int32_t, int64_t, uint32_t
-#include "infra/Annotations.hpp"
+#include <stdint.h> // for int32_t, int64_t, uint32_t
 #include "env/jittypes.h"
+#include "infra/Annotations.hpp"
 
-namespace TR { class VMEnv; }
+namespace TR {
+class VMEnv;
+}
 
 struct OMR_VMThread;
-namespace TR { class Compilation; }
+namespace TR {
+class Compilation;
+}
 
-namespace OMR
-{
+namespace OMR {
 
-class OMR_EXTENSIBLE VMEnv
-   {
+class OMR_EXTENSIBLE VMEnv {
 public:
+  TR::VMEnv *self();
 
-   TR::VMEnv * self();
+  int64_t maxHeapSizeInBytes() { return -1; }
 
-   int64_t maxHeapSizeInBytes() { return -1; }
+  uintptrj_t heapBaseAddress();
 
-   uintptrj_t heapBaseAddress();
+  uintptrj_t heapTailPaddingSizeInBytes();
 
-   uintptrj_t heapTailPaddingSizeInBytes();
+  // Perhaps 'false' would be a better default
+  bool hasResumableTrapHandler(TR::Compilation *comp) { return true; }
+  bool hasResumableTrapHandler(OMR_VMThread *omrVMThread) { return true; }
 
-   // Perhaps 'false' would be a better default
-   bool hasResumableTrapHandler(TR::Compilation *comp) { return true; }
-   bool hasResumableTrapHandler(OMR_VMThread *omrVMThread) { return true; }
+  uint64_t getUSecClock();
+  uint64_t getUSecClock(TR::Compilation *comp);
+  uint64_t getUSecClock(OMR_VMThread *omrVMThread);
 
-   uint64_t getUSecClock();
-   uint64_t getUSecClock(TR::Compilation *comp);
-   uint64_t getUSecClock(OMR_VMThread *omrVMThread);
+  uint64_t getHighResClock(TR::Compilation *comp);
+  uint64_t getHighResClock(OMR_VMThread *omrVMThread);
 
-   uint64_t getHighResClock(TR::Compilation *comp);
-   uint64_t getHighResClock(OMR_VMThread *omrVMThread);
+  uint64_t getHighResClockResolution(TR::Compilation *comp);
+  uint64_t getHighResClockResolution(OMR_VMThread *omrVMThread);
 
-   uint64_t getHighResClockResolution(TR::Compilation *comp);
-   uint64_t getHighResClockResolution(OMR_VMThread *omrVMThread);
+  uintptrj_t thisThreadGetPendingExceptionOffset() { return 0; }
 
-   uintptrj_t thisThreadGetPendingExceptionOffset() { return 0; }
+  // Is specified thread permitted to access the VM?
+  //
+  bool hasAccess(OMR_VMThread *omrVMThread) { return true; }
+  bool hasAccess(TR::Compilation *comp) { return true; }
 
-   // Is specified thread permitted to access the VM?
-   //
-   bool hasAccess(OMR_VMThread *omrVMThread) { return true; }
-   bool hasAccess(TR::Compilation *comp) { return true; }
+  // Acquire access to the VM
+  //
+  bool acquireVMAccessIfNeeded(OMR_VMThread *omrVMThread) { return true; }
+  bool acquireVMAccessIfNeeded(TR::Compilation *comp) { return true; }
 
-   // Acquire access to the VM
-   //
-   bool acquireVMAccessIfNeeded(OMR_VMThread *omrVMThread) { return true; }
-   bool acquireVMAccessIfNeeded(TR::Compilation *comp) { return true; }
+  bool tryToAcquireAccess(OMR_VMThread *omrVMThread, bool *) { return true; }
+  bool tryToAcquireAccess(TR::Compilation *, bool *) { return true; }
 
-   bool tryToAcquireAccess(OMR_VMThread *omrVMThread, bool *) { return true; }
-   bool tryToAcquireAccess(TR::Compilation *, bool *) { return true; }
+  // Release access to the VM
+  //
+  void releaseVMAccessIfNeeded(TR::Compilation *comp,
+                               bool haveAcquiredVMAccess) {}
+  void releaseVMAccessIfNeeded(OMR_VMThread *omrVMThread,
+                               bool haveAcquiredVMAccess) {}
 
-   // Release access to the VM
-   //
-   void releaseVMAccessIfNeeded(TR::Compilation *comp, bool haveAcquiredVMAccess) {}
-   void releaseVMAccessIfNeeded(OMR_VMThread *omrVMThread, bool haveAcquiredVMAccess) {}
+  void releaseAccess(TR::Compilation *comp) {}
+  void releaseAccess(OMR_VMThread *omrVMThread) {}
 
-   void releaseAccess(TR::Compilation *comp) {}
-   void releaseAccess(OMR_VMThread *omrVMThread) {}
+  bool canMethodEnterEventBeHooked(TR::Compilation *comp) { return false; }
+  bool canMethodExitEventBeHooked(TR::Compilation *comp) { return false; }
+  bool canAnyMethodEventsBeHooked(TR::Compilation *comp);
 
-   bool canMethodEnterEventBeHooked(TR::Compilation *comp) { return false; }
-   bool canMethodExitEventBeHooked(TR::Compilation *comp) { return false; }
-   bool canAnyMethodEventsBeHooked(TR::Compilation *comp);
+  // Largest object that can be safely allocated without overflowing the heap.
+  //
+  uintptrj_t getOverflowSafeAllocSize(TR::Compilation *comp) { return 0; }
 
-   // Largest object that can be safely allocated without overflowing the heap.
-   //
-   uintptrj_t getOverflowSafeAllocSize(TR::Compilation *comp) { return 0; }
+  int64_t cpuTimeSpentInCompilationThread(TR::Compilation *comp) {
+    return -1;
+  } // -1 means unavailable
 
-   int64_t cpuTimeSpentInCompilationThread(TR::Compilation *comp) { return -1; } // -1 means unavailable
-
-   // On-stack replacement
-   //
-   uintptrj_t OSRFrameHeaderSizeInBytes(TR::Compilation *comp) { return 0; }
-   uintptrj_t OSRFrameSizeInBytes(TR::Compilation *comp, TR_OpaqueMethodBlock* method) { return 0; }
-   bool ensureOSRBufferSize(TR::Compilation *comp, uintptrj_t osrFrameSizeInBytes, uintptrj_t osrScratchBufferSizeInBytes, uintptrj_t osrStackFrameSizeInBytes) { return false; }
-   uintptrj_t thisThreadGetOSRReturnAddressOffset(TR::Compilation *comp) { return 0; }
-
-   };
-
+  // On-stack replacement
+  //
+  uintptrj_t OSRFrameHeaderSizeInBytes(TR::Compilation *comp) { return 0; }
+  uintptrj_t OSRFrameSizeInBytes(TR::Compilation *comp,
+                                 TR_OpaqueMethodBlock *method) {
+    return 0;
+  }
+  bool ensureOSRBufferSize(TR::Compilation *comp,
+                           uintptrj_t osrFrameSizeInBytes,
+                           uintptrj_t osrScratchBufferSizeInBytes,
+                           uintptrj_t osrStackFrameSizeInBytes) {
+    return false;
+  }
+  uintptrj_t thisThreadGetOSRReturnAddressOffset(TR::Compilation *comp) {
+    return 0;
+  }
+};
 }
 
 #endif

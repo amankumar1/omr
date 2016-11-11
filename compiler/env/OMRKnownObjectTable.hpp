@@ -20,71 +20,75 @@
 #define OMR_KNOWN_OBJECT_TABLE_INCL
 
 /*
- * The following #define and typedef must appear before any #includes in this file
+ * The following #define and typedef must appear before any #includes in this
+ * file
  */
 #ifndef OMR_KNOWN_OBJECT_TABLE_CONNECTOR
 #define OMR_KNOWN_OBJECT_TABLE_CONNECTOR
-namespace OMR { class KnownObjectTable; }
-namespace OMR { typedef OMR::KnownObjectTable KnownObjectTableConnector; }
+namespace OMR {
+class KnownObjectTable;
+}
+namespace OMR {
+typedef OMR::KnownObjectTable KnownObjectTableConnector;
+}
 #endif
 
-
-#include <stdint.h>                 // for int32_t
-#include "env/FilePointerDecl.hpp"  // for FILE
-#include "env/jittypes.h"           // for uintptrj_t
-#include "infra/Annotations.hpp"    // for OMR_EXTENSIBLE
+#include <stdint.h>                // for int32_t
+#include "env/FilePointerDecl.hpp" // for FILE
+#include "env/jittypes.h"          // for uintptrj_t
+#include "infra/Annotations.hpp"   // for OMR_EXTENSIBLE
 
 class TR_FrontEnd;
-namespace TR { class Compilation; }
-namespace TR { class KnownObjectTable; }
+namespace TR {
+class Compilation;
+}
+namespace TR {
+class KnownObjectTable;
+}
 
-namespace OMR
-{
+namespace OMR {
 
- /**
-  * Table of known objects.
-  *
-  * These are cases where language properties allows the compiler to know
-  * statically not just the type of the object, but the identity of the object.
-  */
-class OMR_EXTENSIBLE KnownObjectTable
-   {
-   TR_FrontEnd *_fe;
+/**
+ * Table of known objects.
+ *
+ * These are cases where language properties allows the compiler to know
+ * statically not just the type of the object, but the identity of the object.
+ */
+class OMR_EXTENSIBLE KnownObjectTable {
+  TR_FrontEnd *_fe;
 
 protected:
-
-   KnownObjectTable(TR::Compilation *comp);
-   TR::Compilation *_comp;
+  KnownObjectTable(TR::Compilation *comp);
+  TR::Compilation *_comp;
 
 public:
+  TR::KnownObjectTable *self();
 
-   TR::KnownObjectTable * self();
+  typedef int32_t Index;
+  static const Index UNKNOWN = -1;
 
-   typedef int32_t Index;
-   static const Index UNKNOWN = -1;
+  TR_FrontEnd *fe() { return _fe; }
+  void setFe(TR_FrontEnd *fe) { _fe = fe; }
 
-   TR_FrontEnd *fe() { return _fe; }
-   void setFe(TR_FrontEnd *fe) { _fe = fe; }
+  TR::Compilation *comp() { return _comp; }
+  void setComp(TR::Compilation *comp) { _comp = comp; }
 
-   TR::Compilation *comp() { return _comp; }
-   void setComp(TR::Compilation *comp) { _comp = comp; }
+  virtual Index getEndIndex(); // Highest index assigned so far + 1
+  virtual Index
+  getIndex(uintptrj_t objectPointer); // Must hold vm access for this
+  virtual uintptrj_t *getPointerLocation(Index index);
+  virtual bool isNull(Index index);
 
-   virtual Index getEndIndex();                      // Highest index assigned so far + 1
-   virtual Index getIndex(uintptrj_t objectPointer); // Must hold vm access for this
-   virtual uintptrj_t *getPointerLocation(Index index);
-   virtual bool isNull(Index index);
+  virtual void dumpTo(TR::FILE *file, TR::Compilation *comp);
 
-   virtual void dumpTo(TR::FILE *file, TR::Compilation *comp);
+  // Handy wrappers
 
-   // Handy wrappers
+  Index getIndexAt(uintptrj_t *objectReferenceLocation);
+  Index getExistingIndexAt(uintptrj_t *objectReferenceLocation);
 
-   Index getIndexAt(uintptrj_t *objectReferenceLocation);
-   Index getExistingIndexAt(uintptrj_t *objectReferenceLocation);
-
-   uintptrj_t getPointer(Index index);
-   uintptrj_t *getfPointerLocationAt(uintptrj_t *objectReferenceLocation);
-
-   };
+  uintptrj_t getPointer(Index index);
+  uintptrj_t *getfPointerLocationAt(uintptrj_t *objectReferenceLocation);
+};
 }
 
 #endif

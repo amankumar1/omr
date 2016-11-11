@@ -23,16 +23,12 @@
 
 #include "CardCleaningStats.hpp"
 
-void
-MM_CardCleaningStats::clear()
-{
-	_cardCleaningTime = 0;
-	_cardsCleaned = 0;
+void MM_CardCleaningStats::clear() {
+  _cardCleaningTime = 0;
+  _cardsCleaned = 0;
 }
 
-void
-MM_CardCleaningStats::merge(MM_CardCleaningStats *statsToMerge)
-{
-	_cardCleaningTime += statsToMerge->_cardCleaningTime;
-	_cardsCleaned += statsToMerge->_cardsCleaned;
+void MM_CardCleaningStats::merge(MM_CardCleaningStats *statsToMerge) {
+  _cardCleaningTime += statsToMerge->_cardCleaningTime;
+  _cardsCleaned += statsToMerge->_cardsCleaned;
 }

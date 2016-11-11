@@ -19,67 +19,58 @@
 #include "ClassUDT.hpp"
 
 ClassUDT::ClassUDT(size_t size, bool isClass, unsigned int lineNumber)
-	: ClassType(isClass ? CLASS : STRUCT, size, lineNumber), _superClass(NULL), _isClass(isClass)
-{
+    : ClassType(isClass ? CLASS : STRUCT, size, lineNumber), _superClass(NULL),
+      _isClass(isClass) {}
+
+ClassUDT::~ClassUDT(){};
+
+bool ClassUDT::equal(Type const &type, set<Type const *> *checked) const {
+  bool ret = false;
+  if (checked->find(this) != checked->end()) {
+    ret = true;
+  } else {
+    checked->insert(this);
+    ClassUDT const *classUDT = dynamic_cast<ClassUDT const *>(&type);
+    if (NULL != classUDT) {
+      ret = (ClassType::equal(type, checked)) &&
+            ((NULL == _superClass) == (NULL == classUDT->_superClass)) &&
+            ((_superClass == classUDT->_superClass) ||
+             (*_superClass == *classUDT->_superClass));
+    }
+  }
+  return ret;
 }
 
-ClassUDT::~ClassUDT() {};
+void ClassUDT::replaceType(Type *typeToReplace, Type *replaceWith) {
+  ClassType::replaceType(typeToReplace, replaceWith);
 
-bool
-ClassUDT::equal(Type const& type, set<Type const*> *checked) const
-{
-	bool ret = false;
-	if (checked->find(this) != checked->end()) {
-		ret = true;
-	} else {
-		checked->insert(this);
-		ClassUDT const *classUDT = dynamic_cast<ClassUDT const *>(&type);
-		if (NULL != classUDT) {
-			ret = (ClassType::equal(type, checked))
-				&& (( NULL == _superClass) == (NULL == classUDT->_superClass))
-				&& ((_superClass == classUDT->_superClass) || (*_superClass == *classUDT->_superClass));
-		}
-	}
-	return ret;
-}
-
-void
-ClassUDT::replaceType(Type *typeToReplace, Type *replaceWith)
-{
-	ClassType::replaceType(typeToReplace, replaceWith);
-
-	ClassUDT *classUDT = dynamic_cast<ClassUDT *>(replaceWith);
-	if (_superClass == typeToReplace) {
-		_superClass = classUDT;
-	}
+  ClassUDT *classUDT = dynamic_cast<ClassUDT *>(replaceWith);
+  if (_superClass == typeToReplace) {
+    _superClass = classUDT;
+  }
 }
 
 DDR_RC
-ClassUDT::scanChildInfo(Scanner *scanner, void *data)
-{
-	return scanner->dispatchScanChildInfo(this, data);
+ClassUDT::scanChildInfo(Scanner *scanner, void *data) {
+  return scanner->dispatchScanChildInfo(this, data);
 }
 
-string
-ClassUDT::getSymbolTypeName()
-{
-	return _isClass ? "class" : "struct";
+string ClassUDT::getSymbolTypeName() { return _isClass ? "class" : "struct"; }
+
+DDR_RC
+ClassUDT::enumerateType(BlobGenerator *blobGenerator, bool addFieldsOnly) {
+  return blobGenerator->dispatchEnumerateType(this, addFieldsOnly);
 }
 
 DDR_RC
-ClassUDT::enumerateType(BlobGenerator *blobGenerator, bool addFieldsOnly)
-{
-	return blobGenerator->dispatchEnumerateType(this, addFieldsOnly);
+ClassUDT::buildBlob(BlobGenerator *blobGenerator, bool addFieldsOnly,
+                    string prefix) {
+  return blobGenerator->dispatchBuildBlob(this, addFieldsOnly, prefix);
 }
 
 DDR_RC
-ClassUDT::buildBlob(BlobGenerator *blobGenerator, bool addFieldsOnly, string prefix)
-{
-	return blobGenerator->dispatchBuildBlob(this, addFieldsOnly, prefix);
-}
-
-DDR_RC
-ClassUDT::printToSuperset(SupersetGenerator *supersetGenerator, bool addFieldsOnly, string prefix = "")
-{
-	return supersetGenerator->dispatchPrintToSuperset(this, addFieldsOnly, prefix);
+ClassUDT::printToSuperset(SupersetGenerator *supersetGenerator,
+                          bool addFieldsOnly, string prefix = "") {
+  return supersetGenerator->dispatchPrintToSuperset(this, addFieldsOnly,
+                                                    prefix);
 }

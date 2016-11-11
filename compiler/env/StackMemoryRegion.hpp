@@ -27,18 +27,15 @@ class TR_Memory;
 
 namespace TR {
 
-class StackMemoryRegion : public Region
-   {
+class StackMemoryRegion : public Region {
 public:
-   explicit StackMemoryRegion(TR_Memory &trMemory);
-   virtual ~StackMemoryRegion() throw();
+  explicit StackMemoryRegion(TR_Memory &trMemory);
+  virtual ~StackMemoryRegion() throw();
 
 private:
-   TR_Memory &_trMemory;
-   TR::Region &_previousStackRegion;
-   };
-
+  TR_Memory &_trMemory;
+  TR::Region &_previousStackRegion;
+};
 }
 
 #endif // STACKREGION_HPP
-

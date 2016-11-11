@@ -20,61 +20,71 @@
 #define OMR_ILGENREQUEST_INCL
 
 /*
- * The following #define and typedef must appear before any #includes in this file
+ * The following #define and typedef must appear before any #includes in this
+ * file
  */
 #ifndef OMR_ILGENREQUEST_CONNECTOR
 #define OMR_ILGENREQUEST_CONNECTOR
-namespace OMR { class IlGenRequest; }
-namespace OMR { typedef OMR::IlGenRequest IlGenRequestConnector; }
+namespace OMR {
+class IlGenRequest;
+}
+namespace OMR {
+typedef OMR::IlGenRequest IlGenRequestConnector;
+}
 #endif
 
-#include "env/FilePointerDecl.hpp"  // for FILE
-#include "infra/Annotations.hpp"  // for OMR_EXTENSIBLE
+#include "env/FilePointerDecl.hpp" // for FILE
+#include "infra/Annotations.hpp"   // for OMR_EXTENSIBLE
 
 class TR_FrontEnd;
 class TR_IlGenerator;
-namespace TR { class Compilation; }
-namespace TR { class IlGeneratorMethodDetails; }
-namespace TR { class ResolvedMethodSymbol; }
-namespace TR { class SymbolReferenceTable; }
+namespace TR {
+class Compilation;
+}
+namespace TR {
+class IlGeneratorMethodDetails;
+}
+namespace TR {
+class ResolvedMethodSymbol;
+}
+namespace TR {
+class SymbolReferenceTable;
+}
 
-namespace OMR
-{
+namespace OMR {
 
 /**
- * IlGenRequestBase defines the IlGenRequest API that common code can count on, although it's more documentation
- *   then enforcement.  A front end will typically extend this class (perhaps even with a hierarchy of classes)
+ * IlGenRequestBase defines the IlGenRequest API that common code can count on,
+ * although it's more documentation
+ *   then enforcement.  A front end will typically extend this class (perhaps
+ * even with a hierarchy of classes)
  *   and then map its own concrete base class onto TR::IlGenRequest.
  *
- * Accessing ANY front-end specific API/data in common code is prohibited since other front end builds would fail.
+ * Accessing ANY front-end specific API/data in common code is prohibited since
+ * other front end builds would fail.
  *
  */
 
-class OMR_EXTENSIBLE IlGenRequest
-   {
+class OMR_EXTENSIBLE IlGenRequest {
 
 public:
+  /// Create an ILGen object to execute this request
+  ///
+  virtual TR_IlGenerator *
+  getIlGenerator(TR::ResolvedMethodSymbol *methodSymbol, TR_FrontEnd *fe,
+                 TR::Compilation *comp,
+                 TR::SymbolReferenceTable *symRefTab) = 0;
 
-   /// Create an ILGen object to execute this request
-   ///
-   virtual TR_IlGenerator *getIlGenerator(
-         TR::ResolvedMethodSymbol *methodSymbol,
-         TR_FrontEnd *fe,
-         TR::Compilation *comp,
-         TR::SymbolReferenceTable *symRefTab) = 0;
+  virtual void print(TR_FrontEnd *fe, TR::FILE *file, const char *suffix) = 0;
 
-   virtual void print(TR_FrontEnd *fe, TR::FILE *file, const char *suffix) = 0;
-
-   TR::IlGeneratorMethodDetails & details() { return _methodDetails; }
+  TR::IlGeneratorMethodDetails &details() { return _methodDetails; }
 
 protected:
+  IlGenRequest(TR::IlGeneratorMethodDetails &methodDetails)
+      : _methodDetails(methodDetails) {}
 
-   IlGenRequest(TR::IlGeneratorMethodDetails & methodDetails) :
-      _methodDetails(methodDetails) { }
-
-   TR::IlGeneratorMethodDetails & _methodDetails;
-   };
-
+  TR::IlGeneratorMethodDetails &_methodDetails;
+};
 }
 
 #endif

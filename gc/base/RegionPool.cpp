@@ -16,24 +16,13 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-
 #include "RegionPool.hpp"
 
-bool 
-MM_RegionPool::initialize(MM_EnvironmentBase *env)
-{
-	return true;
-}
+bool MM_RegionPool::initialize(MM_EnvironmentBase *env) { return true; }
 
-void 
-MM_RegionPool::tearDown(MM_EnvironmentBase *env)
-{
-	
-}
+void MM_RegionPool::tearDown(MM_EnvironmentBase *env) {}
 
-void 
-MM_RegionPool::kill(MM_EnvironmentBase *env)
-{
-	tearDown(env);
-	env->getForge()->free(this);
+void MM_RegionPool::kill(MM_EnvironmentBase *env) {
+  tearDown(env);
+  env->getForge()->free(this);
 }

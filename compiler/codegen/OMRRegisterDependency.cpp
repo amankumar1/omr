@@ -17,5 +17,5 @@
  *******************************************************************************/
 
 #include "codegen/CodeGenerator.hpp"
-#include "compile/Compilation.hpp"
 #include "codegen/RegisterDependency.hpp"
+#include "compile/Compilation.hpp"

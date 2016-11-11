@@ -29,9 +29,9 @@
 *
 */
 
+#include "omr.h"
 #include "omrcomp.h"
 #include "omrport.h"
-#include "omr.h"
 #include "pool_api.h"
 
 #ifdef __cplusplus
@@ -47,7 +47,6 @@ extern "C" {
 void *getdsa(void);
 #endif
 
-
 /* ---------------- utf8decode.c ---------------- */
 
 /**
@@ -56,9 +55,7 @@ void *getdsa(void);
 * @param result
 * @return uint32_t
 */
-uint32_t
-decodeUTF8Char(const uint8_t *input, uint16_t *result);
-
+uint32_t decodeUTF8Char(const uint8_t *input, uint16_t *result);
 
 /**
 * @brief
@@ -67,9 +64,8 @@ decodeUTF8Char(const uint8_t *input, uint16_t *result);
 * @param bytesRemaining
 * @return uint32_t
 */
-uint32_t
-decodeUTF8CharN(const uint8_t *input, uint16_t *result, uintptr_t bytesRemaining);
-
+uint32_t decodeUTF8CharN(const uint8_t *input, uint16_t *result,
+                         uintptr_t bytesRemaining);
 
 /* ---------------- utf8encode.c ---------------- */
 
@@ -79,9 +75,7 @@ decodeUTF8CharN(const uint8_t *input, uint16_t *result, uintptr_t bytesRemaining
 * @param result
 * @return uint32_t
 */
-uint32_t
-encodeUTF8Char(uintptr_t unicode, uint8_t *result);
-
+uint32_t encodeUTF8Char(uintptr_t unicode, uint8_t *result);
 
 /**
 * @brief
@@ -90,10 +84,8 @@ encodeUTF8Char(uintptr_t unicode, uint8_t *result);
 * @param bytesRemaining
 * @return uint32_t
 */
-uint32_t
-encodeUTF8CharN(uintptr_t unicode, uint8_t *result, uint32_t bytesRemaining);
-
-
+uint32_t encodeUTF8CharN(uintptr_t unicode, uint8_t *result,
+                         uint32_t bytesRemaining);
 
 /* ---------------- xml.c ---------------- */
 
@@ -104,16 +96,17 @@ encodeUTF8CharN(uintptr_t unicode, uint8_t *result, uint32_t bytesRemaining);
  * @param outBufLen[in] The length of the output buffer.
  * @param string[in] The string that should be escaped.
  * @param StringLen[in] The length of the string excluding any null termination.
- * @return The number of characters of the input string that were processed before filling the output buffer.
+ * @return The number of characters of the input string that were processed
+ * before filling the output buffer.
  */
-uintptr_t
-escapeXMLString(OMRPortLibrary *portLibrary, char *outBuf, uintptr_t outBufLen, const char *string, uintptr_t stringLen);
-
-
+uintptr_t escapeXMLString(OMRPortLibrary *portLibrary, char *outBuf,
+                          uintptr_t outBufLen, const char *string,
+                          uintptr_t stringLen);
 
 /* ----------------- primeNumberHelper.c ---------------- */
 /*
- * PRIMENUMBERHELPER_OUTOFRANGE is used when primeNumberHelper functions are being used
+ * PRIMENUMBERHELPER_OUTOFRANGE is used when primeNumberHelper functions are
+ * being used
  * by a number that is not in the supported range of primeNumberHelper.
  * For such cases, these functions return PRIMENUMBERHELPER_OUTOFRANGE.
  */
@@ -144,14 +137,17 @@ uintptr_t getSupportedBiggestNumberByPrimeNumberHelper(void);
 /* ---------------- j9getdbghelp.c ---------------- */
 
 /**
-* @brief Load the version of dbghelp.dll that shipped with the JRE. If we can't find the shipped version, try to find it somewhere else.
+* @brief Load the version of dbghelp.dll that shipped with the JRE. If we can't
+* find the shipped version, try to find it somewhere else.
 * @return A handle to dbghelp.dll if we were able to find one, NULL otherwise.
 */
 uintptr_t j9getdbghelp_loadDLL(void);
 
 /**
-* @brief Get a previously loaded version of dbghelp.dll that shipped with the JRE.
-* @return A handle to dbghelp.dll if we were able to find a previously loaded version, NULL otherwise.
+* @brief Get a previously loaded version of dbghelp.dll that shipped with the
+* JRE.
+* @return A handle to dbghelp.dll if we were able to find a previously loaded
+* version, NULL otherwise.
 */
 uintptr_t j9getdbghelp_getDLL(void);
 
@@ -162,8 +158,7 @@ uintptr_t j9getdbghelp_getDLL(void);
 */
 void j9getdbghelp_freeDLL(uintptr_t dbgHelpDLL);
 
-#endif  /* defined(WIN32) && !defined(WIN32_IBMC) */
-
+#endif /* defined(WIN32) && !defined(WIN32_IBMC) */
 
 /* ---------------- stricmp.c ---------------- */
 
@@ -180,8 +175,7 @@ void j9getdbghelp_freeDLL(uintptr_t dbgHelpDLL);
  * @return lowercase version or returns input if a valid ASCII
  *         character wasn't given.
  */
-int
-j9_cmdla_tolower(int c);
+int j9_cmdla_tolower(int c);
 
 /*
  * Converts ASCII character to lowercase.
@@ -192,8 +186,7 @@ j9_cmdla_tolower(int c);
  * @return lowercase version or returns input if a valid ASCII
  *         character wasn't given.
  */
-int
-j9_ascii_tolower(int c);
+int j9_ascii_tolower(int c);
 
 /*
  * Converts characters to uppercase.
@@ -207,8 +200,7 @@ j9_ascii_tolower(int c);
  * @return uppercase version or returns input if a valid ASCII
  *         character wasn't given.
  */
-int
-j9_cmdla_toupper(int c);
+int j9_cmdla_toupper(int c);
 
 /*
  * Converts ASCII character to uppercase.
@@ -219,8 +211,7 @@ j9_cmdla_toupper(int c);
  * @return uppercase version or returns input if a valid ASCII
  *         character wasn't given.
  */
-int
-j9_ascii_toupper(int c);
+int j9_ascii_toupper(int c);
 
 /*
  * Compare the bytes of two strings, ignoring case. Intended to be used
@@ -233,8 +224,7 @@ j9_ascii_toupper(int c);
  * @return a positive integer if s1 is greater, zero if the strings
  *         are equal, or a negative value if s1 is less.
  */
-int
-j9_cmdla_stricmp(const char *s1, const char *s2);
+int j9_cmdla_stricmp(const char *s1, const char *s2);
 
 /*
  * Compare the bytes of two strings, ignoring case. Intended to be used
@@ -248,8 +238,7 @@ j9_cmdla_stricmp(const char *s1, const char *s2);
  * @return a positive integer if s1 is greater, zero if the strings
  *         are equal, or a negative value if s1 is less.
  */
-int
-j9_cmdla_strnicmp(const char *s1, const char *s2, size_t length);
+int j9_cmdla_strnicmp(const char *s1, const char *s2, size_t length);
 
 /* ---------------- argscan.c ---------------- */
 
@@ -261,7 +250,6 @@ j9_cmdla_strnicmp(const char *s1, const char *s2, size_t length);
 */
 uintptr_t try_scan(char **scan_start, const char *search_string);
 
-
 /* ---------------- detectVMDirectory.c ---------------- */
 #if defined(WIN32)
 /**
@@ -269,14 +257,17 @@ uintptr_t try_scan(char **scan_start, const char *search_string);
  *
  * Uses the glue function OMR_Glue_GetVMDirectoryToken().
  *
- * @param[in,out] vmDirectory The buffer to where the VM directory will be written. Must be non-NULL.
+ * @param[in,out] vmDirectory The buffer to where the VM directory will be
+ * written. Must be non-NULL.
  * @param[in] vmDirectoryLength The length of vmDirectory, in wchar_t.
- * @param[out] vmDirectoryEnd A pointer to the nul-terminator of the VM directory string. This cursor
+ * @param[out] vmDirectoryEnd A pointer to the nul-terminator of the VM
+ * directory string. This cursor
  * can be used to append a string to the VM directory. Must be non-NULL.
  *
  * @return OMR_ERROR_NONE on success, an OMR error code otherwise.
  */
-omr_error_t detectVMDirectory(wchar_t *vmDirectory, size_t vmDirectoryLength, wchar_t **vmDirectoryEnd);
+omr_error_t detectVMDirectory(wchar_t *vmDirectory, size_t vmDirectoryLength,
+                              wchar_t **vmDirectoryEnd);
 #endif /* defined(WIN32) */
 
 #if defined(J9ZOS390)
@@ -294,27 +285,26 @@ uintptr_t getStorageKey(void);
 #endif /*if defined(J9ZOS390)*/
 
 /**
- * Returns a string representing the type of page indicated by the given pageFlags.
+ * Returns a string representing the type of page indicated by the given
+ * pageFlags.
  * Useful when printing page type.
  *
  * @param[in] pageFlags indicates type of the page.
  *
  * @return pointer to string representing the page type.
  */
-const char *
-getPageTypeString(uintptr_t pageFlags);
+const char *getPageTypeString(uintptr_t pageFlags);
 
 /**
- * Returns a string (with a leading space) representing the type of page indicated by the given pageFlags.
+ * Returns a string (with a leading space) representing the type of page
+ * indicated by the given pageFlags.
  * Useful when printing page type.
  *
  * @param[in] pageFlags indicates type of the page.
  *
  * @return pointer to string (with a leading space) representing the page type.
  */
-const char *
-getPageTypeStringWithLeadingSpace(uintptr_t pageFlags);
-
+const char *getPageTypeStringWithLeadingSpace(uintptr_t pageFlags);
 
 /* ---------------- j9memclr.c ---------------- */
 
@@ -325,7 +315,6 @@ getPageTypeStringWithLeadingSpace(uintptr_t pageFlags);
 */
 uintptr_t getCacheLineSize(void);
 
-
 /**
 * @brief
 * @param *ptr
@@ -333,7 +322,6 @@ uintptr_t getCacheLineSize(void);
 * @return void
 */
 void OMRZeroMemory(void *ptr, uintptr_t length);
-
 
 /**
 * @brief
@@ -350,45 +338,50 @@ void j9memset(void *dest, intptr_t value, uintptr_t size);
  * @return int32_t
  */
 
-#define G5                              (9672)  /* Not Supported as of Java 1.5 */
-#define MULTIPRISE7000                  (7060)  /* Not Supported as of Java 1.5 */
-#define FREEWAY                         (2064)
-#define Z800                            (2066)
-#define MIRAGE                          (1090)
-#define TREX                            (2084)
-#define Z890                            (2086)
-#define GOLDEN_EAGLE                    (2094)
-#define DANU_GA2                        (2094)  /* type doesn't change from GOLDEN_EAGLE */
-#define Z9BC                            (2096)
-#define Z10                             (2097)
-#define Z10BC                           (2098)  /* zMR */
+#define G5 (9672)             /* Not Supported as of Java 1.5 */
+#define MULTIPRISE7000 (7060) /* Not Supported as of Java 1.5 */
+#define FREEWAY (2064)
+#define Z800 (2066)
+#define MIRAGE (1090)
+#define TREX (2084)
+#define Z890 (2086)
+#define GOLDEN_EAGLE (2094)
+#define DANU_GA2 (2094) /* type doesn't change from GOLDEN_EAGLE */
+#define Z9BC (2096)
+#define Z10 (2097)
+#define Z10BC (2098) /* zMR */
 
 int32_t get390zLinuxMachineType(void);
 
 /* ---------------- poolForPort.c ---------------- */
 
-#define POOL_FOR_PORT(portLib) (omrmemAlloc_fptr_t)pool_portLibAlloc, (omrmemFree_fptr_t)pool_portLibFree, (portLib)
+#define POOL_FOR_PORT(portLib)                                                 \
+  (omrmemAlloc_fptr_t) pool_portLibAlloc, (omrmemFree_fptr_t)pool_portLibFree, \
+      (portLib)
 #if defined(OMR_ENV_DATA64)
-#define POOL_FOR_PORT_PUDDLE32(portLib) (omrmemAlloc_fptr_t)pool_portLibAlloc32, (omrmemFree_fptr_t)pool_portLibFree32, (portLib)
+#define POOL_FOR_PORT_PUDDLE32(portLib)                                        \
+  (omrmemAlloc_fptr_t) pool_portLibAlloc32,                                    \
+      (omrmemFree_fptr_t)pool_portLibFree32, (portLib)
 #else /* defined(OMR_ENV_DATA64) */
 #define POOL_FOR_PORT_PUDDLE32(portLib) NULL, NULL, NULL
 #endif /* defined(OMR_ENV_DATA64) */
 
-void *
-pool_portLibAlloc(OMRPortLibrary *portLibrary, uint32_t size, const char *callSite, uint32_t memoryCategory, uint32_t type, uint32_t *doInit);
+void *pool_portLibAlloc(OMRPortLibrary *portLibrary, uint32_t size,
+                        const char *callSite, uint32_t memoryCategory,
+                        uint32_t type, uint32_t *doInit);
 
-void
-pool_portLibFree(OMRPortLibrary *portLibrary, void *address, uint32_t type);
+void pool_portLibFree(OMRPortLibrary *portLibrary, void *address,
+                      uint32_t type);
 
 #if defined(OMR_ENV_DATA64)
 
-void *
-pool_portLibAlloc32(OMRPortLibrary *portLibrary, uint32_t size, const char *callSite, uint32_t memoryCategory, uint32_t type, uint32_t *doInit);
+void *pool_portLibAlloc32(OMRPortLibrary *portLibrary, uint32_t size,
+                          const char *callSite, uint32_t memoryCategory,
+                          uint32_t type, uint32_t *doInit);
 
-void
-pool_portLibFree32(OMRPortLibrary *portLibrary, void *address, uint32_t type);
+void pool_portLibFree32(OMRPortLibrary *portLibrary, void *address,
+                        uint32_t type);
 #endif /* defined(OMR_ENV_DATA64) */
-
 
 /* ---------------- thrname_core.c ---------------- */
 
@@ -408,12 +401,14 @@ char *getOMRVMThreadName(struct OMR_VMThread *vmThread);
  * Don't call releaseOMRVMThreadName() if this call failed.
  *
  * @param[in] vmThread The vmthread.
- * @return NULL if we failed to get the lock, a non-NULL thread name if we succeeded.
+ * @return NULL if we failed to get the lock, a non-NULL thread name if we
+ * succeeded.
  */
 char *tryGetOMRVMThreadName(struct OMR_VMThread *vmThread);
 
 /**
- * Unlock the thread name that was obtained using getOMRVMThreadName() or tryGetOMRVMThreadName().
+ * Unlock the thread name that was obtained using getOMRVMThreadName() or
+ * tryGetOMRVMThreadName().
  * @param[in] vmThread The vmthread.
  */
 void releaseOMRVMThreadName(struct OMR_VMThread *vmThread);
@@ -425,28 +420,35 @@ void releaseOMRVMThreadName(struct OMR_VMThread *vmThread);
  * @param[in] currentThread The current vmthread.
  * @param[in] vmThread The vmthread whose name should be set.
  * @param[in] name The new thread name.
- * @param[in] nameIsStatic If non-zero, this indicates that the VM should not free the thread name.
+ * @param[in] nameIsStatic If non-zero, this indicates that the VM should not
+ * free the thread name.
  */
-void setOMRVMThreadNameWithFlag(struct OMR_VMThread *currentThread, struct OMR_VMThread *vmThread, char *name, uint8_t nameIsStatic);
+void setOMRVMThreadNameWithFlag(struct OMR_VMThread *currentThread,
+                                struct OMR_VMThread *vmThread, char *name,
+                                uint8_t nameIsStatic);
 
 /**
  * Set the thread name without locking it.
  *
  * @param[in] vmThread The vmthread whose name should be set.
  * @param[in] name The new thread name.
- * @param[in] nameIsStatic If non-zero, this indicates that the VM should not free the thread name.
+ * @param[in] nameIsStatic If non-zero, this indicates that the VM should not
+ * free the thread name.
  */
-void setOMRVMThreadNameWithFlagNoLock(struct OMR_VMThread *vmThread, char *name, uint8_t nameIsStatic);
+void setOMRVMThreadNameWithFlagNoLock(struct OMR_VMThread *vmThread, char *name,
+                                      uint8_t nameIsStatic);
 
 /* ---------------- threadhelp.c ---------------- */
 
 /**
  * Helper function to create a thread with a specific thread category.
  *
- * @param[out] handle a pointer to a omrthread_t which will point to the thread (if successfully created)
+ * @param[out] handle a pointer to a omrthread_t which will point to the thread
+ *(if successfully created)
  * @param[in] stacksize the size of the new thread's stack (bytes)<br>
  *			0 indicates use default size
- * @param[in] priority priorities range from J9THREAD_PRIORITY_MIN to J9THREAD_PRIORITY_MAX (inclusive)
+ * @param[in] priority priorities range from J9THREAD_PRIORITY_MIN to
+ *J9THREAD_PRIORITY_MAX (inclusive)
  * @param[in] suspend set to non-zero to create the thread in a suspended state.
  * @param[in] entrypoint pointer to the function which the thread will run
  * @param[in] entryarg a value to pass to the entrypoint function
@@ -458,16 +460,19 @@ void setOMRVMThreadNameWithFlagNoLock(struct OMR_VMThread *vmThread, char *name,
  *
  * @see omrthread_create
  */
-intptr_t
-createThreadWithCategory(omrthread_t *handle, uintptr_t stacksize, uintptr_t priority, uintptr_t suspend,
-	omrthread_entrypoint_t entrypoint, void *entryarg, uint32_t category);
+intptr_t createThreadWithCategory(omrthread_t *handle, uintptr_t stacksize,
+                                  uintptr_t priority, uintptr_t suspend,
+                                  omrthread_entrypoint_t entrypoint,
+                                  void *entryarg, uint32_t category);
 
 /**
  * Helper function to attach a thread with a specific category.
  *
- * If the OS thread is already attached, handle is set to point to the existing omrthread_t.
+ * If the OS thread is already attached, handle is set to point to the existing
+ * omrthread_t.
  *
- * @param[out] handle a pointer to a omrthread_t which will point to the thread (if successfully attached)
+ * @param[out] handle a pointer to a omrthread_t which will point to the thread
+ * (if successfully attached)
  * @param[in]  category thread category
  *
  * @return success or error code
@@ -476,12 +481,10 @@ createThreadWithCategory(omrthread_t *handle, uintptr_t stacksize, uintptr_t pri
  *
  * @see omrthread_attach
  */
-intptr_t
-attachThreadWithCategory(omrthread_t *handle, uint32_t category);
+intptr_t attachThreadWithCategory(omrthread_t *handle, uint32_t category);
 
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* OMRUTIL_H_INCLUDED */
-

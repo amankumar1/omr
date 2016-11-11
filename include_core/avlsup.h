@@ -16,12 +16,9 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-
 #ifndef avlsup_h
 #define avlsup_h
 
 #include "omravldefines.h"
 
-#endif     /* avlsup_h */
-
-
+#endif /* avlsup_h */

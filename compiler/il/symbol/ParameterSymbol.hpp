@@ -21,32 +21,25 @@
 
 #include "il/symbol/OMRParameterSymbol.hpp"
 
-#include <stddef.h>          // for size_t
-#include <stdint.h>          // for int32_t
-#include "il/DataTypes.hpp"  // for DataTypes
+#include <stddef.h>         // for size_t
+#include <stdint.h>         // for int32_t
+#include "il/DataTypes.hpp" // for DataTypes
 
-namespace TR
-{
+namespace TR {
 
-class OMR_EXTENSIBLE ParameterSymbol : public OMR::ParameterSymbolConnector
-   {
+class OMR_EXTENSIBLE ParameterSymbol : public OMR::ParameterSymbolConnector {
 
 protected:
+  ParameterSymbol(TR::DataType d, bool isUnsigned, int32_t slot)
+      : OMR::ParameterSymbolConnector(d, isUnsigned, slot) {}
 
-   ParameterSymbol(TR::DataType d, bool isUnsigned, int32_t slot) :
-      OMR::ParameterSymbolConnector(d, isUnsigned, slot) { }
-
-   ParameterSymbol(TR::DataType d, bool isUnsigned, int32_t slot, size_t size) :
-      OMR::ParameterSymbolConnector(d, isUnsigned, slot, size) { }
+  ParameterSymbol(TR::DataType d, bool isUnsigned, int32_t slot, size_t size)
+      : OMR::ParameterSymbolConnector(d, isUnsigned, slot, size) {}
 
 private:
-
-   // When adding another class to the heirarchy, add it as a friend here
-   friend class OMR::ParameterSymbol;
-
-   };
-
+  // When adding another class to the heirarchy, add it as a friend here
+  friend class OMR::ParameterSymbol;
+};
 }
 
 #endif
-

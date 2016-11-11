@@ -13,7 +13,8 @@
  *      http://www.opensource.org/licenses/apache2.0.php
  *
  * Contributors:
- *    Multiple authors (IBM Corp.) - initial API and implementation and/or initial documentation
+ *    Multiple authors (IBM Corp.) - initial API and implementation and/or
+ *initial documentation
  *******************************************************************************/
 
 /**
@@ -29,7 +30,8 @@
 #if defined(LINUX)
 /*
  * CMVC 194846.
- * NOTE: When we use pthread_sigmask on other platforms, we can remove this macro.
+ * NOTE: When we use pthread_sigmask on other platforms, we can remove this
+ * macro.
  */
 #define sigprocmask pthread_sigmask
 

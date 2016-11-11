@@ -20,55 +20,65 @@
 #define OMR_i386_CODEGENERATOR_INCL
 
 /*
- * The following #define and typedef must appear before any #includes in this file
+ * The following #define and typedef must appear before any #includes in this
+ * file
  */
 #ifndef OMR_CODEGENERATOR_CONNECTOR
 #define OMR_CODEGENERATOR_CONNECTOR
-namespace OMR { namespace X86 { namespace i386 { class CodeGenerator; } } }
-namespace OMR { typedef OMR::X86::i386::CodeGenerator CodeGeneratorConnector; }
+namespace OMR {
+namespace X86 {
+namespace i386 {
+class CodeGenerator;
+}
+}
+}
+namespace OMR {
+typedef OMR::X86::i386::CodeGenerator CodeGeneratorConnector;
+}
 #else
 #error OMR::X86::i386::CodeGenerator expected to be a primary connector, but a OMR connector is already defined
 #endif
 
 #include "compiler/x/codegen/OMRCodeGenerator.hpp"
 
-#include "codegen/RegisterConstants.hpp"  // for TR_GlobalRegisterNumber
+#include "codegen/RegisterConstants.hpp" // for TR_GlobalRegisterNumber
 
 class TR_RegisterCandidate;
-namespace TR { class Block; }
-namespace TR { class Node; }
+namespace TR {
+class Block;
+}
+namespace TR {
+class Node;
+}
 template <class T> class TR_LinkHead;
 
-namespace OMR
-{
+namespace OMR {
 
-namespace X86
-{
+namespace X86 {
 
-namespace i386
-{
+namespace i386 {
 
-class OMR_EXTENSIBLE CodeGenerator : public OMR::X86::CodeGenerator
-   {
+class OMR_EXTENSIBLE CodeGenerator : public OMR::X86::CodeGenerator {
 
-   public:
+public:
+  CodeGenerator();
 
-   CodeGenerator();
+  virtual TR::Register *longClobberEvaluate(TR::Node *node);
 
-   virtual TR::Register *longClobberEvaluate(TR::Node *node);
+  TR_GlobalRegisterNumber
+  pickRegister(TR_RegisterCandidate *, TR::Block **, TR_BitVector &,
+               TR_GlobalRegisterNumber &,
+               TR_LinkHead<TR_RegisterCandidate> *candidates);
+  int32_t getVMThreadGlobalRegisterNumber() { return 6; }
 
-   TR_GlobalRegisterNumber pickRegister(TR_RegisterCandidate *, TR::Block * *, TR_BitVector &, TR_GlobalRegisterNumber &, TR_LinkHead<TR_RegisterCandidate> *candidates);
-   int32_t getVMThreadGlobalRegisterNumber() {return 6;}
+  using OMR::X86::CodeGenerator::getMaximumNumberOfGPRsAllowedAcrossEdge;
+  int32_t getMaximumNumberOfGPRsAllowedAcrossEdge(TR::Node *);
 
-   using OMR::X86::CodeGenerator::getMaximumNumberOfGPRsAllowedAcrossEdge;
-   int32_t getMaximumNumberOfGPRsAllowedAcrossEdge(TR::Node *);
+  bool internalPointerSupportImplemented() { return true; }
+  uint32_t getRegisterMapInfoBitsMask() { return 0x00ff0000; }
 
-   bool internalPointerSupportImplemented() {return true;}
-   uint32_t getRegisterMapInfoBitsMask() {return 0x00ff0000;}
-
-   bool codegenMulDecomposition(int64_t multiplier);
-
-   };
+  bool codegenMulDecomposition(int64_t multiplier);
+};
 
 } // namespace i386
 

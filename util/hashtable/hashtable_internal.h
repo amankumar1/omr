@@ -28,17 +28,15 @@
 *
 */
 
-#include "omrcomp.h"
 #include "hashtable_api.h"
+#include "omrcomp.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
 
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* hashtable_internal_h */
-

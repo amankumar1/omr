@@ -16,7 +16,6 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-
 class MM_EnvironmentBase;
 
 #if !defined(OMRVMTHREADINTERFACE_HPP_)
@@ -27,13 +26,11 @@ class MM_EnvironmentBase;
  * @todo Provide class documentation
  * @ingroup GC_Base
  */
-class GC_OMRVMThreadInterface
-{
+class GC_OMRVMThreadInterface {
 public:
-	static void flushCachesForWalk(MM_EnvironmentBase *env);
-	static void flushCachesForGC(MM_EnvironmentBase *env);
-	static void flushNonAllocationCaches(MM_EnvironmentBase *env);
+  static void flushCachesForWalk(MM_EnvironmentBase *env);
+  static void flushCachesForGC(MM_EnvironmentBase *env);
+  static void flushNonAllocationCaches(MM_EnvironmentBase *env);
 };
 
 #endif /* OMRVMTHREADINTERFACE_HPP_ */
-
