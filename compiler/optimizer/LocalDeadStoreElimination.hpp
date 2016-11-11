@@ -20,6 +20,7 @@
 #define TR_LOCALDEADSTOREELIMINATION_INCL
 
 #include <stdint.h>         // for int32_t
+#include "cs2/allocator.h"  // for Allocator
 #include "cs2/tableof.h"    // for TableOf
 #include "env/TRMemory.hpp" // for Allocator, etc
 #include "il/Node.hpp"      // for vcount_t, rcount_t
