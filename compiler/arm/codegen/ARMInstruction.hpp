@@ -19,15 +19,15 @@
 #ifndef ARMINSTRUCTION_INCL
 #define ARMINSTRUCTION_INCL
 
-#include "codegen/ARMConditionCode.hpp"
-#include "codegen/ARMOperand2.hpp"
-#include "codegen/ARMOps.hpp"
-#include "codegen/CallSnippet.hpp"
-#include "codegen/GCStackMap.hpp"
 #include "codegen/Instruction.hpp"
+#include "codegen/ARMOps.hpp"
 #include "codegen/MemoryReference.hpp"
 #include "codegen/RegisterDependency.hpp"
 #include "codegen/UnresolvedDataSnippet.hpp"
+#include "codegen/CallSnippet.hpp"
+#include "codegen/GCStackMap.hpp"
+#include "codegen/ARMConditionCode.hpp"
+#include "codegen/ARMOperand2.hpp"
 #include "infra/Bit.hpp"
 
 class TR_VirtualGuardSite;

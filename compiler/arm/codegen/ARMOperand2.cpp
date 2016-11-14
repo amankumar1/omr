@@ -16,17 +16,17 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-#include "codegen/ARMOperand2.hpp"
-#include "codegen/ARMInstruction.hpp"
-#include "codegen/CallSnippet.hpp"
-#include "codegen/CodeGenerator.hpp"
-#include "codegen/GenerateInstructions.hpp"
-#include "codegen/Linkage.hpp"
-#include "codegen/TreeEvaluator.hpp"
-#include "compiler/il/OMRTreeTop_inlines.hpp"
-#include "il/Block.hpp"
 #include "il/TreeTop.hpp"
+#include "compiler/il/OMRTreeTop_inlines.hpp"
+#include "codegen/CodeGenerator.hpp"
+#include "codegen/ARMInstruction.hpp"
+#include "codegen/Linkage.hpp"
+#include "codegen/CallSnippet.hpp"
+#include "codegen/TreeEvaluator.hpp"
 #include "infra/Bit.hpp"
+#include "codegen/GenerateInstructions.hpp"
+#include "il/Block.hpp"
+#include "codegen/ARMOperand2.hpp"
 
 // the operandEncodingTable contains 2 bits of info:
 //  - the "family" of operand

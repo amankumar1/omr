@@ -16,9 +16,9 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-#include "env/CPU.hpp"
 #include "env/CompilerEnv.hpp"
 #include "env/Environment.hpp"
+#include "env/CPU.hpp"
 #include "env/defines.h"
 
 void OMR::ARM::CompilerEnv::initializeTargetEnvironment() {

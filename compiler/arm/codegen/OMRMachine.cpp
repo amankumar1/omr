@@ -16,12 +16,12 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-#include <algorithm> // for std::find
-#include "codegen/ARMInstruction.hpp"
+#include <algorithm>                            // for std::find
 #include "codegen/BackingStore.hpp"
 #include "codegen/CodeGenerator.hpp"
-#include "codegen/GenerateInstructions.hpp"
+#include "codegen/ARMInstruction.hpp"
 #include "codegen/Machine.hpp"
+#include "codegen/GenerateInstructions.hpp"
 #include "env/CompilerEnv.hpp"
 #include "il/Node.hpp"
 #include "il/Node_inlines.hpp"
