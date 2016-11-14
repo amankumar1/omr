@@ -16,11 +16,11 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-#include "ilgen/StoreOpIlInjector.hpp"
 #include "compile/Compilation.hpp"
 #include "compile/Method.hpp"
 #include "env/FrontEnd.hpp"
 #include "ilgen/TypeDictionary.hpp"
+#include "ilgen/StoreOpIlInjector.hpp"
 
 namespace TestCompiler {
 

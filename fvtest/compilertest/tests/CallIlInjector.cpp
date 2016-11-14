@@ -16,12 +16,12 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-#include "tests/CallIlInjector.hpp"
 #include "compile/Compilation.hpp"
 #include "compile/Method.hpp"
 #include "env/FrontEnd.hpp"
 #include "ilgen/TypeDictionary.hpp"
 #include "tests/OpCodesTest.hpp"
+#include "tests/CallIlInjector.hpp"
 
 namespace TestCompiler {
 

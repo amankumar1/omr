@@ -16,12 +16,12 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-#include "ilgen/OpIlInjector.hpp"
 #include "codegen/CodeGenerator.hpp"
 #include "compile/Compilation.hpp"
 #include "compile/Method.hpp"
 #include "env/FrontEnd.hpp"
 #include "ilgen/TypeDictionary.hpp"
+#include "ilgen/OpIlInjector.hpp"
 
 namespace TestCompiler {
 void OpIlInjector::setDataType() {

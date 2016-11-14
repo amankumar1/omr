@@ -16,10 +16,10 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-#include "ilgen/UnaryOpIlInjector.hpp"
 #include "compile/Compilation.hpp"
 #include "compile/Method.hpp"
 #include "env/FrontEnd.hpp"
+#include "ilgen/UnaryOpIlInjector.hpp"
 
 namespace TestCompiler {
 

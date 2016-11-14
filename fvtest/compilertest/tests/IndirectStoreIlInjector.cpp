@@ -16,11 +16,11 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-#include "tests/IndirectStoreIlInjector.hpp"
 #include "compile/Compilation.hpp"
-#include "compile/Method.hpp"
 #include "compile/SymbolReferenceTable.hpp"
 #include "env/FrontEnd.hpp"
+#include "compile/Method.hpp"
+#include "tests/IndirectStoreIlInjector.hpp"
 #include "tests/OpCodesTest.hpp"
 
 namespace TestCompiler {

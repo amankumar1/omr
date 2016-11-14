@@ -16,14 +16,14 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-#include "tests/FooBarTest.hpp"
 #include <limits.h>
 #include <stdio.h>
-#include "OpCodesTest.hpp"
 #include "compile/Method.hpp"
 #include "gtest/gtest.h"
 #include "ilgen/IlGeneratorMethodDetails_inlines.hpp"
 #include "ilgen/TypeDictionary.hpp"
+#include "OpCodesTest.hpp"
+#include "tests/FooBarTest.hpp"
 #include "tests/BarIlInjector.hpp"
 #include "tests/FooIlInjector.hpp"
 

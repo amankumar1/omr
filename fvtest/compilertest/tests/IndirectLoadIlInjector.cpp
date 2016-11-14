@@ -16,7 +16,6 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-#include "tests/IndirectLoadIlInjector.hpp"
 #include "compile/Compilation.hpp"
 #include "compile/Method.hpp"
 #include "compile/SymbolReferenceTable.hpp"
@@ -24,6 +23,7 @@
 #include "il/Node.hpp"
 #include "il/Node_inlines.hpp"
 #include "ilgen/TypeDictionary.hpp"
+#include "tests/IndirectLoadIlInjector.hpp"
 #include "tests/OpCodesTest.hpp"
 
 namespace TestCompiler {

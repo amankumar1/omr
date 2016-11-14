@@ -16,15 +16,15 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-#include "tests/Qux2Test.hpp"
 #include <limits.h>
 #include <stdio.h>
-#include "OpCodesTest.hpp"
 #include "compile/Method.hpp"
 #include "gtest/gtest.h"
 #include "ilgen/IlGeneratorMethodDetails_inlines.hpp"
 #include "ilgen/TypeDictionary.hpp"
+#include "OpCodesTest.hpp"
 #include "tests/Qux2IlInjector.hpp"
+#include "tests/Qux2Test.hpp"
 
 namespace TestCompiler {
 class Qux2IlInjector;

@@ -16,15 +16,15 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  *******************************************************************************/
 
-#include "tests/BuilderTest.hpp"
 #include <limits.h>
 #include <stdio.h>
-#include "OpCodesTest.hpp"
 #include "compile/Method.hpp"
 #include "gtest/gtest.h"
 #include "il/DataTypes.hpp"
 #include "ilgen/IlGeneratorMethodDetails_inlines.hpp"
 #include "ilgen/TypeDictionary.hpp"
+#include "tests/BuilderTest.hpp"
+#include "OpCodesTest.hpp"
 
 namespace TestCompiler {
 
