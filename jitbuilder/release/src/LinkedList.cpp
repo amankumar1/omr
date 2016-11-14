@@ -23,9 +23,9 @@
 #include <stdlib.h>
 
 #include "Jit.hpp"
-#include "LinkedList.hpp"
-#include "ilgen/MethodBuilder.hpp"
 #include "ilgen/TypeDictionary.hpp"
+#include "ilgen/MethodBuilder.hpp"
+#include "LinkedList.hpp"
 
 static void printString(int64_t ptr) {
 #define PRINTSTRING_LINE LINETOSTR(__LINE__)
