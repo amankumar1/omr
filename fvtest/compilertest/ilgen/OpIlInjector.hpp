@@ -20,9 +20,11 @@
 #define TEST_OPILINJECTOR_INCL
 
 #include "ilgen/IlInjector.hpp"
+#include "il/DataTypes.hpp"
 
 #include <stdint.h>
 #include "env/jittypes.h"
+#include "infra/Assert.hpp"
 
 namespace TR {
 class Node;

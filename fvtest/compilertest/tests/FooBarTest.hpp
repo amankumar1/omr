@@ -17,6 +17,7 @@
  *******************************************************************************/
 
 #include "TestDriver.hpp"
+#include "compile/Method.hpp"
 
 namespace TestCompiler {
 
