@@ -19,6 +19,13 @@
 #ifndef ARMOPERAND2_INCL
 #define ARMOPERAND2_INCL
 
+#include "env/TRMemory.hpp""
+#include "codegen/Instruction.hpp"
+
+namespace TR {
+   class Register;
+}
+
 typedef enum {
   ARMOp2Illegal,
   ARMOp2Immed8r,
