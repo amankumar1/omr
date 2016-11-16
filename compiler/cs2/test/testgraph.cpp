@@ -16,19 +16,18 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  ******************************************************************************/
 
-#include <cstdio>
 #include <iostream>
+#include <cstdio>
 #include "cs2/dgraph.h"
 
 int main() {
 
-  CS2::DirectedGraph<CS2::DirectedGraphNode, CS2::DirectedGraphEdge,
-                     CS2::check_allocator<CS2::malloc_allocator>>
-      g;
+  CS2::DirectedGraph<CS2::DirectedGraphNode, CS2::DirectedGraphEdge, CS2::check_allocator<CS2::malloc_allocator> > g;
 
   std::cout << "G=" << g << "\n";
 
   g.AddEdge(g.AddNode(), g.AddNode());
 
   std::cout << "G=" << g << "\n";
+
 }

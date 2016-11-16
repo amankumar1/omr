@@ -18,30 +18,30 @@
 
 #define CS2_ASSERT
 #define CS2_ALLOCINFO
-#include <cs2/allocator.h>
-#include <cs2/arrayof.h>
-#include <cs2/bitvectr.h>
-#include <cs2/hashtab.h>
-#include <cs2/sparsrbit.h>
-#include <cs2/timer.h>
 #include <cstdio>
 #include <iostream>
+#include <cs2/arrayof.h>
+#include <cs2/allocator.h>
+#include <cs2/timer.h>
+#include <cs2/sparsrbit.h>
+#include <cs2/bitvectr.h>
+#include <cs2/hashtab.h>
 
 typedef CS2::trace_allocator<> a;
 
 int main(int argc, char **argv) {
-  CS2::ArrayOf<uint32_t, a> A1(a(), 3);
+  CS2::ArrayOf<uint32_t, a> A1( a(), 3);
   CS2::ArrayOf<uint32_t, a> A2;
 
-  CS2::PhaseTimingSummary<a> x("noname", a(), argc > 1);
+  CS2::PhaseTimingSummary<a> x("noname", a(), argc>1);
 
   CS2::LexicalBlockTimer<a> t("whatever", x);
 
-  CS2::ABitVector<a> b, b2;
-  CS2::ASparseBitVector<a> sb, sb2;
+  CS2::ABitVector<a> b,b2;
+  CS2::ASparseBitVector<a> sb,sb2;
 
-  b[34] = 0;
-  sb[34] = 0;
+  b[34]=0;
+  sb[34]=0;
 
   b2 = b;
   sb2 = sb;
