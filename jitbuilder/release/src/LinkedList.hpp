@@ -20,6 +20,7 @@
 #define LINKEDLIST_INCL
 
 #include "ilgen/MethodBuilder.hpp"
+#include "ilgen/TypeDictionary.hpp"
 
 namespace TR {
 class TypeDictionary;
