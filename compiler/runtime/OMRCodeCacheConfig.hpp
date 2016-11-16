@@ -184,14 +184,12 @@ public:
   size_t _largeCodePageSize;
   uint32_t _largeCodePageFlags;
 
-  bool
-      _allowedToGrowCache; /*!< does runtime permit growing the code cache once
-                              exhausted? */
+  bool _allowedToGrowCache; /*!< does runtime permit growing the code cache once
+                               exhausted? */
   bool _needsMethodTrampolines; /*!< true if method trampolines are needed */
   uint32_t _trampolineSpacePercentage;
-  size_t
-      _lowCodeCacheThreshold; /*!< threshold to consider available code cache
-                                 "low" */
+  size_t _lowCodeCacheThreshold; /*!< threshold to consider available code cache
+                                    "low" */
   int32_t _maxNumberOfCodeCaches; /*!< how many code caches allowed to have */
   bool _canChangeNumCodeCaches;
   bool _verbosePerformance; /*!< should performance related events be reported

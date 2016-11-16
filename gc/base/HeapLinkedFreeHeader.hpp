@@ -60,9 +60,8 @@ protected:
   uint32_t _nextHighBits; /**< the high 32 bits of the next pointer on 64-bit
                              builds */
 #else                     /* defined(SPLIT_NEXT_POINTER) */
-  uintptr_t
-      _next; /**< tagged pointer to the next free list entry, or a tagged
-                pointer to NULL */
+  uintptr_t _next; /**< tagged pointer to the next free list entry, or a tagged
+                      pointer to NULL */
 #endif                    /* defined(SPLIT_NEXT_POINTER) */
   uintptr_t
       _size; /**< size in bytes (including header) of the free list entry */

@@ -60,9 +60,8 @@ typedef struct PortlibPTBuffers_struct {
   int32_t platformErrorCode; /**< error code as reported by the OS */
   int32_t portableErrorCode; /**< error code translated to portable format by
                                 application */
-  char
-      *errorMessageBuffer; /**< last saved error message, either customized or
-                              from OS */
+  char *errorMessageBuffer;  /**< last saved error message, either customized or
+                                from OS */
   uint32_t errorMessageBufferSize; /**< error message buffer size */
 
   int32_t reportedErrorCode;          /**< last reported error code */

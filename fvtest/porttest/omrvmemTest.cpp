@@ -1227,7 +1227,7 @@ omrvmem_testReserveMemoryEx_impl(struct OMRPortLibrary *portLibrary,
         params[j].endAddress = (void *)0x7FFFFFFFFFF;
 #elif defined(OMR_ENV_DATA64)
         params[j].endAddress = (void *)0xffffffffffffffff;
-#else /* defined(OMR_ENV_DATA64) */
+#else  /* defined(OMR_ENV_DATA64) */
         params[j].endAddress = (void *)TWO_GIG_BAR;
 #endif /* defined(OMR_ENV_DATA64) */
       }

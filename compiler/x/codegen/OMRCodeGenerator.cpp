@@ -2545,7 +2545,7 @@ bool OMR::X86::CodeGenerator::processInstruction(
       } else {
         if (traceIt)
           ////traceMsg(comp(), "call instr [%p] preserves regs really [%d]\n",
-          ///x86Instr, m->preservesAllRegisters());
+          /// x86Instr, m->preservesAllRegisters());
           traceMsg(self()->comp(), "call instr [%p] preserves regs\n",
                    x86Instr);
       }

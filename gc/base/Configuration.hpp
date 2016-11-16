@@ -62,9 +62,8 @@ public:
 
   bool _forceOptionScavenge; /**< true if Scavenge option is forced in command
                                 line */
-  bool
-      _forceOptionConcurrentMark; /**< true if Concurrent Mark option is forced
-                                     in command line */
+  bool _forceOptionConcurrentMark; /**< true if Concurrent Mark option is forced
+                                      in command line */
   bool _forceOptionConcurrentSweep; /**< true if Concurrent Sweep option is
                                        forced in command line */
   bool _forceOptionLargeObjectArea; /**< true if Large Object Area option is

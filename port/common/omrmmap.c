@@ -39,12 +39,15 @@
  * Map a part of file into memory.
  *
  * @param [in]  portLibrary		The port library
- * @param [in]  file			The file descriptor/handle of the already
+ * @param [in]  file			The file descriptor/handle of the
+ * already
  * open file to be mapped
  * @param [in]  offset			The file offset of the part to be mapped
- * @param [in]  size			The number of bytes to be mapped, if zero,
+ * @param [in]  size			The number of bytes to be mapped, if
+ * zero,
  * the whole file is mapped
- * @param [in]  mappingName		The name of the file mapping object to be
+ * @param [in]  mappingName		The name of the file mapping object to
+ * be
  * created/opened.  This will be used as the basis of the name (invalid
  *                              characters being converted to '_') of the file
  * mapping object on Windows
@@ -52,7 +55,8 @@
  * a named object is not required, this parameter can be
  *                              specified as NULL
  * @param [in]  flags			Flags relating to the mapping:
- * @args                        	OMRPORT_MMAP_FLAG_READ           read only
+ * @args                        	OMRPORT_MMAP_FLAG_READ           read
+ * only
  * map
  * @args                            OMRPORT_MMAP_FLAG_WRITE          read/write
  * map

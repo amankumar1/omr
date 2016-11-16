@@ -139,9 +139,8 @@ typedef _Packed struct J9RCE {
   int32_t rcepool;  /**< 4:4 No of frames currently available to system */
   uint8_t rceFiller1[128]; /**< 8:128 Ignore fields not relevant to current
                               implementation */
-  int32_t
-      rceafc; /**< 136:4 Total no of frames currently on all available frame
-                 queues */
+  int32_t rceafc; /**< 136:4 Total no of frames currently on all available frame
+                     queues */
   /**< Ignore rest of the RCE */
 } J9RCE;
 
@@ -162,12 +161,12 @@ typedef _Packed struct J9CVT {
   uint8_t cvtFiller2[244]; /**< 360:244 Ignore fields not relevant to current
                               implementation */
   J9RMCT
-      *__ptr32 cvtopctp;  /**< 604:4 Address of system resources manager (SRM)
+  *__ptr32 cvtopctp;      /**< 604:4 Address of system resources manager (SRM)
                              table */
   uint8_t cvtFiller3[96]; /**< 608:96 Ignore fields not relevant to current
                              implementation */
   J9ASMVT
-      *__ptr32 cvtasmvt;   /**< 704:4 Pointer to auxiliary storage management
+  *__ptr32 cvtasmvt;       /**< 704:4 Pointer to auxiliary storage management
                               vector table (ASMVT) */
   uint8_t cvtFiller4[460]; /**< 708:460 Ignore fields not relevant to current
                               implementation */

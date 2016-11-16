@@ -61,9 +61,9 @@ class SymbolReferenceTable;
 
 class TR_ResolvedMethod {
 public:
-  TR::RecognizedMethod getRecognizedMethod();// {
-//    return convertToMethod()->getRecognizedMethod();
-//  }
+  TR::RecognizedMethod getRecognizedMethod(); // {
+  //    return convertToMethod()->getRecognizedMethod();
+  //  }
   virtual TR_Method *convertToMethod();
 
   virtual uint32_t numberOfParameters();
@@ -182,12 +182,13 @@ public:
   bool isDAAIntrinsicMethod();
 
   virtual void setMethodHandleLocation(uintptrj_t *location);
-  virtual uintptrj_t *getMethodHandleLocation();// {
-//    TR_ASSERT(convertToMethod()->isArchetypeSpecimen(),
-//              "All methods associated with a MethodHandle must be archetype "
-//              "specimens");
- //   return NULL;
-//  }
+  virtual uintptrj_t *getMethodHandleLocation(); // {
+  //    TR_ASSERT(convertToMethod()->isArchetypeSpecimen(),
+  //              "All methods associated with a MethodHandle must be archetype
+  //              "
+  //              "specimens");
+  //   return NULL;
+  //  }
 
   virtual const char *
   newInstancePrototypeSignature(TR_Memory *, TR_AllocationKind = heapAlloc);
@@ -293,13 +294,13 @@ public:
   virtual TR_OpaqueMethodBlock *getPersistentIdentifier();
   virtual uint8_t *allocateException(uint32_t, TR::Compilation *);
 
-  TR_MethodParameterIterator *getParameterIterator(TR::Compilation &comp);// {
-//    return convertToMethod()->getParameterIterator(comp, this);
-//  }
+  TR_MethodParameterIterator *getParameterIterator(TR::Compilation &comp); // {
+  //    return convertToMethod()->getParameterIterator(comp, this);
+  //  }
 
-  bool isJ9();// { return convertToMethod()->isJ9(); }
-  bool isPython();// { return convertToMethod()->isPython(); }
-  bool isRuby();// { return convertToMethod()->isRuby(); }
+  bool isJ9();     // { return convertToMethod()->isJ9(); }
+  bool isPython(); // { return convertToMethod()->isPython(); }
+  bool isRuby();   // { return convertToMethod()->isRuby(); }
 
   virtual TR::IlGeneratorMethodDetails *getIlGeneratorMethodDetails();
 

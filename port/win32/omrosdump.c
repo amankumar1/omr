@@ -130,12 +130,11 @@ uintptr_t omrdump_create(struct OMRPortLibrary *portLibrary, char *filename,
 
   } else {
     /* use name provided */
-    hFile =
-        (HANDLE)portLibrary->file_open(portLibrary, filename,
-                                       EsOpenWrite | EsOpenCreate | EsOpenRead,
-                                       0666); /* 0666 is a guess...0?,
-                                                 0666??...want to grant write
-                                                 permissions */
+    hFile = (HANDLE)portLibrary->file_open(
+        portLibrary, filename, EsOpenWrite | EsOpenCreate | EsOpenRead,
+        0666); /* 0666 is a guess...0?,
+                  0666??...want to grant write
+                  permissions */
   }
 
   if (hFile == (HANDLE)-1) {
@@ -233,7 +232,8 @@ static HINSTANCE loadDumpLib(void) {
  *
  * @param[in] args  pointer to a WriteDumpFileArgs structure containing the
  * MiniDumpWriteDump function pointer,
- * 					dump file handle, dump parameters and return
+ * 					dump file handle, dump parameters and
+ * return
  * code
  * @return  none
  */
@@ -283,9 +283,9 @@ static HANDLE openFileFromEnvVar(struct OMRPortLibrary *portLibrary,
   HANDLE hFile;
   intptr_t retCode;
   uint32_t i;
-  char pidStore
-      [25]; /* This is roughly the 3 * sizeof(int)+1 which is more than enough
-               space*/
+  char pidStore[25]; /* This is roughly the 3 * sizeof(int)+1 which is more than
+                        enough
+                        space*/
 
   if (portLibrary == NULL) {
     return INVALID_HANDLE_VALUE;

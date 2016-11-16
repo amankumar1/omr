@@ -158,9 +158,9 @@ public:
 private:
   enum                           // _zflags
   { NeedLitPoolBasePtr = 0x0001, ///< For determining the proper load
-                                 ///instructions for accessing the literal pool
+                                 /// instructions for accessing the literal pool
     UsedTrampoline = 0x0002,     ///< For trace files: Whether Snippet uses MCC
-                                 ///trampoline to reach target.
+                                 /// trampoline to reach target.
     IsUsed = 0x0004,             ///< Whether current snippet was used or not.
     DummyLastEnum };
 };

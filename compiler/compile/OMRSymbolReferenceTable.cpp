@@ -1579,9 +1579,8 @@ TR::SymbolReference *OMR::SymbolReferenceTable::findOrCreateAutoSymbol(
     }
 
     sym->setSlotSharedByRefAndNonRef(slotSharedbyRefAndNonRef);
-    if (comp()->getOption(
-            TR_MimicInterpreterFrameShape)) // &&
-                                            // comp()->getOption(TR_FSDInlining))
+    if (comp()->getOption(TR_MimicInterpreterFrameShape)) // &&
+    // comp()->getOption(TR_FSDInlining))
     {
       // negative implies PPS save temp. which we want to map on the end of the
       // autos

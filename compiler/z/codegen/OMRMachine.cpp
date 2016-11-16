@@ -2341,7 +2341,7 @@ bool OMR::Z::Machine::findBestFreeRegisterPair(TR::RealRegister **firstRegister,
 
       //_cg->traceRegWeight(_registerFile[i], _registerFile[i]->getWeight());
       //_cg->traceRegWeight(_registerFile[i + 1], _registerFile[i +
-      //1]->getWeight());
+      // 1]->getWeight());
 
       if (enableHighWordRA && rk == TR_GPR64) {
         // for 64 bit reg pair, need to check high word pairs also
@@ -2387,7 +2387,7 @@ bool OMR::Z::Machine::findBestFreeRegisterPair(TR::RealRegister **firstRegister,
 
       //_cg->traceRegWeight(_registerFile[i], _registerFile[i]->getWeight());
       //_cg->traceRegWeight(_registerFile[i + 2], _registerFile[i +
-      //2]->getWeight());
+      // 2]->getWeight());
 
       // See if this pair is available, and better than the prev
       if ((_registerFile[i]->getState() == TR::RealRegister::Free ||

@@ -952,9 +952,11 @@ bool MM_ConcurrentCardTable::cleanCards(MM_EnvironmentStandard *env,
      *it was marked
      * and as its in a active TLH either:
      *
-     *		 (1) We have marked and pushed a reference to the object but not yet
+     *		 (1) We have marked and pushed a reference to the object but not
+     *yet
      *popped it, or
-     *		 (2) We have popped it and deferred it (re-pushed it to a deferred
+     *		 (2) We have popped it and deferred it (re-pushed it to a
+     *deferred
      *packet).
      *
      * Either way we don't need to process any objects on this card now.
@@ -1075,9 +1077,11 @@ bool MM_ConcurrentCardTable::cleanSingleCard(MM_EnvironmentStandard *env,
      * pushed to a work packet when it was marked and as its in a active TLH
      *either:
      *
-     *		 1) We have marked and pushed a reference to the object but not yet
+     *		 1) We have marked and pushed a reference to the object but not
+     *yet
      *popped it, or
-     *		 2) We have popped it and deferred it (re-pushed it to a deferred
+     *		 2) We have popped it and deferred it (re-pushed it to a
+     *deferred
      *packet).
      * Either way we don't need to process any objects on this card now and we
      *don't need to
@@ -1158,7 +1162,8 @@ void MM_ConcurrentCardTable::initializeFinalCardCleaning(
  * 						 to caller
  *
  * @return return TRUE is any more cards left to process; FALSE if all cards
- * 			processed. Also returns number of bytes traced whilst cleaning
+ * 			processed. Also returns number of bytes traced whilst
+ * cleaning
  * cards.
  *
  */

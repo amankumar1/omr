@@ -299,9 +299,8 @@ struct TR_SimulatedNodeState {
   uint16_t _liveARs : 1;
   uint16_t _liveCandidateLoad : 1; // Set for nodes included in
                                    // state->_numLiveCandidateLoads
-  uint16_t
-      _childRefcountsHaveBeenDecremented : 1; // Used for lazy
-                                              // recursivelyDecReferenceCount
+  uint16_t _childRefcountsHaveBeenDecremented : 1; // Used for lazy
+  // recursivelyDecReferenceCount
   uint16_t _willBeRematerialized : 1;
 
   uint8_t _height; // Deepest descendent node is this many steps down from this

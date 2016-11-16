@@ -338,9 +338,9 @@ protected:
     InitMethod = 0x00000200, ///< J9
     TempVariableSizeSymRef = 0x00000400,
     Adjunct = 0x00000800, ///< auto symbol represents the adjunct part of the
-                          ///dual symbol
+                          /// dual symbol
     Dual = 0x00001000, ///< auto symbol represents a dual symbol consisting of
-                       ///two parts
+                       /// two parts
     TemporaryNegativeOffset = 0x00002000,
     HoldsMonitoredObjectForSyncMethod = 0x00004000,
     AccessedAtRuntimeBase = 0x10000000,
@@ -361,7 +361,7 @@ protected:
   uint32_t _unresolvedIndex : 14; ///< Used in value propagation
 
   uint32_t _referenceNumber; ///< Unique number identifying this SymbolReference
-                             ///in the symbol table
+                             /// in the symbol table
 
   flags32_t _flags;
 

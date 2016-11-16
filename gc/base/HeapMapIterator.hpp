@@ -54,9 +54,8 @@ private:
   uintptr_t *_heapChunkTop;       /**< Ending heap slot to scan */
   uintptr_t *_heapMapSlotCurrent; /**< Current heap map slot that contains the
                                      bits to scan for the corresponding heap */
-  uintptr_t
-      _bitIndexHead; /**< Current bit index in heap map slot that is being
-                        scanned */
+  uintptr_t _bitIndexHead; /**< Current bit index in heap map slot that is being
+                              scanned */
   uintptr_t _heapMapSlotValue; /**< Cached heap map slot value to avoid memory
                                   cache polution */
   MM_GCExtensionsBase *const _extensions; /**< The GC extensions for the JVM */

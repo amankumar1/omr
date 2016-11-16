@@ -896,7 +896,8 @@ TEST(RWMutex, RecursiveWriteTest) {
  * This test validates that
  * a thread can enter a rwmutex for write recursively
  * threads waiting to enter for read wait until the an equal number of
- * 		exits to enters have been called using when try_enter is used for
+ * 		exits to enters have been called using when try_enter is used
+ * for
  * one of the enters
  * threads waiting to enter for read wake up and enter when the last exit for
  * read occurs

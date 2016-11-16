@@ -223,7 +223,8 @@ bool MM_MarkingScheme::markObject(MM_EnvironmentBase *env,
  *
  * parameters  - heapBase - base of region of heap whoose mark bits are to be
  * 						    counted
- * 			     heapTop  - top of region of heap whoose mark bits to be
+ * 			     heapTop  - top of region of heap whoose mark bits to
+ * be
  * counted
  *
  * return      - the number of bytes worth of mark bits for specified heap
@@ -242,9 +243,11 @@ uintptr_t MM_MarkingScheme::numMarkBitsInRange(MM_EnvironmentBase *env,
  *
  * parameters  - heapBase - base of region of heap whoose mark bits are to be
  * set
- * 			     heapTop  - top of region of heap whoose mark bits to be
+ * 			     heapTop  - top of region of heap whoose mark bits to
+ * be
  * set
- * 				 clear 	  - if TRUE set BITS OFF; otherwise set bits
+ * 				 clear 	  - if TRUE set BITS OFF; otherwise set
+ * bits
  * ON
  *
  * return      - the amount of memory actually cleard

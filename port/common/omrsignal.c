@@ -137,7 +137,8 @@ uint32_t omrsig_info_count(struct OMRPortLibrary *portLibrary, void *info,
  * 	OMRPORT_SIG_EXCEPTION_CONTINUE_EXECUTION after another handler has been
  *invoked.
  *
- *		NOTE: @ref flags can not include both OMRPORT_SIG_FLAG_MAY_RETURN
+ *		NOTE: @ref flags can not include both
+ *OMRPORT_SIG_FLAG_MAY_RETURN
  *and OMRPORT_SIG_FLAG_CONTINUE_EXECUTION.
  *
  *	OMRPORT_SIG_FLAG_SIGSEGV - catch SIGSEGV

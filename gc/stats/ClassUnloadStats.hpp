@@ -47,9 +47,8 @@ public:
   uint64_t _startPostTime; /**< Class unloading post-unloading start time */
   uint64_t _endPostTime;   /**< Class unloading post-unloading end time */
 
-  uint64_t
-      _classUnloadMutexQuiesceTime; /**< Time the GC spends waiting on the
-                                       classUnloadMutex */
+  uint64_t _classUnloadMutexQuiesceTime; /**< Time the GC spends waiting on the
+                                            classUnloadMutex */
 
   void clear();
 

@@ -1226,8 +1226,8 @@ void OMR::CodeCacheManager::initializeELFTrailer() {
   trlr->dynsymSection.sh_type = SHT_SYMTAB; // SHT_DYNSYM
   trlr->dynsymSection.sh_flags = 0;         // SHF_ALLOC;
   trlr->dynsymSection.sh_addr = 0; //(ELFAddress) &((uint8_t *)_elfHeader +
-                                   //symbolStartOffset); // fake address because
-                                   //not continuous
+  // symbolStartOffset); // fake address because
+  // not continuous
   trlr->dynsymSection.sh_offset = symbolsStartOffset;
   trlr->dynsymSection.sh_size = (_numELFSymbols + 1) * sizeof(ELFSymbol);
   trlr->dynsymSection.sh_link = 4; // dynamic string table index

@@ -66,10 +66,9 @@ class MM_GCExtensionsBase;
 #define OMR_OBJECT_METADATA_AGE_MASK 0xF0
 #define OMR_OBJECT_METADATA_AGE_SHIFT 4
 #define OMR_OBJECT_METADATA_SLOT_EA(object)                                    \
-  (                                                                            \
-      (fomrobject_t *)(object) +                                               \
-      OMR_OBJECT_METADATA_SLOT_OFFSET) /* fomrobject_t* pointer to metadata    \
-                                          slot */
+  ((fomrobject_t *)(object) +                                                  \
+   OMR_OBJECT_METADATA_SLOT_OFFSET) /* fomrobject_t* pointer to metadata       \
+                                       slot */
 #define OMR_OBJECT_AGE(object)                                                 \
   ((*(OMR_OBJECT_METADATA_SLOT_EA(object)) & OMR_OBJECT_METADATA_AGE_MASK) >>  \
    OMR_OBJECT_METADATA_AGE_SHIFT)

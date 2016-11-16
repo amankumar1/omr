@@ -42,9 +42,8 @@ protected:
 
   bool _expandFromHighRange, _expandFromLowRange;
 
-  uintptr_t
-      _numaNode; /**< NUMA node binding, starting from 0. if UDATA_MAX, no
-                    explicit binding */
+  uintptr_t _numaNode; /**< NUMA node binding, starting from 0. if UDATA_MAX, no
+                          explicit binding */
 
   virtual bool initialize(MM_EnvironmentBase *env);
 

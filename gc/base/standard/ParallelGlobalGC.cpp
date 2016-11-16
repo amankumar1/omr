@@ -1451,8 +1451,8 @@ void MM_ParallelGlobalGC::reportGCEnd(MM_EnvironmentBase *env) {
       approximateLoaActiveFreeMemorySize, loaActiveMemorySize,
       /* We can't just ask the heap for everything of type FIXED, because that
          includes scopes as well */
-      approximateActiveFreeMemorySize,
-      activeMemorySize, _extensions->globalGCStats.fixHeapForWalkReason,
+      approximateActiveFreeMemorySize, activeMemorySize,
+      _extensions->globalGCStats.fixHeapForWalkReason,
       _extensions->globalGCStats.fixHeapForWalkTime);
 }
 

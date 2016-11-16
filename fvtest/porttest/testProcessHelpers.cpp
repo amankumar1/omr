@@ -792,8 +792,7 @@ intptr_t j9process_create(OMRPortLibrary *portLibrary, const char *command[],
                                 NULL, unicodeCmdline, NULL, NULL, TRUE,
                                 creationFlags, /* add DEBUG_ONLY_THIS_PROCESS
                                                   for smoother debugging */
-                                unicodeEnv,
-                                unicodeDir, &sinfo,
+                                unicodeEnv, unicodeDir, &sinfo,
                                 &pinfo) /* Pointer to PROCESS_INFORMATION
                                            structure; */
             ) {

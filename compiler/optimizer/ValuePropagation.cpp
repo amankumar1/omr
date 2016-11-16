@@ -7025,7 +7025,7 @@ void TR::ValuePropagation::transformStringCtors(VPTreeTopPair *treeTopPair) {
 
      treetop1								treetop1
      --------                               ---------
-         treetop								will
+         treetop will
     dissappear
          vcall Method[String.<init>]
          new

@@ -556,9 +556,8 @@ static BOOLEAN tryExceptHandlerExistsOnStack(OMRPortLibrary *portLibrary,
       RtlVirtualUnwind(UNW_FLAG_NHANDLER, /* suppresses the invocation of any
                                              unwind or exception handlers
                                              registered by the function).*/
-                       imageBase,
-                       context->Rip, runtimeFunction, context, &handlerData,
-                       &establisherFrame, &nvContext);
+                       imageBase, context->Rip, runtimeFunction, context,
+                       &handlerData, &establisherFrame, &nvContext);
     }
 
     firstFrame = FALSE;

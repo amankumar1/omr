@@ -138,11 +138,9 @@ typedef struct OMRPortPlatformGlobals {
   char *si_osTypeOnHeap;
   char *si_osVersion;
   uint64_t time_hiresClockFrequency;
-  void
-      *
-          tty_consoleEventBuffer; /* windows.h cannot be included here and it
-                                     has a complex definition so use void * in
-                                     place of INPUT_RECORD* */
+  void *tty_consoleEventBuffer; /* windows.h cannot be included here and it
+                                   has a complex definition so use void * in
+                                   place of INPUT_RECORD* */
   omrthread_monitor_t tty_consoleBufferMonitor;
   HANDLE osBacktrace_Mutex;
 #if defined(OMR_ENV_DATA64)

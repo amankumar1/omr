@@ -1403,13 +1403,16 @@ static void *getMemoryInRangeForDefaultPages(
    * Also note, do not use shmem for OMRPORT_VMEM_MEMORY_MODE_EXECUTE memory
    * (JIT codecache) as it causes the following problems:
    * 		- 2MB of codeCache will waste a segment of 256MB virtual memory
-   * 		- Upon JIT start, there are 4 such codecaches created spanning more
+   * 		- Upon JIT start, there are 4 such codecaches created spanning
+   * more
    * than 1GB of virtual space.
-   * 			- Calls from one codeCache to another will need trampolines to
+   * 			- Calls from one codeCache to another will need trampolines
+   * to
    * jump more than 32MB of distance
    * 		- puts pressure on hardware facility of virtual memory
    * translations,
-   * 			- i.e. SLB(segment lookaside buffer), TLB(table lookaside buffer),
+   * 			- i.e. SLB(segment lookaside buffer), TLB(table lookaside
+   * buffer),
    * and ERAT(effective address to real address table). In particular, each
    * 256MB requires an SLB entry.
    *

@@ -45,9 +45,8 @@ public:
   uintptr_t
       _totalMemoryBefore; /**< Total memory on the heap recorded before a copy
                              forward cycle */
-  uintptr_t
-      _freeMemoryAfter; /**< Free memory on the heap recorded after a copy
-                           forward cycle */
+  uintptr_t _freeMemoryAfter; /**< Free memory on the heap recorded after a copy
+                                 forward cycle */
   uintptr_t _totalMemoryAfter; /**< Total memory on the heap recorded after a
                                   copy forward cycle */
 
@@ -69,15 +68,13 @@ public:
                                       cache in Eden (age 0) space */
   uintptr_t _scanObjectsEden; /**< Objects scanned in abort recovery in Eden
                                  (age 0) space*/
-  uintptr_t
-      _scanBytesEden; /**< Bytes scanned in abort recovery in Eden (age 0)
-                         space*/
+  uintptr_t _scanBytesEden; /**< Bytes scanned in abort recovery in Eden (age 0)
+                               space*/
 
   uintptr_t _copyObjectsNonEden; /**< Count of objects copied into survivor in
                                     non-Eden (age > 0) space */
-  uintptr_t
-      _copyBytesNonEden; /**< Bytes of survivor used for copy purposes in
-                            non-Eden (age > 0) space */
+  uintptr_t _copyBytesNonEden; /**< Bytes of survivor used for copy purposes in
+                                  non-Eden (age > 0) space */
   uintptr_t
       _copyDiscardBytesNonEden;  /**< Bytes of survivor discarded by copy scan
                                     cache in non-Eden (age > 0) space */
@@ -94,9 +91,8 @@ public:
   bool _scanCacheOverflow; /**< Flag indicating if a scan cache overflow
                               occurred in last copy forward */
 
-  bool
-      _aborted; /**< Flag indicating if the copy forward mechanism was aborted
-                   */
+  bool _aborted; /**< Flag indicating if the copy forward mechanism was aborted
+                    */
 
   uintptr_t _edenEvacuateRegionCount;    /**< Counts the number of Eden regions
                                             selected to be evacuated in this

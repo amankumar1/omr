@@ -78,9 +78,8 @@ protected:
                           needs to perform to satisfy this request (TLH versus
                           object allocate, for example) */
   bool _collectAndClimb;
-  bool
-      _climb; /* indicates that current attempt to allocate should try parent,
-                 if current subspace failed */
+  bool _climb; /* indicates that current attempt to allocate should try parent,
+                  if current subspace failed */
   bool _completedFromTlh;
 
 public:

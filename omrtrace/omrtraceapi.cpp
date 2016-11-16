@@ -37,11 +37,13 @@ extern const char *UT_NO_THREAD_NAME;
  * fillInUTInterfaces
  * 2 - initializeTrace 	- Tell trace to intialise via initializeTrace
  * supplying default options.
- * 							(Usually just the location of the .dat
+ * 							(Usually just the location of the
+ * .dat
  * file is standard)
  * 3 - threadStart 		- Notify trace about the current thread since it
  * started before trace was available via threadStart
- * 						- Trace should be notified about about threads
+ * 						- Trace should be notified about about
+ * threads
  * beginning and ending via calls to threadStart and
  * 						  threadStop when they start and
  * end.

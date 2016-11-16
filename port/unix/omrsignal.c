@@ -920,7 +920,8 @@ static void masterSynchSignalHandler(int signal, siginfo_t *sigInfo,
 
         /* The only case in which we don't want the previous handler back on top
          * is if it just returned OMRPORT_SIG_EXCEPTION_RETURN
-         * 		In this case we will remove it from the top after executing
+         * 		In this case we will remove it from the top after
+         * executing
          * the siglongjmp */
         omrthread_tls_set(thisThread, tlsKey, thisRecord);
 
@@ -975,14 +976,18 @@ static void masterSynchSignalHandler(int signal, siginfo_t *sigInfo,
      *
      * In general, the rules are:
      *
-     * 		Hardware signals - return from the signal handler. This is preferable
+     * 		Hardware signals - return from the signal handler. This is
+     * preferable
      * as the signal we're handling is reported in LE diagnostics
-     * 								as the cause of the crash. However, returning doesn't work for
+     * 								as the cause of the crash. However, returning doesn't work
+     * for
      * software signals.
      *
-     * 		Software signals -  explicitly trigger an abend. Whereas this forces LE
+     * 		Software signals -  explicitly trigger an abend. Whereas this forces
+     * LE
      * RRS in all cases,
-     * 								LE diagnostics will report the JVM abend as the cause of the
+     * 								LE diagnostics will report the JVM abend as the cause of
+     * the
      * crash, which somewhat clouds the issue.
      */
 
@@ -1383,7 +1388,8 @@ static intptr_t addAsyncSignalsToSet(sigset_t *ss) {
  * OMRPORT_SIG_FLAG_SIGALLSYNC, or OMRPORT_SIG_FLAG_SIGALLASYNC
  *
  * @return	0 upon success; OMRPORT_SIG_ERROR otherwise.
- *			Possible failure scenarios include attempting to register a
+ *			Possible failure scenarios include attempting to register
+ *a
  *handler for
  *			a signal that is not included in the
  *allowedSubsetOfFlags

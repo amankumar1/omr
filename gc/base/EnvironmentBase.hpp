@@ -104,20 +104,18 @@ private:
   uint64_t _meanExclusiveAccessIdleTime; /**< mean idle time (in ticks) of the
                                             last exclusive access request */
   OMR_VMThread
-      *_lastExclusiveAccessResponder; /**< last thread to respond to last
-                                         exclusive access request */
-  uintptr_t
-      _exclusiveAccessHaltedThreads; /**< number of threads halted by last
-                                        exclusive access request */
+      *_lastExclusiveAccessResponder;      /**< last thread to respond to last
+                                              exclusive access request */
+  uintptr_t _exclusiveAccessHaltedThreads; /**< number of threads halted by last
+                                              exclusive access request */
   bool _exclusiveAccessBeatenByOtherThread; /**< true if last exclusive access
                                                request had to wait for another
                                                GC thread */
 
 protected:
-  bool
-      _allocationFailureReported; /**< verbose: used to report af-start/af-end
-                                     once per allocation failure even more then
-                                     one GC cycle need to resolve AF */
+  bool _allocationFailureReported; /**< verbose: used to report af-start/af-end
+                                      once per allocation failure even more then
+                                      one GC cycle need to resolve AF */
 
 #if defined(OMR_GC_SEGREGATED_HEAP)
   MM_HeapRegionQueue *_regionWorkList;

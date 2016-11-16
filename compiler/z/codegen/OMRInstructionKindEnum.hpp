@@ -76,5 +76,5 @@ IsNotExtended,
     IsI,          ///< is I instruction, i.e. SVC
     IsIE,         ///< is IE instruction, i.e. NIAI
     IsOpCodeOnly, ///< This is used for many instructions which only require the
-                  ///opcode
+                  /// opcode
     IsNOP,

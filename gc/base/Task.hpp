@@ -129,7 +129,8 @@ public:
 
   /**
 * Synchronize threads.
-* @parm id is a literal string for unique identification of synchronization point
+* @parm id is a literal string for unique identification of synchronization
+* point
 * @param[out] stallTime time spent being blocked
 * @note no-op
 */

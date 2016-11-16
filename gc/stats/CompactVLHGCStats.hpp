@@ -113,13 +113,12 @@ public:
   uint64_t
       _fixupArrayletLeafStartTime; /**< hires start time to fixup arraylet leaf
                                       spine pointers (one thread only) */
-  uint64_t
-      _fixupArrayletLeafEndTime; /**< hires end time to fixup arraylet leaf
-                                    spine pointers (one thread only) */
-  uint64_t _recycleStartTime;    /**< hires start time to identify and recycle
-                                    fully evacuated regions (one thread only) */
-  uint64_t _recycleEndTime; /**< hires end time to identify and recycle fully
-                               evacuated regions (one thread only) */
+  uint64_t _fixupArrayletLeafEndTime; /**< hires end time to fixup arraylet leaf
+                                         spine pointers (one thread only) */
+  uint64_t _recycleStartTime; /**< hires start time to identify and recycle
+                                 fully evacuated regions (one thread only) */
+  uint64_t _recycleEndTime;   /**< hires end time to identify and recycle fully
+                                 evacuated regions (one thread only) */
   uint64_t _rebuildMarkBitsStartTime; /**< hires start time to rebuild the mark
                                          bits in the previous mark map */
   uint64_t

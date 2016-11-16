@@ -33,11 +33,13 @@
 class MM_RootScannerStats : public MM_Base {
   /* Data Members */
 public:
-  uint64_t _entityScanTime
-      [RootScannerEntity_Count]; /**< Time spent scanning each root scanner
-                                    entity per thread.  Values of 0 indicate no
-                                    time (regardless of clock resolution) spent
-                                    scanning. */
+  uint64_t _entityScanTime[RootScannerEntity_Count]; /**< Time spent scanning
+                                                        each root scanner
+                                                        entity per thread.
+                                                        Values of 0 indicate no
+                                                        time (regardless of
+                                                        clock resolution) spent
+                                                        scanning. */
 
   /* Function Members */
 public:

@@ -39,7 +39,7 @@ static const char *signatureNameForType[] = {
     "F", // Float
     "D", // Double
     "L", // Address
-    // TODO: vector types!
+         // TODO: vector types!
 };
 
 char *IlType::getSignatureName() {

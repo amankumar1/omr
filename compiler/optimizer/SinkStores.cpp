@@ -738,7 +738,7 @@ void TR_SinkStores::recordPlacementForDefInBlock(
             "_symbolsKilledInBlock[%d] should have been initialized!",
             blockNumber);
   //_symbolsKilledInBlock[blockNumber] = new (trStackMemory())
-  //TR_BitVector(_liveVarInfo->numLocals(), trMemory());
+  // TR_BitVector(_liveVarInfo->numLocals(), trMemory());
   if (trace()) {
     traceMsg(comp(),
              "updating symbolsKilled in recordPlacementForDefInBlock\n");
@@ -757,7 +757,7 @@ void TR_SinkStores::recordPlacementForDefInBlock(
             "_symbolsUsedInBlock[%d] should have been initialized!",
             blockNumber);
   //_symbolsUsedInBlock[blockNumber] = new (trStackMemory())
-  //TR_BitVector(_liveVarInfo->numLocals(), trMemory());
+  // TR_BitVector(_liveVarInfo->numLocals(), trMemory());
   if (trace()) {
     traceMsg(comp(), "updating symbolsUsed in recordPlacementForDefInBlock\n");
     traceMsg(comp(), "BEF  _symbolsUsedInBlock[%d]: ", blockNumber);
@@ -1882,7 +1882,7 @@ void TR_SinkStores::lookForSinkableStores() {
         }
 
         //_usedSymbolsToMove = useOrKill->_usedSymbols;  // this should be
-        //initialized in sinkStorePlacement and after
+        // initialized in sinkStorePlacement and after
         _killedSymbolsToMove = useOrKill->_killedSymbols;
 
         //_liveVarInfo->findAllUseOfLocal(tt->getNode(), storeBlockNumber,
@@ -4502,7 +4502,7 @@ bool TR_GeneralSinkStores::sinkStorePlacement(TR_MovableStore *movableStore,
       }
       if (!_sinkThruException && succBlock->asBlock()->isCatchBlock()
           //&& !checkLiveMergingPaths(succBlock->asBlock(), symIdx)  invalid
-          //check
+          // check
           ) {
         if (trace())
           traceMsg(comp(), "              attempt to sink at the catch block "
@@ -4798,7 +4798,7 @@ bool TR_GeneralSinkStores::sinkStorePlacement(TR_MovableStore *movableStore,
             }
             if (!_sinkThruException && succBlock->asBlock()->isCatchBlock()
                 //&& !checkLiveMergingPaths(succBlock->asBlock(), symIdx)
-                //invalid check
+                // invalid check
                 ) {
               if (trace())
                 traceMsg(comp(), "              attempt to sink at the catch "

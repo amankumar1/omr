@@ -223,9 +223,9 @@ private:
   //
   void scramble(TR::Block **blocks); // No correlation with previous order
   void riffle(TR::Block **blocks);   // Break into two parts and interleave them
-                                   // randomly.  Blocks generally end up in the
-                                   // same order, but with cold interleaved with
-                                   // hot.
+  // randomly.  Blocks generally end up in the
+  // same order, but with cold interleaved with
+  // hot.
   void reverse(TR::Block **blocks); // Backward
 };
 

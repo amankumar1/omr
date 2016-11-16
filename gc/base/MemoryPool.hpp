@@ -94,10 +94,10 @@ protected:
 
   MM_GCExtensionsBase *_extensions; /**< GC Extensions for this JVM */
 
-  MM_LargeObjectAllocateStats *
-      _largeObjectAllocateStats; /**< Approximate allocation profile for large
-                                    objects. Struct to keep merged stats from
-                                    all free lists */
+  MM_LargeObjectAllocateStats
+      *_largeObjectAllocateStats; /**< Approximate allocation profile for large
+                                     objects. Struct to keep merged stats from
+                                     all free lists */
 
   uintptr_t _darkMatterBytes; /**< estimate of the dark matter in this pool (in
                                  bytes) */

@@ -2710,9 +2710,8 @@ public:
 
   bool _isAOTCompile;
 
-  int32_t
-      _jitMethodEntryAlignmentBoundary; /* Alignment boundary for JIT method
-                                           entry */
+  int32_t _jitMethodEntryAlignmentBoundary; /* Alignment boundary for JIT method
+                                               entry */
   char *_blockShufflingSequence;
   int32_t _randomSeed;
   TR_MCTLogs *_logListForOtherCompThreads;

@@ -357,9 +357,11 @@ typedef struct J9PortVmemParams {
    * \arg OMRPORT_VMEM_MEMORY_MODE_EXECUTE memory is executable
    * \arg OMRPORT_VMEM_MEMORY_MODE_COMMIT commits memory as part of the reserve
    * \arg OMRPORT_VMEM_MEMORY_MODE_VIRTUAL used only on z/OS
-   *			- used to allocate memory in 4K pages using system macros
+   *			- used to allocate memory in 4K pages using system
+   *macros
    *instead of malloc() or __malloc31() routines
-   *			- on 64-bit, this mode rounds up byteAmount to be aligned to 1M
+   *			- on 64-bit, this mode rounds up byteAmount to be aligned to
+   *1M
    *boundary.*
    */
   uintptr_t mode;
@@ -375,16 +377,20 @@ typedef struct J9PortVmemParams {
    * unavailable
    * \arg OMRPORT_VMEM_ZOS_USE2TO32G_AREA
    * 			- applies to z/OS only, ignored on all other platforms
-   * 			- use allocator that exclusively requests memory in 2to32G region
+   * 			- use allocator that exclusively requests memory in 2to32G
+   * region
    * if set
-   * 			- do not use allocator that requests memory exclusively in 2to32G
+   * 			- do not use allocator that requests memory exclusively in
+   * 2to32G
    * region if not set
-   * 			- if this flag is set and the 2to32G support is not there
+   * 			- if this flag is set and the 2to32G support is not
+   * there
    * omrvmem_reserve_memory_ex will return failure
    * \arg OMRPORT_VMEM_ALLOC_QUICK
    *  		- enabled for Linux only,
    *  		- If not set, search memory in linear scan method
-   *  		- If set, scan memory in a quick way, using memory information in
+   *  		- If set, scan memory in a quick way, using memory information
+   * in
    * file /proc/self/maps. (still use linear search if failed)
    */
   uintptr_t options;
@@ -509,9 +515,8 @@ typedef struct J9SysinfoEnvElement {
 
 typedef struct J9SysinfoEnvIteratorState {
   void *current; /* to be used exclusively by the port library */
-  void *
-      buffer; /* caller-allocated buffer. This can be freed by the caller once
-                 they have finished using the iterator. */
+  void *buffer; /* caller-allocated buffer. This can be freed by the caller once
+                   they have finished using the iterator. */
   uintptr_t bufferSizeBytes; /* size of @ref buffer */
 } J9SysinfoEnvIteratorState;
 
@@ -519,9 +524,8 @@ typedef struct J9SysinfoEnvIteratorState {
 typedef struct J9SysinfoCPUTime {
   int64_t timestamp; /* time in nanoseconds from a fixed but arbitrary point in
                         time */
-  int64_t
-      cpuTime; /* cumulative CPU utilization (sum of system and user time in
-                  nanoseconds) of all CPUs on the system. */
+  int64_t cpuTime; /* cumulative CPU utilization (sum of system and user time in
+                      nanoseconds) of all CPUs on the system. */
   int32_t numberOfCpus; /* number of CPUs as reported by the operating system */
 } J9SysinfoCPUTime;
 
@@ -602,9 +606,8 @@ typedef struct J9MemoryInfo {
   uint64_t totalPhysical; /* Total physical memory in the system (in bytes). */
   uint64_t
       availPhysical; /* Available physical memory in the system (in bytes). */
-  uint64_t
-      totalVirtual; /* Total virtual memory addressable by the process (in
-                       bytes). */
+  uint64_t totalVirtual; /* Total virtual memory addressable by the process (in
+                            bytes). */
   uint64_t
       availVirtual;   /* Virtual memory available to the process (in bytes). */
   uint64_t totalSwap; /* Total swap memory (in bytes). */
@@ -1203,7 +1206,7 @@ typedef struct OMRPortLibrary {
                                          J9SysinfoLimitIteratorState *state);
   /** see @ref omrsysinfo.c::omrsysinfo_limit_iterator_hasNext
    * "omrsysinfo_limit_iterator_hasNext"*/
-  BOOLEAN (*sysinfo_limit_iterator_hasNext)
+  BOOLEAN(*sysinfo_limit_iterator_hasNext)
   (struct OMRPortLibrary *portLibrary, J9SysinfoLimitIteratorState *state);
   /** see @ref omrsysinfo.c::omrsysinfo_limit_iterator_next
    * "omrsysinfo_limit_iterator_next"*/
@@ -1217,7 +1220,7 @@ typedef struct OMRPortLibrary {
                                        void *buffer, uintptr_t bufferSizeBytes);
   /** see @ref omrsysinfo.c::omrsysinfo_env_iterator_hasNext
    * "omrsysinfo_env_iterator_hasNext"*/
-  BOOLEAN (*sysinfo_env_iterator_hasNext)
+  BOOLEAN(*sysinfo_env_iterator_hasNext)
   (struct OMRPortLibrary *portLibrary, struct J9SysinfoEnvIteratorState *state);
   /** see @ref omrsysinfo.c::omrsysinfo_env_iterator_next
    * "omrsysinfo_env_iterator_next"*/
@@ -1811,7 +1814,7 @@ typedef struct OMRPortLibrary {
   uintptr_t (*heap_query_size)(struct OMRPortLibrary *portLibrary,
                                struct J9Heap *heap, void *address);
   /** see @ref omrheap.c::omrheap_grow "omrheap_grow"*/
-  BOOLEAN (*heap_grow)
+  BOOLEAN(*heap_grow)
   (struct OMRPortLibrary *portLibrary, struct J9Heap *heap,
    uintptr_t growAmount);
 #if defined(OMR_OPT_CUDA)

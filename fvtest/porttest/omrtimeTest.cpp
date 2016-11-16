@@ -474,7 +474,8 @@ static uint64_t portGetNanos(struct OMRPortLibrary *portLibrary) {
  * errors
                  * - the test mostly does not actually test anything, because
  * most of the time it detects:
-                 * 		"WARNING: Skipping check due to possible NTP daemon
+                 * 		"WARNING: Skipping check due to possible NTP
+ * daemon
  * interference."
                  * 		- this only adds to the confusion
                  * - the test is known to not work on x86 because of the

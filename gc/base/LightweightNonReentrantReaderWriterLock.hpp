@@ -27,9 +27,8 @@
 #define LWRW_OK 0
 #define LWRW_FAILED_INIT -1
 #define LWRW_READER_MODE                                                       \
-  (                                                                            \
-      (uint32_t)1) /**< bit0 of lock-word is lock mode, :0=Reader Mode,        \
-                      :1=Writer Mode */
+  ((uint32_t)1) /**< bit0 of lock-word is lock mode, :0=Reader Mode,           \
+                   :1=Writer Mode */
 #define LWRW_WRITER_MODE ((uint32_t)0)
 #define LWRW_INCREMENTAL_BASE_READERS                                          \
   ((uint32_t)2) /**< bit15-bit1 is shared reader count, max reader count is    \

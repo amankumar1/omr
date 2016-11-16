@@ -61,16 +61,13 @@ protected:
   omrobjectptr_t const _parentObjectPtr; /**< Object being scanned */
   uintptr_t _scanMap; /**< Bit map of reference slots in object being scanned
                          (32/64-bit window) */
-  fomrobject_t
-      *
-          _scanPtr; /**< Pointer to base of object slots mapped by current
-                       _scanMap */
+  fomrobject_t *_scanPtr; /**< Pointer to base of object slots mapped by current
+                             _scanMap */
   GC_SlotObject
       _slotObject;  /**< Create own SlotObject class to provide output */
   uintptr_t _flags; /**< Scavenger context flags (scanRoots, scanHeap, ...) */
-  uintptr_t
-      _hotFieldsDescriptor; /**< Hot fields descriptor for languages that
-                               support hot field tracking */
+  uintptr_t _hotFieldsDescriptor; /**< Hot fields descriptor for languages that
+                                     support hot field tracking */
 
 public:
   /**

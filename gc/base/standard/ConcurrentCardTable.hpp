@@ -451,7 +451,8 @@ public:
    * 						 to caller
    *
    * @return return TRUE is any more cards left to process; FALSE if all cards
-   * 			processed. Also returns number of bytes traced whilst cleaning
+   * 			processed. Also returns number of bytes traced whilst
+   * cleaning
    * cards.
    *
    */

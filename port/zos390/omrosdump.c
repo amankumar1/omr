@@ -476,4 +476,5 @@ int32_t omrdump_startup(struct OMRPortLibrary *portLibrary) {
   return 0;
 }
 
-void omrdump_shutdown(struct OMRPortLibrary *portLibrary) { /* noop */ }
+void omrdump_shutdown(struct OMRPortLibrary *portLibrary) { /* noop */
+}

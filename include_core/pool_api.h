@@ -21,9 +21,10 @@
 
 #include "omrsrp.h"
 
-#define MIN_GRANULARITY sizeof(uintptr_t)  /* default structure alignment */
-#define MALLOC_ALIGNMENT sizeof(uintptr_t) /* alignment enforced by malloc()   \
-                                              */
+#define MIN_GRANULARITY sizeof(uintptr_t) /* default structure alignment */
+#define MALLOC_ALIGNMENT                                                       \
+  sizeof(uintptr_t) /* alignment enforced by malloc()                          \
+                       */
 
 /* read this if a port library call becomes available that gives out the OS page
  * size */

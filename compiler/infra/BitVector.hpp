@@ -860,7 +860,7 @@ protected:
     // here we are guaranteed to have a chunk with at least one bit set
 
     //_curIndex = (_curIndex & ~(TR_BitVector::_numBitsChunk-1)) +
-    //TrailingZero(tmpChunk);
+    // TrailingZero(tmpChunk);
     while (!(tmpChunk & mask)) // sequential check
     {
       _curIndex++;
@@ -1010,7 +1010,7 @@ public:
   bool hasBitWordRepresentation() const {
     return true;
   } // returns whether this bit vector is based on an array of bitWords (ie
-    // chunks of bits)
+  // chunks of bits)
   uint32_t wordSize() const {
     return BITS_IN_CHUNK;
   } // returns size of words in bits (ie size of a chunk)

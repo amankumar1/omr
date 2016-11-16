@@ -400,25 +400,33 @@ uintptr_t renameDump(struct OMRPortLibrary *portLibrary, char *filename,
  *
  * @param[in] corePatternFormat the null-terminated string, with no line
  * delimiters, representing the format of the core file name.
- * 									- if there was no core_pattern
+ * 									- if there was no
+ * core_pattern
  * file, corePatternFormat should be empty string.
- * @param[in] coreUsesPID		TRUE indicates that core_uses_pid indicated
+ * @param[in] coreUsesPID		TRUE indicates that core_uses_pid
+ * indicated
  * that the PID should be appended to the filename
- * @param[in] baseDir			the null-terminated string indicating the
+ * @param[in] baseDir			the null-terminated string indicating
+ * the
  * absolute path (with trailing dir separator) of the base directory to use if
  * corePatternFormat does not
- * 									specify an absolute
+ * 									specify an
+ * absolute
  * path.
- * 									- should be empty string if no
+ * 									- should be empty string if
+ * no
  * baseDirectory was specified.
  *
  * @param[out] derivedCoreFileName user-allocated buffer containing the
  * constructed absolute path.
- * 					- derivedCoreFileName will always contain a
+ * 					- derivedCoreFileName will always contain
+ * a
  * null-terminated string.
- * 					- On success, derivedCoreFileName contains the name
+ * 					- On success, derivedCoreFileName contains the
+ * name
  * of the core file.
- * 					- On failure, derivedCoreFileName contains a message
+ * 					- On failure, derivedCoreFileName contains a
+ * message
  * detailing the cause.
  * @param[in]	corePathLen	the size of the buffer @ref corePath.
  * @param[in]	pid	the process ID of the child process that triggered the
@@ -492,9 +500,9 @@ static intptr_t deriveCoreFileName(struct OMRPortLibrary *portLibrary,
            * scratchSpace contains the thread name, which is null terminated if
            * shorter than 16 bytes.
            */
-          scratchSpace
-              [16] = '\0'; /* ensure the name is terminated by a null if it is
-                              exactly 16 bytes long */
+          scratchSpace[16] =
+              '\0'; /* ensure the name is terminated by a null if it is
+                       exactly 16 bytes long */
           charsPrinted = portLibrary->str_printf(portLibrary, outCursor,
                                                  bytesLeft, "%s", scratchSpace);
         } else
@@ -576,7 +584,8 @@ static intptr_t deriveCoreFileName(struct OMRPortLibrary *portLibrary,
  *
  * @param[in] path	absolute path of the expected core file, null
  *terminated, maximum length including null is PATH_MAX.
- *					the filename portion of the path may contain a
+ *					the filename portion of the path may contain
+ *a
  *single '*' wildcard.
  *
  * @return intptr_t	0 if the file was found, otherwise 1 indicating timeout

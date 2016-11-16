@@ -93,9 +93,8 @@ RCType CFileWriter::writeOutputFiles(J9TDFOptions *options, J9TDFFile *tdf,
     while (NULL != tp) {
       levels[i] = tp->level;
       if ((UT_ASSERT_TYPE == tp->type) && (1 == tp->level)) {
-        assertDefaults
-            [i] = 1; /* Enable default assertions prior to full trace
-                        initialisation. */
+        assertDefaults[i] = 1; /* Enable default assertions prior to full trace
+                                  initialisation. */
       } else {
         assertDefaults[i] = 0;
       }

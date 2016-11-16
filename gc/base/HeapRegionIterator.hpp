@@ -32,10 +32,9 @@ class MM_MemorySpace;
 class GC_HeapRegionIterator {
 private:
   MM_MemorySpace
-      *
-          _space; /**< The MemorySpace to which all regions returned by the
-                     iterator must belong (can be NULL if this check is not
-                     needed) */
+      *_space; /**< The MemorySpace to which all regions returned by the
+                  iterator must belong (can be NULL if this check is not
+                  needed) */
   MM_HeapRegionDescriptor
       *_auxRegion; /**< The auxiliary region we will process next */
   MM_HeapRegionDescriptor

@@ -54,9 +54,8 @@ public:
 
   uintptr_t _allocationCount;
   uintptr_t _allocationBytes;
-  uintptr_t
-      _ownableSynchronizerObjectCount; /**< Number of Ownable Synchronizer
-                                          Object allocations */
+  uintptr_t _ownableSynchronizerObjectCount; /**< Number of Ownable Synchronizer
+                                                Object allocations */
   uintptr_t _discardedBytes;
   uintptr_t _allocationSearchCount;
   uintptr_t _allocationSearchCountMax;

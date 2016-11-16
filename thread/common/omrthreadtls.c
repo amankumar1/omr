@@ -187,4 +187,5 @@ void omrthread_tls_finalizeNoLock(omrthread_t thread) {
   }
 }
 
-static void J9THREAD_PROC tls_null_finalizer(void *entry) { /* do nothing */ }
+static void J9THREAD_PROC tls_null_finalizer(void *entry) { /* do nothing */
+}

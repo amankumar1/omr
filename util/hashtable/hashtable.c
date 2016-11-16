@@ -150,15 +150,20 @@ static uintptr_t comparatorToEqualFn(void *leftKey, void *rightKey,
  *
  *
  * @param portLibrary  The port library
- * @param tableName     	A string giving the name of the table, recommended
+ * @param tableName     	A string giving the name of the table,
+ * recommended
  * to use OMR_GET_CALLSITE()
- * 							within caller code, this is not a
+ * 							within caller code, this is not
+ * a
  * restriction. If a unique name is used, it
- * 							must be easily searchable, i.e. there
+ * 							must be easily searchable, i.e.
+ * there
  * should not be more than a few false hits
- * 							when searching for the name. If necessary
+ * 							when searching for the name. If
+ * necessary
  * to ensure uniqueness or find-ability,
- * 							create a list of the unique names or name
+ * 							create a list of the unique names or
+ * name
  * conventions in this file.
  * @param tableSize   Initial number of hash table nodes (if zero, use a
  * suitable default)
@@ -217,15 +222,20 @@ J9HashTable *collisionResilientHashTableNew(
  *
  *
  * @param portLibrary       The port library
- * @param tableName     	A string giving the name of the table, recommended
+ * @param tableName     	A string giving the name of the table,
+ *recommended
  *to use OMR_GET_CALLSITE()
- * 							within caller code, this is not a
+ * 							within caller code, this is not
+ *a
  *restriction. If a unique name is used, it
- * 							must be easily searchable, i.e.
+ * 							must be easily searchable,
+ *i.e.
  *there should not be more than a few false hits
- * 							when searching for the name. If
+ * 							when searching for the name.
+ *If
  *necessary to ensure uniqueness or find-ability,
- * 							create a list of the unique names
+ * 							create a list of the unique
+ *names
  *or name conventions in this file.
  * @param tableSize         Initial number of hash table nodes (if zero, use a
  *suitable default)

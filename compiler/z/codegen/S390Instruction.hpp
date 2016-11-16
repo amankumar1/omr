@@ -5119,11 +5119,11 @@ class S390NOPInstruction : public TR::Instruction {
   // Following fields are used for specialized XPLink NOP following a call site
   TR::Snippet *_targetSnippet;
   S390PseudoInstruction *_callDescInstr; ///<  This is the branch-around fix for
-                                         ///JNI call descriptors on zOS-31.
+                                         /// JNI call descriptors on zOS-31.
   intptrj_t _estimatedOffset; ///<  Save estimated offset for conservative
-                              ///distance calc to Call Descriptor Snippet
-                              ///(XPLINK zOS31).
-  int8_t _callType;           ///<  call type for NOP
+                              /// distance calc to Call Descriptor Snippet
+  ///(XPLINK zOS31).
+  int8_t _callType; ///<  call type for NOP
 
   // Following fields are used for specialized FastLink NOP following a call
   // site

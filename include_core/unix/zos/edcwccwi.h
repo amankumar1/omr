@@ -272,38 +272,38 @@ extern "C" {
      (defined(_LP64) && (__EDC_TARGET >= __EDC_LE4107)))
   typedef struct __jumpinfo {
     /*Note - offsets are for 31-bit expansion*/
-    char __ji_u1[68];     /* +0   Reserved            */
-    char __ji_mask_saved; /* +44  when non-zero
-                                 indicates signal mask
-                                 saved in __ji_sigmask*/
-    char __ji_u2[3]; /* +45  Reserved            */
+    char __ji_u1[68];           /* +0   Reserved            */
+    char __ji_mask_saved;       /* +44  when non-zero
+                                       indicates signal mask
+                                       saved in __ji_sigmask*/
+    char __ji_u2[3];            /* +45  Reserved            */
 #ifdef __DOT1
-    sigset_t __ji_sigmask;     /* +48  signal mask         */
+    sigset_t __ji_sigmask;      /* +48  signal mask         */
 #else
     unsigned int __ji_u2a;     /* +48  Filler for non-posix*/
     unsigned int __ji_u2b;     /* +4C  Filler for non-posix*/
 #endif
-    char __ji_u3[11];          /* +50  Reserved            */
-    unsigned __ji_fl_fp4 : 1;  /* +5B.0 4 FPRs valid       */
-    unsigned __ji_fl_fp16 : 1; /* +5B.1 16 FPRs valid      */
-    unsigned __ji_fl_fpc : 1;  /* +5B.2 FPC  valid         */
+    char __ji_u3[11];           /* +50  Reserved            */
+    unsigned __ji_fl_fp4 : 1;   /* +5B.0 4 FPRs valid       */
+    unsigned __ji_fl_fp16 : 1;  /* +5B.1 16 FPRs valid      */
+    unsigned __ji_fl_fpc : 1;   /* +5B.2 FPC  valid         */
     unsigned __ji_fl_res1a : 1; /* +5B.3 reserved           */
 #ifndef _LP64
-    unsigned __ji_fl_hr : 1;   /* +5B.4 Hi regs valid      */
+    unsigned __ji_fl_hr : 1;    /* +5B.4 Hi regs valid      */
 #else
     unsigned __ji_fl_res3 : 1; /* +5B.4 Reserved           */
 #endif
-    unsigned __ji_fl_res2 : 1; /* +5B.5 Reserved           */
-    unsigned __ji_fl_exp : 1;  /* +5B.6 explicit backchain */
+    unsigned __ji_fl_res2 : 1;  /* +5B.5 Reserved           */
+    unsigned __ji_fl_exp : 1;   /* +5B.6 explicit backchain */
     unsigned __ji_fl_res2a : 1; /* +5B.7 Reserved           */
 #if __EDC_TARGET >= __EDC_LE4202
     char __ji_u4[12];                  /* +5C   Reserved       @D4C*/
     __jumpinfo_vr_ext_t_ *__ji_vr_ext; /* +68   Pointer to VRs
                                                save area      @D4A*/
 #ifndef _LP64 /*                      @D4A*/
-    char __ji_u7[4];                   /* +6C   Reserved       @D4A*/
+    char __ji_u7[4]; /* +6C   Reserved       @D4A*/
 #endif        /*                      @D4A*/
-    char __ji_u8[16];                  /* +70   Reserved       @D4A*/
+    char __ji_u8[16];    /* +70   Reserved       @D4A*/
 #else         /* not __EDC_TARGET >= __EDC_LE4202 */
     char __ji_u4[36];          /* +5C   Reserved           */
 #endif        /*     __EDC_TARGET >= __EDC_LE4202 */
@@ -425,24 +425,24 @@ extern "C" {
     /*#@                                                         END @D5A*/
     char __mc__6[36];          /* +5C   Reserved           */
 #endif /*#@D5A*/
-    long __mc_gr[16];    /* +80 resume register      */
+    long __mc_gr[16];       /* +80 resume register      */
 #ifndef _LP64
-    long __mc_hr_[16];   /* +C0 hi regs              */
+    long __mc_hr_[16];      /* +C0 hi regs              */
 #endif
-    int __mc__7[16];     /* +100 Reserved            */
-    double __mc_fpr[16]; /* +140 FP registers 0-15   */
-    int __mc_fpc;        /* +1C0 Floating pt cntl reg*/
-    char __mc__8[60];    /* +1C4 Reserved            */
-    __pad31(__mc__9, 16) /*      reserved  31-bit     */
+    int __mc__7[16];        /* +100 Reserved            */
+    double __mc_fpr[16];    /* +140 FP registers 0-15   */
+    int __mc_fpc;           /* +1C0 Floating pt cntl reg*/
+    char __mc__8[60];       /* +1C4 Reserved            */
+    __pad31(__mc__9, 16)    /*      reserved  31-bit     */
         __pad64(__mc__9, 8) /*      reserved  64-bit     */
         struct __mcontext *__mc_aux_mcontext_ptr; /* +210 ptr __mcontext  */
     __pad31(__mc__10, 12)     /* +214 reserved  31-bit     */
         __pad64(__mc__10, 24) /* +218 reserved  64-bit     */
         __pad31(__mc_psw, 8)  /* 8-byte PSW for 31-bit     */
         __pad64(__mc_psw, 16) /* 16-byte PSW for 64-bit    */
-/* Note- __mc_psw is valid only if __mc_psw_flag is set           */
+                              /* Note- __mc_psw is valid only if __mc_psw_flag is set           */
 #if __EDC_TARGET >= __EDC_LE410A
-        void *__mc_int_dsa; /* +228 interrupt DSA   @D2A*/
+        void *__mc_int_dsa;   /* +228 interrupt DSA   @D2A*/
     /* Note- __mc_int_dsa is only valid if __mc_int_dsa_flag is set   */
     __pad31(__mc__11, 84)      /* reserved  31-bit     @D2A*/
         __pad64(__mc__11, 104) /* reserved  64-bit     @D2A*/

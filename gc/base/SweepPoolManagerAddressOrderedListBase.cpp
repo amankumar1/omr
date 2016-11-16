@@ -570,7 +570,7 @@ bool MM_SweepPoolManagerAddressOrderedListBase::addFreeMemory(
         sweepChunk->freeBytes += heapFreeByteCount;
         sweepChunk->freeHoles += 1;
         //				sweepChunk->_largestFreeEntry =
-        //max(sweepChunk->_largestFreeEntry , heapFreeByteCount);
+        // max(sweepChunk->_largestFreeEntry , heapFreeByteCount);
         sweepChunk->updateLargestFreeEntry(heapFreeByteCount,
                                            sweepChunk->freeListTail);
 

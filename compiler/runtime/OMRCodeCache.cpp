@@ -1769,7 +1769,7 @@ uint8_t *OMR::CodeCache::allocateCodeMemory(size_t warmCodeSize,
   }
 
   /////diagnostic("allocated method @0x%p [cc=0x%p] (reclaimed block)\n",
-  ///methodBlockAddress, this);
+  /// methodBlockAddress, this);
 
   _lastAllocatedBlock = (CodeCacheMethodHeader *)warmCodeAddress; // MP
   if (isMethodHeaderNeeded) {

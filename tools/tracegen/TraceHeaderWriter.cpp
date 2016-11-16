@@ -95,61 +95,60 @@ const char *UT_H_FILE_HEADER_TEMPLATE =
     "#endif /* defined(UT_DIRECT_TRACE_REGISTRATION) */\n"
     "\n";
 
-const char
-    *TP_ASSERT_TEMPLATE =
-        "#if UT_TRACE_OVERHEAD >= %u\n"
-        "%s" /* Place holder for option test macro (specified by "Test" option
-                in tp spec) */
-        "#define %s(%s) do { /* tracepoint name: %s.%u */ \\\n"
-        "	if ((unsigned char) %s_UtActive[%u] != 0){ \\\n"
-        "		if (%s) { /* assertion satisfied */ } else { \\\n"
-        "			if (%s_UtModuleInfo.intf != NULL) { \\\n"
-        "				%s_UtModuleInfo.intf->Trace(%s, "
-        "&%s_UtModuleInfo, (UT_SPECIAL_ASSERTION | (%uu << 8) | "
-        "%s_UtActive[%u]), \"\\377\\4\\377\", __FILE__, __LINE__, "
-        "UT_STR((%s))); \\\n"
-        "				Trace_Unreachable(); \\\n"
-        "			} else { \\\n"
-        "				fprintf(stderr, \"** ASSERTION FAILED "
-        "** %s.%u at %%s:%%d %s%%s\\n\", __FILE__, __LINE__, UT_STR((%s))); "
-        "\\\n"
-        "			} \\\n"
-        "		}} \\\n"
-        "	} while(0)\n"
-        "#else\n"
-        "%s" /* Place holder for option test macro (specified by "Test" option
-                in tp spec) */
-        "#define %s(%s)   /* tracepoint name: %s.%u */\n"
-        "#endif\n\n";
+const char *TP_ASSERT_TEMPLATE =
+    "#if UT_TRACE_OVERHEAD >= %u\n"
+    "%s" /* Place holder for option test macro (specified by "Test" option
+            in tp spec) */
+    "#define %s(%s) do { /* tracepoint name: %s.%u */ \\\n"
+    "	if ((unsigned char) %s_UtActive[%u] != 0){ \\\n"
+    "		if (%s) { /* assertion satisfied */ } else { \\\n"
+    "			if (%s_UtModuleInfo.intf != NULL) { \\\n"
+    "				%s_UtModuleInfo.intf->Trace(%s, "
+    "&%s_UtModuleInfo, (UT_SPECIAL_ASSERTION | (%uu << 8) | "
+    "%s_UtActive[%u]), \"\\377\\4\\377\", __FILE__, __LINE__, "
+    "UT_STR((%s))); \\\n"
+    "				Trace_Unreachable(); \\\n"
+    "			} else { \\\n"
+    "				fprintf(stderr, \"** ASSERTION FAILED "
+    "** %s.%u at %%s:%%d %s%%s\\n\", __FILE__, __LINE__, UT_STR((%s))); "
+    "\\\n"
+    "			} \\\n"
+    "		}} \\\n"
+    "	} while(0)\n"
+    "#else\n"
+    "%s" /* Place holder for option test macro (specified by "Test" option
+            in tp spec) */
+    "#define %s(%s)   /* tracepoint name: %s.%u */\n"
+    "#endif\n\n";
 
-const char *
-    TP_AUX_TEMPLATE = "#if UT_TRACE_OVERHEAD >= %u\n"
-                      "%s" /* Place holder for option test macro (specified by
-                              "Test" option in tp spec) */
-                      "#define %s(%s%s) do { /* tracepoint name: %s.%u */ \\\n"
-                      "		%s_UtModuleInfo.intf->Trace(%s, "
-                      "&%s_UtModuleInfo, ((%uu << 8)), %s%s);	} while(0)\n"
-                      "#else\n"
-                      "%s" /* Place holder for option test macro (specified by
-                              "Test" option in tp spec) */
-                      "#define %s(%s%s)   /* tracepoint name: %s.%u */\n"
-                      "#endif\n\n";
+const char *TP_AUX_TEMPLATE =
+    "#if UT_TRACE_OVERHEAD >= %u\n"
+    "%s" /* Place holder for option test macro (specified by
+            "Test" option in tp spec) */
+    "#define %s(%s%s) do { /* tracepoint name: %s.%u */ \\\n"
+    "		%s_UtModuleInfo.intf->Trace(%s, "
+    "&%s_UtModuleInfo, ((%uu << 8)), %s%s);	} while(0)\n"
+    "#else\n"
+    "%s" /* Place holder for option test macro (specified by
+            "Test" option in tp spec) */
+    "#define %s(%s%s)   /* tracepoint name: %s.%u */\n"
+    "#endif\n\n";
 
-const char
-    *TP_TEMPLATE = "#if UT_TRACE_OVERHEAD >= %u\n"
-                   "%s" /* Place holder for option test macro (specified by
-                           "Test" option in tp spec) */
-                   "#define %s(%s%s) do { /* tracepoint name: %s.%u */ \\\n"
-                   "	if ((unsigned char) %s_UtActive[%u] != 0){ \\\n"
-                   "		%s_UtModuleInfo.intf->Trace(%s, "
-                   "&%s_UtModuleInfo, ((%uu << 8) | %s_UtActive[%u]), %s%s);} "
-                   "\\\n"
-                   "	} while(0)\n"
-                   "#else\n"
-                   "%s" /* Place holder for option test macro (specified by
-                           "Test" option in tp spec) */
-                   "#define %s(%s%s)   /* tracepoint name: %s.%u */\n"
-                   "#endif\n\n";
+const char *TP_TEMPLATE =
+    "#if UT_TRACE_OVERHEAD >= %u\n"
+    "%s" /* Place holder for option test macro (specified by
+            "Test" option in tp spec) */
+    "#define %s(%s%s) do { /* tracepoint name: %s.%u */ \\\n"
+    "	if ((unsigned char) %s_UtActive[%u] != 0){ \\\n"
+    "		%s_UtModuleInfo.intf->Trace(%s, "
+    "&%s_UtModuleInfo, ((%uu << 8) | %s_UtActive[%u]), %s%s);} "
+    "\\\n"
+    "	} while(0)\n"
+    "#else\n"
+    "%s" /* Place holder for option test macro (specified by
+            "Test" option in tp spec) */
+    "#define %s(%s%s)   /* tracepoint name: %s.%u */\n"
+    "#endif\n\n";
 
 RCType TraceHeaderWriter::writeOutputFiles(J9TDFOptions *options,
                                            J9TDFFile *tdf) {

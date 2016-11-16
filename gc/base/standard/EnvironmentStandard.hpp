@@ -54,22 +54,20 @@ public:
                               caches that collectively form contiguous memory */
   MM_CopyScanCacheStandard
       *_tenureCopyScanCache; /**< the current copy cache for tenuring */
-  MM_CopyScanCacheStandard *
-      _effectiveCopyScanCache; /**< the the copy cache the received the most
-                                  recently copied object, or NULL if no object
-                                  copied in copy() */
+  MM_CopyScanCacheStandard
+      *_effectiveCopyScanCache; /**< the the copy cache the received the most
+                                   recently copied object, or NULL if no object
+                                   copied in copy() */
   J9VMGC_SublistFragment _scavengerRememberedSet;
-  void
-      *_tenureTLHRemainderBase; /**< base and top pointers of the last unused
-                                   tenure TLH copy cache, that might be reused
-                                   on next copy refresh */
+  void *_tenureTLHRemainderBase; /**< base and top pointers of the last unused
+                                    tenure TLH copy cache, that might be reused
+                                    on next copy refresh */
   void *_tenureTLHRemainderTop;
   bool _loaAllocation; /** true, if tenure TLH remainder is in LOA (TODO: try
                           preventing remainder creation in LOA) */
-  void *
-      _survivorTLHRemainderBase; /**< base and top pointers of the last unused
-                                    survivor TLH copy cache, that might be
-                                    reused  on next copy refresh */
+  void *_survivorTLHRemainderBase; /**< base and top pointers of the last unused
+                                      survivor TLH copy cache, that might be
+                                      reused  on next copy refresh */
   void *_survivorTLHRemainderTop;
 
   /* TODO: Temporary hiding place for thread specific GC structures */

@@ -138,7 +138,8 @@ int32_t omrvmem_free_memory(struct OMRPortLibrary *portLibrary, void *address,
  * @param[in] portLibrary The port library.
  * @param[out] J9PortVMemParams Struct containing necessary information about
  *requested memory
- *					 It is the responsibility of the user to create
+ *					 It is the responsibility of the user to
+ *create
  *the storage for
  *					 this struct
  *
@@ -208,11 +209,14 @@ void *omrvmem_reserve_memory(struct OMRPortLibrary *portLibrary, void *address,
  * @param[out] identifier Descriptor for virtual memory block.
  * @param[in] J9PortVMemParams Struct containing necessary information about
  *requested memory
- *					 It is the responsibility of the user to create
+ *					 It is the responsibility of the user to
+ *create
  *the storage for this struct
- *					 This structure must be initialized using @ref
+ *					 This structure must be initialized using
+ *@ref
  *omrvmem_vmem_params_init
- * 					 This structure may be discarded after this
+ * 					 This structure may be discarded after
+ *this
  *function returns
  *
  * @return pointer to the reserved memory on success, NULL on failure.
@@ -321,7 +325,8 @@ void omrvmem_default_large_page_size_ex(struct OMRPortLibrary *portLibrary,
  OMRPORT_VMEM_MEMORY_MODE_EXECUTE or 0.
  * @param[in/out] pageSize  As input, stores hint provided by caller to decide
  initial page size.
- * 							On return, stores the page
+ * 							On return, stores the
+ page
  size to be used by the caller for making allocation requests.
  * @param[in/out] pageFlags As input, stores page flags corresponding to the
  pageSize hint provided by the caller.

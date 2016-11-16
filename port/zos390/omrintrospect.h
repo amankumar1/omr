@@ -477,10 +477,8 @@ PGTHHDEVNO            DS    F        DEVICE NUMBER see stat()
 PGTHH#LEN             EQU   *-PGTHH
 */
 struct pgthh {
-  char
-      id
-          [2]; /* rd = root directory (fist), cd = current directory (second),
-                  fd = file directory, vd = vnode directory */
+  char id[2]; /* rd = root directory (fist), cd = current directory (second),
+                 fd = file directory, vd = vnode directory */
   char type;
   char open;
   int inode;

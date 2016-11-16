@@ -288,7 +288,8 @@ uintptr_t omrstr_printf(struct OMRPortLibrary *portLibrary, char *buf,
  *		- the number of bytes written to the buffer indicated by
  *outBuffer.
  * - negative value on failure:
- * 		- OMRPORT_ERROR_STRING_BUFFER_TOO_SMALL, if the size of outBuffer
+ * 		- OMRPORT_ERROR_STRING_BUFFER_TOO_SMALL, if the size of
+ *outBuffer
  *is not large enough to hold the converted text.
  * 		- OMRPORT_ERROR_STRING_ICONV_OPEN_FAILED, if call iconv_open()
  *failed.
@@ -863,9 +864,8 @@ static uintptr_t writeIntToBuffer(char *buf, uintptr_t bufLen, uint64_t width,
   uint32_t rightSpace = 0;
   uint64_t temp;
   size_t base = strlen(digits);
-  int32_t
-      actualPrecision = 0; /* precision is specified unsigned, but code may
-                              decrement temp values below zero */
+  int32_t actualPrecision = 0; /* precision is specified unsigned, but code may
+                                  decrement temp values below zero */
   char signChar = 0;
 
   if (isSigned) {

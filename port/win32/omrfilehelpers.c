@@ -108,7 +108,8 @@ omrfile_get_overlapped_handle_helper(struct OMRPortLibrary *portLibrary) {
  * @param [in]   offest                       Offset from start of file to start
  * of locked region
  * @param [in]   length                      Number of bytes to be locked
- * @param [in] 	 async						True, if the file opened
+ * @param [in] 	 async						True, if the file
+ * opened
  * asynchronously, false otherwise
  *
  * @return                                              0 on success, -1 on
@@ -217,7 +218,8 @@ error:
  * @param [in]   offest                       Offset from start of file to start
  * of locked region
  * @param [in]   length                      Number of bytes to be unlocked
- * @param [in] 	 async						True, if the file opened
+ * @param [in] 	 async						True, if the file
+ * opened
  * asynchronously, false otherwise
  *
  * @return                                              0 on success, -1 on

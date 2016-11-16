@@ -61,41 +61,55 @@ static void setCurrentSignal(struct OMRPortLibrary *portLibrary,
  * 	"V1R11.0 Language Environment Programming Guide", p. 243,
  *http://publibz.boulder.ibm.com/epubs/pdf/ceea21a0.pdf
  *
- *	@param[in]	fc		A 12-byte condition token that identifies
+ *	@param[in]	fc		A 12-byte condition token that
+ *identifies
  *the current condition being processed.
- * 							Language Environment uses this
+ * 							Language Environment uses
+ *this
  *parameter to tell your condition handler what condition has occurred.
  *	@param[in]	token 	An J9ZOSLEConditionHandlerRecord as
  *specified when this handler was registered by @ref omrsig_protect_ceehdlr
  *	@param[in]	leResult	A 4-byte integer that contains
  *instructions about responses the user-written condition
- * 							handler wants Language Environment
+ * 							handler wants Language
+ *Environment
  *to make when processing the condition.
- * 							The result_code is passed by
+ * 							The result_code is passed
+ *by
  *reference.
- * 							Valid responses are shown in Table
+ * 							Valid responses are shown in
+ *Table
  *38 of the Language Environment Programming Guide
- * 							For example, use 20 to percolate
+ * 							For example, use 20 to
+ *percolate
  *the condition.
  *	@param[in]	newfc	new_condition (output) A 12-byte condition
  *token that represents either
- *						 the promoted condition for a promote
+ *						 the promoted condition for a
+ *promote
  *response (result_code values of 30, 31, and 32)
- *						 or the requested fix-up actions for a
+ *						 or the requested fix-up actions for
+ *a
  *fix-up and resume response (result_code value of 60).
- *						 When a result_code of 60, denoting fix-up
+ *						 When a result_code of 60, denoting
+ *fix-up
  *and resume, is set by the condition handler,
- *						 new_condition must be set to a condition
+ *						 new_condition must be set to a
+ *condition
  *token that indicates what fix-up action is requested.
- *						 Many conditions, including mathematical
+ *						 Many conditions, including
+ *mathematical
  *routines, use the condition tokens in
- *						 Table 39 to resume with corrective action
+ *						 Table 39 to resume with corrective
+ *action
  *(either resume with new input value
  *						 or resume with new output
  *value).
- *						 For some conditions, there may be other
+ *						 For some conditions, there may be
+ *other
  *condition tokens that can be provided by the condition
- *						 handler in new_condition to request
+ *						 handler in new_condition to
+ *request
  *specific fix-up actions.
  *
  *

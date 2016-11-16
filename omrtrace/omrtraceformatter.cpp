@@ -883,13 +883,13 @@ static const char *parseTracePoint(OMRPortLibrary *portLib,
     return omr_trc_formatNextTracePoint(iter, buffer, bufferLength);
   }
 
-  modName = &tempPtr
-                [offset +
-                 TRACEPOINT_RAW_DATA_MODULE_NAME_DATA_OFFSET]; /* the modName
-                                                                  was written
-                                                                  straight to
-                                                                  buf as (char
-                                                                  *) */
+  modName =
+      &tempPtr[offset +
+               TRACEPOINT_RAW_DATA_MODULE_NAME_DATA_OFFSET]; /* the modName
+                                                                was written
+                                                                straight to
+                                                                buf as (char
+                                                                *) */
   if (!strncmp(modName, "INTERNALTRACECOMPONENT", 22)) {
     if (traceId == UT_TRC_CONTEXT_ID) {
       /* ignore and recurse - its just a thread id sitting in the buffer used

@@ -61,20 +61,20 @@ class MM_RegionPoolSegregated : public MM_RegionPool {
    * Data members
    */
 private:
-  MM_HeapRegionManager *
-      _heapRegionManager; /**< The Region Manager which contains all the
-                             descriptors used for allocation (they contain the
-                             Memory Pools which manage their underlying memory)
-                             */
+  MM_HeapRegionManager
+      *_heapRegionManager; /**< The Region Manager which contains all the
+                              descriptors used for allocation (they contain the
+                              Memory Pools which manage their underlying memory)
+                              */
   MM_SweepSchemeSegregated *_sweepScheme;
 
   MM_FreeHeapRegionList *_singleFreeList; /**< Singleton free regions. */
   MM_FreeHeapRegionList *_multiFreeList;  /**< Contiguous free regions (may
                                              include regions that are actually
                                              singletons). */
-  MM_FreeHeapRegionList *
-      _coalesceFreeList; /**< Free regions that might be coalescable, so avoid
-                            allocating from them if at all possible. */
+  MM_FreeHeapRegionList
+      *_coalesceFreeList; /**< Free regions that might be coalescable, so avoid
+                             allocating from them if at all possible. */
 
   /**
    * @note No allocation is currently happening on the available regions.  These
@@ -86,12 +86,12 @@ private:
    * most occupied.
   */
   MM_LockingHeapRegionQueue
-      *_smallAvailableRegions[OMR_SIZECLASSES_NUM_SMALL +
-                              1][NUM_DEFRAG_BUCKETS]; /**< Regions that are
-                                                         available to be given
-                                                         out to allocation
-                                                         contexts and aren't
-                                                         entirely free. */
+      *_smallAvailableRegions[OMR_SIZECLASSES_NUM_SMALL + 1]
+                             [NUM_DEFRAG_BUCKETS]; /**< Regions that are
+                                                      available to be given
+                                                      out to allocation
+                                                      contexts and aren't
+                                                      entirely free. */
 
   /**
    * @note Some of the full regions may be attached to AllocationContexts, and
@@ -120,10 +120,10 @@ private:
    * allocation prefers the
    * most occupied.
   */
-  MM_HeapRegionQueue *
-      _arrayletAvailableRegions; /**< Arraylet regions that are available to be
-                                    given out to allocation contexts and aren't
-                                    entirely free. */
+  MM_HeapRegionQueue
+      *_arrayletAvailableRegions; /**< Arraylet regions that are available to be
+                                     given out to allocation contexts and aren't
+                                     entirely free. */
 
   /**
    * @note Some of the full regions may be attached to AllocationContexts, and
@@ -131,18 +131,16 @@ private:
    * allocated into.
    */
   MM_HeapRegionQueue
-      *
-          _arrayletFullRegions; /**< Arraylet regions that have been allocated
-                                   into during this GC cycle. */
+      *_arrayletFullRegions; /**< Arraylet regions that have been allocated
+                                into during this GC cycle. */
 
   /**
    * @note The sweep regions will contain a mix of marked (live) and unmarked
    * (dead) objects.
    */
   MM_HeapRegionQueue
-      *
-          _arrayletSweepRegions; /**< Arraylet regions that are waiting to be
-                                    swept during this GC cycle. */
+      *_arrayletSweepRegions; /**< Arraylet regions that are waiting to be
+                                 swept during this GC cycle. */
 
   /**
    * @note Some of the full regions may be attached to AllocationContexts, and

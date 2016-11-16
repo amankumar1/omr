@@ -4189,7 +4189,7 @@ TR::Node *constrainANewArray(TR::ValuePropagation *vp, TR::Node *node) {
         typeConstraint =
             TR::VPFixedClass::create(vp, typeConstraint->getClass());
       ////else if (typeConstraint->asClass() &&
-      ///typeConstraint->asClass()->getClassType() &&
+      /// typeConstraint->asClass()->getClassType() &&
       ////          !(typeConstraint->asClass()->getClassType()->isClassObject()
       ///== TR_yes))
       ////   typeConstraint = typeConstraint->asClass()->getClassType();
@@ -11401,8 +11401,8 @@ static int32_t handleNullCheck(TR::ValuePropagation *vp, TR::Node *node,
   //
   if (!resolveChkToo) {
     /////vp->createExceptionEdgeConstraints(TR::Block::CanCatchNullCheck,
-    ///vp->createValueConstraint(referenceChild, vp->AbsoluteConstraint,
-    ///TR::VPNullObject::create(vp)), node);
+    /// vp->createValueConstraint(referenceChild, vp->AbsoluteConstraint,
+    /// TR::VPNullObject::create(vp)), node);
     vp->createExceptionEdgeConstraints(TR::Block::CanCatchNullCheck, NULL,
                                        node);
   }
@@ -12178,7 +12178,7 @@ TR::Node *constrainBndChkWithSpineChk(TR::ValuePropagation *vp,
   // -------------------------------------------------------------------------
 
   bool isSizeContigArrayLength = true; //(sizeNode->getOpCodeValue() ==
-                                       //TR::contigarraylength) ? true : false;
+                                       // TR::contigarraylength) ? true : false;
 
   uint32_t elementSize = 1;
   if (sizeNode->getOpCode().isArrayLength()) {

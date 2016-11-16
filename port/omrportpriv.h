@@ -122,9 +122,8 @@ typedef struct OMRPortLibraryGlobalData {
 #if defined(OMR_ENV_DATA64)
   OMRMemCategory unusedAllocate32HeapRegionsMemoryCategory;
 #endif
-  uintptr_t
-      vmemAdviseOSonFree; /** For softmx to determine whether OS should be
-                             advised of freed vmem */
+  uintptr_t vmemAdviseOSonFree; /** For softmx to determine whether OS should be
+                                   advised of freed vmem */
   uintptr_t vectorRegsSupportOn; /* Turn on vector regs support */
   uintptr_t entitledCPUs;        /** Number of entitled CPUs */
 #if defined(OMR_OPT_CUDA)

@@ -281,8 +281,8 @@ public:
     noStackLeafFrame,
     StackLeafFrame,
     noStackForwardingFrame, ///< This method may have a single call that
-                            ///forwards on to another method that can be
-                            ///replaced by a jmp
+                            /// forwards on to another method that can be
+    /// replaced by a jmp
   };
 
 private:
@@ -314,8 +314,8 @@ private:
   TR::RealRegister::RegNum _litPoolRegister;
   TR::RealRegister::RegNum _staticBaseRegister;
   TR::RealRegister::RegNum _privateStaticBaseRegister; ///< locked register for
-                                                       ///private WSA, if its
-                                                       ///allocated
+                                                       /// private WSA, if its
+  /// allocated
   TR::RealRegister::RegNum _extCodeBaseRegister;
   TR::RealRegister::RegNum _returnAddrRegister;
   TR::RealRegister::RegNum
@@ -333,7 +333,7 @@ private:
   bool _raContextRestoreNeeded;
   int32_t _strictestAutoSymbolAlignment;
   int32_t _largestOutgoingArgumentAreaSize; ///< Arguments for registers could
-                                            ///be saved in discontiguous area
+                                            /// be saved in discontiguous area
   ///< this size does not include the discontiguous register parm area size
   int32_t _largestOutgoingArgumentAreaSize64;
 

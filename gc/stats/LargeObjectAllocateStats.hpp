@@ -44,21 +44,20 @@ public:
 private:
   /*TODO: there would be minus case for _count, make it intptr_t later */
   uintptr_t *_count; /**< base of an array of counters for each sizeClass */
-  FrequentAllocation **
-      _frequentAllocationHead; /**< for each size class, there is a list of
-                                  ascending (per size, not per count) frequent
-                                  allocation (exact) sizes) */
-  uintptr_t _maxSizeClasses;   /**< size of the above array */
-
   FrequentAllocation *
-      _frequentAllocation; /**< an array of FrequentAllocation structs of size
-                              _maxFrequentAllocateSizes (current size
-                              _frequentAllocateSizeCounters) */
+      *_frequentAllocationHead; /**< for each size class, there is a list of
+                                   ascending (per size, not per count) frequent
+                                   allocation (exact) sizes) */
+  uintptr_t _maxSizeClasses;    /**< size of the above array */
+
+  FrequentAllocation
+      *_frequentAllocation; /**< an array of FrequentAllocation structs of size
+                               _maxFrequentAllocateSizes (current size
+                               _frequentAllocateSizeCounters) */
   FrequentAllocation *_veryLargeEntryPool; /**< an array of FrequentAllocation
                                               structs for veryLargeEntries */
-  FrequentAllocation
-      *_freeHeadVeryLargeEntry;       /**< the head of linklist of free
-                                         veryLargeEntries */
+  FrequentAllocation *_freeHeadVeryLargeEntry; /**< the head of linklist of free
+                                                  veryLargeEntries */
   float *_fractionFrequentAllocation; /**< fraction Array for cumulating the
                                          fraction of frequentAllocation during
                                          estimating fragmentation */
@@ -190,11 +189,10 @@ private:
                                            structure to maintain the stats for
                                            exact sizes */
   OMRSpaceSaving
-      *
-          _spaceSavingSizeClassesAveragePercent; /**< Internal top-k-frequent
-                                                    data structure to maintain
-                                                    the stats for size-classes
-                                                    */
+      *_spaceSavingSizeClassesAveragePercent; /**< Internal top-k-frequent
+                                                 data structure to maintain
+                                                 the stats for size-classes
+                                                 */
   OMRSpaceSaving
       *_spaceSavingTemp; /**< A temp spaceSaving containter used for average
                             calculation */

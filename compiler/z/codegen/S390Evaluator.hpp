@@ -501,7 +501,7 @@ private:
 
   const int CLC_THRESHOLD;     ///< = 2048;
   const int CLCL_THRESHOLD;    ///< = 16777216; 2^24 is technically the maximum
-                               ///length for a CLCL
+                               /// length for a CLCL
   const int PADDING_THRESHOLD; ///< = 496;
 };
 

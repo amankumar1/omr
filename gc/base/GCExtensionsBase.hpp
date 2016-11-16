@@ -390,10 +390,9 @@ public:
                                                split array scanning work in
                                                marking scheme */
 
-  bool
-      rootScannerStatsEnabled; /**< Enable/disable recording of performance
-                                  statistics for the root scanner.  Defaults to
-                                  false. */
+  bool rootScannerStatsEnabled; /**< Enable/disable recording of performance
+                                   statistics for the root scanner.  Defaults to
+                                   false. */
 
   /* bools and counters for -Xgc:fvtest options */
   /* these are all memset to 0 in GCExtensions::newInstance */
@@ -410,19 +409,16 @@ public:
   uintptr_t fvtest_nurseryResizeCounter;
 #endif /* OMR_GC_MODRON_SCAVENGER */
 #endif /* OMR_GC_MODRON_SCAVENGER || OMR_GC_VLHGC */
-  bool
-      fvtest_alwaysApplyOverflowRounding; /**< always round down the allocated
-                                             heap as if overflow rounding were
-                                             required */
+  bool fvtest_alwaysApplyOverflowRounding; /**< always round down the allocated
+                                              heap as if overflow rounding were
+                                              required */
   uintptr_t fvtest_forceExcessiveAllocFailureAfter; /**< force excessive GC to
                                                        occur after this many
                                                        global GCs */
-  void *
-      fvtest_verifyHeapAbove; /**< if non-NULL, will force start-up failure if
-                                 any part of the heap is below this value */
-  void *
-      fvtest_verifyHeapBelow; /**< if non-NULL, will force start-up failure if
-                                 any part of the heap is above this value */
+  void *fvtest_verifyHeapAbove; /**< if non-NULL, will force start-up failure if
+                                   any part of the heap is below this value */
+  void *fvtest_verifyHeapBelow; /**< if non-NULL, will force start-up failure if
+                                   any part of the heap is above this value */
 #if defined(OMR_GC_VLHGC)
   bool
       fvtest_tarokVerifyMarkMapClosure; /**< True if the collector should verify
@@ -479,9 +475,8 @@ public:
   uintptr_t batchClearTLH;
 #endif /* OMR_GC_BATCH_CLEAR_TLH */
   omrthread_monitor_t gcStatsMutex;
-  uintptr_t
-      gcThreadCount; /**< Initial number of GC threads - chosen default or
-                        specified in java options*/
+  uintptr_t gcThreadCount; /**< Initial number of GC threads - chosen default or
+                              specified in java options*/
   bool
       gcThreadCountForced; /**< true if number of GC threads is specified in
                               java options. Currently we have a few ways to do
@@ -495,10 +490,9 @@ public:
       OMR_GC_SCAVENGER_SCANORDERING_HIERARCHICAL,
   };
   ScavengerScanOrdering
-      scavengerScanOrdering; /**< scan ordering in Scavenger */
-  bool
-      scavengerTraceHotFields; /**< whether tracing hot fields in Scavenger is
-                                  enabled */
+      scavengerScanOrdering;    /**< scan ordering in Scavenger */
+  bool scavengerTraceHotFields; /**< whether tracing hot fields in Scavenger is
+                                   enabled */
   MM_ScavengerHotFieldStats scavengerHotFieldStats; /**< hot field stats
                                                        accumulated over all GC
                                                        threads */
@@ -513,17 +507,14 @@ public:
   double scvTenureStrategySurvivalThreshold; /**< The survival threshold (from
                                                 0.0 to 1.0) used for deciding to
                                                 tenure particular ages. */
-  bool
-      scvTenureStrategyFixed; /**< Flag for enabling the Fixed scavenger tenure
-                                 strategy. */
-  bool
-      scvTenureStrategyAdaptive; /**< Flag for enabling the Adaptive scavenger
-                                    tenure strategy. */
-  bool
-      scvTenureStrategyLookback; /**< Flag for enabling the Lookback scavenger
-                                    tenure strategy. */
-  bool scvTenureStrategyHistory; /**< Flag for enabling the History scavenger
-                                    tenure strategy. */
+  bool scvTenureStrategyFixed; /**< Flag for enabling the Fixed scavenger tenure
+                                  strategy. */
+  bool scvTenureStrategyAdaptive; /**< Flag for enabling the Adaptive scavenger
+                                     tenure strategy. */
+  bool scvTenureStrategyLookback; /**< Flag for enabling the Lookback scavenger
+                                     tenure strategy. */
+  bool scvTenureStrategyHistory;  /**< Flag for enabling the History scavenger
+                                     tenure strategy. */
   bool scavengerEnabled;
   bool scavengerRsoScanUnsafe;
 #if defined(OMR_GC_CONCURRENT_SCAVENGER)
@@ -568,10 +559,9 @@ public:
   double dnssMaximumContraction;
   double dnssMinimumExpansion;
   double dnssMinimumContraction;
-  bool
-      enableSplitHeap; /**< true if we are using gencon with -Xgc:splitheap (we
-                          will fail to boostrap if we can't allocate both
-                          ranges) */
+  bool enableSplitHeap; /**< true if we are using gencon with -Xgc:splitheap (we
+                           will fail to boostrap if we can't allocate both
+                           ranges) */
 
   enum HeapInitializationSplitHeapSection{
       HEAP_INITIALIZATION_SPLIT_HEAP_UNKNOWN = 0,
@@ -598,26 +588,24 @@ public:
                              -XdisableExcessiveGC and -XenableExcessiveGC) */
   bool isRecursiveGC; /**< is the current executing gc a result of another gc
                          (ie: scavenger triggering a global collect) */
-  bool
-      didGlobalGC; /**< has a global gc occurred in the current gc (possibly as
-                      a result of a recursive gc) */
+  bool didGlobalGC; /**< has a global gc occurred in the current gc (possibly as
+                       a result of a recursive gc) */
   ExcessiveLevel excessiveGCLevel;
   float excessiveGCnewRatioWeight;
   uintptr_t excessiveGCratio;
   float excessiveGCFreeSizeRatio;
 
   MM_Heap *heap;
-  MM_HeapRegionManager *
-      heapRegionManager; /**< The heap region manager used to view the heap as
-                            regions of memory */
+  MM_HeapRegionManager
+      *heapRegionManager; /**< The heap region manager used to view the heap as
+                             regions of memory */
   MM_MemoryManager
       *memoryManager; /**< memory manager used to access to virtual memory
                          instances */
   uintptr_t aggressive;
   MM_SweepHeapSectioning
-      *
-          sweepHeapSectioning; /**< Reference to the SweepHeapSectioning to
-                                  Compact can share the backing store */
+      *sweepHeapSectioning; /**< Reference to the SweepHeapSectioning to
+                               Compact can share the backing store */
 
 #if defined(OMR_GC_MODRON_COMPACTION)
   uintptr_t compactOnGlobalGC;
@@ -685,10 +673,10 @@ public:
   UDATA fvtest_forceCardTableDecommitFailure; /**< Force failure at Card Table
                                                  decommit operation */
   UDATA
-      fvtest_forceCardTableDecommitFailureCounter; /**< Force failure at Card
-                                                      Table decommit operation
-                                                      counter */
-#endif                                             /* OMR_GC_HEAP_CARD_TABLE */
+  fvtest_forceCardTableDecommitFailureCounter; /**< Force failure at Card
+                                                  Table decommit operation
+                                                  counter */
+#endif                                         /* OMR_GC_HEAP_CARD_TABLE */
 
   MM_Dispatcher *dispatcher;
 
@@ -731,14 +719,13 @@ public:
   uintptr_t gcTrigger;        // start gc when bytes used exceeds gcTrigger
   uintptr_t gcInitialTrigger; // start gc when bytes used exceeds gcTrigger
   uintptr_t headRoom;         // at end of GC, reset gcTrigger to
-                      // OMR_MAX(gcInitialTrigger, usedMemory + headRoom)
+  // OMR_MAX(gcInitialTrigger, usedMemory + headRoom)
   bool synchronousGCOnOOM;
   bool extraYield;
   /* Global variables */
   MM_RealtimeGC *realtimeGC;
-  bool
-      fixHeapForWalk; /**< configuration flag set by command line option or GC
-                         Check onload */
+  bool fixHeapForWalk; /**< configuration flag set by command line option or GC
+                          Check onload */
   uintptr_t minArraySizeToSetAsScanned;
   uintptr_t overflowCacheCount; /**< How many entries should there be in the
                                    environments local overflow cache */
@@ -820,10 +807,9 @@ public:
   bool verboseExtensions;
   bool verboseNewFormat; /**< a flag, enabled by -XXgc:verboseNewFormat, to
                             enable the new verbose GC format */
-  bool
-      bufferedLogging; /**< Enabled by -Xgc:bufferedLogging.  Use buffered
-                          filestreams when writing logs (e.g. verbose:gc) to a
-                          file */
+  bool bufferedLogging;  /**< Enabled by -Xgc:bufferedLogging.  Use buffered
+                            filestreams when writing logs (e.g. verbose:gc) to a
+                            file */
 
   uintptr_t lowAllocationThreshold;  /**< the lower bound of the allocation
                                         threshold range */
@@ -849,19 +835,17 @@ public:
       heapInitializationFailureReason; /**< Error code provided additional
                                           information about heap initialization
                                           failure */
-  bool
-      scavengerAlignHotFields; /**< True if the scavenger is to check the hot
-                                  field description for an object in order to
-                                  better cache align it when tenuring (enabled
-                                  with the -Xgc:hotAlignment option) */
+  bool scavengerAlignHotFields; /**< True if the scavenger is to check the hot
+                                   field description for an object in order to
+                                   better cache align it when tenuring (enabled
+                                   with the -Xgc:hotAlignment option) */
   uintptr_t
-      suballocatorInitialSize; /**< the initial chunk size in bytes for the
-                                  J9Heap suballocator (enabled with the
-                                  -Xgc:suballocatorInitialSize option) */
-  uintptr_t
-      suballocatorCommitSize; /**< the commit size in bytes for the J9Heap
-                                 suballocator (enabled with the
-                                 -Xgc:suballocatorCommitSize option) */
+      suballocatorInitialSize;      /**< the initial chunk size in bytes for the
+                                       J9Heap suballocator (enabled with the
+                                       -Xgc:suballocatorInitialSize option) */
+  uintptr_t suballocatorCommitSize; /**< the commit size in bytes for the J9Heap
+                                       suballocator (enabled with the
+                                       -Xgc:suballocatorCommitSize option) */
 
 #if defined(OMR_GC_COMPRESSED_POINTERS)
   bool shouldAllowShiftingCompression; /**< temporary option to enable
@@ -899,10 +883,9 @@ public:
                                              of explicit master GC thread */
 
 #if defined(OMR_GC_VLHGC)
-  bool
-      tarokDebugEnabled; /**< True if we want to perform additional checks and
-                            freed memory poisoning which aid in debugging Tarok
-                            problems  */
+  bool tarokDebugEnabled; /**< True if we want to perform additional checks and
+                             freed memory poisoning which aid in debugging Tarok
+                             problems  */
   uintptr_t tarokGlobalMarkIncrementTimeMillis; /**< The time period in
                                                    millisecond a Global Mark
                                                    increment is allowed to run
@@ -916,21 +899,19 @@ public:
                                           thread (assignments will proceed, as a
                                           round robin, from this number).
                                           Defaults to 0 */
-  bool
-      tarokEnableScoreBasedAtomicCompact; /**< True if atomic compact does use
-                                             score based compact region
-                                             selection heuristic */
-  uintptr_t tarokIdealEdenMinimumBytes;   /**< The ideal size of the eden space,
-                                             in bytes, when the heap is at its
-                                             -Xms size */
-  uintptr_t tarokIdealEdenMaximumBytes;   /**< The ideal size of the eden space,
-                                             in bytes, when the heap is at its
-                                             -Xmx size */
-  bool
-      tarokEnableIncrementalGMP; /**< True if we want to perform GMP work as a
-                                    series of increments during the run.  (set
-                                    to false if we should rely on OOM global
-                                    collections to perform the GMP) */
+  bool tarokEnableScoreBasedAtomicCompact; /**< True if atomic compact does use
+                                              score based compact region
+                                              selection heuristic */
+  uintptr_t tarokIdealEdenMinimumBytes; /**< The ideal size of the eden space,
+                                           in bytes, when the heap is at its
+                                           -Xms size */
+  uintptr_t tarokIdealEdenMaximumBytes; /**< The ideal size of the eden space,
+                                           in bytes, when the heap is at its
+                                           -Xmx size */
+  bool tarokEnableIncrementalGMP; /**< True if we want to perform GMP work as a
+                                     series of increments during the run.  (set
+                                     to false if we should rely on OOM global
+                                     collections to perform the GMP) */
   MM_UserSpecifiedParameterUDATA
       tarokNurseryMaxAge; /**< The maximum age that a region will be before it
                              is excluded from a partial garbage collection */
@@ -945,10 +926,9 @@ public:
   uintptr_t
       tarokGMPIntermission; /** The delay between GMP cycles, specified as the
                                number of GMP increments to skip */
-  bool
-      tarokAutomaticGMPIntermission; /** Should the delay between GMP cycles be
-                                        automatic, or as specified in
-                                        tarokGMPIntermission? */
+  bool tarokAutomaticGMPIntermission; /** Should the delay between GMP cycles be
+                                         automatic, or as specified in
+                                         tarokGMPIntermission? */
   uintptr_t
       tarokRegionMaxAge; /**< Maximum age a region can be before it will no
                             longer have its age incremented after a PGC
@@ -992,9 +972,7 @@ public:
       tarokCoreSamplingPercentageBudget; /**< Percentage increase of nursery
                                             region count to use as core sampling
                                             selected regions for PGC */
-  void
-      *
-          tarokTgcSetSelectionDataTable; /**< (TGC USE ONLY!) Table containing
+  void *tarokTgcSetSelectionDataTable;   /**< (TGC USE ONLY!) Table containing
                                             all dynamic and core sampling set
                                             selection information */
   bool tarokTgcEnableRememberedSetDuplicateDetection; /** (TGC USE ONLY!) True
@@ -1010,10 +988,9 @@ public:
                                      true) and require a corresponding mark
                                      operation */
   MM_InterRegionRememberedSet
-      *
-          interRegionRememberedSet; /**< The remembered set abstraction to be
-                                       used to track inter-region references
-                                       found while processing this cycle */
+      *interRegionRememberedSet; /**< The remembered set abstraction to be
+                                    used to track inter-region references
+                                    found while processing this cycle */
   bool tarokEnableStableRegionDetection;    /**< Enable overflowing RSCSLs for
                                                stable regions */
   double tarokDefragmentEmptinessThreshold; /**< Emptiness
@@ -1042,18 +1019,16 @@ public:
                                     accomplish work concurrently, where
                                     possible.  False implies GMP work will only
                                     be done in the stop-the-world increments */
-  MM_CompactGroupPersistentStats *
-      compactGroupPersistentStats; /**< The global persistent stats indexed by
-                                      compact group number */
+  MM_CompactGroupPersistentStats
+      *compactGroupPersistentStats; /**< The global persistent stats indexed by
+                                       compact group number */
   MM_ClassLoaderRememberedSet
-      *
-          classLoaderRememberedSet; /**< The remembered set abstraction to be
-                                       used to track references from instances
-                                       to the class loaders containing their
-                                       defining class */
-  bool
-      tarokEnableIncrementalClassGC; /**< Enable class unloading during partial
-                                        garbage collection increments */
+      *classLoaderRememberedSet;      /**< The remembered set abstraction to be
+                                         used to track references from instances
+                                         to the class loaders containing their
+                                         defining class */
+  bool tarokEnableIncrementalClassGC; /**< Enable class unloading during partial
+                                         garbage collection increments */
   bool tarokEnableCompressedCardTable; /**< Enable usage of Compressed Card
                                           Table (Summary) */
   MM_CompressedCardTable
@@ -1061,12 +1036,11 @@ public:
   bool tarokEnableLeafFirstCopying; /**< Enable copying of leaf children
                                        immediately after parent is copied in
                                        CopyForwardScheme */
-  bool
-      tarokUseDepthFirstCopyForward; /**< True if we should use
-                                        CopyForwardSchemeDepthFirst instead of
-                                        the breadth-first version. */
-  uint64_t tarokMaximumAgeInBytes;   /**< Maximum age in bytes for
-                                        bytes-based-allocated aging system */
+  bool tarokUseDepthFirstCopyForward; /**< True if we should use
+                                         CopyForwardSchemeDepthFirst instead of
+                                         the breadth-first version. */
+  uint64_t tarokMaximumAgeInBytes;    /**< Maximum age in bytes for
+                                         bytes-based-allocated aging system */
   uint64_t
       tarokMaximumNurseryAgeInBytes; /**< Maximum Nursery Age in bytes for
                                         bytes-based-allocated aging system */
@@ -1089,22 +1063,22 @@ public:
                                          This avoids the low-scan-rate -> low
                                          GMP work target -> low scan-rate
                                          feedback loop. */
-  double tarokConcurrentMarkingCostWeight;         /**< How much we weigh
-                                                      concurrentMarking into our GMP
-                                                      scan time cost calculations */
-  bool tarokAutomaticDefragmentEmptinessThreshold; /**< Whether we should use
-                                                      the automatically derived
-                                                      value for
-                                                      tarokDefragmentEmptinessThreshold
-                                                      or not */
-#endif                                             /* defined (OMR_GC_VLHGC) */
+  double tarokConcurrentMarkingCostWeight; /**< How much we weigh
+                                              concurrentMarking into our GMP
+                                              scan time cost calculations */
+  bool
+      tarokAutomaticDefragmentEmptinessThreshold; /**< Whether we should use
+                                                     the automatically derived
+                                                     value for
+                                                     tarokDefragmentEmptinessThreshold
+                                                     or not */
+#endif                                            /* defined (OMR_GC_VLHGC) */
 
   /* OMR_GC_VLHGC (in for all -- see 82589) */
-  bool
-      tarokEnableExpensiveAssertions; /**< True if the collector should perform
-                                         extra consistency verifications which
-                                         are known to be very expensive or
-                                         poorly parallelized */
+  bool tarokEnableExpensiveAssertions; /**< True if the collector should perform
+                                          extra consistency verifications which
+                                          are known to be very expensive or
+                                          poorly parallelized */
   /* OMR_GC_VLHGC (in for all) */
 
   MM_SweepPoolManagerAddressOrderedList

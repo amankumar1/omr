@@ -306,9 +306,11 @@ uintptr_t omrsysinfo_get_euid(struct OMRPortLibrary *portLibrary) { return 0; }
  * @param[in] portLibrary The port library
  * @param[out] gidList On return points to list of supplementary group IDs.
  * Caller passes a pointer to uint32_t*.
- * 					   On success this function allocates a new array
+ * 					   On success this function allocates a new
+ * array
  * and assigns it to *gidList.
- * 					   Caller is expected to free the array using
+ * 					   Caller is expected to free the array
+ * using
  * omrmem_free_memory().
  * 					   On error *gidList is set to NULL.
  * @param[categoryCode] Memory allocation category code
@@ -526,9 +528,11 @@ intptr_t omrsysinfo_get_CPU_utilization(struct OMRPortLibrary *portLibrary,
  * @return
  * 			- 0 on success
  * 			- negative portable error code on failure :
- *				\arg OMRPORT_ERROR_NOT_SUPPORTED_ON_THIS_PLATFORM if
+ *				\arg OMRPORT_ERROR_NOT_SUPPORTED_ON_THIS_PLATFORM
+ *if
  *the platform does not support the iterator
- *				\arg OMRPORT_ERROR_SYSINFO_OPFAILED for any other
+ *				\arg OMRPORT_ERROR_SYSINFO_OPFAILED for any
+ *other
  *failure
 */
 int32_t omrsysinfo_limit_iterator_init(struct OMRPortLibrary *portLibrary,
@@ -563,7 +567,8 @@ omrsysinfo_limit_iterator_hasNext(struct OMRPortLibrary *portLibrary,
  * omrsysinfo_limit_iterator_init()
  * @param[out] limitElement callerAllocated structure is filled out with limit
  * information by this function.
- * 					- the resourceName will always be valid, however the
+ * 					- the resourceName will always be valid, however
+ * the
  * value is undefined on failure.
  *
  * @return 	0 if another element has been returned, otherwise portable error
@@ -588,7 +593,8 @@ omrsysinfo_limit_iterator_next(struct OMRPortLibrary *portLibrary,
  * @param[in] 	portLibrary The port library
  * @param[in]	buffer 		caller-allocated buffer that stores the
  *environment variables and values.
- *									- This can be freed by
+ *									- This can be freed
+ *by
  *the caller once the iterator is no longer needed.
  * @param[in]	bufferSizeBytes	size of @ref buffer.
  * @param[out] 	state 		Contains state information for the
@@ -606,9 +612,11 @@ omrsysinfo_limit_iterator_next(struct OMRPortLibrary *portLibrary,
  * 		- if @ref buffer is NULL, the required size of the buffer is
  *returned.
  * 		- negative portable error code on failure:
- *			\arg OMRPORT_ERROR_SYSINFO_ENV_INIT_CRASHED_COPYING_BUFFER
+ *			\arg
+ *OMRPORT_ERROR_SYSINFO_ENV_INIT_CRASHED_COPYING_BUFFER
  *if the environment changed while it was being copied.
- *				- The caller can re-attempt initialization if this
+ *				- The caller can re-attempt initialization if
+ *this
  *occurs.
  *			\arg OMRPORT_ERROR_NOT_SUPPORTED_ON_THIS_PLATFORM if the
  *iterator is not supported on this platform
@@ -649,7 +657,8 @@ omrsysinfo_env_iterator_hasNext(struct OMRPortLibrary *portLibrary,
  * omrsysinfo_env_iterator_init()
  * @param[out] envElement caller-allocated structure contains name and value of
  * environment variable on success.
- * 					- @ref nameAndValue field of @ref envElement points
+ * 					- @ref nameAndValue field of @ref envElement
+ * points
  * into the @ref buffer field of @ref state
  * 					- values of the fields are undefined if
  * OMRPORT_SYSINFO_ITERATOR_END is returned.

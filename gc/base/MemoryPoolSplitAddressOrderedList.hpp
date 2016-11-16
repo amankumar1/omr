@@ -54,9 +54,8 @@ private:
                                        only once in first pass iterating after
                                        sweep, used/updated only in second pass
                                        */
-  bool
-      _reservedFreeEntryAvaliable; /**< True if the reserved Free Entry can be
-                                      used */
+  bool _reservedFreeEntryAvaliable; /**< True if the reserved Free Entry can be
+                                       used */
 protected:
 public:
   /*

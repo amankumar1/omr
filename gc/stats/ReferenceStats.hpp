@@ -25,9 +25,8 @@ public:
                             transitioned and possibly enqueued */
   uintptr_t _cleared;    /**< reference objects that are being transitioned into
                             the cleared state */
-  uintptr_t
-      _enqueued; /**< reference objects that are being enqueued onto their
-                    associated reference queue */
+  uintptr_t _enqueued; /**< reference objects that are being enqueued onto their
+                          associated reference queue */
 
 public:
   /**

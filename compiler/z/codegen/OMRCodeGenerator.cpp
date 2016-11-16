@@ -8198,10 +8198,9 @@ TR::S390ConstantDataSnippet *OMR::Z::CodeGenerator::getFirstConstantData() {
     int32_t size = 1 << exp;
     for (auto writeableiterator = _writableList.begin();
          writeableiterator != _writableList.end(); ++writeableiterator) {
-      if (HANDLE_CONSTANT_SNIPPET(
-              (*writeableiterator), false,
-              size)) // false matches case where
-                     // !(*writeableiterator)->isWarmSnippet()
+      if (HANDLE_CONSTANT_SNIPPET((*writeableiterator), false,
+                                  size)) // false matches case where
+      // !(*writeableiterator)->isWarmSnippet()
       {
         return *writeableiterator;
       }

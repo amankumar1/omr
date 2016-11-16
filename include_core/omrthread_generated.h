@@ -269,9 +269,10 @@ typedef struct J9AbstractThread { J9_ABSTRACT_THREAD_FIELDS } J9AbstractThread;
 
 /* return values from omrthread_get_stack_range() */
 #define J9THREAD_ERR_INVALID_THREAD 16 /* Invalid thread argument */
-#define J9THREAD_ERR_GETATTR_NP 17 /* Error retrieving attribute from thread   \
-                                      */
-#define J9THREAD_ERR_GETSTACK 18   /* pthread_attr_getstack() failed */
+#define J9THREAD_ERR_GETATTR_NP                                                \
+  17                             /* Error retrieving attribute from thread     \
+                                    */
+#define J9THREAD_ERR_GETSTACK 18 /* pthread_attr_getstack() failed */
 #define J9THREAD_ERR_UNSUPPORTED_PLAT 19 /* unsupported platform */
 
 /* return values from omrthread_get_jvm_cpu_usage_info() */

@@ -1009,7 +1009,7 @@ TR::Register *TR_S390zOSSystemLinkage::callNativeFunction(
       returnRegister->setIs64BitReg(
           true); // in 64bit target, force return 64bit address register,
     } // until it's known that dispatch functions can return non-64bit
-      // addresses.
+    // addresses.
     break;
   case TR::icall:
   case TR::iucall:

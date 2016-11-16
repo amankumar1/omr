@@ -78,7 +78,8 @@ void MM_WorkPacketOverflow::handleOverflow(MM_EnvironmentBase *env) {
 
 bool MM_WorkPacketOverflow::isEmpty() { return true; }
 
-void MM_WorkPacketOverflow::reset(MM_EnvironmentBase *env) { /* Do nothing */ }
+void MM_WorkPacketOverflow::reset(MM_EnvironmentBase *env) { /* Do nothing */
+}
 
 void MM_WorkPacketOverflow::emptyToOverflow(MM_EnvironmentBase *env,
                                             MM_Packet *packet,

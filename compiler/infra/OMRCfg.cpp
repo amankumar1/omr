@@ -202,7 +202,7 @@ void OMR::CFG::addExceptionEdge(TR::CFGNode *f, TR::CFGNode *t,
     // block if the existing one catches everything that the new one catches.
     //
     /////void * newEC = newCatchBlock->getExceptionClass(), * existingEC =
-    ///existingCatchBlock->getExceptionClass();
+    /// existingCatchBlock->getExceptionClass();
 
     if (existingCatchBlock->getCatchType() == 0 ||
         /////(newEC && existingEC && isInstanceOf(newEC, existingEC)) ||
@@ -2679,7 +2679,7 @@ void OMR::CFG::getBranchCounters(TR::Node *node, TR::Block *block,
 
     *taken =
         branchToFrequency; //(branchToFrequency*blockFreq)/(branchToFrequency +
-                           //fallThroughFrequency);
+                           // fallThroughFrequency);
     *notTaken =
         fallThroughFrequency; //(fallThroughFrequency*blockFreq)/(branchToFrequency
                               //+ fallThroughFrequency);
@@ -2733,7 +2733,7 @@ void OMR::CFG::getBranchCounters(TR::Node *node, TR::Block *block,
     *notTaken =
         fallThroughBlock
             ->getFrequency(); //(fallThroughBlock->getFrequency()*blockFreq)/(branchToBlock->getFrequency()
-                              //+ fallThroughBlock->getFrequency());
+    //+ fallThroughBlock->getFrequency());
 
     if (*taken > _max_edge_freq)
       *taken = _max_edge_freq;

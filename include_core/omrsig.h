@@ -107,7 +107,8 @@ _CRTIMP void(__cdecl *__cdecl signal(_In_ int _SigNum,
  * @param[out] oldact Previously registered signal handler struct
  * @return an int error code
  *		0 on success
- *		-1 on failure, with errno set to EINVAL if the sig argument is not
+ *		-1 on failure, with errno set to EINVAL if the sig argument is
+ *not
  *a valid signal number or an attempt is made to catch a signal that cannot be
  *caught or ignore a signal that cannot be ignored.
  */

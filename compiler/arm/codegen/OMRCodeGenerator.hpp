@@ -239,7 +239,9 @@ public:
                                                 bool isByteTarget) {
     return 8;
   } // FIXME
-  int32_t arrayTranslateAndTestMinimumNumberOfIterations() { return 8; } // FIXME
+  int32_t arrayTranslateAndTestMinimumNumberOfIterations() {
+    return 8;
+  } // FIXME
 
 private:
   enum // flags

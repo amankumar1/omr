@@ -511,7 +511,7 @@ int atoe_vsnprintf(char *str, size_t count, const char *fmt, va_list args) {
       case 'X':
         if (long_long_flag) { /*ibm@9094*/
           signed long long value64 = va_arg(args, signed long long);
-              /*ibm@9094*/ /* j9@72429 */
+          /*ibm@9094*/ /* j9@72429 */
 
           CheckRet(flongnumber(&this, value64, ch, left_justify, /*ibm@9094*/
                                min_width, precision, zero_pad)); /*ibm@9094*/

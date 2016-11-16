@@ -120,15 +120,18 @@ public:
    *
    * @param[in] 	utf8Path			the string to be
    * converted
-   * @param[out]	unicodeBuffer		buffer to hold the unicode representation
+   * @param[out]	unicodeBuffer		buffer to hold the unicode
+   * representation
    * of @ref utf8Path
    * @param[in]	unicodeBufferSize	size of @ref unicodeBuffer.
    *
    * @return 		NULL on failure
    * 			 	otherwise the converted string.
-   * 					If the return value is not the same as @ref unicodeBuffer,
+   * 					If the return value is not the same as @ref
+   * unicodeBuffer,
    * file_get_unicode_path had to allocate memory to hold the
-   * 					unicode path - the caller is responsible for freeing this
+   * 					unicode path - the caller is responsible for freeing
+   * this
    * memory by calling @ref omrmem_free on the returned value.
    */
   static wchar_t *file_get_unicode_path(const char *utf8Path,

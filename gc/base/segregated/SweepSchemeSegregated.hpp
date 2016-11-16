@@ -48,9 +48,8 @@ protected:
 
 private:
   bool _isFixHeapForWalk;
-  bool
-      _clearMarkMapAfterSweep; /**< If a region should be unmarked after it is
-                                  swept */
+  bool _clearMarkMapAfterSweep; /**< If a region should be unmarked after it is
+                                   swept */
 
   /*
    * Function members

@@ -1613,7 +1613,8 @@ static uintptr_t sigqueue_is_reliable(void) {
  *
  * @param heap used to contain the thread context, the stack frame
  *representations and symbol strings. No
- * 			memory is allocated outside of the heap provided. Must not
+ * 			memory is allocated outside of the heap provided. Must
+ *not
  *be NULL.
  * @param state semi-opaque structure used as a cursor for iteration. Must not
  *be NULL User visible fields

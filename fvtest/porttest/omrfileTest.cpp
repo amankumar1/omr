@@ -2031,7 +2031,7 @@ TEST_F(PortFileTest2, file_test14) {
   char search[128];
   /*int32_t count=0;
 	int32_t expectedCount=3;*/ /* dont forget that the tdirTest14a inside tdirTest14b also
-                        counts for the search */
+          counts for the search */
   /*int32_t fileCount=0;
   int32_t expectedFileCount=2;
   int32_t dirCount=0;

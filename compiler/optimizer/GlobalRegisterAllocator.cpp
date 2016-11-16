@@ -2102,8 +2102,8 @@ void TR_GlobalRegisterAllocator::prepareForBlockExit(
       currCandidateAlreadySeen = true; // only true for longs
 
     /////dumpOptDetails(comp(), "i == %d extgr->getValue %x
-    ///autoContainsRegisterValue %d\n", i, extgr->getValue(),
-    ///extgr->getAutoContainsRegisterValue());
+    /// autoContainsRegisterValue %d\n", i, extgr->getValue(),
+    /// extgr->getAutoContainsRegisterValue());
     //
     // handle end of live range
     //
@@ -2164,8 +2164,8 @@ void TR_GlobalRegisterAllocator::prepareForBlockExit(
         successorBlock->getGlobalRegisters(comp())[i]
             .getRegisterCandidateOnEntry();
     /////dumpOptDetails(comp(), "i = %d successorRC %x regDepNodes %x
-    ///autoContainsRegisterValue %d\n", i, successorRC, regDepNodes[i],
-    ///extgr->getAutoContainsRegisterValue());
+    /// autoContainsRegisterValue %d\n", i, successorRC, regDepNodes[i],
+    /// extgr->getAutoContainsRegisterValue());
     // traceMsg(comp(), "exit node %p succ RC %p reg dep nodes %p\n", exitNode,
     // successorRC, regDepNodes[i]);
     if (successorRC && !regDepNodes[i] &&
@@ -2305,7 +2305,7 @@ void TR_GlobalRegisterAllocator::prepareForBlockExit(
 
       regDepNodes[i] = value;
       /////dumpOptDetails(comp(), "exitNode %x i = %d value %x\n", exitNode, i,
-      ///value);
+      /// value);
       extgr->setLastRefTreeTop(exitTreeTop);
     }
   }
@@ -2562,7 +2562,7 @@ bool TR_GlobalRegisterAllocator::registerIsLiveAcrossEdge(
         rc);
     rc->setExtendedLiveRange(true);
     /////dumpOptDetails(comp(), "i = %d successorRC %x\n", i,
-    ///successorBlock->getGlobalRegisters(comp())[i].getRegisterCandidateOnEntry());
+    /// successorBlock->getGlobalRegisters(comp())[i].getRegisterCandidateOnEntry());
     if (needs2Regs) {
       int32_t highRegNum = rc->getHighGlobalRegisterNumber();
       if (i == highRegNum) {
@@ -2577,15 +2577,15 @@ bool TR_GlobalRegisterAllocator::registerIsLiveAcrossEdge(
               rc->getSymbolReference()->getReferenceNumber(), lowRegNum,
               successorBlock->getNumber());
         /////dumpOptDetails(comp(), "lowRegNum = %d successorRC %x\n",
-        ///lowRegNum,
-        ///successorBlock->getGlobalRegisters(comp())[lowRegNum].getRegisterCandidateOnEntry());
+        /// lowRegNum,
+        /// successorBlock->getGlobalRegisters(comp())[lowRegNum].getRegisterCandidateOnEntry());
       } else {
         successorBlock->getGlobalRegisters(comp())[highRegNum]
             .setRegisterCandidateOnEntry(rc);
         rc->setExtendedLiveRange(true);
         //////dumpOptDetails(comp(), "highRegNum = %d successorRC %x\n",
-        ///highRegNum,
-        ///successorBlock->getGlobalRegisters(comp())[highRegNum].getRegisterCandidateOnEntry());
+        /// highRegNum,
+        /// successorBlock->getGlobalRegisters(comp())[highRegNum].getRegisterCandidateOnEntry());
         if (trace())
           traceMsg(
               comp(),
@@ -5504,8 +5504,8 @@ void TR_LiveRangeSplitter::splitLiveRanges(
                   correspondingSymRefCandidate->_symRef;
               //////printf("Splitting sym ref %d with new sym ref %d in method
               ///%s\n", symRef->getReferenceNumber(),
-              ///correspondingSymRef->getReferenceNumber(),
-              ///comp()->signature()); fflush(stdout);
+              /// correspondingSymRef->getReferenceNumber(),
+              /// comp()->signature()); fflush(stdout);
               fixExitsAfterSplit(
                   symRef, correspondingSymRefCandidate, correspondingSymRefs,
                   loopInvariantBlock, &blocksInLoop,

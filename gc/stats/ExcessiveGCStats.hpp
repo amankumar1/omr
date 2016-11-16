@@ -53,12 +53,11 @@ public:
       freeMemorySizeAfter; /**< The amount of free memory after the last GC */
   float newGCToUserTimeRatio; /**< Time spent in GC version vs. time in user
                                  code */
-  float
-      avgGCToUserTimeRatio; /**< Weighted average of time spent in GC version
-                               vs. time in user code */
-  uint64_t totalGCTime;     /**< Time (in microseconds) of all the GCs since the
-                               last global GC.  This includes all the local GCs (ie:
-                               new space scavenges) and the current global GC */
+  float avgGCToUserTimeRatio; /**< Weighted average of time spent in GC version
+                                 vs. time in user code */
+  uint64_t totalGCTime; /**< Time (in microseconds) of all the GCs since the
+                           last global GC.  This includes all the local GCs (ie:
+                           new space scavenges) and the current global GC */
   uint64_t
       lastEndGlobalGCTimeStamp; /**< Raw timestamp (no units) of the end of the
                                    last global GC */

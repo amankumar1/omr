@@ -248,11 +248,11 @@ protected:
   uintptr_t *_currentThreadFreeList;
   J9ModronFreeList *_heapFreeLists;
 
-  MM_LargeObjectAllocateStats *
-      _largeObjectAllocateStatsForFreeList; /**< Approximate allocation profile
-                                               for large objects. An array of
-                                               stat structs for each free list
-                                               */
+  MM_LargeObjectAllocateStats
+      *_largeObjectAllocateStatsForFreeList; /**< Approximate allocation profile
+                                                for large objects. An array of
+                                                stat structs for each free list
+                                                */
   MM_LargeObjectAllocateStats *
       _largeObjectCollectorAllocateStatsForFreeList; /**< Same as
                                                         _largeObjectAllocateStatsForFreeList
@@ -295,9 +295,11 @@ protected:
    * set Next of the freeEntry with new freeEntry pointer
    *
    * @param[in]	freelist
-   * @param[in] 	freeEntry if freeEntry is NULL, set head of freelist with new
+   * @param[in] 	freeEntry if freeEntry is NULL, set head of freelist with
+   * new
    * freeEntry pointer
-   * @param[in] 	next	the new freeEntry pointer, if it is NULL, reset Next
+   * @param[in] 	next	the new freeEntry pointer, if it is NULL, reset
+   * Next
    * of freeEntry
    */
   MMINLINE void

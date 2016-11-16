@@ -365,8 +365,7 @@ uintptr_t omrintrospect_backtrace_thread_raw(struct OMRPortLibrary *portLibrary,
           process, thread, &stackFrame,
           &threadContext, /* thread context not needed for x86, however is
                              required for AMD64 */
-          NULL,
-          PPG_dbgHlpLibraryFunctions->SymFunctionTableAccess64,
+          NULL, PPG_dbgHlpLibraryFunctions->SymFunctionTableAccess64,
           PPG_dbgHlpLibraryFunctions->SymGetModuleBase64, NULL);
 
       if (rc == 0) {

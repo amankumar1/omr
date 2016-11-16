@@ -173,7 +173,7 @@ TR_LocalAnalysisInfo::TR_LocalAnalysisInfo(TR::Compilation *c, bool t)
   // and jitStackRelease.
   //
   //_blocksInfo = (TR::Block **)
-  //trMemory()->allocateStackMemory(_numBlocks*sizeof(TR::Block *));
+  // trMemory()->allocateStackMemory(_numBlocks*sizeof(TR::Block *));
   // memset(_blocksInfo, 0, _numBlocks*sizeof(TR::Block *));
 
   TR::TreeTop *currentTree = comp()->getStartTree();

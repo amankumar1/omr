@@ -625,9 +625,9 @@ FirstOMROp,
     monexit,    // release lock for synchronising method
     monexitfence, // denotes the end of a monitored region solely for live
                   // monitor meta data
-    tstart,  // transaction begin
-    tfinish, // transaction end
-    tabort,  // transaction abort
+    tstart,       // transaction begin
+    tfinish,      // transaction end
+    tabort,       // transaction abort
     instanceof
     ,          // instanceof - symref is the class object, cp index is in the
                // "int" field, child is the object reference

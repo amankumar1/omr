@@ -35,10 +35,10 @@ typedef struct SegregatedAllocationCacheStats {
                                   1]; /**< The total count of cells
                                          pre-allocated since the cache has
                                          existed (per size class). */
-  uint64_t replenishesTotal
-      [OMR_SIZECLASSES_NUM_SMALL + 1]; /**< The amount of times the cache has
-                                          been replenished since the cache has
-                                          existed (per size class). */
+  uint64_t replenishesTotal[OMR_SIZECLASSES_NUM_SMALL +
+                            1]; /**< The amount of times the cache has
+                                   been replenished since the cache has
+                                   existed (per size class). */
   uint64_t bytesPreAllocatedSinceRestart[OMR_SIZECLASSES_NUM_SMALL +
                                          1]; /**< The count of cells
                                                 pre-allocated since the cache
@@ -65,17 +65,17 @@ private:
   SegregatedAllocationCacheStats _allocationCacheStats; /**< Contains stats
                                                            about the past
                                                            pre-allocations. */
-  MM_SizeClasses *
-      _sizeClasses; /**< The size classes used to map byte sizes to size class
-                       indexes. */
+  MM_SizeClasses
+      *_sizeClasses; /**< The size classes used to map byte sizes to size class
+                        indexes. */
 
   bool _cachedAllocationsEnabled; /**< Are cached allocations enabled? */
 
-  uintptr_t *
-      _allocationCacheBases[OMR_SIZECLASSES_NUM_SMALL + 1]; /**< The Base of
-                                                               each current
-                                                               cache (per size
-                                                               class). */
+  uintptr_t
+      *_allocationCacheBases[OMR_SIZECLASSES_NUM_SMALL + 1]; /**< The Base of
+                                                                each current
+                                                                cache (per size
+                                                                class). */
 
   /*
    * Function members

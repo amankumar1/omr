@@ -19,11 +19,11 @@
 #ifndef ARMOPERAND2_INCL
 #define ARMOPERAND2_INCL
 
-#include "env/TRMemory.hpp""
 #include "codegen/Instruction.hpp"
+#include "env/TRMemory.hpp" "
 
 namespace TR {
-   class Register;
+class Register;
 }
 
 typedef enum {

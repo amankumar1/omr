@@ -72,9 +72,8 @@ protected:
 public:
   MM_CopyScanCache *next;
   uintptr_t flags;
-  bool
-      _hasPartiallyScannedObject; /**< whether the current object been scanned
-                                     is partially scanned */
+  bool _hasPartiallyScannedObject; /**< whether the current object been scanned
+                                      is partially scanned */
   void *cacheBase;
   void *cacheTop;
   void *cacheAlloc;

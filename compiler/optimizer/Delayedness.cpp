@@ -112,10 +112,10 @@ void TR_Delayedness::analyzeTreeTopsInBlockStructure(
     TR_BlockStructure *blockStructure) {
   if (trace()) {
     /////traceMsg(comp(), "\ncurrentInSetInfo when entering Block : %d\n",
-    ///blockStructure->getNumber());
+    /// blockStructure->getNumber());
     /////_currentInSetInfo->print(_compilation);
     /////traceMsg(comp(), "\nOut Set of Block : %d\n",
-    ///blockStructure->getNumber());
+    /// blockStructure->getNumber());
     /////_blockAnalysisInfo[blockStructure->getNumber()]->print(_compilation->getOutFile());
   }
 
@@ -141,10 +141,10 @@ void TR_Delayedness::analyzeTreeTopsInBlockStructure(
 
   if (trace()) {
     /////traceMsg(comp(), "\nIn Set of Block : %d\n",
-    ///blockStructure->getNumber());
+    /// blockStructure->getNumber());
     /////_inSetInfo[blockStructure->getNumber()]->print(_compilation->getOutFile());
     /////traceMsg(comp(), "\nOut Set of Block : %d\n",
-    ///blockStructure->getNumber());
+    /// blockStructure->getNumber());
     /////_blockAnalysisInfo[blockStructure->getNumber()]->print(_compilation->getOutFile());
   }
 

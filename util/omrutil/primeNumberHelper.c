@@ -46,13 +46,16 @@
  * Lets take numbers between 0 to 40. Delete the numbers that are multiples of 2
  *and 3.
  *
- * index			0 - 1 - 2 - 3 - 4  -  5  - 6 - 7  -  8 -  9 - 10 - 11
+ * index			0 - 1 - 2 - 3 - 4  -  5  - 6 - 7  -  8 -  9 - 10 -
+ *11
  *- 12 - 13
  *
- *					0 - 1 - 5 - 7 - 11 - 13 - 17 - 19 - 23 - 25 - 29
+ *					0 - 1 - 5 - 7 - 11 - 13 - 17 - 19 - 23 - 25 -
+ *29
  *- 31 - 35 - 37    (These are the numbers which are not multiples of 2 or 3)
  *
- * primeBitsArray	0 - 0 - 1 - 1 - 1  -  1  - 1 - 1  - 1  -  0 - 1  - 1  - 0
+ * primeBitsArray	0 - 0 - 1 - 1 - 1  -  1  - 1 - 1  - 1  -  0 - 1  - 1  -
+ *0
  *- 1
  *
  * Integer value of very 32 bits set is the entry of the primeBitsArray.
@@ -410,9 +413,11 @@ static BOOLEAN isPrimeBitSet(uintptr_t primeBitsArrayBitIndex) {
  * less than or equal to
  * @return 	0 If smaller prime can not be found. It is the case if user
  * passes 0 or 1.
- * 			PRIMENUMBERHELPER_OUTOFRANGE If the given number is not in the
+ * 			PRIMENUMBERHELPER_OUTOFRANGE If the given number is not in
+ * the
  * supported range of primeBitsArray.
- * 			Otherwise, the largest prime number smaller than or equal to
+ * 			Otherwise, the largest prime number smaller than or equal
+ * to
  * the given number.
  */
 

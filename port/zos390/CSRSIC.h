@@ -146,14 +146,14 @@ struct CSRSI_CVT *CSRSI_cvt;
 /*********************************************************************/
 
 typedef struct ? ? < unsigned char _filler1 ? ? (32 ? ?); /* Reserved @H1A*/
-unsigned char si11v1cpcmanufacturer ? ? (16 ? ?); /*
-                                         The 16-character (0-9
-                                         or uppercase A-Z) EBCDIC name
-                                         of the manufacturer of the V1
-                                         CPC. The name is
-                                         left-justified with trailing
-                                         blank characters if necessary.
-                                                                   @H1A*/
+unsigned char si11v1cpcmanufacturer ? ? (16 ? ?);         /*
+                                                 The 16-character (0-9
+                                                 or uppercase A-Z) EBCDIC name
+                                                 of the manufacturer of the V1
+                                                 CPC. The name is
+                                                 left-justified with trailing
+                                                 blank characters if necessary.
+                                                                           @H1A*/
 unsigned char si11v1cpctype ? ? (4 ? ?); /* The 4-character (0-9) EBCDIC
                                          type identifier of the V1 CPC.
                                                                    @H1A*/
@@ -379,15 +379,15 @@ unsigned char _filler2 ? ? (4050 ? ?);
 /*********************************************************************/
 
 typedef struct ? ? < unsigned char _filler1 ? ? (32 ? ?); /* Reserved @H1A*/
-uint32_t si22v2cpcnumber : 16; /* A 2-byte
-                   unsigned integer
-                   which is the number of
-                   this V2 CPC. This number
-                   distinguishes this V2 CPC from
-                   all other V2 CPCs provided by
-                   the same logical-partition
-                   hypervisor                @H1A*/
-unsigned char _filler2;        /* Reserved                  @H1A*/
+uint32_t si22v2cpcnumber : 16;                            /* A 2-byte
+                                              unsigned integer
+                                              which is the number of
+                                              this V2 CPC. This number
+                                              distinguishes this V2 CPC from
+                                              all other V2 CPCs provided by
+                                              the same logical-partition
+                                              hypervisor                @H1A*/
+unsigned char _filler2; /* Reserved                  @H1A*/
 struct ? ? < uint32_t _si22v2lcpudedicated : 1; /*
                                     When one, indicates that
                                     one or more of the logical
@@ -548,63 +548,63 @@ unsigned char _filler5 ? ? (4020 ? ?);  /* Reserved                 @H1A*/
 /*********************************************************************/
 
 typedef struct ? ? < unsigned char _filler1 ? ? (4 ? ?); /* Reserved @H1A*/
-uint32_t si22v3dbtotallcpucount : 16;      /*
-                             A 2-byte unsigned
-                             binary integer that specifies
-                             the total number of logical
-                             CPUs that are provided for
-                             this V3 CPC. This number
-                             includes all of the logical
-                             CPUs that are in the
-                             configured state, the standby
-                             state, and the reserved state.
-                                                       @H1A*/
-uint32_t si22v3dbconfiguredlcpucount : 16; /*
-                             A 2-byte unsigned
-                             binary integer that specifies
-                             the number of logical CPUs for
-                             this V3 CPC that are in the
-                             configured state. A logical
-                             CPU is in the configured state
-                             when it is described in the
-                             V3-CPC configuration
-                             definition and is available to
-                             be used to execute programs.
-                                                       @H1A*/
-uint32_t si22v3dbstandbylcpucount : 16;    /*
-                             A 2-byte unsigned
-                             binary integer that specifies
-                             the number of logical CPUs for
-                             this V3 CPC that are in the
-                             standby state. A logical CPU
-                             is in the standby state when
-                             it is described in the V3-CPC
-                             configuration definition, is
-                             not available to be used to
-                             execute programs, but can be
-                             used to execute programs by
-                             issuing instructions to place
-                             it in the configured state.
-                                                       @H1A*/
-uint32_t si22v3dbreservedlcpucount : 16;   /*
-                             A 2-byte unsigned
-                             binary integer that specifies
-                             the number of logical CPUs for
-                             this V3 CPC that are in the
-                             reserved state. A logical CPU
-                             is in the reserved state when
-                             it is described in the V2-CPC
-                             configuration definition, is
-                             not available to be used to
-                             execute programs, and cannot
-                             be made available to be used
-                             to execute programs by issuing
-                             instructions to place it in
-                             the configured state, but it
-                             may be possible to place it in
-                             the standby or configured
-                             state through manually
-                             initiated actions         @H1A*/
+uint32_t si22v3dbtotallcpucount : 16;                    /*
+                                           A 2-byte unsigned
+                                           binary integer that specifies
+                                           the total number of logical
+                                           CPUs that are provided for
+                                           this V3 CPC. This number
+                                           includes all of the logical
+                                           CPUs that are in the
+                                           configured state, the standby
+                                           state, and the reserved state.
+                                                                     @H1A*/
+uint32_t si22v3dbconfiguredlcpucount : 16;               /*
+                                           A 2-byte unsigned
+                                           binary integer that specifies
+                                           the number of logical CPUs for
+                                           this V3 CPC that are in the
+                                           configured state. A logical
+                                           CPU is in the configured state
+                                           when it is described in the
+                                           V3-CPC configuration
+                                           definition and is available to
+                                           be used to execute programs.
+                                                                     @H1A*/
+uint32_t si22v3dbstandbylcpucount : 16;                  /*
+                                           A 2-byte unsigned
+                                           binary integer that specifies
+                                           the number of logical CPUs for
+                                           this V3 CPC that are in the
+                                           standby state. A logical CPU
+                                           is in the standby state when
+                                           it is described in the V3-CPC
+                                           configuration definition, is
+                                           not available to be used to
+                                           execute programs, but can be
+                                           used to execute programs by
+                                           issuing instructions to place
+                                           it in the configured state.
+                                                                     @H1A*/
+uint32_t si22v3dbreservedlcpucount : 16;                 /*
+                                           A 2-byte unsigned
+                                           binary integer that specifies
+                                           the number of logical CPUs for
+                                           this V3 CPC that are in the
+                                           reserved state. A logical CPU
+                                           is in the reserved state when
+                                           it is described in the V2-CPC
+                                           configuration definition, is
+                                           not available to be used to
+                                           execute programs, and cannot
+                                           be made available to be used
+                                           to execute programs by issuing
+                                           instructions to place it in
+                                           the configured state, but it
+                                           may be possible to place it in
+                                           the standby or configured
+                                           state through manually
+                                           initiated actions         @H1A*/
 unsigned char si22v3dbcpcname ? ? (8 ? ?); /* The 8-character EBCDIC name
                                          of this V3 CPC. The name is
                                          left-justified with trailing

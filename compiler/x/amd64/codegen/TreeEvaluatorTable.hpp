@@ -368,7 +368,7 @@ TR::TreeEvaluator::badILOpEvaluator,                // TR::BadILOp
     TR::TreeEvaluator::integerRegLoadEvaluator,         // TR::iRegLoad
     TR::TreeEvaluator::aRegLoadEvaluator,               // TR::aRegLoad
     TR::TreeEvaluator::integerRegLoadEvaluator,         // TR::lRegLoad <- (Uses
-                                                // iRegLoad intentionally)
+    // iRegLoad intentionally)
     TR::TreeEvaluator::fRegLoadEvaluator,       // TR::fRegLoad
     TR::TreeEvaluator::dRegLoadEvaluator,       // TR::dRegLoad
     TR::TreeEvaluator::integerRegLoadEvaluator, // TR::sRegLoad

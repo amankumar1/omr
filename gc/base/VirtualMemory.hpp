@@ -54,13 +54,11 @@ private:
                              into, but not reported as available */
   void *_heapBase; /**< The lowest usable address in the reserved block, once
                       alignment and padding are taken into account */
-  void
-      *_heapTop; /**< One byte past the highest usable address in the reserved
-                    block, once alignment and padding are taken into account */
-  uintptr_t
-      _reserveSize; /**< The total number of bytes reserved, starting from
-                       _baseAddress */
-  uintptr_t _mode;  /**< requested memory mode (memory flags combination) */
+  void *_heapTop;  /**< One byte past the highest usable address in the reserved
+                      block, once alignment and padding are taken into account */
+  uintptr_t _reserveSize; /**< The total number of bytes reserved, starting from
+                             _baseAddress */
+  uintptr_t _mode; /**< requested memory mode (memory flags combination) */
   uintptr_t _consumerCount; /**< number of memory consumers attached to this
                                virtual memory instance */
   J9PortVmemIdentifier _identifier;

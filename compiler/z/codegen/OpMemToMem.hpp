@@ -277,7 +277,7 @@ protected:
 
 private:
   bool _needDep; ///< Indicates that dependencies are not needed as the copy is
-                 ///done in a non-loop fashion.
+                 /// done in a non-loop fashion.
 };
 
 class MemToMemVarLenMacroOp : public MemToMemMacroOp {

@@ -16,46 +16,28 @@
  *    Multiple authors (IBM Corp.) - initial implementation and documentation
  ******************************************************************************/
 
-#include "compile/ResolvedMethod.hpp" 
+#include "compile/ResolvedMethod.hpp"
 
 #include "compile/Method.hpp"
 
-TR::RecognizedMethod
-TR_ResolvedMethod::getRecognizedMethod()
-   {
-   return convertToMethod()->getRecognizedMethod();
-   }
+TR::RecognizedMethod TR_ResolvedMethod::getRecognizedMethod() {
+  return convertToMethod()->getRecognizedMethod();
+}
 
-uintptrj_t*
-TR_ResolvedMethod::getMethodHandleLocation()
-   {
-   TR_ASSERT(convertToMethod()->isArchetypeSpecimen(),
-             "All methods associated with a MethodHandle must be archetype "
-             "specimens");
-   return NULL;
-   }
+uintptrj_t *TR_ResolvedMethod::getMethodHandleLocation() {
+  TR_ASSERT(convertToMethod()->isArchetypeSpecimen(),
+            "All methods associated with a MethodHandle must be archetype "
+            "specimens");
+  return NULL;
+}
 
+TR_MethodParameterIterator *
+TR_ResolvedMethod::getParameterIterator(TR::Compilation &comp) {
+  return convertToMethod()->getParameterIterator(comp, this);
+}
 
-TR_MethodParameterIterator*
-TR_ResolvedMethod::getParameterIterator(TR::Compilation &comp)
-   {
-   return convertToMethod()->getParameterIterator(comp, this);
-   }
+bool TR_ResolvedMethod::isJ9() { return convertToMethod()->isJ9(); }
 
-bool
-TR_ResolvedMethod::isJ9()
-   {
-   return convertToMethod()->isJ9();
-   }
+bool TR_ResolvedMethod::isPython() { return convertToMethod()->isPython(); }
 
-bool
-TR_ResolvedMethod::isPython()
-   {
-   return convertToMethod()->isPython();
-   }
-
-bool
-TR_ResolvedMethod::isRuby()
-   {
-   return convertToMethod()->isRuby();
-   }
+bool TR_ResolvedMethod::isRuby() { return convertToMethod()->isRuby(); }

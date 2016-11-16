@@ -55,8 +55,8 @@ enum MvFprGprMode {
                  // OS.
   fpr2gprLow, // Move the lower 32 bits of a 64-bit fpr to the lower 32 bits of
               // a gpr.  With 64-bit gpr's, upper half of gpr set to zero.
-  fpr2gprSp, // Move the single precision value of an fpr to the lower 32 bits
-             // of a gpr.  With 64-bit gpr's, upper half of gpr set to zero.
+  fpr2gprSp,  // Move the single precision value of an fpr to the lower 32 bits
+              // of a gpr.  With 64-bit gpr's, upper half of gpr set to zero.
   gpr2fprHost64, // Move a 64-bit gpr to a 64-bit fpr under a 64-bit OS.
   gpr2fprHost32, // Move a pair of 32-bit gpr's to a 64-bit fpr under a 32-bit
                  // OS.

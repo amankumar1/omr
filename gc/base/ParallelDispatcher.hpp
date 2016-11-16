@@ -70,10 +70,9 @@ protected:
   /* single mutex is sufficient */
   omrthread_monitor_t _synchronizeMutex;
 
-  bool
-      _slaveThreadsReservedForGC; /**< States whether or not the slave threads
-                                     are currently taking part in a GC */
-  bool _inShutdown;               /**< Shutdown request is received */
+  bool _slaveThreadsReservedForGC; /**< States whether or not the slave threads
+                                      are currently taking part in a GC */
+  bool _inShutdown;                /**< Shutdown request is received */
 
   uintptr_t
       _threadCountMaximum; /**< maximum threadcount - this is the size of the

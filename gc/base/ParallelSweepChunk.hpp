@@ -54,9 +54,8 @@ public:
   uintptr_t freeListTailSize;
   MM_HeapLinkedFreeHeader
       *previousFreeListTail; /**< previous free entry of freeListTail */
-  bool
-      _coalesceCandidate; /**< Flag if the chunk can coalesce with the previous
-                             chunks free information */
+  bool _coalesceCandidate; /**< Flag if the chunk can coalesce with the previous
+                              chunks free information */
   MM_MemoryPool *memoryPool;
   uintptr_t freeBytes;
   uintptr_t freeHoles;

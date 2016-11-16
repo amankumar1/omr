@@ -70,4 +70,5 @@ int32_t omrdump_startup(struct OMRPortLibrary *portLibrary) {
  *
  * @param[in] portLibrary The port library.
  */
-void omrdump_shutdown(struct OMRPortLibrary *portLibrary) { /* noop */ }
+void omrdump_shutdown(struct OMRPortLibrary *portLibrary) { /* noop */
+}

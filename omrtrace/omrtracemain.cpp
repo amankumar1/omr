@@ -272,13 +272,17 @@ omr_error_t threadStop(OMR_TraceThread **thrSlot) {
      * e.g.
      * (this thread)						(other thread)
      * read initState, MT_ENABLED
-     * 										set initState to SHUTDOWN_STARTED (from
+     * 										set initState to SHUTDOWN_STARTED
+     * (from
      * utTerminateTrace())
-     * 										atomic decr
+     * 										atomic
+     * decr
      * threadCount,
-     * 											new threadCount is
+     * 											new threadCount
+     * is
      * 1
-     * 										skip freeTrace() because threadCount >
+     * 										skip freeTrace() because threadCount
+     * >
      * 0
      * 	atomic decr threadCount,
      * 		new threadCount is 0
@@ -671,7 +675,8 @@ fail:
  * 				 write queue.
  * parameters  - thr, description, subscriber, alarm,, userData, start, stop,
  *subscription
- * 				 start: -1 means head, NULL means tail, anything else
+ * 				 start: -1 means head, NULL means tail, anything
+ *else
  *is a buffer
  *               stop: NULL means don't stop, anything else is a buffer
  * returns     - Success or error code

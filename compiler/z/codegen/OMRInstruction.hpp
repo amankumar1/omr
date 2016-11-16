@@ -358,21 +358,21 @@ private:
   {
     // Available                        = 0x0001,
     ExtDisp = 0x0002, ///< inst has had a late long displacement fixup on the
-                      ///first memRef
+                      /// first memRef
     JITEntry = 0x0004,
     JITExit = 0x0008,
     ExceptBranchOp = 0x0010,
     ExtDisp2 = 0x0020, ///< inst has had a late long displacement fixup on the
-                       ///second memRef
+                       /// second memRef
     Reserved5 = 0x0040,
     Reserved6 = 0x0080,
     CCuseKnown = 0x0100, ///< Usage of CC set by current instruction is known.
     CCused = 0x0200, ///< CC set by current instruction is used by subsequent
-                     ///instructions.
+                     /// instructions.
     OutOfLineEX = 0x0400, ///< TR::InstOpCode::EX instruction references a
-                          ///ConstantInstructionSnippet object
+                          /// ConstantInstructionSnippet object
     ///< or an SS_FORMAT instruction is the target of an TR::InstOpCode::EX
-    ///instruction
+    /// instruction
     ThrowsImplicitException = 0x0800,
     ThrowsImplicitNullPointerException = 0x1000,
     StartInternalControlFlow = 0x2000,

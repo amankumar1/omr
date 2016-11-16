@@ -500,12 +500,12 @@ public:
     Private = 0x00080000,
     AddressOfClassObject = 0x00100000, ///< address of a class object pointer
     SlotSharedByRefAndNonRef = 0x00400000, ///< used in fsd to indicate that an
-                                           ///reference symbol shares a slot
-                                           ///with a nonreference symbol
+                                           /// reference symbol shares a slot
+    /// with a nonreference symbol
 
     HoldsMonitoredObject = 0x08000000,
     IsNamed = 0x00800000, ///< non-methods: symbol is actually an instance of a
-                          ///named subclass
+                          /// named subclass
 
     // only use by Symbols for which isAuto is true
     //
@@ -516,23 +516,23 @@ public:
                                     ///< preserve floating point semantics
     PinningArrayPointer = 0x10000000,
     RegisterAuto = 0x00020000,     ///< Symbol to be translated to register at
-                                   ///instruction selection
+                                   /// instruction selection
     AutoAddressTaken = 0x04000000, ///< a loadaddr of this auto exists
     SpillTempLoaded = 0x04000000,  ///< share bit with loadaddr because spill
-                                   ///temps will never have their address taken.
-                                   ///Used to remove store to spill if never
-                                   ///loaded
+    /// temps will never have their address taken.
+    /// Used to remove store to spill if never
+    /// loaded
     AutoMarkerSymbol = 0x02000000, ///< dummy symbol marking some auto boundary
     VariableSizeSymbol = 0x01000000, ///< non-java only?: specially managed
-                                     ///automatic symbols that contain both an
-                                     ///activeSize and a size
+                                     /// automatic symbols that contain both an
+    /// activeSize and a size
     ThisTempForObjectCtor =
         0x01000000, ///< java only; this temp for j/l/Object constructor
 
     // only use by Symbols for which isParm is true
     //
     ParmHasToBeOnStack = 0x80000000, ///< parameter is both loadAddr-ed and
-                                     ///assigned a global register,
+                                     /// assigned a global register,
     ///< or parameter has been stored (store opcode)
     ReferencedParameter = 0x40000000,
     ReinstatedReceiver = 0x20000000, ///< Receiver reinstated for DLT
@@ -544,7 +544,7 @@ public:
     // Available              = 0x10000000,
     SetUpDLPFlags = 0xF0000000, ///< Used by TR::StaticSymbol::SetupDLPFlags(),
                                 ///== ConstString | AddressIsCPIndexOfStatic |
-                                ///RecognizedStatic
+                                /// RecognizedStatic
     CompiledMethod = 0x08000000,
     StartPC = 0x04000000,
     CountForRecompile = 0x02000000,

@@ -38,10 +38,10 @@ class MM_PhysicalSubArenaRegionBased;
 class MM_PhysicalArenaRegionBased : public MM_PhysicalArena {
 public:
 protected:
-  MM_PhysicalSubArenaRegionBased *
-      _physicalSubArena; /**< The subarena attached to this arena (currently
-                            only one but more will be required before phase4 is
-                            over to support gencon) */
+  MM_PhysicalSubArenaRegionBased
+      *_physicalSubArena; /**< The subarena attached to this arena (currently
+                             only one but more will be required before phase4 is
+                             over to support gencon) */
 private:
 public:
   static MM_PhysicalArenaRegionBased *newInstance(MM_EnvironmentBase *env,

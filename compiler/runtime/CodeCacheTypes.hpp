@@ -123,10 +123,10 @@ public:
 };
 
 struct CodeCacheTempTrampolineSyncBlock {
-  CodeCacheHashEntry **
-      _hashEntryArray; /*!< a list of hash entries representing trampolines to
-                          be synchronized */
-  int32_t _entryCount; /*!< Number of temp trampolines in the list */
+  CodeCacheHashEntry *
+      *_hashEntryArray; /*!< a list of hash entries representing trampolines to
+                           be synchronized */
+  int32_t _entryCount;  /*!< Number of temp trampolines in the list */
   int32_t _entryListSize;                  /*!< maximum size of the list */
   CodeCacheTempTrampolineSyncBlock *_next; /*!< next list to handle overflow */
 };

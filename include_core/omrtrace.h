@@ -145,7 +145,8 @@ typedef struct OMRTraceEngine {
  * @param[in]     datDir Path containing trace format files (*.dat)
  * @param[in]     opts A NULL-terminated array of trace options. The options
  * must be provided in name / value pairs.
- * 				    If a name has no value, a NULL array entry must be
+ * 				    If a name has no value, a NULL array entry must
+ * be
  * provided.
  * 				    e.g. { "print", "none", NULL } is valid
  * 				    e.g. { "print", NULL } is invalid

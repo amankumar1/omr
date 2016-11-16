@@ -146,7 +146,7 @@ private:
    */
   int32_t _fixedSizeForAlignment;
   int32_t _leftMostByte; ///< for left alignment  : bump =
-                         ///getTotalSizeForAlignment() - _leftMostByte
+                         /// getTotalSizeForAlignment() - _leftMostByte
   const char
       *_name; ///< name to use in listings for when we don't have a valid symref
   TR::SymbolReference *_listingSymbolReference;

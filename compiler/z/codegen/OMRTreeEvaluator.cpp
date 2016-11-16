@@ -10302,10 +10302,9 @@ extern TR::Register *forwardArraycopyEvaluator(TR::Node *node,
                                                         // storing the contents
                                                         // of j.l.S.value of
                                                         // output String
-  TR::Register *rLen =
-      cg->evaluate(node->getChild(2)); // Number of code-points
-                                       // j.l.S.value.length. Not to be confused
-                                       // with length of the String
+  TR::Register *rLen = cg->evaluate(node->getChild(2)); // Number of code-points
+  // j.l.S.value.length. Not to be confused
+  // with length of the String
   TR::Register *rIdx = cg->allocateRegister(); // Used to iterate over input
                                                // (and output since they
                                                // overlap)
@@ -16506,7 +16505,7 @@ void arraycmpWithPadHelper::generateConstCLCSpacePaddingLoop() {
     // getBranchConditionForMask(getReverseBranchMask((getMaskForBranchCondition(finalBrCond)
     // >> 4) & 0x0E));
     ////Do not use --> TR::InstOpCode::S390BranchCondition brCond =
-    ///getReverseBranchCondition(finalBrCond);
+    /// getReverseBranchCondition(finalBrCond);
     // BRC on brCond
     // Not worth doing that.
 

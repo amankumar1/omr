@@ -1337,7 +1337,8 @@ TEST(PortSysinfoTest, sysinfo_testProcessorInfo) {
    * Note that this assumption sees deviations of upto 50% at times when the
    * system is lightly loaded
    * but under much system load, the relation indeed becomes accurate:
-   * 		(Busy-time(t2) - Busy-time(t1)) + (Idle-time(t2) - Idle-time(t1)) ~
+   * 		(Busy-time(t2) - Busy-time(t1)) + (Idle-time(t2) - Idle-time(t1))
+   * ~
    * T2 - T1.
    */
   omrthread_sleep(3000 + cpuBurner(OMRPORTLIB, "a"));
@@ -1855,9 +1856,9 @@ TEST(PortSysinfoTest, sysinfo_test_get_tmp3) {
     _wputenv_s(L"TMP", origEnv);
 #elif defined(J9ZOS390) /* defined(WIN32) */
     setenv(envVarInEbcdic, origEnvInEbcdic, 1);
-#else                   /* defined(J9ZOS390) */
+#else  /* defined(J9ZOS390) */
     setenv("TMPDIR", origEnv, 1);
-#endif                  /* defined(J9ZOS390) */
+#endif /* defined(J9ZOS390) */
     omrmem_free_memory(origEnv);
   } else {
 #if defined(WIN32)

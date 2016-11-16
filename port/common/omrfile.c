@@ -95,20 +95,25 @@ int32_t omrfile_attr(struct OMRPortLibrary *portLibrary, const char *path) {
  * @param[in] path Name of the file to be modified.
  * @param[in] mode file permissions, set per the Posix convention, see man chmod
  * (http://linux.die.net/man/2/chmod).
- * 			Windows only: - File access permissions are implemented via
+ * 			Windows only: - File access permissions are implemented
+ * via
  * the Windows file system READONLY bit.
- * 						The only supported permissions are read-only
+ * 						The only supported permissions are
+ * read-only
  * (for everyone) or read/write (for everyone).
- * 						The sticky, setgid, and setuid bits are
+ * 						The sticky, setgid, and setuid bits
+ * are
  * ignored, as are the read and execute bits.
  *                      If the mode argument requests write access for all of
  * owner, group, and world, the READONLY attribute is cleared.
  *                      Otherwise READONLY is set.
  *
  * @return The new permissions of the  file or -1 on failure.
- * 			Windows only: The return value is (octal) 0444 (owner, group,
+ * 			Windows only: The return value is (octal) 0444 (owner,
+ * group,
  * and world readable)
- * 					if the Windows READONLY bit is set and 0666 (owner,
+ * 					if the Windows READONLY bit is set and 0666
+ * (owner,
  * group, and world readable and writable)if READONLY is not set.
  *
  * @note If a multi-threaded application passes in a relative path the caller

@@ -69,9 +69,9 @@ typedef struct j9_31bit_mch {
    * &NAME.REG        DS   0CL(16*LEPTRLEN)    General regs 0-15        @G3C
    * &NAME.GPR        DC  16&FLEN.'00'         Each reg, 0-15           @G3C
    */
-  uint32_t gprs
-      [16]; /* gprs 0-15 (low word of 64-bit gprs, see hgprs below for high
-               word) */
+  uint32_t
+      gprs[16]; /* gprs 0-15 (low word of 64-bit gprs, see hgprs below for high
+                   word) */
 
   /*
    * &NAME.PSW        DC    XL(2*LEPTRLEN)'00' PSW at time of interrupt @G3C

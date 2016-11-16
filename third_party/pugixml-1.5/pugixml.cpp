@@ -26,8 +26,8 @@
 #endif
 
 #ifndef PUGIXML_NO_XPATH
-#include <math.h>
 #include <float.h>
+#include <math.h>
 #ifdef PUGIXML_NO_EXCEPTIONS
 #include <setjmp.h>
 #endif
@@ -136,8 +136,8 @@ using std::memmove;
 #define PUGI__FN_NO_INLINE inline
 #else
 #if defined(_MSC_VER) && _MSC_VER < 1300 // MSVC6 seems to have an amusing bug
-                                         // with anonymous namespaces inside
-                                         // namespaces
+// with anonymous namespaces inside
+// namespaces
 #define PUGI__NS_BEGIN                                                         \
   namespace pugi {                                                             \
   namespace impl {
@@ -10707,11 +10707,11 @@ struct xpath_parser {
   //					| AdditiveExpr '-' MultiplicativeExpr
   // MultiplicativeExpr ::= UnaryExpr
   //						  | MultiplicativeExpr '*'
-  //UnaryExpr
+  // UnaryExpr
   //						  | MultiplicativeExpr 'div'
-  //UnaryExpr
+  // UnaryExpr
   //						  | MultiplicativeExpr 'mod'
-  //UnaryExpr
+  // UnaryExpr
   xpath_ast_node *parse_expression() {
     return parse_expression_rec(parse_path_or_unary_expression(), 0);
   }

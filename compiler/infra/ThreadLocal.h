@@ -48,7 +48,7 @@
 #define tlsDefine(type, variable) pthread_key_t variable
 #define tlsAlloc(variable)                                                     \
   pthread_key_create(&variable, NULL) // allocates a new key, which will have
-                                      // initial value NULL for all threads
+// initial value NULL for all threads
 #define tlsFree(variable) pthread_key_delete(variable)
 #define tlsSet(variable, value) pthread_setspecific(variable, value)
 #if defined(J9ZOS390)

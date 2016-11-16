@@ -279,7 +279,7 @@ TR_LoopStrider::detectCanonicalizedPredictableLoops(TR_Structure *loopStructure,
       _storeTreesList[i] =
           new (trStackMemory()) TR_ScratchList<TR_StoreTreeInfo>(trMemory());
       //_loadUsedInNewLoopIncrementList[i] = new (trStackMemory())
-      //TR_ScratchList<TR::Node>(trMemory());
+      // TR_ScratchList<TR::Node>(trMemory());
       i++;
     }
 

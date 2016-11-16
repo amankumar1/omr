@@ -38,11 +38,11 @@ void MM_CollectorLanguageInterface::writeBarrierStore(
       MM_EnvironmentStandard::getEnvironment(omrThread);
 #if defined(OMR_GC_MODRON_SCAVENGER)
   generationalWriteBarrierStore(env, parentObject, childObject);
-#endif /* defined(OMR_GC_MODRON_CONCURRENT_MARK) |                             \
+#endif /* defined(OMR_GC_MODRON_CONCURRENT_MARK) | \                                                                             \
           defined(OMR_GC_MODRON_SCAVENGER) */
 #if defined(OMR_GC_MODRON_CONCURRENT_MARK)
   concurrentWriteBarrierStore(env, parentObject);
-#endif /* defined(OMR_GC_MODRON_CONCURRENT_MARK) |                             \
+#endif /* defined(OMR_GC_MODRON_CONCURRENT_MARK) | \                                                                             \
           defined(OMR_GC_MODRON_SCAVENGER) */
 }
 
@@ -53,11 +53,11 @@ void MM_CollectorLanguageInterface::writeBarrierUpdate(
       MM_EnvironmentStandard::getEnvironment(omrThread);
 #if defined(OMR_GC_MODRON_SCAVENGER)
   generationalWriteBarrierStore(env, parentObject, childObject);
-#endif /* defined(OMR_GC_MODRON_CONCURRENT_MARK) |                             \
+#endif /* defined(OMR_GC_MODRON_CONCURRENT_MARK) | \                                                                             \
           defined(OMR_GC_MODRON_SCAVENGER) */
 #if defined(OMR_GC_MODRON_CONCURRENT_MARK)
   concurrentWriteBarrierStore(env, parentObject);
-#endif /* defined(OMR_GC_MODRON_CONCURRENT_MARK) |                             \
+#endif /* defined(OMR_GC_MODRON_CONCURRENT_MARK) | \                                                                             \
           defined(OMR_GC_MODRON_SCAVENGER) */
 }
 

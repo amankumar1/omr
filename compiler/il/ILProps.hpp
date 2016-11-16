@@ -147,12 +147,12 @@ enum {
   HasBranchChild =
       0x00002000, ///< used in conjunction with jumpwithmultipletargets
   SkipDynamicLitPoolOnInts = 0x00004000, ///< do not perform dynamicLiteralPool
-                                         ///on any integral constant children of
-                                         ///this node (used for lengths of array
-                                         ///ops)
+  /// on any integral constant children of
+  /// this node (used for lengths of array
+  /// ops)
   Abs = 0x00008000,
   VectorReduction = 0x00010000, ///< Indicates if opcode performs vector
-                                ///reduction that produces scalar result
+                                /// reduction that produces scalar result
   Signum = 0x00020000,          ///< For Xcmp opcodes
   ReverseLoadOrStore = 0x00040000,
   // Available                = 0x00080000,

@@ -295,9 +295,8 @@ done:
         assert(optIndex < OMR_TRACE_OPTS_SIZE); /* Don't write past the end of
                                                    the trcOpts array */
         if (optIndex > 0) {
-          assert(
-              trcOpts[0] == copyOfOptString); /* trcOpts[0] must point to the
-                                                 start of the memory block */
+          assert(trcOpts[0] == copyOfOptString); /* trcOpts[0] must point to the
+                                                    start of the memory block */
         }
       }
       if ((NULL != traceDebugEnv) && (traceDebugEnv != traceDebugBuf)) {

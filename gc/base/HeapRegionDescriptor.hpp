@@ -118,15 +118,14 @@ private:
       *_memorySubSpace; /**< the memory subspace associated with this region */
 
   RegionType _regionType; /**< This regions current type */
-  MM_MemoryPool *
-      _memoryPool; /**< The memory pool associated with this region.  This may
-                      be NULL */
+  MM_MemoryPool
+      *_memoryPool; /**< The memory pool associated with this region.  This may
+                       be NULL */
 
   uintptr_t _numaNode; /**< The NUMA node this region is associated with */
 
-  uint32_t
-      _regionProperties; /**< A bitmap of the RegionProperties this region
-                            possesses */
+  uint32_t _regionProperties; /**< A bitmap of the RegionProperties this region
+                                 possesses */
 
 public:
   MM_HeapRegionDescriptor(MM_EnvironmentBase *env, void *lowAddress,

@@ -68,10 +68,10 @@ private:
   MM_LanguageThreadLocalHeap _languageTLH;
   LanguageThreadLocalHeapStruct *const _tlh; /**< current TLH */
 
-  uint8_t
-      **const _pointerToHeapAlloc; /**< pointer to Heap Allocation field for
-                                      this TLH in J9VMThread structure (can be
-                                      heapAlloc or nonZeroHeapAlloc) */
+  uint8_t *
+      *const _pointerToHeapAlloc; /**< pointer to Heap Allocation field for
+                                     this TLH in J9VMThread structure (can be
+                                     heapAlloc or nonZeroHeapAlloc) */
   uint8_t *
       *const _pointerToHeapTop; /**< pointer to Heap Top field for this TLH in
                                    J9VMThread structure (can be heapTop or

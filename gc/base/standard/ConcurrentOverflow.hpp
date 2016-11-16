@@ -50,10 +50,9 @@ private:
   omrthread_monitor_t
       _cardsClearingMonitor; /**< monitor for safe initial Cards clearing in WP
                                 Overflow handler */
-  bool
-      _cardsForNewSpaceCleared; /**< cards must be cleared at first overflow in
-                                   Concurrent cycle */
-#endif                          /*  OMR_GC_MODRON_SCAVENGER */
+  bool _cardsForNewSpaceCleared; /**< cards must be cleared at first overflow in
+                                    Concurrent cycle */
+#endif                           /*  OMR_GC_MODRON_SCAVENGER */
 
   /* Methods */
 public:

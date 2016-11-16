@@ -72,10 +72,10 @@ private:
 
   double _desiredSurvivorSpaceRatio;
 
-  MM_LargeObjectAllocateStats *
-      _largeObjectAllocateStats; /**< Approximate allocation profile for large
-                                    objects. Struct to keep merged stats from
-                                    two allocate pools */
+  MM_LargeObjectAllocateStats
+      *_largeObjectAllocateStats; /**< Approximate allocation profile for large
+                                     objects. Struct to keep merged stats from
+                                     two allocate pools */
 
 protected:
 public:

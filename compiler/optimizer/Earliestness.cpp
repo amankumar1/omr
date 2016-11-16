@@ -130,10 +130,10 @@ void TR_Earliestness::analyzeTreeTopsInBlockStructure(
 
   if (trace()) {
     /////traceMsg(comp(), "\nIn Set of Block : %d\n",
-    ///blockStructure->getNumber());
+    /// blockStructure->getNumber());
     /////_inSetInfo[blockStructure->getNumber()]->print(comp()->getOutFile());
     /////traceMsg(comp(), "\nOut Set of Block : %d\n",
-    ///blockStructure->getNumber());
+    /// blockStructure->getNumber());
     /////_blockAnalysisInfo[blockStructure->getNumber()]->print(comp()->getOutFile());
   }
 

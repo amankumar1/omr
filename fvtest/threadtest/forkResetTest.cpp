@@ -241,9 +241,11 @@ TEST(ThreadForkResetTest, WaitNotify2) { waitNotify2Start(2); }
  * exiting
  * 			3. Sibling 2 notifies and waits on monitor 2
  * 9. Parent forks
- * 				1. Child process can enter monitor 1, wait/timeout, and
+ * 				1. Child process can enter monitor 1, wait/timeout,
+ * and
  * exit monitor
- * 				2. Child process can enter monitor 1, notify_all, and
+ * 				2. Child process can enter monitor 1, notify_all,
+ * and
  * exit monitor
  * 				3. Child process exits and destroys monitor 2
  * 				4. Child process destroys monitor 1

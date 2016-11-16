@@ -1147,7 +1147,7 @@ int32_t TR_BlockManipulator::performChecksAndTreesMovement(
     TR::Block *newPrev = newBlock->getPrevBlock();
 
     /////// This just surgically reattaches the treetops. This does NOT set
-    ///successor/predecessor info or changes CFG
+    /// successor/predecessor info or changes CFG
     prevBlock->getExit()->join(newBlock->getEntry());
 
     if (nextBlock)
@@ -3318,7 +3318,7 @@ int32_t TR_EliminateRedundantGotos::process(TR::TreeTop *startTree,
       asyncMessagesFlag = false;
 
       //////dumpOptDetails(comp(), "Contains trees other than gotos when at
-      ///block number : %d\n", block->getNumber());
+      /// block number : %d\n", block->getNumber());
     }
 
     // This block consists of just a goto with maybe an async check as well.
@@ -3413,8 +3413,8 @@ int32_t TR_EliminateRedundantGotos::process(TR::TreeTop *startTree,
       destBlock->inheritBlockInfo(block, block->isCold());
 
       //////dumpOptDetails(comp(), "First tree being moved : %p Last tree being
-      ///moved %p\n", firstTreeBeingMoved->getNode(),
-      ///lastTreeBeingMoved->getNode());
+      /// moved %p\n", firstTreeBeingMoved->getNode(),
+      /// lastTreeBeingMoved->getNode());
       entryTree->join(firstTreeBeingMoved);
       lastTreeBeingMoved->join(origNextTree);
       block->getEntry()->join(lastNonFenceTree);

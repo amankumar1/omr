@@ -1365,7 +1365,7 @@ void TR_LoopCanonicalizer::canonicalizeNaturalLoop(
 
   TR::TreeTop *lastNonFenceTreeInHdr = loopHeader->getLastRealTreeTop();
   /////TR::TreeTop *lastNonFenceTreeInDupHdr =
-  ///clonedHeader->getLastRealTreeTop();
+  /// clonedHeader->getLastRealTreeTop();
 
   if (_blocksToBeCleansed.find(loopHeader)) {
     TR::TreeTop *prevNonFenceTreeInHdr =
@@ -2046,10 +2046,10 @@ void TR_LoopCanonicalizer::eliminateRedundantInductionVariablesFromLoop(
            primaryInductionVariable->getSymRef()->getSymbol()->getDataType()) &&
           //(((nextIndVar->getLocal()->getDataType() == TR::Int32) &&
           //(nextIndVar->getIncr()->getLowInt() ==
-          //nextIndVar->getIncr()->getHighInt())) ||
+          // nextIndVar->getIncr()->getHighInt())) ||
           //((nextIndVar->getLocal()->getDataType() == TR::Int64) &&
           //(nextIndVar->getIncr()->getLowLong() ==
-          //nextIndVar->getIncr()->getHighLong()))) &&
+          // nextIndVar->getIncr()->getHighLong()))) &&
           primaryIncr && (nextIndVarIncr == primaryIncr)) {
         TR::SymbolReference *derivedInductionVar = NULL;
         int32_t symRefCount = comp()->getSymRefCount();

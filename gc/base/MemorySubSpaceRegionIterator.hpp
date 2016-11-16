@@ -44,10 +44,13 @@ public:
 protected:
 private:
 #define MAX_STACK_SLOTS 4
-  MM_MemorySubSpace *_subSpaceStack
-      [MAX_STACK_SLOTS];    /**< current stack of subspaces used for recursive
-                               search of leaf subspaces. root subspace is at slot
-                               0. */
+  MM_MemorySubSpace *_subSpaceStack[MAX_STACK_SLOTS]; /**< current stack of
+                                                         subspaces used for
+                                                         recursive
+                                                         search of leaf
+                                                         subspaces. root
+                                                         subspace is at slot
+                                                         0. */
   uintptr_t _leafStackSlot; /**< current most nested subspace in the stack */
   MM_HeapRegionDescriptor *_region; /**< The region we will process next */
 public:

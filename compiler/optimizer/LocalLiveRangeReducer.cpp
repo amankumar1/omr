@@ -440,7 +440,7 @@ bool TR_LocalLiveRangeReduction::isAnySymInDefinedOrUsedBy(
   TR::ILOpCode &opCode = currentNode->getOpCode();
 
   ////if ((opCode.getOpCodeValue() == TR::monent) || (opCode.getOpCodeValue() ==
-  ///TR::monexit))
+  /// TR::monexit))
   if (nodeMaybeMonitor(currentNode)) {
     if (trace())
       traceMsg(comp(), "cannot move %p beyond monitor %p\n", movingNode,

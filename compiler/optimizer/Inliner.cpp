@@ -510,10 +510,9 @@ bool TR_InlinerBase::exceedsSizeThreshold(
 
   int32_t blockFrequency = 0;
   int32_t borderFrequency;
-  int32_t
-      coldBorderFrequency; // only used in
-                           // TR_MultipleCallTargetInliner::exceedsSizeThreshold
-                           // (to date)
+  int32_t coldBorderFrequency; // only used in
+  // TR_MultipleCallTargetInliner::exceedsSizeThreshold
+  // (to date)
   getBorderFrequencies(borderFrequency, coldBorderFrequency,
                        calleeResolvedMethod, callNode);
 
@@ -872,7 +871,7 @@ void TR_CallStack::commit() {
 
 TR_CallStack::~TR_CallStack() {
 //::commit is supposed to clear up the lists after everything has been
-//propagated to a caller
+// propagated to a caller
 // if there are still some residual symRefs left it means that we missed a call
 // to commit somewhere
 #if !defined(AIXPPC)
@@ -4124,9 +4123,8 @@ void TR_InlinerBase::applyPolicyToTargets(TR_CallStack *callStack,
     TR_ByteCodeInfo &bcInfo = callsite->_bcInfo;
     // get the number of locals in the callee
     int32_t numberOfLocalsInCallee =
-        calltarget->_calleeMethod
-            ->numberOfParameterSlots(); // +
-                                        // calleeResolvedMethod->numberOfTemps();
+        calltarget->_calleeMethod->numberOfParameterSlots(); // +
+    // calleeResolvedMethod->numberOfTemps();
     if (!forceInline(calltarget) &&
         exceedsSizeThreshold(
             callsite, bytecodeSize,

@@ -125,19 +125,19 @@ template <typename ListKind> class List;
 
 #define TR_LONG_TO_PACKED_SIZE                                                 \
   16 ///< The result byte size in memory for a long to packed conversion (i.e.
-     ///with CVDG)
+     /// with CVDG)
 #define TR_INTEGER_TO_PACKED_SIZE                                              \
   8 ///< The result byte size in memory for a integer to packed conversion (i.e.
-    ///with CVD)
+    /// with CVD)
 #define TR_PACKED_TO_LONG_SIZE                                                 \
   16 ///< The source byte size in memory for a packed to long conversion (i.e.
-     ///with CVBG)
+     /// with CVBG)
 #define TR_PACKED_TO_INTEGER_SIZE                                              \
   8 ///< The source byte size in memory for a packed to integer conversion (i.e.
-    ///with CVB)
+    /// with CVB)
 #define TR_ASCII_TO_PACKED_RESULT_SIZE                                         \
   16 ///< The result byte size in memory for an ascii to packed conversion (i.e.
-     ///with PKA)
+     /// with PKA)
 #define TR_UNICODE_TO_PACKED_RESULT_SIZE                                       \
   16 ///< The result byte size in memory for a unicode to packed conversion
      ///(i.e. with PKU)
@@ -156,7 +156,7 @@ template <typename ListKind> class List;
 
 #define TR_PACKED_TO_DECIMAL_LONG_DOUBLE_SIZE                                  \
   16 ///< The source byte size in memory for a pd2de conversion (i.e. with
-     ///CXSTR)
+     /// CXSTR)
 #define TR_PACKED_TO_DECIMAL_LONG_DOUBLE_PRECISION 31
 
 #define TR_PACKED_TO_DECIMAL_FLOAT_SIZE_ARCH11                                 \
@@ -164,55 +164,55 @@ template <typename ListKind> class List;
     ///-- pd2df and pd2dd use same instruction)
 #define TR_PACKED_TO_DECIMAL_FLOAT_PRECISION_ARCH11                            \
   16 ///< NOTE: Although max size is 9 bytes only 16 and not 17 digits can be
-     ///converted by CDPT to DFP -- df2pd and dd2pd use same instruction
+     /// converted by CDPT to DFP -- df2pd and dd2pd use same instruction
 
 #define TR_PACKED_TO_DECIMAL_DOUBLE_SIZE_ARCH11                                \
   9 ///< The source byte size in memory for a pd2dd conversion (i.e. with CDPT)
 #define TR_PACKED_TO_DECIMAL_DOUBLE_PRECISION_ARCH11                           \
   16 ///< NOTE: Although max size is 9 bytes only 16 and not 17 digits can be
-     ///converted by CDPT to DFP
+     /// converted by CDPT to DFP
 
 #define TR_PACKED_TO_DECIMAL_LONG_DOUBLE_SIZE_ARCH11                           \
   18 ///< The source byte size in memory for a pd2de conversion (i.e. with CXPT)
 #define TR_PACKED_TO_DECIMAL_LONG_DOUBLE_PRECISION_ARCH11                      \
   34 ///< NOTE: Although max size is 18 bytes only 34 and not 35 digits can be
-     ///converted by CDPT to DFP
+     /// converted by CDPT to DFP
 
 #define TR_DECIMAL_FLOAT_TO_PACKED_SIZE                                        \
   8 ///< The destination byte size in memory for a df2pd conversion (i.e. with
-    ///CSDTR -- df2pd and dd2pd use same instruction)
+    /// CSDTR -- df2pd and dd2pd use same instruction)
 #define TR_DECIMAL_FLOAT_TO_PACKED_PRECISION 15
 
 #define TR_DECIMAL_DOUBLE_TO_PACKED_SIZE                                       \
   8 ///< The destination byte size in memory for a dd2pd conversion (i.e. with
-    ///CSDTR)
+    /// CSDTR)
 #define TR_DECIMAL_DOUBLE_TO_PACKED_PRECISION 15
 
 #define TR_DECIMAL_LONG_DOUBLE_TO_PACKED_SIZE                                  \
   16 ///< The destination byte size in memory for a de2pd conversion (i.e. with
-     ///CSXTR)
+     /// CSXTR)
 #define TR_DECIMAL_LONG_DOUBLE_TO_PACKED_PRECISION 31
 
 #define TR_DECIMAL_FLOAT_TO_PACKED_SIZE_ARCH11                                 \
   9 ///< The destination byte size in memory for a df2pd conversion (i.e. with
-    ///CPDT -- df2pd and dd2pd use same instruction)
+    /// CPDT -- df2pd and dd2pd use same instruction)
 #define TR_DECIMAL_FLOAT_TO_PACKED_PRECISION_ARCH11                            \
   16 ///< NOTE: Although max size is 9 bytes only 16 and not 17 digits can be
-     ///converted by CPDT -- df2pd and dd2pd use same instruction
+     /// converted by CPDT -- df2pd and dd2pd use same instruction
 
 #define TR_DECIMAL_DOUBLE_TO_PACKED_SIZE_ARCH11                                \
   9 ///< The destination byte size in memory for a dd2pd conversion (i.e. with
-    ///CPDT)
+    /// CPDT)
 #define TR_DECIMAL_DOUBLE_TO_PACKED_PRECISION_ARCH11                           \
   16 ///< NOTE: Although max size is 9 bytes only 16 and not 17 digits can be
-     ///converted by CPDT
+     /// converted by CPDT
 
 #define TR_DECIMAL_LONG_DOUBLE_TO_PACKED_SIZE_ARCH11                           \
   18 ///< The destination byte size in memory for a de2pd conversion (i.e. with
-     ///CPXT)
+     /// CPXT)
 #define TR_DECIMAL_LONG_DOUBLE_TO_PACKED_PRECISION_ARCH11                      \
   34 ///< NOTE: Although max size is 18 bytes only 34 and not 35 digits can be
-     ///converted by CPXT
+     /// converted by CPXT
 
 #define TR_ZONED_TO_DECIMAL_FLOAT_MAX_PRECISION                                \
   16 ///< CDZT - same as DecimalDouble

@@ -241,7 +241,7 @@ const OptimizationStrategy eachExpensiveGlobalValuePropagationOpts[] = {
 const OptimizationStrategy veryExpensiveGlobalValuePropagationOpts[] = {
     {eachExpensiveGlobalValuePropagationGroup},
     //{ basicBlockHoisting,                           }, // merge block into
-    //pred and prepare for local dead store
+    // pred and prepare for local dead store
     {localDeadStoreElimination}, // remove local/parm/some field stores
     {treeSimplification, IfEnabled},
     {catchBlockRemoval, IfEnabled}, // if checks were removed
@@ -372,7 +372,7 @@ const OptimizationStrategy earlyGlobalOpts[] = {
 #endif
     {osrExceptionEdgeRemoval}, // most inlining is done by now
     //{ basicBlockOrdering,          IfLoops }, // early ordering with no
-    //extension
+    // extension
     {treeSimplification, IfEnabled},
     {compactNullChecks}, // cleans up after inlining; MUST be done before PRE
 #ifdef J9_PROJECT_SPECIFIC
@@ -436,7 +436,7 @@ const OptimizationStrategy loopCanonicalizationOpts[] = {
     {deadTreesElimination}, // remove dead anchors created by check removal
                             // (versioning)
     //{ loopStrider                        }, // use canonicalized loop to
-    //insert initializations
+    // insert initializations
     {fieldPrivatization}, // use canonicalized loop to privatize fields
     {treeSimplification}, // might fold expressions created by
                           // versioning/induction variables

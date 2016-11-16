@@ -5799,9 +5799,8 @@ const char *OMR::Node::printIsWordElementArrayCopy() {
 bool OMR::Node::isForwardArrayCopy() {
   TR_ASSERT(self()->getOpCodeValue() == TR::arraycopy,
             "Opcode must be arraycopy");
-  return _flags.testAny(
-      arraycopyDirectionForward); // also catches
-                                  // arraycopyDirectionForwardRarePath
+  return _flags.testAny(arraycopyDirectionForward); // also catches
+  // arraycopyDirectionForwardRarePath
 }
 
 void OMR::Node::setForwardArrayCopy(bool v) {

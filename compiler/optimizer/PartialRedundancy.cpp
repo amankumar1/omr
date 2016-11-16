@@ -1236,13 +1236,13 @@ TR::TreeTop *TR_PartialRedundancy::placeComputationsOptimally(
       ////List<TR::Node> additionalTreeTopsToBeDuplicated;
       ////TR::Node *duplicateOptimalNode = nextOptimalNode->duplicateTree();
       ////TR::TreeTop *duplicateOptimalTree = TR::TreeTop::create(comp(),
-      ///duplicateOptimalNode, NULL, NULL);
+      /// duplicateOptimalNode, NULL, NULL);
       ////dumpOptDetails(comp(), "%sPlacing store optimally : %p\n",
-      ///OPT_DETAILS, duplicateOptimalNode);
+      /// OPT_DETAILS, duplicateOptimalNode);
       ////setAlteredCode(true);
       ////duplicateOptimalTree->getNode()->setLocalIndex(nextOptimalNode->getLocalIndex());
       ////TR::TreeTop *secondTreeInBlock =
-      ///placeToInsertOptimalComputations->getNextTreeTop();
+      /// placeToInsertOptimalComputations->getNextTreeTop();
       ////placeToInsertOptimalComputations->join(duplicateOptimalTree);
       ////duplicateOptimalTree->join(secondTreeInBlock);
       ////placeToInsertOptimalComputations = duplicateOptimalTree;
@@ -2484,7 +2484,7 @@ TR_ExceptionCheckMotion::TR_ExceptionCheckMotion(
 
   _tempContainer = allocateContainer(_numberOfBits);
   //_temp = new (trStackMemory()) TR_BitVector(_numberOfBits, trMemory(),
-  //stackAlloc);
+  // stackAlloc);
 }
 
 TR_DataFlowAnalysis::Kind TR_ExceptionCheckMotion::getKind() {
@@ -4607,7 +4607,7 @@ bool TR_ExceptionCheckMotion::analyzeBlockStructure(
   /////int32_t j = 0;
   /////int32_t numAvailExprs = _temp->elementCount();
   /////for (nextAvailableComputation = bvi.getFirstElement(); j < numAvailExprs;
-  ///nextAvailableComputation = bvi.getNextElement())
+  /// nextAvailableComputation = bvi.getNextElement())
   int32_t nextAvailableComputation;
   ContainerType::Cursor bvi2(*_tempContainer);
   for (bvi2.SetToFirstOne(); bvi2.Valid(); bvi2.SetToNextOne()) {

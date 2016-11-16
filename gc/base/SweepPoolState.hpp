@@ -44,15 +44,15 @@ public:
   MM_MemoryPool
       *_memoryPool; /**< Subspace to which the receiver is associated */
 
-  MM_HeapLinkedFreeHeader *
-      _connectPreviousFreeEntry; /**< Last free entry to be connected into the
-                                    subspace */
+  MM_HeapLinkedFreeHeader
+      *_connectPreviousFreeEntry; /**< Last free entry to be connected into the
+                                     subspace */
   uintptr_t _connectPreviousFreeEntrySize; /**< Last free entry size to be
                                               connected into the subspace */
-  MM_HeapLinkedFreeHeader *
-      _connectPreviousPreviousFreeEntry; /**< previous free entry of the last
-                                            free entry to be connected into the
-                                            subspace */
+  MM_HeapLinkedFreeHeader
+      *_connectPreviousPreviousFreeEntry; /**< previous free entry of the last
+                                             free entry to be connected into the
+                                             subspace */
   MM_ParallelSweepChunk
       *_connectPreviousChunk; /**< Last chunk connected into the subspace */
 

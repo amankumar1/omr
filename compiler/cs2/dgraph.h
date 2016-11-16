@@ -34,9 +34,9 @@
 // 'DirectedGraphEdge'.
 // -----------------------------------------------------------------------------
 
-#include "cs2/tableof.h"
-#include "cs2/listof.h"
 #include "cs2/bitvectr.h"
+#include "cs2/listof.h"
+#include "cs2/tableof.h"
 
 namespace CS2 {
 
@@ -884,7 +884,7 @@ CS2_DG_TEMP void inline CS2_DG_DECL::UndoLink(NodeIndex sourceNode,
 }
 
 CS2_DG_TEMP
-    uint32_t inline CS2_DG_DECL::NumberOfPredecessors(NodeIndex node) const {
+uint32_t inline CS2_DG_DECL::NumberOfPredecessors(NodeIndex node) const {
   uint32_t numOfPredecessors = 0;
   NodeIndex headIndex = node;
   for (EdgeIndex edgeIndex = NodeAt(headIndex).FirstPredecessor();
@@ -895,7 +895,7 @@ CS2_DG_TEMP
 }
 
 CS2_DG_TEMP
-    uint32_t inline CS2_DG_DECL::NumberOfSuccessors(NodeIndex node) const {
+uint32_t inline CS2_DG_DECL::NumberOfSuccessors(NodeIndex node) const {
   uint32_t numOfSuccessors = 0;
   NodeIndex headIndex = node;
   for (EdgeIndex edgeIndex = NodeAt(headIndex).FirstSuccessor(); edgeIndex != 0;

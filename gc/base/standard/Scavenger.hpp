@@ -75,12 +75,12 @@ private:
 
   MM_MemorySubSpaceSemiSpace
       *_activeSubSpace; /**< top level new subspace subject to GC */
-  MM_MemorySubSpace *
-      _evacuateMemorySubSpace; /**< cached pointer to evacuate subspace within
-                                  active subspace */
-  MM_MemorySubSpace *
-      _survivorMemorySubSpace; /**< cached pointer to survivor subspace within
-                                  active subspace */
+  MM_MemorySubSpace
+      *_evacuateMemorySubSpace; /**< cached pointer to evacuate subspace within
+                                   active subspace */
+  MM_MemorySubSpace
+      *_survivorMemorySubSpace; /**< cached pointer to survivor subspace within
+                                   active subspace */
   MM_MemorySubSpace *_tenureMemorySubSpace;
 
   void *_evacuateSpaceBase, *_evacuateSpaceTop; /**< cached base and top heap
@@ -90,9 +90,8 @@ private:
                                                    pointers within survivor
                                                    subspace */
 
-  uintptr_t
-      _tenureMask; /**< A bit mask indicating which generations should be
-                      tenured on scavenge. */
+  uintptr_t _tenureMask; /**< A bit mask indicating which generations should be
+                            tenured on scavenge. */
   bool _expandFailed;
   bool _failedTenureThresholdReached;
   uintptr_t _failedTenureLargestObject;

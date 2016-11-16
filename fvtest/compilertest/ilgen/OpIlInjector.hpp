@@ -19,8 +19,8 @@
 #ifndef TEST_OPILINJECTOR_INCL
 #define TEST_OPILINJECTOR_INCL
 
-#include "ilgen/IlInjector.hpp"
 #include "il/DataTypes.hpp"
+#include "ilgen/IlInjector.hpp"
 
 #include <stdint.h>
 #include "env/jittypes.h"

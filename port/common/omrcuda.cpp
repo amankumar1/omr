@@ -705,35 +705,35 @@ done:
 /**
  * Descriptors of required CUDA driver functions.
  */
-const J9CudaEntryDescriptor driverDescriptors[] =
-    {J9CUDA_DRIVER_ENTRY_v1(5050, DeviceGet, "iPi"),
-     J9CUDA_DRIVER_ENTRY_v1(5050, DeviceGetName, "iPii"),
-     J9CUDA_DRIVER_ENTRY_v1(5050, FuncGetAttribute, "iPiP"),
-     J9CUDA_DRIVER_ENTRY_v1(5050, FuncSetCacheConfig, "iPi"),
-     J9CUDA_DRIVER_ENTRY_v1(5050, FuncSetSharedMemConfig, "iPi"),
-     J9CUDA_DRIVER_ENTRY_v1(5050, LaunchKernel, "iPiiiiiiiPPP"),
-     J9CUDA_DRIVER_ENTRY_v2(7000, LinkAddData, "iPiPLPiPP"),
-     J9CUDA_DRIVER_ENTRY_v1(5050, LinkAddData, "iPiPLPiPP"),
-     J9CUDA_DRIVER_ENTRY_v1(5050, LinkComplete, "iPPP"),
-     J9CUDA_DRIVER_ENTRY_v2(7000, LinkCreate, "iiPPP"),
-     J9CUDA_DRIVER_ENTRY_v1(5050, LinkCreate, "iiPPP"),
-     J9CUDA_DRIVER_ENTRY_v1(5050, LinkDestroy, "iP"),
-     J9CUDA_DRIVER_ENTRY_v1(5050, MemsetD8Async, "iPbLP"),
-     J9CUDA_DRIVER_ENTRY_v1(5050, MemsetD16Async, "iPcLP"),
-     J9CUDA_DRIVER_ENTRY_v1(5050, MemsetD32Async, "iPiLP"),
-     J9CUDA_DRIVER_ENTRY_v1(5050, ModuleGetFunction, "iPPP"),
-     J9CUDA_DRIVER_ENTRY_v2(5050, ModuleGetGlobal, "iPPPP"),
-     J9CUDA_DRIVER_ENTRY_v1(5050, ModuleGetSurfRef, "iPPP"),
-     J9CUDA_DRIVER_ENTRY_v1(5050, ModuleGetTexRef, "iPPP"),
-     J9CUDA_DRIVER_ENTRY_v1(5050, ModuleLoadDataEx, "iPPiPP"),
-     J9CUDA_DRIVER_ENTRY_v1(5050, ModuleUnload, "iP"),
-     J9CUDA_DRIVER_ENTRY_v1(
-         7000, OccupancyMaxActiveBlocksPerMultiprocessorWithFlags, "iPPILi"),
+const J9CudaEntryDescriptor driverDescriptors[] = {
+    J9CUDA_DRIVER_ENTRY_v1(5050, DeviceGet, "iPi"),
+    J9CUDA_DRIVER_ENTRY_v1(5050, DeviceGetName, "iPii"),
+    J9CUDA_DRIVER_ENTRY_v1(5050, FuncGetAttribute, "iPiP"),
+    J9CUDA_DRIVER_ENTRY_v1(5050, FuncSetCacheConfig, "iPi"),
+    J9CUDA_DRIVER_ENTRY_v1(5050, FuncSetSharedMemConfig, "iPi"),
+    J9CUDA_DRIVER_ENTRY_v1(5050, LaunchKernel, "iPiiiiiiiPPP"),
+    J9CUDA_DRIVER_ENTRY_v2(7000, LinkAddData, "iPiPLPiPP"),
+    J9CUDA_DRIVER_ENTRY_v1(5050, LinkAddData, "iPiPLPiPP"),
+    J9CUDA_DRIVER_ENTRY_v1(5050, LinkComplete, "iPPP"),
+    J9CUDA_DRIVER_ENTRY_v2(7000, LinkCreate, "iiPPP"),
+    J9CUDA_DRIVER_ENTRY_v1(5050, LinkCreate, "iiPPP"),
+    J9CUDA_DRIVER_ENTRY_v1(5050, LinkDestroy, "iP"),
+    J9CUDA_DRIVER_ENTRY_v1(5050, MemsetD8Async, "iPbLP"),
+    J9CUDA_DRIVER_ENTRY_v1(5050, MemsetD16Async, "iPcLP"),
+    J9CUDA_DRIVER_ENTRY_v1(5050, MemsetD32Async, "iPiLP"),
+    J9CUDA_DRIVER_ENTRY_v1(5050, ModuleGetFunction, "iPPP"),
+    J9CUDA_DRIVER_ENTRY_v2(5050, ModuleGetGlobal, "iPPPP"),
+    J9CUDA_DRIVER_ENTRY_v1(5050, ModuleGetSurfRef, "iPPP"),
+    J9CUDA_DRIVER_ENTRY_v1(5050, ModuleGetTexRef, "iPPP"),
+    J9CUDA_DRIVER_ENTRY_v1(5050, ModuleLoadDataEx, "iPPiPP"),
+    J9CUDA_DRIVER_ENTRY_v1(5050, ModuleUnload, "iP"),
+    J9CUDA_DRIVER_ENTRY_v1(
+        7000, OccupancyMaxActiveBlocksPerMultiprocessorWithFlags, "iPPILi"),
 
-     /* GetDriverErrorString is so named to avoid clashing with the runtime
-        entry GetErrorString. */
-     {"cuGetErrorString", "iiP",
-      offsetof(J9CudaFunctionTable, GetDriverErrorString), 6000}};
+    /* GetDriverErrorString is so named to avoid clashing with the runtime
+       entry GetErrorString. */
+    {"cuGetErrorString", "iiP",
+     offsetof(J9CudaFunctionTable, GetDriverErrorString), 6000}};
 
 /**
  * Expands to a J9CudaEntryDescriptor initializer for a runtime API functioln.

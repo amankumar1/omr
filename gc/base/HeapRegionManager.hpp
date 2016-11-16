@@ -82,8 +82,7 @@ protected:
   uintptr_t _regionShift; /**< the shift value to use against pointers to
                              determine the corresponding region index */
   MM_HeapRegionDescriptor
-      *
-          _regionTable;        /**< the raw array of fixed-sized regions for
+      *_regionTable;           /**< the raw array of fixed-sized regions for
                                   representing a flat heap */
   uintptr_t _tableRegionCount; /**< number of heap regions on the fixed-sized
                                   table (_regionTable) */

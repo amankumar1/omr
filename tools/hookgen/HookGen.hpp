@@ -44,9 +44,8 @@ private:
   const char *_fileName;       /**< value from argv so no need to free */
   const char *_publicFileName; /**< value (or substring) from XML parsing so no
                                   need to free */
-  FILE *
-      _publicFile; /**< FILE handle for public header file.  close in tearDown
-                      if non-NULL */
+  FILE *_publicFile; /**< FILE handle for public header file.  close in tearDown
+                        if non-NULL */
   const char
       *_privateFileName; /**< value (or substring) from XML parsing so no need
                             to free */

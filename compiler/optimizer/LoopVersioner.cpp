@@ -709,7 +709,7 @@ void TR_LoopVersioner::performLoopTransfer() {
   //
   ////if (trace())
   ////   traceMsg(comp(), "Loop transfer in %s with size %d\n",
-  ///comp()->signature(), _virtualGuardInfo.getSize());
+  /// comp()->signature(), _virtualGuardInfo.getSize());
 
   dumpOptDetails(comp(), "Loop transfer in %s with size %d\n",
                  comp()->signature(), _virtualGuardInfo.getSize());
@@ -1873,7 +1873,7 @@ bool TR_LoopVersioner::detectInvariantTrees(
                 }
 
                 if (!isInductionVar) //&&
-                                     //!isExprInvariant(child,comp()->incVisitCount()))
+                //! isExprInvariant(child,comp()->incVisitCount()))
                 {
                   isTreeInvariant = false;
                   break;
@@ -4407,7 +4407,7 @@ void TR_LoopVersioner::versionNaturalLoop(
     if (firstComparisonNode) {
       firstComparisonNode = false;
       //////TR::Node::recreate(actualComparisonNode,
-      ///actualComparisonNode->getOpCode().getOpCodeForReverseBranch());
+      /// actualComparisonNode->getOpCode().getOpCodeForReverseBranch());
       //////actualComparisonNode->setBranchDestination(invariantBlock->getEntry());
       //////lastComparisonBlock = comparisonBlock;
     } else {
@@ -4431,9 +4431,9 @@ void TR_LoopVersioner::versionNaturalLoop(
       endTree->join(gotoBlockEntryTree);
       endTree = gotoBlockExitTree;
       //_cfg->addEdge(TR::CFGEdge::createEdge(comparisonBlock,  newGotoBlock,
-      //trMemory()));
+      // trMemory()));
       //_cfg->addEdge(TR::CFGEdge::createEdge(newGotoBlock,
-      //clonedLoopInvariantBlock, trMemory()));
+      // clonedLoopInvariantBlock, trMemory()));
       TR_BlockStructure *newGotoBlockStructure = new (trHeapMemory())
           TR_BlockStructure(comp(), newGotoBlock->getNumber(), newGotoBlock);
       newGotoBlockStructure->setCreatedByVersioning(true);
@@ -4522,7 +4522,7 @@ void TR_LoopVersioner::versionNaturalLoop(
 
   //////TR::TreeTop *lastComparisonExit = lastComparisonBlock->getExit();
   //////TR::TreeTop *nextTreeAfterLastComparisonExit =
-  ///lastComparisonExit->getNextTreeTop();
+  /// lastComparisonExit->getNextTreeTop();
   //////lastComparisonExit->join(clonedInvariantEntryTree);
   //////clonedInvariantExitTree->join(nextTreeAfterLastComparisonExit);
   //
@@ -8077,7 +8077,7 @@ void TR_LoopVersioner::collectAllExpressionsToBeChecked(
       TR::Node *checkCastNode = checkCastTree->getData()->getNode();
       if (checkCastNode->getOpCode()
               .isCheckCast()) //(checkCastNode->getOpCodeValue() ==
-                              //TR::checkcast)
+                              // TR::checkcast)
       {
         if ((checkCastNode == node) &&
             performTransformation(
@@ -8535,7 +8535,7 @@ int32_t TR_LoopVersioner::detectCanonicalizedPredictableLoops(
           TR_BitVector(symRefCount, trMemory(), stackAlloc);
       _hasPredictableExits->setAll(symRefCount);
       //_writtenAndNotJustForHeapification = new (trStackMemory())
-      //TR_BitVector(symRefCount, trMemory(), stackAlloc);
+      // TR_BitVector(symRefCount, trMemory(), stackAlloc);
 
       if (trace())
         traceMsg(comp(), "\nChecking loop %d for predictability\n",

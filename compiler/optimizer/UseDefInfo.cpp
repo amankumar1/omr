@@ -147,10 +147,9 @@ void TR_UseDefInfo::prepareUseDefInfo(bool requiresGlobals, bool prefersGlobals,
     for (int32_t j = 0; j < numSymRefs; j++) {
       if (symRefTab->getSymRef(j) &&
           symRefTab->getSymRef(j)->getSymbol()->isAutoOrParm()) {
-        aux._onceReadSymbolsIndices[j]
-            .GrowTo(
-                comp()->getNodeCount()); /* no effect for sparse bit vectors,
-                                            except to make non-null */
+        aux._onceReadSymbolsIndices[j].GrowTo(
+            comp()->getNodeCount()); /* no effect for sparse bit vectors,
+                                        except to make non-null */
       }
     }
   }
@@ -166,10 +165,9 @@ void TR_UseDefInfo::prepareUseDefInfo(bool requiresGlobals, bool prefersGlobals,
     for (int32_t j = 0; j < numSymRefs; j++) {
       if (symRefTab->getSymRef(j) &&
           symRefTab->getSymRef(j)->getSymbol()->isAutoOrParm()) {
-        aux._onceWrittenSymbolsIndices[j]
-            .GrowTo(
-                comp()->getNodeCount()); /* no effect for sparse bit vectors,
-                                            except to make non-null */
+        aux._onceWrittenSymbolsIndices[j].GrowTo(
+            comp()->getNodeCount()); /* no effect for sparse bit vectors,
+                                        except to make non-null */
       }
     }
   }

@@ -30,8 +30,8 @@
 #include <stdio.h>
 
 #include "cs2/allocator.h"
-#include "cs2/listof.h"
 #include "cs2/hashtab.h"
+#include "cs2/listof.h"
 
 #if defined(_WIN32)
 #include <time.h>

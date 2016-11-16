@@ -35,16 +35,14 @@ public:
 protected:
 private:
   uintptr_t
-      *
-          _smallCellSizes;   /**< Array mapping size classes to the cell size of
+      *_smallCellSizes;      /**< Array mapping size classes to the cell size of
                                 that size class. The array actually lives in the
                                 J9JavaVM. */
   uintptr_t *_smallNumCells; /**< Array mapping size classes to the number of
                                 cells on a region of that size class. The array
                                 actually lives in the J9JavaVM. */
-  uintptr_t
-      *_sizeClassIndex; /**< maps size request to size classes. The array
-                           actually lives in the OMR vm. */
+  uintptr_t *_sizeClassIndex; /**< maps size request to size classes. The array
+                                 actually lives in the OMR vm. */
 
   /* Methods */
 public:

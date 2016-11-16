@@ -1452,7 +1452,7 @@ void TR_LoopUnroller::modifyOriginalLoop(TR_RegionStructure *loop,
         _cfg->addEdge(
             TR::CFGEdge::createEdge(newIfBlock, gotoBlock, trMemory()));
         //_cfg->addEdge(TR::CFGEdge::createEdge(gotoBlock,  oldSpillEntryBlock,
-        //trMemory()));
+        // trMemory()));
 
         TR_StructureSubGraphNode *otherSuccSubNode =
             parent->findSubNodeInRegion(origExitBlock->getNumber());

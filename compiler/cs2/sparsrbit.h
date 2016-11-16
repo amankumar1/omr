@@ -19,9 +19,9 @@
 #ifndef CS2_SPARSRBIT_H
 #define CS2_SPARSRBIT_H
 
-#include "cs2/cs2.h"
 #include "cs2/allocator.h"
 #include "cs2/bitmanip.h"
+#include "cs2/cs2.h"
 
 #ifdef CS2_ALLOCINFO
 #define allocate(x) allocate(x, __FILE__, __LINE__)
@@ -136,7 +136,7 @@ public:
   bool hasBitWordRepresentation() const {
     return false;
   } // returns whether this bit vector is based on an array of bitWords (which
-    // it is not)
+  // it is not)
   int32_t FirstOneWordIndex() const {
     CS2Assert(false, ("This method is not implemented"));
     return 0;

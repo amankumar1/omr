@@ -419,7 +419,7 @@ init_cleanup4:
   pool_kill(lib->rwmutexPool);
 init_cleanup3:
   free_monitor_pools();
-#else  /* defined(OMR_THR_FORK_SUPPORT) */
+#else /* defined(OMR_THR_FORK_SUPPORT) */
 init_cleanup4:
   free_monitor_pools();
 #endif /* defined(OMR_THR_FORK_SUPPORT) */

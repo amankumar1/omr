@@ -275,13 +275,13 @@ public:
    */
   enum {
     IsReferenced = 0x01, ///< was this symbol ever actually used in any
-                         ///instruction? -- if not then it does not have to be
-                         ///mapped
+                         /// instruction? -- if not then it does not have to be
+    /// mapped
     IsAddressTaken =
         0x02,           ///< address taken symbols have to be kept alive longer
     IsSingleUse = 0x04, ///< a temp ref created for a one off privatization in a
-                        ///single evaluator (doesn't use refCounts so
-                        ///automatically freed)
+                        /// single evaluator (doesn't use refCounts so
+    /// automatically freed)
   };
 
   bool isReferenced() {

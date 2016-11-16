@@ -167,7 +167,8 @@ typedef struct OMR_TI {
    * @param[in] vmThread the current VM thread
    * @param[in] opts NULL-terminated array of option strings. The options must
    * be provided in name / value pairs.
-   * 					If a name has no value, a NULL array entry must be
+   * 					If a name has no value, a NULL array entry must
+   * be
    * provided.
    * 					e.g. { "print", "none", NULL } is valid
    * 					e.g. { "print", NULL } is invalid
@@ -182,15 +183,20 @@ typedef struct OMR_TI {
    * period, it cannot be NULL
    * @return an OMR error code, 	return OMR_ERROR_NONE on successful
    * call.
-   * 								return OMR_ERROR_NOT_AVAILABLE if not supported or
+   * 								return OMR_ERROR_NOT_AVAILABLE if not supported
+   * or
    * insufficient user privilege or vm->sysInfo is not initialized.
-   * 								return OMR_ERROR_RETRY on the first call or if the
+   * 								return OMR_ERROR_RETRY on the first call or if
+   * the
    * interval between two calls is too small.
-   * 								return OMR_ERROR_INTERNAL if the calculated CPU
+   * 								return OMR_ERROR_INTERNAL if the calculated
+   * CPU
    * load is invalid.
-   * 								return OMR_ERROR_ILLEGAL_ARGUMENT if systemCpuLoad
+   * 								return OMR_ERROR_ILLEGAL_ARGUMENT if
+   * systemCpuLoad
    * is NULL.
-   * 								return OMR_THREAD_NOT_ATTACHED if vmThread is
+   * 								return OMR_THREAD_NOT_ATTACHED if vmThread
+   * is
    * NULL.
    */
   omr_error_t (*GetSystemCpuLoad)(OMR_VMThread *vmThread,
@@ -203,15 +209,20 @@ typedef struct OMR_TI {
    * period, it cannot be NULL.
    * @return an OMR error code, 	return OMR_ERROR_NONE on successful
    * call.
-   * 								return OMR_ERROR_NOT_AVAILABLE if not supported or
+   * 								return OMR_ERROR_NOT_AVAILABLE if not supported
+   * or
    * insufficient user privilege or vm->sysInfo is not initialized.
-   * 								return OMR_ERROR_RETRY on the first call or if the
+   * 								return OMR_ERROR_RETRY on the first call or if
+   * the
    * interval between two calls is too small.
-   * 							  	return OMR_ERROR_INTERNAL if the calculated CPU
+   * 							  	return OMR_ERROR_INTERNAL if the calculated
+   * CPU
    * load is invalid.
-   * 							  	return OMR_ERROR_ILLEGAL_ARGUMENT if
+   * 							  	return OMR_ERROR_ILLEGAL_ARGUMENT
+   * if
    * processCpuLoad is NULL.
-   * 							  	return OMR_THREAD_NOT_ATTACHED if vmThread is
+   * 							  	return OMR_THREAD_NOT_ATTACHED if vmThread
+   * is
    * NULL.
    */
   omr_error_t (*GetProcessCpuLoad)(OMR_VMThread *vmThread,

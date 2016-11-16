@@ -25,9 +25,8 @@
 
 typedef struct MM_AllocationCategory {
   enum Enum {
-    FIXED =
-        0, /** Memory that is a fixed cost of running the garbage collector
-              (e.g. memory for GCExtensions) */
+    FIXED = 0, /** Memory that is a fixed cost of running the garbage collector
+                  (e.g. memory for GCExtensions) */
     WORK_PACKETS, /** Memory that is used for work packets  */
     REFERENCES,   /** Memory that is used to track soft, weak, and phantom
                      references */

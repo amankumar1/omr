@@ -359,11 +359,14 @@ uintptr_t addressRange_Width(AddressRange *range) {
  *
  *
  * @param OMRPortLibrary *portLibrary	[in] The portLibrary object
- * @param ADDRESS 		start			[in] The start address allowed,
+ * @param ADDRESS 		start			[in] The start address
+ * allowed,
  * see also @param end
- * @param ADDRESS 		end				[in] The end address allowed,
+ * @param ADDRESS 		end				[in] The end address
+ * allowed,
  * see also @param start.
- * 											 The returned memory
+ * 											 The returned
+ * memory
  * address should be within the range defined by the @param start and the @param
  * end.
  * @param uintptr_t 		byteAmount		[in] The block size

@@ -3695,7 +3695,7 @@ void OMR::CodeGenerator::TR_SimulatedMemoryReference::add(
   //_undecrementedNodes.add(node);
   _numRegisters += 1;
   //_numRegisters += cg->simulatedNodeState(node)._liveGPRs; // Fix this once we
-  //find a platform that can put other reg kinds in a memref
+  // find a platform that can put other reg kinds in a memref
 }
 
 void OMR::CodeGenerator::TR_SimulatedMemoryReference::

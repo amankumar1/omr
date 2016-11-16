@@ -263,12 +263,12 @@ static omr_error_t testSystemCpuLoad(OMR_VMThread *vmThread, OMR_TI const *ti,
  *valid 		valid 		valid 		valid
  *OMR_ERROR_NONE
  *	9 		multiple 	insufficient 	True
- *valid 		/ 				/ 		doNotExist
+ *valid 		/ 				/ doNotExist
  *OMR_ERROR_NOT_AVAILABLE
  *	10 		multiple 	sufficient 		false
- *valid 		/ 				/ 		doNotExist
+ *valid 		/ 				/ doNotExist
  *OMR_ERROR_NOT_AVAILABLE
- *	11		/				/			/
+ *	11		/				/ /
  *NULL		/				/		doNotExist
  *OMR_THREAD_NOT_ATTACHED
  *
@@ -284,7 +284,8 @@ static omr_error_t testSystemCpuLoad(OMR_VMThread *vmThread, OMR_TI const *ti,
  *thread)
  *
  *	In this way,
- *	case 1 is covered by call 1 to 3,	case 2 is covered by call 3 to 5,
+ *	case 1 is covered by call 1 to 3,	case 2 is covered by call 3 to
+ *5,
  *case 3 is covered by call 3 to 4,
  *	case 4 is covered by call 1 to 2,	case 5 is covered by call 1,
  *case 6 is covered by call 5 to 7,
@@ -302,7 +303,8 @@ static omr_error_t testSystemCpuLoad(OMR_VMThread *vmThread, OMR_TI const *ti,
  *4
  *	3				OMR_ERROR_NONE
  *1
- *	4				OMR_ERROR_NONE					3,
+ *	4				OMR_ERROR_NONE
+ *3,
  *7
  *	5				OMR_ERROR_NONE
  *2

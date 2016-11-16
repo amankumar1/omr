@@ -97,7 +97,8 @@ private:
    * @param[in]      freeList
    * @param[in]	   lowAddress low address of the range
    * @param[in] 	   expandSize the size of the range
-   * @return		   expandedSize if can coalesce, the size of the range if can
+   * @return		   expandedSize if can coalesce, the size of the range if
+   * can
    * not coalesce
    */
   uintptr_t
@@ -111,7 +112,8 @@ private:
    * @param[in]      lastFreeEntry	the last freeEntry of the freelist
    * @param[in]      freeList
    * @param[in]	   newFreeEntry
-   * @return		   expandedSize if can coalesce, the size of newFreeEntry if
+   * @return		   expandedSize if can coalesce, the size of newFreeEntry
+   * if
    * can not coalesce
    */
   uintptr_t

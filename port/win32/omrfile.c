@@ -98,9 +98,11 @@ static intptr_t fromHandle(OMRPortLibrary *portLibrary, HANDLE handle) {
  *
  * @return 		NULL on failure
  * 			 	otherwise the converted string.
- * 					If the return value is not the same as @ref
+ * 					If the return value is not the same as
+ * @ref
  * unicodeBuffer, file_get_unicode_path had to allocate memory to hold the
- * 					unicode path - the caller is responsible for freeing
+ * 					unicode path - the caller is responsible for
+ * freeing
  * this memory by calling @ref omrmem_free_memory on the returned value.
  */
 static wchar_t *file_get_unicode_path(OMRPortLibrary *portLibrary,

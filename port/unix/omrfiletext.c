@@ -252,7 +252,8 @@ static intptr_t file_write_using_wctomb(struct OMRPortLibrary *portLibrary,
  * @param[in,out] bufStart Pointer to the beginning of the original buffer.
  * @param[in,out] cursor Contents of the original buffer up to, but not
  * including cursor will be copied to the new buffer.
- * 							cursor is updated to have the same offset
+ * 							cursor is updated to have the same
+ * offset
  * in the new buffer.
  * @param[in,out] bytesLeft Remaining bytes of the original buffer. Updated to
  * be the remaining bytes of the newly allocated buffer

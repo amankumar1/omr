@@ -274,7 +274,7 @@ public:
                                     uint16_t numChildArgs, ...);
 
 #else // XLC (but not on LINUX PPC) and GCC support the C++11 feature, variadic
-      // templates
+  // templates
 private:
   uint16_t addChildrenAndSymRef(uint16_t lastIndex,
                                 TR::SymbolReference *symRef);
@@ -814,9 +814,9 @@ public:
     ///< isUnneededConversion,
     unsignedLoad,       ///< = isUnneededConversion,
     force64BitReg,      ///< Flag used by 390 loads to place result into 64 bit
-                        ///register
+                        /// register
     couldSkipExtension, ///< Flag used by 390 loads, when top bits might be
-                        ///ignored. i.e. load<24>(ICM)+a2b
+                        /// ignored. i.e. load<24>(ICM)+a2b
     numSignExtensionFlags
   };
 
@@ -873,8 +873,8 @@ public:
   TR::Node *removeLastChild();
   void removeAllChildren();
   void rotateChildren(int32_t first, int32_t last); ///< @note when finsihed,
-                                                    ///last child ends up where
-                                                    ///first child used to be
+                                                    /// last child ends up where
+  /// first child used to be
 
   TR::Node *findChild(TR::ILOpCodes opcode, bool isReversed = false);
   int32_t findChildIndex(TR::Node *child);
@@ -1770,7 +1770,7 @@ public:
     TR::Node *operator*() {
       return currentChild();
     } // Normal C++ style would have this returning a Node&, but Node* is way
-      // handier
+    // handier
 
     bool operator==(const ChildIterator &other) { return this->isAt(other); }
     bool operator!=(const ChildIterator &other) { return !this->isAt(other); }
@@ -1837,7 +1837,7 @@ protected:
     vcount_t _visitCount;
     rcount_t _referenceCount;
     scount_t _localIndex; ///< general index that has the lifetime of a single
-                          ///optimization pass
+                          /// optimization pass
 
     union {
       uint16_t _useDefIndex; ///< used by optimizations
@@ -1854,7 +1854,7 @@ protected:
     } _unionA;
 
     ncount_t _poolIndex; ///< index to retrieve node from nodepool, this can be
-                         ///shared amongst nodes with non-intersecting lifetimes
+    /// shared amongst nodes with non-intersecting lifetimes
   };
 
   struct NodeExtensionStore {
@@ -1904,7 +1904,7 @@ protected:
     int32_t _arrayStride;                      ///< hasArrayStride()
     TR::AutomaticSymbol *_pinningArrayPointer; ///< hasPinningArrayPointer()
     TR::DataTypes _dataType; ///< hasDataType()  TODO: Change to TR::DataType
-                             ///once all target compilers support it
+                             /// once all target compilers support it
 
     UnionPropertyA() {
       memset(
@@ -1988,8 +1988,8 @@ protected:
     nodePointsToNonNull = 0x00000004,
     nodeContainsCall = 0x00000008,          ///< Only used during local analysis
     invalid8BitGlobalRegister = 0x00000010, ///< value is in a global register
-                                            ///which cannot be used on an 8 bit
-                                            ///instruction
+                                            /// which cannot be used on an 8 bit
+    /// instruction
     isHPREligible = 0x00000010, ///< 390 zGryphon Highword register GRA
     nodeHasExtension = 0x00000020,
     directMemoryUpdate =
@@ -2002,7 +2002,7 @@ protected:
     nodeIsDebug = 0x00000400, ///< Should not be counted for metrics
 
     //---------------------------------------- node specific
-    //flags---------------------------------------
+    // flags---------------------------------------
 
     // Flag used by arithmetic int/long operations
     cannotOverFlow = 0x00001000,
@@ -2084,9 +2084,9 @@ protected:
     noArrayStoreCheckArrayCopy = 0x00008000,
     arraysetLengthMultipleOfPointerSize =
         0x00020000, ///< flag used by TR::arrayset to guarantee that checking
-                    ///for lengths smaller than pointer size is not needed
-                    ///(leading to more efficient code being generated, e.g. REP
-                    ///STOSQ on X86
+                    /// for lengths smaller than pointer size is not needed
+    ///(leading to more efficient code being generated, e.g. REP
+    /// STOSQ on X86
 
     // Flags used by TR::bitOpMem
     bitOpMemOPMASK =
@@ -2113,9 +2113,9 @@ protected:
     precisionAdjustment = 0x00004000, ///< Flag used by FP regLoad/regStore
 
     nodeUsedForBranchOnCount = 0x00000400, ///< Flag used by TR_if or
-                                           ///TR::istore/TR::iRegStore or
-                                           ///TR::iadd,
-                                           ///< TR::ladd, TR::isub, TR::lsub
+                                           /// TR::istore/TR::iRegStore or
+    /// TR::iadd,
+    ///< TR::ladd, TR::isub, TR::lsub
 
     dontMoveUnderBranch = 0x00002000, ///< Flag used by TR::xload/TR::xRegLoad
     nodeCreatedByPRE = 0x00040000,    ///< Flag used by TR_xload
@@ -2221,9 +2221,9 @@ protected:
     unneededConv = 0x00008000,
     ParentSupportsLazyClobber =
         0x00002000, ///< Tactical x86 codegen flag.  Only when refcount <= 1.
-                    ///Indicates that parent will consult the register's node
-                    ///count before clobbering it (not just the node's
-                    ///refcount).
+                    /// Indicates that parent will consult the register's node
+    /// count before clobbering it (not just the node's
+    /// refcount).
 
     // Flag used by float to fixed conversion nodes e.g.
     // f2i/f2pd/d2i/df2i/f2l/d2l/f2s/d2pd etc
@@ -2236,9 +2236,9 @@ protected:
     // Flag used by TR::checkcast, TR::checkCastForArrayStore, and
     // TR::instanceof
     referenceIsNonNull = 0x00008000, ///< Sometimes we can't mark the child as
-                                     ///non-null (because it's not provably
-                                     ///non-null everywhere) but we know it's
-                                     ///non-null by the time we run this parent
+                                     /// non-null (because it's not provably
+    /// non-null everywhere) but we know it's
+    /// non-null by the time we run this parent
 
     // Flag used by TR::Return
     returnIsDummy = 0x00001000,

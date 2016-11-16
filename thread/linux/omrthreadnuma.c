@@ -195,11 +195,10 @@ static intptr_t initializeNumaNodeData(omrthread_library_t threadLibrary,
                             *cursor)) { /* find the start of the hex string */
                       cursor -= 1;
                     }
-                    uint32_t
-                        cpuIndex = 4 *
-                                   charCount; /* each hex digit represents 4
-                                                 CPUs.  Use the count from the
-                                                 last iteration */
+                    uint32_t cpuIndex =
+                        4 * charCount; /* each hex digit represents 4
+                                          CPUs.  Use the count from the
+                                          last iteration */
                     while ((cursor > mapBuffer) && isxdigit(*cursor)) {
                       charCount += 1;
                       cursor -= 1;

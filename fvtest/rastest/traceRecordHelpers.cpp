@@ -241,7 +241,7 @@ static TracePointIteratorState nextTracePoint(PerThreadWrapBuffer *wrapBuffer,
     memcpy(wrapBuffer->lastRecord + wrapBuffer->lastRecordPos,
            (uint8_t *)record + record->firstEntry, partialBytes);
     //		printf("thread %p wrapped tpLength %u partialBytes %lu\n",
-    //omrthread_self(), tpLength, partialBytes);
+    // omrthread_self(), tpLength, partialBytes);
     wrapBuffer->lastRecordPos += partialBytes;
 
     parseTracePoint((const UtTraceRecord *)wrapBuffer->lastRecord,

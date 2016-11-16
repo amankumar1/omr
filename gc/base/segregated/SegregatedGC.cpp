@@ -188,7 +188,7 @@ bool MM_SegregatedGC::internalGarbageCollect(
 
   //	if (env->_cycleState->_gcCode.isOutOfMemoryGC()) {
   //		env->_cycleState->_referenceObjectOptions |=
-  //MM_CycleState::references_soft_as_weak;
+  // MM_CycleState::references_soft_as_weak;
   //	}
 
   /* run the mark */
@@ -460,8 +460,8 @@ void MM_SegregatedGC::reportGCEnd(MM_EnvironmentBase *env) {
       approximateLoaActiveFreeMemorySize, loaActiveMemorySize,
       /* We can't just ask the heap for everything of type FIXED, because that
          includes scopes as well */
-      approximateActiveFreeMemorySize,
-      activeMemorySize, _extensions->globalGCStats.fixHeapForWalkReason,
+      approximateActiveFreeMemorySize, activeMemorySize,
+      _extensions->globalGCStats.fixHeapForWalkReason,
       _extensions->globalGCStats.fixHeapForWalkTime);
 }
 

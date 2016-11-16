@@ -75,9 +75,9 @@ private:
   MM_ParallelSweepChunk
       *_currentSweepChunk; /**< Next chunk to concurrent sweep in the given
                               memory pool */
-  MM_ParallelSweepChunk *
-      _currentSweepChunkReverse; /**< Next chunk to sweep when sweeping high to
-                                    low in a given memory pool */
+  MM_ParallelSweepChunk
+      *_currentSweepChunkReverse; /**< Next chunk to sweep when sweeping high to
+                                     low in a given memory pool */
   MM_LightweightNonReentrantLock
       _sweepChunkIteratorLock; /**< Lock for the next chunk to concurrent sweep
                                   list */

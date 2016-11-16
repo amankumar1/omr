@@ -329,7 +329,7 @@ void TR_LoadExtensions::countLoadExtensions(TR::Node *parent,
          (opcode.isConversion() && parent->getSize() < child->getSize()))) {
       // traceMsg(comp, "\t\t\tSigned %p\n", child);
       //_counts[child->getGlobalIndex()] |= 0x0001 setOverrideOpt(child,
-      //loadOverride);;
+      // loadOverride);;
     }
 
     countLoadExtensions(child, visitCount);
@@ -715,7 +715,7 @@ ncount_t TR_LoadExtensions::indexNodesForCodegen(TR::Node *parent,
   if (opcode.isLoadVar() && supportedType(parent) ||
       opcode.isLoadConst() && supportedConstLoad(parent, comp())
       //|| opcode.isConversion() // can't index conversion nodes, the second
-      //child is already reused for other purposes
+      // child is already reused for other purposes
       ) {
     if (trace())
       traceMsg(cg(), "Marking node %p as %d [children: %d]\n", parent,

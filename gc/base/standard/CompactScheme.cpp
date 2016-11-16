@@ -239,7 +239,7 @@ public:
 
 #if defined(OMR_ENV_DATA64)
     intptr_t hint = (_bits >> getHintShiftCount(index)) & makeMask(hintSize);
-#else  /* OMR_ENV_DATA64 */
+#else /* OMR_ENV_DATA64 */
     intptr_t hint = _bits >> getHintShiftCount(index);
 #endif /* OMR_ENV_DATA64 */
     Assert_MM_true((hint != 0) && (hint < maxValue));
@@ -251,7 +251,8 @@ public:
 
 bool MM_CompactScheme::initialize(MM_EnvironmentBase *env) { return true; }
 
-void MM_CompactScheme::tearDown(MM_EnvironmentBase *env) { /* Do nothing */ }
+void MM_CompactScheme::tearDown(MM_EnvironmentBase *env) { /* Do nothing */
+}
 
 /**
  * Free the receiver and all associated resources.

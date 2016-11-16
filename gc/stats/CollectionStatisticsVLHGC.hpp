@@ -48,17 +48,15 @@ public:
                                           arraylets */
   uintptr_t _arrayletReferenceLeaves;  /**< Count (total) of reference arraylet
                                           leaves */
-  uintptr_t
-      _largestReferenceArraylet; /**< Count of reference arraylet leafs in
-                                    largest arraylet */
+  uintptr_t _largestReferenceArraylet; /**< Count of reference arraylet leafs in
+                                          largest arraylet */
 
   uintptr_t _arrayletPrimitiveObjects; /**< Count of non-contiguous primitive
                                           arraylets */
   uintptr_t _arrayletPrimitiveLeaves;  /**< Count (total) of primitive arraylet
                                           leaves */
-  uintptr_t
-      _largestPrimitiveArraylet; /**< Count of primitive arraylet leafs in
-                                    largest arraylet */
+  uintptr_t _largestPrimitiveArraylet; /**< Count of primitive arraylet leafs in
+                                          largest arraylet */
 
   uintptr_t _arrayletUnknownObjects; /**< Count of non-contiguous arraylets of
                                         unknown type (if class is unloaded)*/

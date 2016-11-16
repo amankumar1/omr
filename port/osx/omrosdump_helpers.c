@@ -152,7 +152,8 @@ uintptr_t renameDump(struct OMRPortLibrary *portLibrary, char *filename,
 /**
  * Wait for the core dump file to be written.
  *
- * @param[in] path	Absolute path of the expected core file, null terminated.
+ * @param[in] path	Absolute path of the expected core file, null
+ * terminated.
  * Maximum length including null is PATH_MAX.
  *
  * @return intptr_t	0 if the file was found, otherwise 1 indicating timeout

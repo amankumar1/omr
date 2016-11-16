@@ -26,9 +26,9 @@
 #ifndef CS2_BITVECTR_H
 #define CS2_BITVECTR_H
 
-#include "cs2/cs2.h"
-#include "cs2/bitmanip.h"
 #include "cs2/allocator.h"
+#include "cs2/bitmanip.h"
+#include "cs2/cs2.h"
 
 #ifdef CS2_ALLOCINFO
 #define allocate(x) allocate(x, __FILE__, __LINE__)

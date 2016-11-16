@@ -6195,19 +6195,15 @@ TR::Node *directStoreSimplifier(TR::Node *node, TR::Block *block,
     TR::Node *secondGrandchild = child->getSecondChild();
     bool firstLoadsSymRef =
         (firstGrandchild->getOpCode().isLoadVar() &&
-         symRef ==
-             firstGrandchild
-                 ->getSymbolReference()); // &&
-                                          // firstGrandchild->getReferenceCount()
-                                          // > 1);
+         symRef == firstGrandchild->getSymbolReference()); // &&
+    // firstGrandchild->getReferenceCount()
+    // > 1);
     bool firstIsLoadConst = (firstGrandchild->getOpCode().isLoadConst());
     bool secondLoadsSymRef =
         (secondGrandchild->getOpCode().isLoadVar() &&
-         symRef ==
-             secondGrandchild
-                 ->getSymbolReference()); // &&
-                                          // secondGrandchild->getReferenceCount()
-                                          // > 1);
+         symRef == secondGrandchild->getSymbolReference()); // &&
+    // secondGrandchild->getReferenceCount()
+    // > 1);
     bool secondIsLoadConst = (secondGrandchild->getOpCode().isLoadConst());
 
     if (firstLoadsSymRef && secondIsLoadConst ||
@@ -6398,7 +6394,7 @@ TR::Node *ifdCallSimplifier(TR::Node *node, TR::Block *block,
     // of raising the first argument to the power of the second argument if that
     // result can in fact be represented exactly as a double value.
     //(In the foregoing descriptions, a floating-point value is considered to be
-    //an integer if and only if it is finite and a fixed point of
+    // an integer if and only if it is finite and a fixed point of
     // the method ceil or, equivalently, a fixed point of the method floor. A
     // value is a fixed point of a one-argument method if and only if
     // the result of applying the method to the value is equal to the value.)
@@ -17280,9 +17276,9 @@ TR::Node *divchkSimplifier(TR::Node *node, TR::Block *block,
   //
   TR::Node *originalChild = node->getFirstChild();
   /////TR::ILOpCodes originalChildOpCode =
-  ///originalChild->getOpCode().getOpCodeValue();
+  /// originalChild->getOpCode().getOpCodeValue();
   /////TR_ASSERT(originalChild->getVisitCount() !=
-  ///s->comp()->getVisitCount(),"Simplifier, bad divchk node");
+  /// s->comp()->getVisitCount(),"Simplifier, bad divchk node");
   TR::Node *child = originalChild;
   if (originalChild->getVisitCount() != s->comp()->getVisitCount())
     child = s->simplify(originalChild, block);

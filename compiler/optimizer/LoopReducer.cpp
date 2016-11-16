@@ -1141,7 +1141,7 @@ bool TR_LoopReducer::generateArraycopy(TR_InductionVariable *indVar,
   // if incr is negative, it should be a backward arraycopy
   if (arraycopyLoop.getStoreAddress()->getIncrement() < 0)
   //&& (storeAddr->getFirstChild()->getSymbol()->getRegisterMappedSymbol() ==
-  //loadAddr->getFirstChild()->getSymbol()->getRegisterMappedSymbol()))
+  // loadAddr->getFirstChild()->getSymbol()->getRegisterMappedSymbol()))
   {
     if (comp()->cg()->getSupportsPrimitiveArrayCopy())
       arraycopy->setBackwardArrayCopy(
