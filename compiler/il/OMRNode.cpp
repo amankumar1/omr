@@ -29,7 +29,7 @@
 #include "codegen/Register.hpp"                 // for Register
 #include "codegen/RegisterPair.hpp"             // for RegisterPair
 #include "compile/Compilation.hpp"              // for Compilation, comp
-#include "compile/Method.hpp"                   // for TR_Method, etc
+#include "compile/Method.hpp"                   // for OMR::Method, etc
 #include "compile/ResolvedMethod.hpp"           // for TR_ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"     // for SymbolReferenceTable
 #include "control/Options.hpp"                  // for Options

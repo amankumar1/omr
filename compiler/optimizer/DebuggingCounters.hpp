@@ -24,7 +24,7 @@
 #include "env/TRMemory.hpp"  // for TR_Memory, etc
 #include "env/jittypes.h"    // for TR_ByteCodeInfo, etc
 
-class TR_Method;
+namespace OMR { class Method; }
 namespace TR { class Compilation; }
 namespace TR { class TreeTop; }
 
@@ -44,7 +44,7 @@ struct CountedCallSite
   int32_t frequency;
   int32_t numLocals;
   TR_OpaqueMethodBlock *opaque_method;
-  TR_Method *method;
+  OMR::Method *method;
   TR_ByteCodeInfo bcInfo;
   CountedCallSite * _next;
   };

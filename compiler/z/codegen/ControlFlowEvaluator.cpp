@@ -34,7 +34,7 @@
 #include "codegen/TreeEvaluator.hpp"
 #include "codegen/S390Evaluator.hpp"
 #include "compile/Compilation.hpp"                  // for Compilation, etc
-#include "compile/Method.hpp"                       // for TR_Method
+#include "compile/Method.hpp"                       // for OMR::Method
 #include "compile/ResolvedMethod.hpp"
 #include "compile/SymbolReferenceTable.hpp"
 #include "compile/VirtualGuard.hpp"                 // for TR_VirtualGuard

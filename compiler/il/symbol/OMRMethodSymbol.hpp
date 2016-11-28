@@ -32,7 +32,7 @@ namespace OMR { typedef OMR::MethodSymbol MethodSymbolConnector; }
 
 #include "codegen/LinkageConventionsEnum.hpp"  // for TR_LinkageConventions, etc
 #include "codegen/RecognizedMethods.hpp"       // for RecognizedMethod, etc
-#include "compile/Method.hpp"                  // for TR_Method
+#include "compile/Method.hpp"                  // for OMR::Method
 #include "il/DataTypes.hpp"                    // for DataTypes
 #include "infra/Assert.hpp"                    // for TR_ASSERT
 #include "infra/Flags.hpp"                     // for flags32_t
@@ -50,12 +50,12 @@ class OMR_EXTENSIBLE MethodSymbol : public TR::Symbol
 
 protected:
 
-   MethodSymbol(TR_LinkageConventions lc = TR_Private, TR_Method * m = 0);
+   MethodSymbol(TR_LinkageConventions lc = TR_Private, OMR::Method * m = 0);
 
 public:
 
    template <typename AllocatorType>
-   static TR::MethodSymbol * create(AllocatorType t, TR_LinkageConventions lc = TR_Private, TR_Method * m = 0);
+   static TR::MethodSymbol * create(AllocatorType t, TR_LinkageConventions lc = TR_Private, OMR::Method * m = 0);
 
    TR::MethodSymbol *self();
 
@@ -70,8 +70,8 @@ public:
    TR_LinkageConventions getLinkageConvention()               { return _linkageConvention; }
    void                  setLinkage(TR_LinkageConventions lc) { _linkageConvention = lc; }
 
-   TR_Method * getMethod()              { return _method; }
-   void        setMethod(TR_Method * m) { _method = m; }
+   OMR::Method * getMethod()              { return _method; }
+   void        setMethod(OMR::Method * m) { _method = m; }
 
    enum Kinds
       {
@@ -197,7 +197,7 @@ protected:
 
    void *                _methodAddress;
 
-   TR_Method *           _method;
+   OMR::Method *           _method;
 
    flags32_t             _methodFlags;
 

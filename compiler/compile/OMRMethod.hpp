@@ -107,7 +107,10 @@ protected:
    TR::Compilation &                 _comp;
    };
 
-class TR_Method
+namespace OMR
+{
+
+class Method
    {
    public:
 
@@ -139,7 +142,7 @@ class TR_Method
    bool isRuby()   { return _typeOfMethod == Ruby;   }
    Type methodType() { return _typeOfMethod; }
 
-   TR_Method(Type t = J9) : _typeOfMethod(t) { _recognizedMethod = _mandatoryRecognizedMethod = TR::unknownMethod; }
+   Method(Type t = J9) : _typeOfMethod(t) { _recognizedMethod = _mandatoryRecognizedMethod = TR::unknownMethod; }
 
    // --------------------------------------------------------------------------
    // J9
@@ -178,7 +181,7 @@ class TR_Method
    Type  _typeOfMethod;
 
    };
-
+} // namespace OMR
 
 typedef struct TR_AOTMethodInfo
    {

@@ -35,7 +35,7 @@
 #include <string.h>                         // for strcpy
 #include "codegen/Machine.hpp"              // for MachineBaseConnector
 #include "codegen/RegisterConstants.hpp"    // for TR_RegisterKinds, etc
-#include "compile/Method.hpp"               // for TR_Method, etc
+#include "compile/Method.hpp"               // for OMR::Method, etc
 #include "compile/VirtualGuard.hpp"         // for TR_VirtualGuardKind, etc.
 #include "cs2/hashtab.h"                    // for HashTable
 #include "env/RawAllocator.hpp"
@@ -404,11 +404,11 @@ public:
    virtual int32_t *       loadCustomStrategy(char *optFileName);
    virtual bool            methodCanBeCompiled(TR_Memory *mem, TR_ResolvedMethod *, TR_FilterBST * &);
    virtual bool            methodCanBeRelocated(TR_Memory *mem, TR_ResolvedMethod *, TR_FilterBST * &);
-   virtual bool            methodSigCanBeCompiled(const char *, TR_FilterBST * & , TR_Method::Type methodType);
+   virtual bool            methodSigCanBeCompiled(const char *, TR_FilterBST * & , OMR::Method::Type methodType);
    virtual bool            methodSigCanBeRelocated(const char *, TR_FilterBST * & );
-   virtual bool            methodSigCanBeCompiledOrRelocated(const char *, TR_FilterBST * &, bool isRelocation, TR_Method::Type methodType);
+   virtual bool            methodSigCanBeCompiledOrRelocated(const char *, TR_FilterBST * &, bool isRelocation, OMR::Method::Type methodType);
    virtual bool            methodCanBeFound(TR_Memory *, TR_ResolvedMethod *, TR::CompilationFilters *, TR_FilterBST * &);
-   virtual bool            methodSigCanBeFound(const char *, TR::CompilationFilters *, TR_FilterBST * &, TR_Method::Type methodType);
+   virtual bool            methodSigCanBeFound(const char *, TR::CompilationFilters *, TR_FilterBST * &, OMR::Method::Type methodType);
    virtual TR::CompilationFilters * getCompilationFilters() { return _compilationFilters; }
    virtual TR::CompilationFilters * getRelocationFilters() { return _relocationFilters; }
    virtual void            clearFilters(TR::CompilationFilters *);

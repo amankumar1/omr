@@ -46,7 +46,7 @@
 #include "codegen/RegisterRematerializationInfo.hpp"
 #include "codegen/Snippet.hpp"                        // for Snippet
 #include "compile/Compilation.hpp"                    // for Compilation, etc
-#include "compile/Method.hpp"                         // for TR_Method
+#include "compile/Method.hpp"                         // for OMR::Method
 #include "compile/ResolvedMethod.hpp"
 #include "compile/SymbolReferenceTable.hpp"
 #include "compile/VirtualGuard.hpp"
@@ -979,7 +979,7 @@ TR_Debug::signature(TR::ResolvedMethodSymbol *s)
 TR_OpaqueClassBlock *
 TR_Debug::containingClass(TR::SymbolReference *symRef)
    {
-   TR_Method *method = symRef->getSymbol()->castToMethodSymbol()->getMethod();
+   OMR::Method *method = symRef->getSymbol()->castToMethodSymbol()->getMethod();
 
    if (method)
       {
@@ -1883,7 +1883,7 @@ TR_Debug::getParmName(TR::SymbolReference * symRef)
 const char *
 TR_Debug::getMethodName(TR::SymbolReference * symRef)
    {
-   TR_Method * method = symRef->getSymbol()->castToMethodSymbol()->getMethod();
+   OMR::Method * method = symRef->getSymbol()->castToMethodSymbol()->getMethod();
 
    if (method==NULL)
       {

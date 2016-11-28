@@ -23,7 +23,7 @@
 #include "env/KnownObjectTable.hpp"        // for KnownObjectTable, etc
 #include "compile/Compilation.hpp"             // for Compilation
 #include "compile/CompilationTypes.hpp"        // for TR_CallingContext
-#include "compile/Method.hpp"                  // for TR_Method
+#include "compile/Method.hpp"                  // for OMR::Method
 #include "control/Options.hpp"
 #include "control/OptionsUtil.hpp"
 #include "control/Options_inlines.hpp"

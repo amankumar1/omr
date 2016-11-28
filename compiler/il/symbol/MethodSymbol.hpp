@@ -24,7 +24,7 @@
 #include <stddef.h>                            // for NULL
 #include "codegen/LinkageConventionsEnum.hpp"  // for TR_LinkageConventions, etc
 
-class TR_Method;
+namespace OMR { class Method; }
 
 namespace TR
 {
@@ -34,7 +34,7 @@ class OMR_EXTENSIBLE MethodSymbol : public OMR::MethodSymbolConnector
 
 protected:
 
-   MethodSymbol(TR_LinkageConventions lc = TR_Private, TR_Method* m = NULL) :
+   MethodSymbol(TR_LinkageConventions lc = TR_Private, OMR::Method* m = NULL) :
       OMR::MethodSymbolConnector(lc, m) { }
 
 private:

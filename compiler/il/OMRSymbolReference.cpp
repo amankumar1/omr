@@ -23,7 +23,7 @@
 #include <string.h>                            // for NULL, memset, strncmp
 #include "codegen/FrontEnd.hpp"                // for TR_FrontEnd
 #include "compile/Compilation.hpp"             // for Compilation
-#include "compile/Method.hpp"                  // for TR_Method, mcount_t
+#include "compile/Method.hpp"                  // for OMR::Method, mcount_t
 #include "compile/ResolvedMethod.hpp"          // for TR_ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"    // for SymbolReferenceTable, etc
 #include "control/Options.hpp"

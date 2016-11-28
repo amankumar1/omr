@@ -36,7 +36,7 @@
 #include "codegen/RecognizedMethods.hpp"
 #include "compile/Compilation.hpp"                        // for Compilation
 #include "compile/InlineBlock.hpp"
-#include "compile/Method.hpp"                             // for TR_Method
+#include "compile/Method.hpp"                             // for OMR::Method
 #include "compile/OSRData.hpp"                            // for HCRMode, etc
 #include "compile/ResolvedMethod.hpp"
 #include "compile/SymbolReferenceTable.hpp"
@@ -5479,7 +5479,7 @@ TR_CallSite::TR_CallSite(TR_ResolvedMethod *callerResolvedMethod,
                          TR::TreeTop *callNodeTreeTop,
                          TR::Node *parent,
                          TR::Node *callNode,
-                         TR_Method * interfaceMethod,
+                         OMR::Method * interfaceMethod,
                          TR_OpaqueClassBlock *receiverClass,
                          int32_t vftSlot,
                          int32_t cpIndex,

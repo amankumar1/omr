@@ -26,7 +26,7 @@
 #include "codegen/RecognizedMethods.hpp"        // for RecognizedMethod, etc
 #include "codegen/InstOpCode.hpp"               // for InstOpCode
 #include "compile/Compilation.hpp"              // for Compilation, comp
-#include "compile/Method.hpp"                   // for TR_Method, etc
+#include "compile/Method.hpp"                   // for OMR::Method, etc
 #include "compile/ResolvedMethod.hpp"           // for TR_ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"     // for SymbolReferenceTable
 #include "compile/VirtualGuard.hpp"             // for TR_VirtualGuard
@@ -4940,7 +4940,7 @@ static void devirtualizeCall(TR::ValuePropagation *vp, TR::Node *node)
 
       int32_t cpIndex = symRef->getCPIndex();
 
-      TR_Method * originalMethod = methodSymbol->getMethod();
+      OMR::Method * originalMethod = methodSymbol->getMethod();
       len = originalMethod->classNameLength();
       s = classNameToSignature(originalMethod->classNameChars(), len, vp->comp());
       originalMethodClass = vp->fe()->getClassFromSignature(s, len, owningMethod);
@@ -5215,7 +5215,7 @@ TR::Node *constrainCall(TR::ValuePropagation *vp, TR::Node *node)
       // some value in parsing the return type of the method
       // being invoked to obtain better info about byte/bool/char/short
       //
-      TR_Method *method = node->getSymbol()->castToMethodSymbol()->getMethod();
+      OMR::Method *method = node->getSymbol()->castToMethodSymbol()->getMethod();
       if (method)
          {
          TR::DataType dataType = method->returnType();
@@ -5432,7 +5432,7 @@ TR::Node *constrainCall(TR::ValuePropagation *vp, TR::Node *node)
                {
                //FIXME: add me to the list of calls to be inlined
                //
-               TR_Method *method = getHelpersSymRef->getSymbol()->castToMethodSymbol()->getMethod();
+               OMR::Method *method = getHelpersSymRef->getSymbol()->castToMethodSymbol()->getMethod();
                TR::Node *helpersCallNode = TR::Node::createWithSymRef( node, method->directCallOpCode(), 0, getHelpersSymRef);
                TR::TreeTop *helpersCallTT = TR::TreeTop::create(vp->comp(), TR::Node::create(TR::treetop, 1, helpersCallNode));
                vp->_curTree->insertBefore(helpersCallTT);
@@ -5583,7 +5583,7 @@ void transformToOptimizedCloneCall(TR::ValuePropagation *vp, TR::Node *node, boo
         {
         //FIXME: add me to the list of calls to be inlined
         //
-        TR_Method *method = optimizedCloneSymRef->getSymbol()->castToMethodSymbol()->getMethod();
+        OMR::Method *method = optimizedCloneSymRef->getSymbol()->castToMethodSymbol()->getMethod();
         TR::Node *helpersCallNode = TR::Node::createWithSymRef(node, method->directCallOpCode(), 0, getHelpersSymRef);
         TR::TreeTop *helpersCallTT = TR::TreeTop::create(vp->comp(), TR::Node::create(TR::treetop, 1, helpersCallNode));
         vp->_curTree->insertBefore(helpersCallTT);
@@ -10105,7 +10105,7 @@ static TR::Node *constrainIfcmpeqne(TR::ValuePropagation *vp, TR::Node *node, bo
              //The object's class can sometimes be less specific than the class of the call
              //if we ask for a rammethod in such a class we would trigger an assert ("no ram method in the vft slot")
              //to avoid this we would to insert another isInstanceOf (objectClass, callClass)
-             TR_Method* interfaceMethod = interfaceMethodSymbol->getMethod();
+             OMR::Method* interfaceMethod = interfaceMethodSymbol->getMethod();
              //re-using len and sig for getting a class of a call
              len = interfaceMethod->classNameLength();
              sig = classNameToSignature(interfaceMethod->classNameChars(), len, vp->comp());

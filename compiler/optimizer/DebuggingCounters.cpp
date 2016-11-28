@@ -23,7 +23,7 @@
 #include <string.h>                    // for strncmp, strcpy, strlen, etc
 #include "codegen/FrontEnd.hpp"        // for TR_FrontEnd
 #include "compile/Compilation.hpp"     // for Compilation
-#include "compile/Method.hpp"          // for TR_Method
+#include "compile/Method.hpp"          // for OMR::Method
 #include "compile/SymbolReferenceTable.hpp"       // for SymbolReferenceTable
 #include "control/Options.hpp"
 #include "control/Options_inlines.hpp"         // for TR::Options

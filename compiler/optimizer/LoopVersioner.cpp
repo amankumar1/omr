@@ -26,7 +26,7 @@
 #include "codegen/CodeGenerator.hpp"               // for CodeGenerator
 #include "codegen/FrontEnd.hpp"                    // for TR_FrontEnd, etc
 #include "compile/Compilation.hpp"                 // for Compilation
-#include "compile/Method.hpp"                      // for TR_Method
+#include "compile/Method.hpp"                      // for OMR::Method
 #include "compile/ResolvedMethod.hpp"              // for TR_ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"
 #include "compile/VirtualGuard.hpp"                // for TR_VirtualGuard

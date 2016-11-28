@@ -25,7 +25,7 @@
 #include "codegen/FrontEnd.hpp"                          // for TR_FrontEnd
 #include "codegen/Linkage.hpp"                           // for Linkage
 #include "compile/Compilation.hpp"                       // for Compilation, etc
-#include "compile/Method.hpp"                            // for TR_Method, mcount_t
+#include "compile/Method.hpp"                            // for OMR::Method, mcount_t
 #include "compile/SymbolReferenceTable.hpp"
 #include "control/Options.hpp"
 #include "control/Options_inlines.hpp"                   // for TR::Options, etc
@@ -1720,7 +1720,7 @@ void TR_UseDefInfo::insertData(TR::Block *block, TR::Node *node,TR::Node *parent
          }
       TR::GlobalSparseBitVector *mustKill = NULL;
       TR::Symbol *callSym = NULL;
-      TR_Method *callMethod = NULL;
+      OMR::Method *callMethod = NULL;
 
       TR::SparseBitVector::Cursor aliasesCursor(aliases);
       for (aliasesCursor.SetToFirstOne(); aliasesCursor.Valid(); aliasesCursor.SetToNextOne())
@@ -1859,7 +1859,7 @@ void TR_UseDefInfo::processReachingDefinition(void* vblockInfo, AuxiliaryData &a
 void TR_UseDefInfo::buildUseDefs(void *vblockInfo, AuxiliaryData &aux)
    {
    // *this    swipeable for debugging purposes
-   TR_Method *method = comp()->getMethodSymbol()->getMethod();
+   OMR::Method *method = comp()->getMethodSymbol()->getMethod();
    TR::Block *block;
    TR::TreeTop *treeTop;
    TR_ReachingDefinitions::ContainerType *analysisInfo = NULL;
@@ -1911,7 +1911,7 @@ void TR_UseDefInfo::buildUseDefs(void *vblockInfo, AuxiliaryData &aux)
          }
 
       int32_t i, ii;
-      TR_Method *method = comp()->getMethodSymbol()->getMethod();
+      OMR::Method *method = comp()->getMethodSymbol()->getMethod();
       TR_BitVectorIterator bvi(*analysisInfo);
       while (bvi.hasMoreElements())
          {
@@ -2308,7 +2308,7 @@ void TR_UseDefInfo::buildUseDefs(TR::Node *node, void *vanalysisInfo, TR::BitVec
       buildUseDefs(node->getChild(i), analysisInfo, nodesToBeDereferenced, node, aux);
       }
 
-   TR_Method *method = comp()->getMethodSymbol()->getMethod();
+   OMR::Method *method = comp()->getMethodSymbol()->getMethod();
    uint32_t nodeIndex = node->getUseDefIndex();
    if (node->getOpCode().hasSymbolReference() &&
        isTrivialUseDefNode(node, aux) )
@@ -2463,7 +2463,7 @@ void TR_UseDefInfo::buildUseDefs(TR::Node *node, void *vanalysisInfo, TR::BitVec
             }
 #endif
 
-         TR_Method *method = comp()->getMethodSymbol()->getMethod();
+         OMR::Method *method = comp()->getMethodSymbol()->getMethod();
 
          BitVector::Cursor cursor(defs);
          for (cursor.SetToFirstOne(); cursor.Valid(); cursor.SetToNextOne())

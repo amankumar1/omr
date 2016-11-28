@@ -33,7 +33,7 @@
 #include "codegen/RecognizedMethods.hpp"       // for RecognizedMethod, etc
 #include "codegen/RegisterConstants.hpp"
 #include "compile/Compilation.hpp"             // for Compilation, comp, etc
-#include "compile/Method.hpp"                  // for TR_Method
+#include "compile/Method.hpp"                  // for OMR::Method
 #include "compile/ResolvedMethod.hpp"          // for TR_ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"    // for SymbolReferenceTable, etc
 #include "compile/VirtualGuard.hpp"            // for TR_VirtualGuard

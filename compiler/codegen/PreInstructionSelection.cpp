@@ -25,7 +25,7 @@
 #include "codegen/Linkage.hpp"                 // for Linkage
 #include "codegen/RealRegister.hpp"            // for RealRegister
 #include "compile/Compilation.hpp"             // for Compilation
-#include "compile/Method.hpp"                  // for TR_Method
+#include "compile/Method.hpp"                  // for OMR::Method
 #include "compile/ResolvedMethod.hpp"          // for TR_ResolvedMethod
 #include "control/Options.hpp"
 #include "control/Options_inlines.hpp"

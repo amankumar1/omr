@@ -27,7 +27,7 @@
 #include "codegen/RegisterConstants.hpp"   // for TR_RegisterKinds::TR_X87
 #include "codegen/RegisterDependency.hpp"
 #include "compile/Compilation.hpp"         // for Compilation
-#include "compile/Method.hpp"              // for TR_Method
+#include "compile/Method.hpp"              // for OMR::Method
 #include "control/Options.hpp"
 #include "control/Options_inlines.hpp"
 #include "il/ILOpCodes.hpp"                // for ILOpCodes

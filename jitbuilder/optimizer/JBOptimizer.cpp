@@ -21,7 +21,7 @@
 #include <stddef.h>                                       // for NULL
 #include <stdint.h>                                       // for uint16_t
 #include "compile/Compilation.hpp"
-#include "compile/Method.hpp"                             // for TR_Method
+#include "compile/Method.hpp"                             // for OMR::Method
 #include "control/Options.hpp"
 #include "control/Options_inlines.hpp"
 #include "il/symbol/ResolvedMethodSymbol.hpp"

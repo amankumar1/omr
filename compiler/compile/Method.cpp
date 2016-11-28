@@ -254,57 +254,57 @@ bool TR_ResolvedMethod::isDAAIntrinsicMethod()
    return false;
    }
 
-#define notImplemented(A) TR_ASSERT(0, "TR_Method::%s is undefined", (A) )
+#define notImplemented(A) TR_ASSERT(0, "OMR::Method::%s is undefined", (A) )
 
-uint32_t              TR_Method::numberOfExplicitParameters() { notImplemented("numberOfExplicitParameters"); return 0; }
-TR::DataType        TR_Method::parmType(uint32_t)           { notImplemented("parmType"); return TR::NoType; }
-TR::ILOpCodes          TR_Method::directCallOpCode()           { notImplemented("directCallOpCode"); return TR::BadILOp; }
-TR::ILOpCodes          TR_Method::indirectCallOpCode()         { notImplemented("indirectCallOpCode"); return TR::BadILOp; }
-TR::DataType        TR_Method::returnType()                 { notImplemented("returnType"); return TR::NoType; }
-bool                  TR_Method::returnTypeIsUnsigned()       { notImplemented("returnTypeIsUnsigned"); return TR::NoType;}
-uint32_t              TR_Method::returnTypeWidth()            { notImplemented("returnTypeWidth"); return 0; }
-TR::ILOpCodes          TR_Method::returnOpCode()               { notImplemented("returnOpCode"); return TR::BadILOp; }
-uint16_t              TR_Method::classNameLength()            { notImplemented("classNameLength"); return 0; }
-uint16_t              TR_Method::nameLength()                 { notImplemented("nameLength"); return 0; }
-uint16_t              TR_Method::signatureLength()            { notImplemented("signatureLength"); return 0; }
-char *                TR_Method::classNameChars()             { notImplemented("classNameChars"); return 0; }
-char *                TR_Method::nameChars()                  { notImplemented("nameChars"); return 0; }
-char *                TR_Method::signatureChars()             { notImplemented("signatureChars"); return 0; }
-bool                  TR_Method::isConstructor()              { notImplemented("isConstructor"); return false; }
-bool                  TR_Method::isFinalInObject()            { notImplemented("isFinalInObject"); return false; }
-const char *          TR_Method::signature(TR_Memory *, TR_AllocationKind) { notImplemented("signature"); return 0; }
-void                  TR_Method::setArchetypeSpecimen(bool b)            { notImplemented("setArchetypeSpecimen"); }
+uint32_t              OMR::Method::numberOfExplicitParameters() { notImplemented("numberOfExplicitParameters"); return 0; }
+TR::DataType        OMR::Method::parmType(uint32_t)           { notImplemented("parmType"); return TR::NoType; }
+TR::ILOpCodes          OMR::Method::directCallOpCode()           { notImplemented("directCallOpCode"); return TR::BadILOp; }
+TR::ILOpCodes          OMR::Method::indirectCallOpCode()         { notImplemented("indirectCallOpCode"); return TR::BadILOp; }
+TR::DataType        OMR::Method::returnType()                 { notImplemented("returnType"); return TR::NoType; }
+bool                  OMR::Method::returnTypeIsUnsigned()       { notImplemented("returnTypeIsUnsigned"); return TR::NoType;}
+uint32_t              OMR::Method::returnTypeWidth()            { notImplemented("returnTypeWidth"); return 0; }
+TR::ILOpCodes          OMR::Method::returnOpCode()               { notImplemented("returnOpCode"); return TR::BadILOp; }
+uint16_t              OMR::Method::classNameLength()            { notImplemented("classNameLength"); return 0; }
+uint16_t              OMR::Method::nameLength()                 { notImplemented("nameLength"); return 0; }
+uint16_t              OMR::Method::signatureLength()            { notImplemented("signatureLength"); return 0; }
+char *                OMR::Method::classNameChars()             { notImplemented("classNameChars"); return 0; }
+char *                OMR::Method::nameChars()                  { notImplemented("nameChars"); return 0; }
+char *                OMR::Method::signatureChars()             { notImplemented("signatureChars"); return 0; }
+bool                  OMR::Method::isConstructor()              { notImplemented("isConstructor"); return false; }
+bool                  OMR::Method::isFinalInObject()            { notImplemented("isFinalInObject"); return false; }
+const char *          OMR::Method::signature(TR_Memory *, TR_AllocationKind) { notImplemented("signature"); return 0; }
+void                  OMR::Method::setArchetypeSpecimen(bool b)            { notImplemented("setArchetypeSpecimen"); }
 
 TR_MethodParameterIterator *
-TR_Method::getParameterIterator(TR::Compilation&, TR_ResolvedMethod *)
+OMR::Method::getParameterIterator(TR::Compilation&, TR_ResolvedMethod *)
    {
    notImplemented("getParameterIterator");
    return 0;
    }
 
 bool
-TR_Method::isBigDecimalMethod(TR::Compilation * comp)
+OMR::Method::isBigDecimalMethod(TR::Compilation * comp)
    {
    notImplemented("isBigDecimalMethod");
    return false;
    }
 
 bool
-TR_Method::isUnsafeCAS(TR::Compilation * comp)
+OMR::Method::isUnsafeCAS(TR::Compilation * comp)
    {
    notImplemented("isUnsafeCAS");
    return false;
    }
 
 bool
-TR_Method::isUnsafeWithObjectArg(TR::Compilation * comp)
+OMR::Method::isUnsafeWithObjectArg(TR::Compilation * comp)
    {
    notImplemented("isUnsafeWithObjectArg");
    return false;
    }
 
 bool
-TR_Method::isBigDecimalConvertersMethod(TR::Compilation * comp)
+OMR::Method::isBigDecimalConvertersMethod(TR::Compilation * comp)
    {
    notImplemented("isBigDecimalConvertersMethod");
    return false;
@@ -313,7 +313,7 @@ TR_Method::isBigDecimalConvertersMethod(TR::Compilation * comp)
 #undef notImplemented
 #define notImplemented(A) TR_ASSERT(0, "TR_ResolvedMethod::%s is undefined for %p", (A), this )
 
-TR_Method *  TR_ResolvedMethod::convertToMethod()                          { notImplemented("convertToMethod"); return 0; }
+OMR::Method *  TR_ResolvedMethod::convertToMethod()                          { notImplemented("convertToMethod"); return 0; }
 uint32_t     TR_ResolvedMethod::numberOfParameters()                       { notImplemented("numberOfParameters"); return 0; }
 uint32_t     TR_ResolvedMethod::numberOfExplicitParameters()               { notImplemented("numberOfExplicitParameters"); return 0; }
 TR::DataType TR_ResolvedMethod::parmType(uint32_t)                         { notImplemented("parmType"); return TR::NoType; }

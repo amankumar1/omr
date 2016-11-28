@@ -24,7 +24,7 @@
 #include "codegen/FrontEnd.hpp"                // for feGetEnv, etc
 #include "compile/Compilation.hpp"             // for Compilation
 #include "compile/CompilationTypes.hpp"        // for TR_Hotness
-#include "compile/Method.hpp"                  // for TR_Method
+#include "compile/Method.hpp"                  // for OMR::Method
 #include "control/Options.hpp"
 #include "control/Options_inlines.hpp"
 #include "env/StackMemoryRegion.hpp"

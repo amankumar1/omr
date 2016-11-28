@@ -22,7 +22,7 @@
 #include <stddef.h>                       // for NULL
 #include <stdint.h>                       // for uint16_t, uint8_t, etc
 #include "codegen/RecognizedMethods.hpp"  // for RecognizedMethod
-#include "compile/Method.hpp"             // for TR_Method, etc
+#include "compile/Method.hpp"             // for OMR::Method, etc
 #include "env/TRMemory.hpp"               // for TR_Memory (ptr only), etc
 #include "env/jittypes.h"                 // for intptrj_t, uintptrj_t
 #include "il/DataTypes.hpp"               // for DataTypes, etc
@@ -48,7 +48,7 @@ class TR_ResolvedMethod
    {
 public:
    TR::RecognizedMethod getRecognizedMethod() { return convertToMethod()->getRecognizedMethod(); }
-   virtual TR_Method *convertToMethod();
+   virtual OMR::Method *convertToMethod();
 
    virtual uint32_t numberOfParameters();
    virtual uint32_t numberOfExplicitParameters(); // excludes receiver if any

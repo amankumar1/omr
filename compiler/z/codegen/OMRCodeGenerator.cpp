@@ -54,7 +54,7 @@
 #include "codegen/SystemLinkage.hpp"                // for toSystemLinkage, etc
 #include "codegen/TreeEvaluator.hpp"                // for TreeEvaluator, etc
 #include "compile/Compilation.hpp"                  // for Compilation, etc
-#include "compile/Method.hpp"                       // for TR_Method, mcount_t
+#include "compile/Method.hpp"                       // for OMR::Method, mcount_t
 #include "compile/ResolvedMethod.hpp"
 #include "compile/SymbolReferenceTable.hpp"
 #include "compile/VirtualGuard.hpp"

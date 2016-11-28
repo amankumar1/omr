@@ -27,7 +27,7 @@
 #include "env/KnownObjectTable.hpp"
 #include "codegen/RegisterConstants.hpp"
 #include "compile/Compilation.hpp"                    // for Compilation
-#include "compile/Method.hpp"                         // for TR_Method, etc
+#include "compile/Method.hpp"                         // for OMR::Method, etc
 #include "compile/ResolvedMethod.hpp"
 #include "compile/SymbolReferenceTable.hpp"
 #include "control/Options.hpp"

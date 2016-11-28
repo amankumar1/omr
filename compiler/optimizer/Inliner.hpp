@@ -77,7 +77,7 @@ class TR_FrontEnd;
 class TR_HashTabInt;
 class TR_InlineBlocks;
 class TR_InnerAssumption;
-class TR_Method;
+namespace OMR { class Method; }
 class TR_PrexArgInfo;
 class TR_ResolvedMethod;
 class TR_TransformInlinedFunction;

@@ -34,7 +34,7 @@
 #include "codegen/RecognizedMethods.hpp"       // for RecognizedMethod, etc
 #include "compile/Compilation.hpp"             // for self(), etc
 #include "compile/CompilationTypes.hpp"        // for TR_Hotness
-#include "compile/Method.hpp"                  // for TR_Method, etc
+#include "compile/Method.hpp"                  // for OMR::Method, etc
 #include "compile/OSRData.hpp"                 // for TR_OSRCompilationData, etc
 #include "compile/ResolvedMethod.hpp"          // for TR_ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"    // for SymbolReferenceTable
@@ -958,7 +958,7 @@ int32_t OMR::Compilation::compile()
                TR::Node*node = tt->getNode()->getFirstChild();
                if (node->getOpCode().isCall())
                   {
-                  TR_Method *method = node->getSymbol()->getMethodSymbol()->getMethod();
+                  OMR::Method *method = node->getSymbol()->getMethodSymbol()->getMethod();
                   if (method)
                      {
                      TR_ByteCodeInfo &bcInfo = node->getByteCodeInfo();

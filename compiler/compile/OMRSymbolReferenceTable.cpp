@@ -32,7 +32,7 @@
 #include "codegen/RecognizedMethods.hpp"       // for RecognizedMethod, etc
 #include "codegen/RegisterConstants.hpp"
 #include "compile/Compilation.hpp"             // for Compilation, comp, etc
-#include "compile/Method.hpp"                  // for TR_Method, etc
+#include "compile/Method.hpp"                  // for OMR::Method, etc
 #include "compile/ResolvedMethod.hpp"          // for TR_ResolvedMethod
 #include "control/Options.hpp"
 #include "control/Options_inlines.hpp"

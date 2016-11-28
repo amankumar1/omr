@@ -27,7 +27,7 @@
 #include "codegen/LinkageConventionsEnum.hpp"
 #include "codegen/RecognizedMethods.hpp"
 #include "compile/Compilation.hpp"              // for Compilation
-#include "compile/Method.hpp"                   // for TR_Method, etc
+#include "compile/Method.hpp"                   // for OMR::Method, etc
 #include "compile/OSRData.hpp"
 #include "compile/ResolvedMethod.hpp"
 #include "compile/SymbolReferenceTable.hpp"

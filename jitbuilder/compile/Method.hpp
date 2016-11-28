@@ -43,12 +43,12 @@ namespace TR { class FrontEnd; }
 namespace JitBuilder
 {
 
-class Method : public TR_Method
+class Method : public OMR::Method
    {
    public:
    TR_ALLOC(TR_Memory::Method);
 
-   Method() : TR_Method(TR_Method::JitBuilder) {}
+   Method() : OMR::Method(OMR::Method::JitBuilder) {}
 
    // FIXME: need to provide real code for this group
    virtual uint16_t              classNameLength() { return strlen(classNameChars()); }
@@ -124,7 +124,7 @@ class ResolvedMethod : public ResolvedMethodBase, public Method
       computeSignatureChars();
       }
 
-   virtual TR_Method           * convertToMethod()                          { return this; }
+   virtual OMR::Method           * convertToMethod()                          { return this; }
 
    virtual const char          * signature(TR_Memory *, TR_AllocationKind);
    char                        * localName (uint32_t slot, uint32_t bcIndex, int32_t &nameLength, TR_Memory *trMemory);

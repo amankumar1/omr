@@ -27,7 +27,7 @@
 #include "codegen/FrontEnd.hpp"                          // for TR_FrontEnd, etc
 #include "compile/Compilation.hpp"                       // for Compilation
 #include "compile/CompilationTypes.hpp"                  // for TR_Hotness, etc
-#include "compile/Method.hpp"                            // for TR_Method
+#include "compile/Method.hpp"                            // for OMR::Method
 #include "compile/SymbolReferenceTable.hpp"
 #include "control/Options.hpp"
 #include "control/Options_inlines.hpp"                   // for TR::Options, etc
@@ -1149,7 +1149,7 @@ void OMR::Optimizer::dumpPostOptTrees()
    // do nothing for IlGen optimizer
    if (isIlGenOpt()) return;
 
-   TR_Method *method = comp()->getMethodSymbol()->getMethod();
+   OMR::Method *method = comp()->getMethodSymbol()->getMethod();
    if ((debug("dumpPostLocalOptTrees") || comp()->getOption(TR_TraceTrees)))
       comp()->dumpMethodTrees("Post Optimization Trees");
    }

@@ -2989,7 +2989,7 @@ void OMR::Power::CodeGenerator::addRealRegisterInterference(TR::Register    *reg
 
 #if defined(AIXPPC)
 #include <unistd.h>
-class  TR_Method;
+namespace OMR { class Method; }
 FILE                     *j2Profile;
 static TR::Instruction    *nextIntervalInstructionPtr;
 static uint8_t           *nextIntervalBufferPtr;
@@ -3104,7 +3104,7 @@ int32_t j2Prof_initialize()
    return(1);
    }
 
-void j2Prof_methodReport(TR_Method *method, TR::Compilation *comp)
+void j2Prof_methodReport(OMR::Method *method, TR::Compilation *comp)
    {
    char                  buffer[1024];
    int32_t               len, plen, ilen, prolen;
