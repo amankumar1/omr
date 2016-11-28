@@ -887,7 +887,7 @@ TR_Debug::printIRTrees(TR::FILE *pOutFile, const char * title, TR::ResolvedMetho
       for (int32_t i = 0; i < _comp->getNumInlinedCallSites(); ++i)
          {
          TR_InlinedCallSite & ics = _comp->getInlinedCallSite(i);
-         TR_ResolvedMethod  *meth = _comp->getInlinedResolvedMethod(i);
+         OMR::ResolvedMethod  *meth = _comp->getInlinedResolvedMethod(i);
          trfprintf(pOutFile, "    %4d       %4d       %5d       ",
             i,
             ics._byteCodeInfo.getCallerIndex(),

@@ -29,7 +29,7 @@
 namespace JitBuilder
 {
 
-IlGeneratorMethodDetails::IlGeneratorMethodDetails(TR_ResolvedMethod *method) :
+IlGeneratorMethodDetails::IlGeneratorMethodDetails(OMR::ResolvedMethod *method) :
    _method(static_cast<TR::ResolvedMethod *>(method))
    {
    }

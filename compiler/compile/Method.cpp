@@ -20,7 +20,7 @@
 
 #include <string.h>                            // for memchr
 #include "compile/Compilation.hpp"             // for Compilation
-#include "compile/ResolvedMethod.hpp"          // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"          // for OMR::ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"    // for SymbolReferenceTable
 #include "control/Options.hpp"
 #include "control/Options_inlines.hpp"
@@ -37,12 +37,12 @@ class TR_PrexArgInfo;
 namespace TR { class IlGeneratorMethodDetails; }
 namespace TR { class LabelSymbol; }
 
-bool TR_ResolvedMethod::isDAAMethod()
+bool OMR::ResolvedMethod::isDAAMethod()
    {
-   return TR_ResolvedMethod::isDAAWrapperMethod() || TR_ResolvedMethod::isDAAIntrinsicMethod();
+   return OMR::ResolvedMethod::isDAAWrapperMethod() || OMR::ResolvedMethod::isDAAIntrinsicMethod();
    }
 
-bool TR_ResolvedMethod::isDAAWrapperMethod()
+bool OMR::ResolvedMethod::isDAAWrapperMethod()
    {
 #ifdef J9_PROJECT_SPECIFIC
    if (getRecognizedMethod() == TR::com_ibm_dataaccess_ByteArrayMarshaller_writeShort        ||
@@ -172,7 +172,7 @@ bool TR_ResolvedMethod::isDAAWrapperMethod()
    return false;
    }
 
-bool TR_ResolvedMethod::isDAAIntrinsicMethod()
+bool OMR::ResolvedMethod::isDAAIntrinsicMethod()
    {
 #ifdef J9_PROJECT_SPECIFIC
    if (getRecognizedMethod() == TR::com_ibm_dataaccess_ByteArrayMarshaller_writeShort_        ||
@@ -276,7 +276,7 @@ const char *          OMR::Method::signature(TR_Memory *, TR_AllocationKind) { n
 void                  OMR::Method::setArchetypeSpecimen(bool b)            { notImplemented("setArchetypeSpecimen"); }
 
 TR_MethodParameterIterator *
-OMR::Method::getParameterIterator(TR::Compilation&, TR_ResolvedMethod *)
+OMR::Method::getParameterIterator(TR::Compilation&, OMR::ResolvedMethod *)
    {
    notImplemented("getParameterIterator");
    return 0;
@@ -311,230 +311,230 @@ OMR::Method::isBigDecimalConvertersMethod(TR::Compilation * comp)
    }
 
 #undef notImplemented
-#define notImplemented(A) TR_ASSERT(0, "TR_ResolvedMethod::%s is undefined for %p", (A), this )
+#define notImplemented(A) TR_ASSERT(0, "OMR::ResolvedMethod::%s is undefined for %p", (A), this )
 
-OMR::Method *  TR_ResolvedMethod::convertToMethod()                          { notImplemented("convertToMethod"); return 0; }
-uint32_t     TR_ResolvedMethod::numberOfParameters()                       { notImplemented("numberOfParameters"); return 0; }
-uint32_t     TR_ResolvedMethod::numberOfExplicitParameters()               { notImplemented("numberOfExplicitParameters"); return 0; }
-TR::DataType TR_ResolvedMethod::parmType(uint32_t)                         { notImplemented("parmType"); return TR::NoType; }
-TR::ILOpCodes TR_ResolvedMethod::directCallOpCode()                         { notImplemented("directCallOpCode"); return TR::BadILOp; }
-TR::ILOpCodes TR_ResolvedMethod::indirectCallOpCode()                       { notImplemented("indirectCallOpCode"); return TR::BadILOp; }
-TR::DataType TR_ResolvedMethod::returnType()                               { notImplemented("returnType"); return TR::NoType; }
-uint32_t     TR_ResolvedMethod::returnTypeWidth()                          { notImplemented("returnTypeWidth"); return 0; }
-bool         TR_ResolvedMethod::returnTypeIsUnsigned()                     { notImplemented("returnTypeIsUnsigned"); return 0; }
-TR::ILOpCodes TR_ResolvedMethod::returnOpCode()                             { notImplemented("returnOpCode"); return TR::BadILOp; }
-uint16_t     TR_ResolvedMethod::classNameLength()                          { notImplemented("classNameLength"); return 0; }
-uint16_t     TR_ResolvedMethod::nameLength()                               { notImplemented("nameLength"); return 0; }
-uint16_t     TR_ResolvedMethod::signatureLength()                          { notImplemented("signatureLength"); return 0; }
-char *       TR_ResolvedMethod::classNameChars()                           { notImplemented("classNameChars"); return 0; }
-char *       TR_ResolvedMethod::nameChars()                                { notImplemented("nameChars"); return 0; }
-char *       TR_ResolvedMethod::signatureChars()                           { notImplemented("signatureChars"); return 0; }
-bool         TR_ResolvedMethod::isConstructor()                            { notImplemented("isConstructor"); return false; }
-bool         TR_ResolvedMethod::isStatic()                                 { notImplemented("isStatic"); return false; }
-bool         TR_ResolvedMethod::isAbstract()                               { notImplemented("isAbstract"); return false; }
-bool         TR_ResolvedMethod::isCompilable(TR_Memory *)                  { notImplemented("isCompilable"); return false; }
-bool         TR_ResolvedMethod::isInlineable(TR::Compilation *)             { notImplemented("isInlineable"); return false; }
-bool         TR_ResolvedMethod::isNative()                                 { notImplemented("isNative"); return false; }
-bool         TR_ResolvedMethod::isSynchronized()                           { notImplemented("isSynchronized"); return false; }
-bool         TR_ResolvedMethod::isPrivate()                                { notImplemented("isPrivate"); return false; }
-bool         TR_ResolvedMethod::isProtected()                              { notImplemented("isProtected"); return false; }
-bool         TR_ResolvedMethod::isPublic()                                 { notImplemented("isPublic"); return false; }
-bool         TR_ResolvedMethod::isFinal()                                  { notImplemented("isFinal"); return false; }
-bool         TR_ResolvedMethod::isDebugable()                              { notImplemented("isFinal"); return false; }
-bool         TR_ResolvedMethod::isStrictFP()                               { notImplemented("isStrictFP"); return false; }
-bool         TR_ResolvedMethod::isInterpreted()                            { notImplemented("isInterpreted"); return false; }
-bool         TR_ResolvedMethod::hasBackwardBranches()                      { notImplemented("hasBackwardBranches"); return false; }
-bool         TR_ResolvedMethod::isObjectConstructor()                      { notImplemented("isObjectConstructor"); return false; }
-bool         TR_ResolvedMethod::isNonEmptyObjectConstructor()              { notImplemented("isNonEmptyObjectConstructor"); return false; }
-bool         TR_ResolvedMethod::isCold(TR::Compilation *, bool, TR::ResolvedMethodSymbol * /* = NULL */)             { notImplemented("isCold"); return false; }
-bool         TR_ResolvedMethod::isSubjectToPhaseChange(TR::Compilation *) { notImplemented("isSubjectToPhaseChange"); return false; }
-bool         TR_ResolvedMethod::isSameMethod(TR_ResolvedMethod *)          { notImplemented("isSameMethod"); return false; }
-bool         TR_ResolvedMethod::isNewInstanceImplThunk()                   { notImplemented("isNewInstanceImplThunk"); return false; }
-bool         TR_ResolvedMethod::isJNINative()                              { notImplemented("isJNINative"); return false; }
-bool         TR_ResolvedMethod::isJITInternalNative()                      { notImplemented("isJITInternalNative"); return false; }
-//bool         TR_ResolvedMethod::isUnsafeWithObjectArg(TR::Compilation *)    { notImplemented("isUnsafeWithObjectArg"); return false; }
-void *       TR_ResolvedMethod::resolvedMethodAddress()                    { notImplemented("resolvedMethodAddress"); return 0; }
-void *       TR_ResolvedMethod::startAddressForJittedMethod()              { notImplemented("startAddressForJittedMethod"); return 0; }
-void *       TR_ResolvedMethod::startAddressForJNIMethod(TR::Compilation *) { notImplemented("startAddressForJNIMethod"); return 0; }
-void *       TR_ResolvedMethod::startAddressForJITInternalNativeMethod()   { notImplemented("startAddressForJITInternalNativeMethod"); return 0; }
-void *       TR_ResolvedMethod::startAddressForInterpreterOfJittedMethod() { notImplemented("startAddressForInterpreterOfJittedMethod"); return 0; }
-bool         TR_ResolvedMethod::isWarmCallGraphTooBig(uint32_t bcIndex, TR::Compilation *) { notImplemented("isWarmCallGraphTooBig"); return 0; }
-void         TR_ResolvedMethod::setWarmCallGraphTooBig(uint32_t bcIndex, TR::Compilation *){ notImplemented("setWarmCallGraphTooBig"); return; }
+OMR::Method *  OMR::ResolvedMethod::convertToMethod()                          { notImplemented("convertToMethod"); return 0; }
+uint32_t     OMR::ResolvedMethod::numberOfParameters()                       { notImplemented("numberOfParameters"); return 0; }
+uint32_t     OMR::ResolvedMethod::numberOfExplicitParameters()               { notImplemented("numberOfExplicitParameters"); return 0; }
+TR::DataType OMR::ResolvedMethod::parmType(uint32_t)                         { notImplemented("parmType"); return TR::NoType; }
+TR::ILOpCodes OMR::ResolvedMethod::directCallOpCode()                         { notImplemented("directCallOpCode"); return TR::BadILOp; }
+TR::ILOpCodes OMR::ResolvedMethod::indirectCallOpCode()                       { notImplemented("indirectCallOpCode"); return TR::BadILOp; }
+TR::DataType OMR::ResolvedMethod::returnType()                               { notImplemented("returnType"); return TR::NoType; }
+uint32_t     OMR::ResolvedMethod::returnTypeWidth()                          { notImplemented("returnTypeWidth"); return 0; }
+bool         OMR::ResolvedMethod::returnTypeIsUnsigned()                     { notImplemented("returnTypeIsUnsigned"); return 0; }
+TR::ILOpCodes OMR::ResolvedMethod::returnOpCode()                             { notImplemented("returnOpCode"); return TR::BadILOp; }
+uint16_t     OMR::ResolvedMethod::classNameLength()                          { notImplemented("classNameLength"); return 0; }
+uint16_t     OMR::ResolvedMethod::nameLength()                               { notImplemented("nameLength"); return 0; }
+uint16_t     OMR::ResolvedMethod::signatureLength()                          { notImplemented("signatureLength"); return 0; }
+char *       OMR::ResolvedMethod::classNameChars()                           { notImplemented("classNameChars"); return 0; }
+char *       OMR::ResolvedMethod::nameChars()                                { notImplemented("nameChars"); return 0; }
+char *       OMR::ResolvedMethod::signatureChars()                           { notImplemented("signatureChars"); return 0; }
+bool         OMR::ResolvedMethod::isConstructor()                            { notImplemented("isConstructor"); return false; }
+bool         OMR::ResolvedMethod::isStatic()                                 { notImplemented("isStatic"); return false; }
+bool         OMR::ResolvedMethod::isAbstract()                               { notImplemented("isAbstract"); return false; }
+bool         OMR::ResolvedMethod::isCompilable(TR_Memory *)                  { notImplemented("isCompilable"); return false; }
+bool         OMR::ResolvedMethod::isInlineable(TR::Compilation *)             { notImplemented("isInlineable"); return false; }
+bool         OMR::ResolvedMethod::isNative()                                 { notImplemented("isNative"); return false; }
+bool         OMR::ResolvedMethod::isSynchronized()                           { notImplemented("isSynchronized"); return false; }
+bool         OMR::ResolvedMethod::isPrivate()                                { notImplemented("isPrivate"); return false; }
+bool         OMR::ResolvedMethod::isProtected()                              { notImplemented("isProtected"); return false; }
+bool         OMR::ResolvedMethod::isPublic()                                 { notImplemented("isPublic"); return false; }
+bool         OMR::ResolvedMethod::isFinal()                                  { notImplemented("isFinal"); return false; }
+bool         OMR::ResolvedMethod::isDebugable()                              { notImplemented("isFinal"); return false; }
+bool         OMR::ResolvedMethod::isStrictFP()                               { notImplemented("isStrictFP"); return false; }
+bool         OMR::ResolvedMethod::isInterpreted()                            { notImplemented("isInterpreted"); return false; }
+bool         OMR::ResolvedMethod::hasBackwardBranches()                      { notImplemented("hasBackwardBranches"); return false; }
+bool         OMR::ResolvedMethod::isObjectConstructor()                      { notImplemented("isObjectConstructor"); return false; }
+bool         OMR::ResolvedMethod::isNonEmptyObjectConstructor()              { notImplemented("isNonEmptyObjectConstructor"); return false; }
+bool         OMR::ResolvedMethod::isCold(TR::Compilation *, bool, TR::ResolvedMethodSymbol * /* = NULL */)             { notImplemented("isCold"); return false; }
+bool         OMR::ResolvedMethod::isSubjectToPhaseChange(TR::Compilation *) { notImplemented("isSubjectToPhaseChange"); return false; }
+bool         OMR::ResolvedMethod::isSameMethod(OMR::ResolvedMethod *)          { notImplemented("isSameMethod"); return false; }
+bool         OMR::ResolvedMethod::isNewInstanceImplThunk()                   { notImplemented("isNewInstanceImplThunk"); return false; }
+bool         OMR::ResolvedMethod::isJNINative()                              { notImplemented("isJNINative"); return false; }
+bool         OMR::ResolvedMethod::isJITInternalNative()                      { notImplemented("isJITInternalNative"); return false; }
+//bool         OMR::ResolvedMethod::isUnsafeWithObjectArg(TR::Compilation *)    { notImplemented("isUnsafeWithObjectArg"); return false; }
+void *       OMR::ResolvedMethod::resolvedMethodAddress()                    { notImplemented("resolvedMethodAddress"); return 0; }
+void *       OMR::ResolvedMethod::startAddressForJittedMethod()              { notImplemented("startAddressForJittedMethod"); return 0; }
+void *       OMR::ResolvedMethod::startAddressForJNIMethod(TR::Compilation *) { notImplemented("startAddressForJNIMethod"); return 0; }
+void *       OMR::ResolvedMethod::startAddressForJITInternalNativeMethod()   { notImplemented("startAddressForJITInternalNativeMethod"); return 0; }
+void *       OMR::ResolvedMethod::startAddressForInterpreterOfJittedMethod() { notImplemented("startAddressForInterpreterOfJittedMethod"); return 0; }
+bool         OMR::ResolvedMethod::isWarmCallGraphTooBig(uint32_t bcIndex, TR::Compilation *) { notImplemented("isWarmCallGraphTooBig"); return 0; }
+void         OMR::ResolvedMethod::setWarmCallGraphTooBig(uint32_t bcIndex, TR::Compilation *){ notImplemented("setWarmCallGraphTooBig"); return; }
 
-TR_FrontEnd *TR_ResolvedMethod::fe()                                       { notImplemented("fe"); return 0; }
-intptrj_t    TR_ResolvedMethod::getInvocationCount()                       { notImplemented("getInvocationCount"); return 0; }
-bool         TR_ResolvedMethod::setInvocationCount(intptrj_t, intptrj_t)   { notImplemented("setInvocationCount"); return false; }
-uint16_t     TR_ResolvedMethod::numberOfParameterSlots()                   { notImplemented("numberOfParameterSlots"); return 0; }
-uint16_t     TR_ResolvedMethod::archetypeArgPlaceholderSlot(TR_Memory *)   { notImplemented("numberOfParameterSlots"); return 0; }
-uint16_t     TR_ResolvedMethod::numberOfTemps()                            { notImplemented("numberOfTemps"); return 0; }
-uint16_t     TR_ResolvedMethod::numberOfPendingPushes()                    { notImplemented("numberOfPendingPushes"); return 0; }
-uint8_t *    TR_ResolvedMethod::bytecodeStart()                            { notImplemented("bytecodeStart"); return 0; }
-uint32_t     TR_ResolvedMethod::maxBytecodeIndex()                         { notImplemented("maxBytecodeIndex"); return 0; }
-void *       TR_ResolvedMethod::ramConstantPool()                          { notImplemented("ramConstantPool"); return 0; }
-void *       TR_ResolvedMethod::constantPool()                             { notImplemented("constantPool"); return 0; }
+TR_FrontEnd *OMR::ResolvedMethod::fe()                                       { notImplemented("fe"); return 0; }
+intptrj_t    OMR::ResolvedMethod::getInvocationCount()                       { notImplemented("getInvocationCount"); return 0; }
+bool         OMR::ResolvedMethod::setInvocationCount(intptrj_t, intptrj_t)   { notImplemented("setInvocationCount"); return false; }
+uint16_t     OMR::ResolvedMethod::numberOfParameterSlots()                   { notImplemented("numberOfParameterSlots"); return 0; }
+uint16_t     OMR::ResolvedMethod::archetypeArgPlaceholderSlot(TR_Memory *)   { notImplemented("numberOfParameterSlots"); return 0; }
+uint16_t     OMR::ResolvedMethod::numberOfTemps()                            { notImplemented("numberOfTemps"); return 0; }
+uint16_t     OMR::ResolvedMethod::numberOfPendingPushes()                    { notImplemented("numberOfPendingPushes"); return 0; }
+uint8_t *    OMR::ResolvedMethod::bytecodeStart()                            { notImplemented("bytecodeStart"); return 0; }
+uint32_t     OMR::ResolvedMethod::maxBytecodeIndex()                         { notImplemented("maxBytecodeIndex"); return 0; }
+void *       OMR::ResolvedMethod::ramConstantPool()                          { notImplemented("ramConstantPool"); return 0; }
+void *       OMR::ResolvedMethod::constantPool()                             { notImplemented("constantPool"); return 0; }
 
-TR::DataType TR_ResolvedMethod::getLDCType(int32_t)                        { notImplemented("getLDCType"); return TR::NoType; }
-bool         TR_ResolvedMethod::isClassConstant(int32_t cpIndex)           { notImplemented("isClassConstant"); return false; }
-bool         TR_ResolvedMethod::isStringConstant(int32_t cpIndex)          { notImplemented("isStringConstant"); return false; }
-bool         TR_ResolvedMethod::isMethodTypeConstant(int32_t cpIndex)      { notImplemented("isMethodTypeConstant"); return false; }
-bool         TR_ResolvedMethod::isMethodHandleConstant(int32_t cpIndex)    { notImplemented("isMethodHandleConstant"); return false; }
-uint32_t     TR_ResolvedMethod::intConstant(int32_t)                       { notImplemented("intConstant"); return 0; }
-uint64_t     TR_ResolvedMethod::longConstant(int32_t)                      { notImplemented("longConstant"); return 0; }
-float *      TR_ResolvedMethod::floatConstant(int32_t)                     { notImplemented("floatConstant"); return 0; }
-double *     TR_ResolvedMethod::doubleConstant(int32_t, TR_Memory *)       { notImplemented("doubleConstant"); return 0; }
-void *       TR_ResolvedMethod::stringConstant(int32_t)                    { notImplemented("stringConstant"); return 0; }
-bool         TR_ResolvedMethod::isUnresolvedString(int32_t, bool optimizeForAOT)                { notImplemented("isUnresolvedString"); return false; }
-void *       TR_ResolvedMethod::methodTypeConstant(int32_t)                { notImplemented("methodTypeConstant"); return 0; }
-bool         TR_ResolvedMethod::isUnresolvedMethodType(int32_t)            { notImplemented("isUnresolvedMethodType"); return false; }
-void *       TR_ResolvedMethod::methodHandleConstant(int32_t)              { notImplemented("methodHandleConstant"); return 0; }
-bool         TR_ResolvedMethod::isUnresolvedMethodHandle(int32_t)          { notImplemented("isUnresolvedMethodHandle"); return false; }
-bool         TR_ResolvedMethod::isUnresolvedCallSiteTableEntry(int32_t callSiteIndex) { notImplemented("isUnresolvedCallSiteTableEntry"); return false; }
-void *       TR_ResolvedMethod::callSiteTableEntryAddress(int32_t callSiteIndex)      { notImplemented("callSiteTableEntryAddress"); return 0; }
-bool         TR_ResolvedMethod::isUnresolvedMethodTypeTableEntry(int32_t cpIndex) { notImplemented("isUnresolvedMethodTypeTableEntry"); return false; }
-void *       TR_ResolvedMethod::methodTypeTableEntryAddress(int32_t cpIndex)      { notImplemented("methodTypeTableEntryAddress"); return 0; }
+TR::DataType OMR::ResolvedMethod::getLDCType(int32_t)                        { notImplemented("getLDCType"); return TR::NoType; }
+bool         OMR::ResolvedMethod::isClassConstant(int32_t cpIndex)           { notImplemented("isClassConstant"); return false; }
+bool         OMR::ResolvedMethod::isStringConstant(int32_t cpIndex)          { notImplemented("isStringConstant"); return false; }
+bool         OMR::ResolvedMethod::isMethodTypeConstant(int32_t cpIndex)      { notImplemented("isMethodTypeConstant"); return false; }
+bool         OMR::ResolvedMethod::isMethodHandleConstant(int32_t cpIndex)    { notImplemented("isMethodHandleConstant"); return false; }
+uint32_t     OMR::ResolvedMethod::intConstant(int32_t)                       { notImplemented("intConstant"); return 0; }
+uint64_t     OMR::ResolvedMethod::longConstant(int32_t)                      { notImplemented("longConstant"); return 0; }
+float *      OMR::ResolvedMethod::floatConstant(int32_t)                     { notImplemented("floatConstant"); return 0; }
+double *     OMR::ResolvedMethod::doubleConstant(int32_t, TR_Memory *)       { notImplemented("doubleConstant"); return 0; }
+void *       OMR::ResolvedMethod::stringConstant(int32_t)                    { notImplemented("stringConstant"); return 0; }
+bool         OMR::ResolvedMethod::isUnresolvedString(int32_t, bool optimizeForAOT)                { notImplemented("isUnresolvedString"); return false; }
+void *       OMR::ResolvedMethod::methodTypeConstant(int32_t)                { notImplemented("methodTypeConstant"); return 0; }
+bool         OMR::ResolvedMethod::isUnresolvedMethodType(int32_t)            { notImplemented("isUnresolvedMethodType"); return false; }
+void *       OMR::ResolvedMethod::methodHandleConstant(int32_t)              { notImplemented("methodHandleConstant"); return 0; }
+bool         OMR::ResolvedMethod::isUnresolvedMethodHandle(int32_t)          { notImplemented("isUnresolvedMethodHandle"); return false; }
+bool         OMR::ResolvedMethod::isUnresolvedCallSiteTableEntry(int32_t callSiteIndex) { notImplemented("isUnresolvedCallSiteTableEntry"); return false; }
+void *       OMR::ResolvedMethod::callSiteTableEntryAddress(int32_t callSiteIndex)      { notImplemented("callSiteTableEntryAddress"); return 0; }
+bool         OMR::ResolvedMethod::isUnresolvedMethodTypeTableEntry(int32_t cpIndex) { notImplemented("isUnresolvedMethodTypeTableEntry"); return false; }
+void *       OMR::ResolvedMethod::methodTypeTableEntryAddress(int32_t cpIndex)      { notImplemented("methodTypeTableEntryAddress"); return 0; }
 
-TR_OpaqueClassBlock *TR_ResolvedMethod::getDeclaringClassFromFieldOrStatic(TR::Compilation *comp, int32_t cpIndex)  { notImplemented("getDeclaringClassFromFieldOrStatic"); return 0; }
-int32_t      TR_ResolvedMethod::classCPIndexOfFieldOrStatic(int32_t)       { notImplemented("classCPIndexOfFieldOrStatic"); return 0; }
-int32_t      TR_ResolvedMethod::packedArrayFieldLength(int32_t, TR::Compilation* comp) { notImplemented("packedArrayFieldLength"); return 0; }
-const char * TR_ResolvedMethod::signature(TR_Memory *, TR_AllocationKind)  { notImplemented("signature"); return 0; }
-char *       TR_ResolvedMethod::fieldName (int32_t, TR_Memory *, TR_AllocationKind kind)           { notImplemented("fieldName"); return 0; }
-char *       TR_ResolvedMethod::staticName(int32_t, TR_Memory *, TR_AllocationKind kind)           { notImplemented("staticName"); return 0; }
-char *       TR_ResolvedMethod::localName (uint32_t, uint32_t, TR_Memory *){ /*notImplemented("localName");*/ return 0; }
-char *       TR_ResolvedMethod::fieldName (int32_t, int32_t &, TR_Memory *, TR_AllocationKind kind){ notImplemented("fieldName"); return 0; }
-char *       TR_ResolvedMethod::staticName(int32_t, int32_t &, TR_Memory *, TR_AllocationKind kind){ notImplemented("staticName"); return 0; }
-char *       TR_ResolvedMethod::localName (uint32_t, uint32_t, int32_t&, TR_Memory *){ /*notImplemented("localName");*/ return 0; }
-char *       TR_ResolvedMethod::fieldNameChars(int32_t, int32_t &)         { notImplemented("fieldNameChars"); return 0; }
-char *       TR_ResolvedMethod::fieldSignatureChars(int32_t, int32_t &)    { notImplemented("fieldSignatureChars"); return 0; }
-char *       TR_ResolvedMethod::staticSignatureChars(int32_t, int32_t &)   { notImplemented("staticSignatureChars"); return 0; }
-void * &     TR_ResolvedMethod::addressOfClassOfMethod()                   { notImplemented("addressOfClassOfMethod"); return *(void **)0; }
-uint32_t     TR_ResolvedMethod::vTableSlot(uint32_t)                       { notImplemented("vTableSlot"); return 0; }
-bool         TR_ResolvedMethod::virtualMethodIsOverridden()                { notImplemented("virtualMethodIsOverridden"); return false; }
-void         TR_ResolvedMethod::setVirtualMethodIsOverridden()             { notImplemented("setVirtualMethodIsOverridden"); }
-void *       TR_ResolvedMethod::addressContainingIsOverriddenBit()         { notImplemented("addressContainingIsOverriddenBit"); return 0; }
-int32_t     TR_ResolvedMethod::virtualCallSelector(uint32_t)               { notImplemented("virtualCallSelector"); return 0; }
-uint32_t     TR_ResolvedMethod::numberOfExceptionHandlers()                { notImplemented("numberOfExceptionHandlers"); return 0; }
-uint8_t *    TR_ResolvedMethod::allocateException(uint32_t,TR::Compilation*){ notImplemented("allocateException"); return 0; }
+TR_OpaqueClassBlock *OMR::ResolvedMethod::getDeclaringClassFromFieldOrStatic(TR::Compilation *comp, int32_t cpIndex)  { notImplemented("getDeclaringClassFromFieldOrStatic"); return 0; }
+int32_t      OMR::ResolvedMethod::classCPIndexOfFieldOrStatic(int32_t)       { notImplemented("classCPIndexOfFieldOrStatic"); return 0; }
+int32_t      OMR::ResolvedMethod::packedArrayFieldLength(int32_t, TR::Compilation* comp) { notImplemented("packedArrayFieldLength"); return 0; }
+const char * OMR::ResolvedMethod::signature(TR_Memory *, TR_AllocationKind)  { notImplemented("signature"); return 0; }
+char *       OMR::ResolvedMethod::fieldName (int32_t, TR_Memory *, TR_AllocationKind kind)           { notImplemented("fieldName"); return 0; }
+char *       OMR::ResolvedMethod::staticName(int32_t, TR_Memory *, TR_AllocationKind kind)           { notImplemented("staticName"); return 0; }
+char *       OMR::ResolvedMethod::localName (uint32_t, uint32_t, TR_Memory *){ /*notImplemented("localName");*/ return 0; }
+char *       OMR::ResolvedMethod::fieldName (int32_t, int32_t &, TR_Memory *, TR_AllocationKind kind){ notImplemented("fieldName"); return 0; }
+char *       OMR::ResolvedMethod::staticName(int32_t, int32_t &, TR_Memory *, TR_AllocationKind kind){ notImplemented("staticName"); return 0; }
+char *       OMR::ResolvedMethod::localName (uint32_t, uint32_t, int32_t&, TR_Memory *){ /*notImplemented("localName");*/ return 0; }
+char *       OMR::ResolvedMethod::fieldNameChars(int32_t, int32_t &)         { notImplemented("fieldNameChars"); return 0; }
+char *       OMR::ResolvedMethod::fieldSignatureChars(int32_t, int32_t &)    { notImplemented("fieldSignatureChars"); return 0; }
+char *       OMR::ResolvedMethod::staticSignatureChars(int32_t, int32_t &)   { notImplemented("staticSignatureChars"); return 0; }
+void * &     OMR::ResolvedMethod::addressOfClassOfMethod()                   { notImplemented("addressOfClassOfMethod"); return *(void **)0; }
+uint32_t     OMR::ResolvedMethod::vTableSlot(uint32_t)                       { notImplemented("vTableSlot"); return 0; }
+bool         OMR::ResolvedMethod::virtualMethodIsOverridden()                { notImplemented("virtualMethodIsOverridden"); return false; }
+void         OMR::ResolvedMethod::setVirtualMethodIsOverridden()             { notImplemented("setVirtualMethodIsOverridden"); }
+void *       OMR::ResolvedMethod::addressContainingIsOverriddenBit()         { notImplemented("addressContainingIsOverriddenBit"); return 0; }
+int32_t     OMR::ResolvedMethod::virtualCallSelector(uint32_t)               { notImplemented("virtualCallSelector"); return 0; }
+uint32_t     OMR::ResolvedMethod::numberOfExceptionHandlers()                { notImplemented("numberOfExceptionHandlers"); return 0; }
+uint8_t *    OMR::ResolvedMethod::allocateException(uint32_t,TR::Compilation*){ notImplemented("allocateException"); return 0; }
 
-int32_t      TR_ResolvedMethod::exceptionData(int32_t, int32_t *, int32_t *, int32_t *) { notImplemented("exceptionData"); return 0; }
-char *       TR_ResolvedMethod::getClassNameFromConstantPool(uint32_t, uint32_t &)      { notImplemented("getClassNameFromConstantPool"); return 0; }
-bool         TR_ResolvedMethod::fieldsAreSame(int32_t, TR_ResolvedMethod *, int32_t, bool &sigSame)    { notImplemented("fieldsAreSame"); return false; }
-bool         TR_ResolvedMethod::staticsAreSame(int32_t, TR_ResolvedMethod *, int32_t, bool &sigSame)   { notImplemented("staticsAreSame"); return false; }
-char *       TR_ResolvedMethod::classNameOfFieldOrStatic(int32_t, int32_t &)            { notImplemented("classNameOfFieldOrStatic"); return 0; }
-char *       TR_ResolvedMethod::classSignatureOfFieldOrStatic(int32_t, int32_t &)       { notImplemented("classSignatureOfFieldOrStatic"); return 0; }
-char *       TR_ResolvedMethod::staticNameChars(int32_t, int32_t &)                     { notImplemented("staticNameChars"); return 0; }
-const char * TR_ResolvedMethod::newInstancePrototypeSignature(TR_Memory *, TR_AllocationKind)        { notImplemented("newInstancePrototypeSignature"); return 0; }
+int32_t      OMR::ResolvedMethod::exceptionData(int32_t, int32_t *, int32_t *, int32_t *) { notImplemented("exceptionData"); return 0; }
+char *       OMR::ResolvedMethod::getClassNameFromConstantPool(uint32_t, uint32_t &)      { notImplemented("getClassNameFromConstantPool"); return 0; }
+bool         OMR::ResolvedMethod::fieldsAreSame(int32_t, OMR::ResolvedMethod *, int32_t, bool &sigSame)    { notImplemented("fieldsAreSame"); return false; }
+bool         OMR::ResolvedMethod::staticsAreSame(int32_t, OMR::ResolvedMethod *, int32_t, bool &sigSame)   { notImplemented("staticsAreSame"); return false; }
+char *       OMR::ResolvedMethod::classNameOfFieldOrStatic(int32_t, int32_t &)            { notImplemented("classNameOfFieldOrStatic"); return 0; }
+char *       OMR::ResolvedMethod::classSignatureOfFieldOrStatic(int32_t, int32_t &)       { notImplemented("classSignatureOfFieldOrStatic"); return 0; }
+char *       OMR::ResolvedMethod::staticNameChars(int32_t, int32_t &)                     { notImplemented("staticNameChars"); return 0; }
+const char * OMR::ResolvedMethod::newInstancePrototypeSignature(TR_Memory *, TR_AllocationKind)        { notImplemented("newInstancePrototypeSignature"); return 0; }
 
 bool
-TR_ResolvedMethod::getUnresolvedFieldInCP(int32_t)
+OMR::ResolvedMethod::getUnresolvedFieldInCP(int32_t)
    {
    notImplemented("getUnresolvedFieldInCP");
    return false;
    }
 
 bool
-TR_ResolvedMethod::getUnresolvedStaticMethodInCP(int32_t)
+OMR::ResolvedMethod::getUnresolvedStaticMethodInCP(int32_t)
    {
    notImplemented("getUnresolvedStaticMethodInCP");
    return false;
    }
 
 bool
-TR_ResolvedMethod::getUnresolvedSpecialMethodInCP(int32_t)
+OMR::ResolvedMethod::getUnresolvedSpecialMethodInCP(int32_t)
    {
    notImplemented("getUnresolvedSpecialMethodInCP");
    return false;
    }
 
 bool
-TR_ResolvedMethod::getUnresolvedVirtualMethodInCP(int32_t)
+OMR::ResolvedMethod::getUnresolvedVirtualMethodInCP(int32_t)
    {
    notImplemented("getUnresolvedVirtualMethod");
    return false;
    }
 
 bool
-TR_ResolvedMethod::fieldAttributes(TR::Compilation *, int32_t, uint32_t *, TR::DataType *, bool *, bool *, bool *, bool, bool *, bool)
+OMR::ResolvedMethod::fieldAttributes(TR::Compilation *, int32_t, uint32_t *, TR::DataType *, bool *, bool *, bool *, bool, bool *, bool)
    {
    notImplemented("fieldAttributes");
    return false;
    }
 
 bool
-TR_ResolvedMethod::staticAttributes(TR::Compilation *, int32_t, void * *, TR::DataType *, bool *, bool *, bool *, bool, bool *, bool)
+OMR::ResolvedMethod::staticAttributes(TR::Compilation *, int32_t, void * *, TR::DataType *, bool *, bool *, bool *, bool, bool *, bool)
    {
    notImplemented("staticAttributes");
    return false;
    }
 
-TR_OpaqueClassBlock * TR_ResolvedMethod::containingClass()                                 { notImplemented("containingClass"); return 0; }
-TR_OpaqueClassBlock * TR_ResolvedMethod::getClassFromConstantPool(TR::Compilation *, uint32_t, bool) { notImplemented("getClassFromConstantPool"); return 0; }
-TR_OpaqueClassBlock * TR_ResolvedMethod::classOfStatic(int32_t, bool)                            { notImplemented("classOfStatic"); return 0; }
-TR_OpaqueClassBlock * TR_ResolvedMethod::classOfMethod()                                   { notImplemented("classOfMethod"); return 0; }
-uint32_t              TR_ResolvedMethod::classCPIndexOfMethod(uint32_t)                    { notImplemented("classCpIndexOfMethod"); return 0; }
+TR_OpaqueClassBlock * OMR::ResolvedMethod::containingClass()                                 { notImplemented("containingClass"); return 0; }
+TR_OpaqueClassBlock * OMR::ResolvedMethod::getClassFromConstantPool(TR::Compilation *, uint32_t, bool) { notImplemented("getClassFromConstantPool"); return 0; }
+TR_OpaqueClassBlock * OMR::ResolvedMethod::classOfStatic(int32_t, bool)                            { notImplemented("classOfStatic"); return 0; }
+TR_OpaqueClassBlock * OMR::ResolvedMethod::classOfMethod()                                   { notImplemented("classOfMethod"); return 0; }
+uint32_t              OMR::ResolvedMethod::classCPIndexOfMethod(uint32_t)                    { notImplemented("classCpIndexOfMethod"); return 0; }
 
-TR_OpaqueMethodBlock *TR_ResolvedMethod::getNonPersistentIdentifier()                      { notImplemented("getNonPersistentIdentifier"); return 0; }
-TR_OpaqueMethodBlock *TR_ResolvedMethod::getPersistentIdentifier()                         { notImplemented("getPersistentIdentifier"); return 0; }
-TR_OpaqueClassBlock * TR_ResolvedMethod::getResolvedInterfaceMethod(int32_t, uintptrj_t *) { notImplemented("getResolvedInterfaceMethod"); return 0; }
+TR_OpaqueMethodBlock *OMR::ResolvedMethod::getNonPersistentIdentifier()                      { notImplemented("getNonPersistentIdentifier"); return 0; }
+TR_OpaqueMethodBlock *OMR::ResolvedMethod::getPersistentIdentifier()                         { notImplemented("getPersistentIdentifier"); return 0; }
+TR_OpaqueClassBlock * OMR::ResolvedMethod::getResolvedInterfaceMethod(int32_t, uintptrj_t *) { notImplemented("getResolvedInterfaceMethod"); return 0; }
 
-TR_ResolvedMethod * TR_ResolvedMethod::owningMethod()                                      { notImplemented("owningMethod"); return 0; }
-void TR_ResolvedMethod::setOwningMethod(TR_ResolvedMethod*)                                { notImplemented("setOwningMethod");  }
+OMR::ResolvedMethod * OMR::ResolvedMethod::owningMethod()                                      { notImplemented("owningMethod"); return 0; }
+void OMR::ResolvedMethod::setOwningMethod(OMR::ResolvedMethod*)                                { notImplemented("setOwningMethod");  }
 
-TR_ResolvedMethod * TR_ResolvedMethod::getResolvedStaticMethod (TR::Compilation *, int32_t, bool *)           { notImplemented("getResolvedStaticMethod"); return 0; }
-TR_ResolvedMethod * TR_ResolvedMethod::getResolvedSpecialMethod(TR::Compilation *, int32_t, bool *)           { notImplemented("getResolvedSpecialMethod"); return 0; }
-TR_ResolvedMethod * TR_ResolvedMethod::getResolvedVirtualMethod(TR::Compilation *, int32_t, bool, bool *)     { notImplemented("getResolvedVirtualMethod"); return 0; }
-TR_ResolvedMethod * TR_ResolvedMethod::getResolvedDynamicMethod(TR::Compilation *, int32_t, bool *)           { notImplemented("getResolvedDynamicMethod"); return 0; }
-TR_ResolvedMethod * TR_ResolvedMethod::getResolvedHandleMethod (TR::Compilation *, int32_t, bool *)           { notImplemented("getResolvedHandleMethod"); return 0; }
-TR_ResolvedMethod * TR_ResolvedMethod::getResolvedHandleMethodWithSignature(TR::Compilation *, int32_t, char *){notImplemented("getResolvedHandleMethodWithSignature"); return 0; }
+OMR::ResolvedMethod * OMR::ResolvedMethod::getResolvedStaticMethod (TR::Compilation *, int32_t, bool *)           { notImplemented("getResolvedStaticMethod"); return 0; }
+OMR::ResolvedMethod * OMR::ResolvedMethod::getResolvedSpecialMethod(TR::Compilation *, int32_t, bool *)           { notImplemented("getResolvedSpecialMethod"); return 0; }
+OMR::ResolvedMethod * OMR::ResolvedMethod::getResolvedVirtualMethod(TR::Compilation *, int32_t, bool, bool *)     { notImplemented("getResolvedVirtualMethod"); return 0; }
+OMR::ResolvedMethod * OMR::ResolvedMethod::getResolvedDynamicMethod(TR::Compilation *, int32_t, bool *)           { notImplemented("getResolvedDynamicMethod"); return 0; }
+OMR::ResolvedMethod * OMR::ResolvedMethod::getResolvedHandleMethod (TR::Compilation *, int32_t, bool *)           { notImplemented("getResolvedHandleMethod"); return 0; }
+OMR::ResolvedMethod * OMR::ResolvedMethod::getResolvedHandleMethodWithSignature(TR::Compilation *, int32_t, char *){notImplemented("getResolvedHandleMethodWithSignature"); return 0; }
 
 uint32_t
-TR_ResolvedMethod::getResolvedInterfaceMethodOffset(TR_OpaqueClassBlock *, int32_t)
+OMR::ResolvedMethod::getResolvedInterfaceMethodOffset(TR_OpaqueClassBlock *, int32_t)
    {
    notImplemented("getResolvedInterfaceMethodOffset");
    return 0;
    }
 
-TR_ResolvedMethod *
-TR_ResolvedMethod::getResolvedInterfaceMethod(TR::Compilation *, TR_OpaqueClassBlock *, int32_t)
+OMR::ResolvedMethod *
+OMR::ResolvedMethod::getResolvedInterfaceMethod(TR::Compilation *, TR_OpaqueClassBlock *, int32_t)
    {
    notImplemented("getResolvedInterfaceMethod");
    return 0;
    }
 
-TR_ResolvedMethod *
-TR_ResolvedMethod::getResolvedVirtualMethod(TR::Compilation *, TR_OpaqueClassBlock *, int32_t, bool)
+OMR::ResolvedMethod *
+OMR::ResolvedMethod::getResolvedVirtualMethod(TR::Compilation *, TR_OpaqueClassBlock *, int32_t, bool)
    {
    notImplemented("getResolvedVirtualMethod");
    return 0;
    }
 
 void
-TR_ResolvedMethod::setMethodHandleLocation(uintptrj_t *location)
+OMR::ResolvedMethod::setMethodHandleLocation(uintptrj_t *location)
    {
    notImplemented("setMethodHandleLocation");
    }
 
 TR::IlGeneratorMethodDetails *
-TR_ResolvedMethod::getIlGeneratorMethodDetails()
+OMR::ResolvedMethod::getIlGeneratorMethodDetails()
    {
    notImplemented("getIlGeneratorMethodDetails");
    return 0;
    }
 
 TR::SymbolReferenceTable *
-TR_ResolvedMethod::_genMethodILForPeeking(TR::ResolvedMethodSymbol *, TR::Compilation *, bool resetVisitCount, TR_PrexArgInfo  *argInfo)
+OMR::ResolvedMethod::_genMethodILForPeeking(TR::ResolvedMethodSymbol *, TR::Compilation *, bool resetVisitCount, TR_PrexArgInfo  *argInfo)
    {
    notImplemented("genMethodILForPeeking");
    return 0;
    }
 
 
-TR::ResolvedMethodSymbol* TR_ResolvedMethod::findOrCreateJittedMethodSymbol(TR::Compilation *comp)
+TR::ResolvedMethodSymbol* OMR::ResolvedMethod::findOrCreateJittedMethodSymbol(TR::Compilation *comp)
    {
    return comp->createJittedMethodSymbol(this);
    }
 
 // This version is suitable for Java
-void TR_ResolvedMethod::makeParameterList(TR::ResolvedMethodSymbol *methodSym)
+void OMR::ResolvedMethod::makeParameterList(TR::ResolvedMethodSymbol *methodSym)
    {
    if (methodSym->getTempIndex() != -1)
       return;

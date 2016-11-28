@@ -203,7 +203,7 @@ static int cacheStringAppend(TR::ValuePropagation *vp,TR::Node *node)
    if (checkMethodSignature(vp,node->getSymbolReference(), sigInit))
     {
 	  TR::Symbol *symbol =node->getSymbolReference()->getSymbol();
-      TR_ResolvedMethod *m = symbol->castToResolvedMethodSymbol()->getResolvedMethod();
+      OMR::ResolvedMethod *m = symbol->castToResolvedMethodSymbol()->getResolvedMethod();
       if (strncmp(m->signatureChars(), "(Ljava/lang/String;Ljava/lang/String;)V", m->signatureLength())==0)
         {
 	      vp->_cachedStringPeepHolesVcalls.add(new (vp->comp()->trStackMemory()) TR::ValuePropagation::VPTreeTopPair(tt,tt->getPrevRealTreeTop()));
@@ -230,7 +230,7 @@ static int cacheStringAppend(TR::ValuePropagation *vp,TR::Node *node)
 	if (success)
       {
       TR::Symbol *symbol =node->getSymbolReference()->getSymbol();
-      TR_ResolvedMethod *m = symbol->castToResolvedMethodSymbol()->getResolvedMethod();
+      OMR::ResolvedMethod *m = symbol->castToResolvedMethodSymbol()->getResolvedMethod();
       if (strncmp(m->signatureChars(), "()V", m->signatureLength())==0)
         {
              // Diagnostics
@@ -276,7 +276,7 @@ static int cacheStringAppend(TR::ValuePropagation *vp,TR::Node *node)
          TR_ASSERT(symbol->isResolvedMethod(), "assertion failure");
          TR::ResolvedMethodSymbol *method = symbol->castToResolvedMethodSymbol();
          TR_ASSERT(method, "assertion failure");
-         TR_ResolvedMethod *m = method->getResolvedMethod();
+         OMR::ResolvedMethod *m = method->getResolvedMethod();
          if (strncmp(m->signatureChars(), "(Ljava/lang/String;)", 20)==0)
             {
             pattern[stringCount] = 'S';

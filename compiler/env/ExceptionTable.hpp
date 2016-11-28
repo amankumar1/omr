@@ -26,7 +26,7 @@
 #include "env/jittypes.h"    // for TR_ByteCodeInfo
 #include "infra/List.hpp"    // for List (ptr only), ListIterator
 
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 namespace TR { class Block; }
 namespace TR { class Compilation; }
 template <class T> class TR_Array;
@@ -45,7 +45,7 @@ struct TR_ExceptionTableEntry
    {
    TR_ALLOC(TR_Memory::ExceptionTableEntry)
 
-   TR_ResolvedMethod *   _method;
+   OMR::ResolvedMethod *   _method;
    uint32_t              _instructionStartPC;
    uint32_t              _instructionEndPC;
    uint32_t              _instructionHandlerPC;
@@ -65,7 +65,7 @@ struct TR_ExceptionTableEntryIterator
    uint32_t                 size();
 private:
    TR_ExceptionTableEntry * getCurrent();
-   void                     addSnippetRanges(List<TR_ExceptionTableEntry> &, TR::Block *, TR::Block *, uint32_t, TR_ResolvedMethod *, TR::Compilation *);
+   void                     addSnippetRanges(List<TR_ExceptionTableEntry> &, TR::Block *, TR::Block *, uint32_t, OMR::ResolvedMethod *, TR::Compilation *);
 
    TR::Compilation *                          _compilation;
    TR_Array<List<TR_ExceptionTableEntry> > * _tableEntries;

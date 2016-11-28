@@ -26,7 +26,7 @@
 #include "codegen/FrontEnd.hpp"              // for TR_FrontEnd, feGetEnv, etc
 #include "compile/Compilation.hpp"           // for Compilation
 #include "compile/CompilationTypes.hpp"      // for TR_Hotness
-#include "compile/ResolvedMethod.hpp"        // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"        // for OMR::ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"  // for SymbolReferenceTable
 #include "control/OptimizationPlan.hpp"      // for TR_OptimizationPlan, etc
 #include "control/Options.hpp"

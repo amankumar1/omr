@@ -22,7 +22,7 @@
 #include "ilgen/IlGeneratorMethodDetails.hpp"
 #include "ilgen/OMRIlGeneratorMethodDetails.hpp"
 
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 
 TR::IlGeneratorMethodDetails *
 OMR::IlGeneratorMethodDetails::self()
@@ -37,7 +37,7 @@ OMR::IlGeneratorMethodDetails::self() const
    }
 
 TR::IlGeneratorMethodDetails &
-OMR::IlGeneratorMethodDetails::create(TR::IlGeneratorMethodDetails & target, TR_ResolvedMethod *method)
+OMR::IlGeneratorMethodDetails::create(TR::IlGeneratorMethodDetails & target, OMR::ResolvedMethod *method)
    {
    return * new (&target) TR::IlGeneratorMethodDetails(method);
    }

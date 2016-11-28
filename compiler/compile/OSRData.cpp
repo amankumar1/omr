@@ -25,7 +25,7 @@
 #include "codegen/FrontEnd.hpp"                // for TR_FrontEnd, etc
 #include "codegen/Instruction.hpp"             // for Instruction
 #include "compile/Compilation.hpp"             // for Compilation
-#include "compile/ResolvedMethod.hpp"          // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"          // for OMR::ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"    // for SymbolReferenceTable
 #include "control/Options.hpp"
 #include "control/Options_inlines.hpp"

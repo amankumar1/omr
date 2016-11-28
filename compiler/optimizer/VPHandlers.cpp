@@ -27,7 +27,7 @@
 #include "codegen/InstOpCode.hpp"               // for InstOpCode
 #include "compile/Compilation.hpp"              // for Compilation, comp
 #include "compile/Method.hpp"                   // for OMR::Method, etc
-#include "compile/ResolvedMethod.hpp"           // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"           // for OMR::ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"     // for SymbolReferenceTable
 #include "compile/VirtualGuard.hpp"             // for TR_VirtualGuard
 #include "control/Options.hpp"
@@ -290,7 +290,7 @@ static void constrainBaseObjectOfIndirectAccess(TR::ValuePropagation *vp, TR::No
    //   return;
 
    int32_t baseObjectSigLen;
-   TR_ResolvedMethod *method = node->getSymbolReference()->getOwningMethod(vp->comp());
+   OMR::ResolvedMethod *method = node->getSymbolReference()->getOwningMethod(vp->comp());
    char *baseObjectSig = method->classNameOfFieldOrStatic(node->getSymbolReference()->getCPIndex(), baseObjectSigLen);
    if (baseObjectSig)
       baseObjectSig = classNameToSignature(baseObjectSig, baseObjectSigLen, vp->comp());
@@ -1761,7 +1761,7 @@ TR::Node *constrainAload(TR::ValuePropagation *vp, TR::Node *node)
                }
             else if (vp->comp()->isOptServer())
                {
-               TR_ResolvedMethod *method = node->getSymbolReference()->getOwningMethod(vp->comp());
+               OMR::ResolvedMethod *method = node->getSymbolReference()->getOwningMethod(vp->comp());
                constraint = TR::VPUnresolvedClass::create(vp, sig, len, method);
                vp->addBlockConstraint(node, constraint);
                }
@@ -2407,7 +2407,7 @@ TR::Node *constrainIaload(TR::ValuePropagation *vp, TR::Node *node)
                  (len == 19) && constraint->isFixedClass() &&
                  !strncmp(objectSig, "Ljava/util/TreeMap;", 19))
                 {
-                TR_ResolvedMethod *method = node->getSymbolReference()->getOwningMethod(vp->comp());
+                OMR::ResolvedMethod *method = node->getSymbolReference()->getOwningMethod(vp->comp());
                 TR_OpaqueClassBlock *clazz = vp->fe()->getClassFromSignature(objectSig, len, method);
                 if (clazz)
                    {
@@ -2454,7 +2454,7 @@ TR::Node *constrainIaload(TR::ValuePropagation *vp, TR::Node *node)
             node->getSymbol()->isArrayShadowSymbol() &&
             node->getFirstChild()->getOpCode().isArrayRef()))
       {
-      TR_ResolvedMethod *method = node->getSymbolReference()->getOwningMethod(vp->comp());
+      OMR::ResolvedMethod *method = node->getSymbolReference()->getOwningMethod(vp->comp());
       TR_OpaqueClassBlock *classBlock = vp->fe()->getClassFromSignature(sig, len, method);
 
       if (  classBlock
@@ -4762,7 +4762,7 @@ refineMethodSymbolInCall(
    TR::ValuePropagation *vp,
    TR::Node *node,
    TR::SymbolReference *symRef,
-   TR_ResolvedMethod *resolvedMethod,
+   OMR::ResolvedMethod *resolvedMethod,
    int32_t offset)
    {
    TR::SymbolReference * newSymRef =
@@ -4857,9 +4857,9 @@ static void devirtualizeCall(TR::ValuePropagation *vp, TR::Node *node)
    //
    // Find the resolved method for the fixed type.
    //
-   TR_ResolvedMethod     * owningMethod           = symRef->getOwningMethod(vp->comp());
-   TR_ResolvedMethod     * resolvedMethod;
-   TR_ResolvedMethod     * originalResolvedMethod = 0;
+   OMR::ResolvedMethod     * owningMethod           = symRef->getOwningMethod(vp->comp());
+   OMR::ResolvedMethod     * resolvedMethod;
+   OMR::ResolvedMethod     * originalResolvedMethod = 0;
    TR_OpaqueClassBlock     * originalMethodClass;
 
    int32_t offset;
@@ -5191,7 +5191,7 @@ TR::Node *constrainCall(TR::ValuePropagation *vp, TR::Node *node)
          char *sig = symbol->getMethod()->classNameChars();
          int32_t len = symbol->getMethod()->classNameLength();
          sig = classNameToSignature(sig, len, vp->comp());
-         TR_ResolvedMethod *method = node->getSymbolReference()->getOwningMethod(vp->comp());
+         OMR::ResolvedMethod *method = node->getSymbolReference()->getOwningMethod(vp->comp());
          TR::VPConstraint *constraint = TR::VPUnresolvedClass::create(vp, sig, len, method);
          int32_t firstArgIndex = node->getFirstArgumentIndex();
          bool isGlobal;
@@ -5410,10 +5410,10 @@ TR::Node *constrainCall(TR::ValuePropagation *vp, TR::Node *node)
             {
             TR::SymbolReference *hashCodeMethodSymRef = NULL;
             TR::SymbolReference *getHelpersSymRef = NULL;
-            TR_ScratchList<TR_ResolvedMethod> helperMethods(vp->trMemory());
+            TR_ScratchList<OMR::ResolvedMethod> helperMethods(vp->trMemory());
             vp->comp()->fej9()->getResolvedMethods(vp->trMemory(), jitHelpersClass, &helperMethods);
-            ListIterator<TR_ResolvedMethod> it(&helperMethods);
-            for (TR_ResolvedMethod *m = it.getCurrent(); m; m = it.getNext())
+            ListIterator<OMR::ResolvedMethod> it(&helperMethods);
+            for (OMR::ResolvedMethod *m = it.getCurrent(); m; m = it.getNext())
                {
                char *sig = m->nameChars();
                if (!strncmp(sig, "hashCodeImpl", 11))
@@ -5535,13 +5535,13 @@ void getHelperSymRefs(TR::ValuePropagation *vp, TR::Node *curCallNode, TR::Symbo
    if (!jitHelpersClass || !TR::Compiler->cls.isClassInitialized(vp->comp(), jitHelpersClass))
       return;
 
-   TR_ScratchList<TR_ResolvedMethod> helperMethods(vp->trMemory());
+   TR_ScratchList<OMR::ResolvedMethod> helperMethods(vp->trMemory());
    vp->comp()->fej9()->getResolvedMethods(vp->trMemory(), jitHelpersClass, &helperMethods);
-   ListIterator<TR_ResolvedMethod> it(&helperMethods);
+   ListIterator<OMR::ResolvedMethod> it(&helperMethods);
 
    //Find the symRefs
    //
-   for (TR_ResolvedMethod *m = it.getCurrent(); m; m = it.getNext())
+   for (OMR::ResolvedMethod *m = it.getCurrent(); m; m = it.getNext())
       {
       char *sig = m->nameChars();
       //printf("Here is the sig %s and the passed in %s \n", sig,helperSig);
@@ -5768,7 +5768,7 @@ TR::Node *constrainAcall(TR::ValuePropagation *vp, TR::Node *node)
             }
          else if (method->getRecognizedMethod() == TR::java_math_BigDecimal_valueOf)
             {
-            TR_ResolvedMethod *owningMethod = symRef->getOwningMethod(vp->comp());
+            OMR::ResolvedMethod *owningMethod = symRef->getOwningMethod(vp->comp());
             TR_OpaqueClassBlock *classObject = vp->fe()->getClassFromSignature("java/math/BigDecimal", 20, owningMethod);
             if (classObject)
                {
@@ -5786,7 +5786,7 @@ TR::Node *constrainAcall(TR::ValuePropagation *vp, TR::Node *node)
             {
             bool isGlobal;
             constraint = vp->getConstraint(node->getSecondChild(), isGlobal);
-            TR_ResolvedMethod *owningMethod = symRef->getOwningMethod(vp->comp());
+            OMR::ResolvedMethod *owningMethod = symRef->getOwningMethod(vp->comp());
             TR_OpaqueClassBlock * bigDecimalClass = vp->fe()->getClassFromSignature("java/math/BigDecimal", 20, owningMethod);
             //traceMsg(vp->comp(), "child %p big dec class %p\n", constraint, bigDecimalClass);
             if (constraint && bigDecimalClass &&
@@ -5816,7 +5816,7 @@ TR::Node *constrainAcall(TR::ValuePropagation *vp, TR::Node *node)
    TR_ASSERT(sig[0] == 'L' || sig[0] == '[', "Ref call return type is not a class");
 
    TR::MethodSymbol *symbol = node->getSymbol()->castToMethodSymbol();
-   TR_ResolvedMethod *owningMethod = symRef->getOwningMethod(vp->comp());
+   OMR::ResolvedMethod *owningMethod = symRef->getOwningMethod(vp->comp());
    TR_OpaqueClassBlock *classBlock = vp->fe()->getClassFromSignature(sig, len, owningMethod);
    if (  classBlock
       && TR::Compiler->cls.isInterfaceClass(vp->comp(), classBlock)
@@ -9150,8 +9150,8 @@ static void addDelayedConvertedGuard (TR::Node* node,
 
 
 #ifdef J9_PROJECT_SPECIFIC
-TR_ResolvedMethod * findSingleImplementer(
-   TR_OpaqueClassBlock * thisClass, int32_t cpIndexOrVftSlot, TR_ResolvedMethod * callerMethod, TR::Compilation * comp, bool locked, TR_YesNoMaybe useGetResolvedInterfaceMethod)
+OMR::ResolvedMethod * findSingleImplementer(
+   TR_OpaqueClassBlock * thisClass, int32_t cpIndexOrVftSlot, OMR::ResolvedMethod * callerMethod, TR::Compilation * comp, bool locked, TR_YesNoMaybe useGetResolvedInterfaceMethod)
    {
    if (comp->getOption(TR_DisableCHOpts))
       return 0;
@@ -9164,7 +9164,7 @@ TR_ResolvedMethod * findSingleImplementer(
       return 0;
       }
 
-   TR_ResolvedMethod *implArray[2]; // collect maximum 2 implemeters if you can
+   OMR::ResolvedMethod *implArray[2]; // collect maximum 2 implemeters if you can
    int32_t implCount = TR_ClassQueries::collectImplementorsCapped(classInfo, implArray, 2, cpIndexOrVftSlot, callerMethod, comp, locked, useGetResolvedInterfaceMethod);
    return (implCount == 1 ? implArray[0] : 0);
    }
@@ -9371,7 +9371,7 @@ static TR::Node *constrainIfcmpeqne(TR::ValuePropagation *vp, TR::Node *node, bo
                      {
                      int32_t len;
                      const char *sig = unresolvedTypeConstraint->getClassSignature(len);
-                     TR_ResolvedMethod *owningMethod = unresolvedTypeConstraint->getOwningMethod();
+                     OMR::ResolvedMethod *owningMethod = unresolvedTypeConstraint->getOwningMethod();
                      if (owningMethod)
                         {
                         TR_OpaqueClassBlock *clazz = vp->fe()->getClassFromSignature(sig, len, owningMethod);
@@ -9633,7 +9633,7 @@ static TR::Node *constrainIfcmpeqne(TR::ValuePropagation *vp, TR::Node *node, bo
             TR::ResolvedMethodSymbol * resolvedMethodSymbol = methodSymbol->getResolvedMethodSymbol();
             if (resolvedMethodSymbol)
                {
-               TR_ResolvedMethod *originalResolvedMethod = resolvedMethodSymbol->getResolvedMethod();
+               OMR::ResolvedMethod *originalResolvedMethod = resolvedMethodSymbol->getResolvedMethod();
                TR_OpaqueClassBlock *originalMethodClass = originalResolvedMethod->classOfMethod();
 
                if ((vp->fe()->isInstanceOf(thisType, originalMethodClass, true, true) == TR_yes) &&
@@ -10098,7 +10098,7 @@ static TR::Node *constrainIfcmpeqne(TR::ValuePropagation *vp, TR::Node *node, bo
                 interfaceMethodSymbol->isInterface())
              {
              int32_t len;
-             TR_ResolvedMethod* owningMethod = callNode->getSymbolReference()->getOwningMethod(vp->comp());
+             OMR::ResolvedMethod* owningMethod = callNode->getSymbolReference()->getOwningMethod(vp->comp());
              const char * sig  = lhs->getClassType()->getClassSignature(len);
              objectClass = vp->comp()->fe()->getClassFromSignature(sig, len, owningMethod, true);
 
@@ -10117,7 +10117,7 @@ static TR::Node *constrainIfcmpeqne(TR::ValuePropagation *vp, TR::Node *node, bo
              TR::ResolvedMethodSymbol* resolvedCallMethodSymbol = callNode->getSymbolReference()->getSymbol()->getResolvedMethodSymbol();
              if (resolvedCallMethodSymbol)
                 {
-                TR_ResolvedMethod *resolvedCallMethod = resolvedCallMethodSymbol->getResolvedMethod();
+                OMR::ResolvedMethod *resolvedCallMethod = resolvedCallMethodSymbol->getResolvedMethod();
                 callClass = resolvedCallMethod->containingClass();
                 }
              }
@@ -10145,7 +10145,7 @@ static TR::Node *constrainIfcmpeqne(TR::ValuePropagation *vp, TR::Node *node, bo
                 TR_YesNoMaybe useGetResolvedInterfaceMethod = methodSymbol->isInterface() ? TR_yes : TR_no;
                 TR::MethodSymbol::Kinds methodKind = methodSymbol->isInterface() ? TR::MethodSymbol::Interface : TR::MethodSymbol::Virtual;
 
-                TR_ResolvedMethod* rvm = findSingleImplementer (objectClass, cpIndexOrVftSlot, symRef->getOwningMethod(vp->comp()), vp->comp(), false, useGetResolvedInterfaceMethod);
+                OMR::ResolvedMethod* rvm = findSingleImplementer (objectClass, cpIndexOrVftSlot, symRef->getOwningMethod(vp->comp()), vp->comp(), false, useGetResolvedInterfaceMethod);
 
         TR_ScratchList<TR_PersistentClassInfo> subClasses(vp->comp()->trMemory());
 

@@ -69,7 +69,7 @@ TR::Register *OMR::ARM::TreeEvaluator::aconstEvaluator(TR::Node *node, TR::CodeG
    {
    TR::Compilation *comp = cg->comp();
    bool isClass = node->isClassPointerConstant();
-   TR_ResolvedMethod * method = comp->getCurrentMethod();
+   OMR::ResolvedMethod * method = comp->getCurrentMethod();
 
    bool isPicSite = node->isClassPointerConstant() && cg->fe()->isUnloadAssumptionRequired((TR_OpaqueClassBlock *) node->getAddress(), method);
    if (!isPicSite)

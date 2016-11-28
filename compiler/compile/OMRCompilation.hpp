@@ -82,7 +82,7 @@ class TR_PersistentClassInfo;
 class TR_PrexArgInfo;
 class TR_RandomGenerator;
 class TR_RegisterCandidates;
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 class TR_RuntimeAssumption;
 class TR_VirtualGuard;
 class TR_VirtualGuardSite;
@@ -303,7 +303,7 @@ public:
          int32_t compThreadId,
          OMR_VMThread *omrVMThread,
          TR_FrontEnd *,
-         TR_ResolvedMethod *,
+         OMR::ResolvedMethod *,
          TR::IlGenRequest &,
          TR::Options &,
          const TR::Region &dispatchRegion,
@@ -427,7 +427,7 @@ public:
    void setOptimizer(TR::Optimizer * o) { _optimizer = o; }
 
    TR::ResolvedMethodSymbol *getMethodSymbol();
-   TR_ResolvedMethod *getCurrentMethod();
+   OMR::ResolvedMethod *getCurrentMethod();
 
    TR::PersistentInfo *getPersistentInfo();
 
@@ -488,7 +488,7 @@ public:
 
    mcount_t addOwningMethod(TR::ResolvedMethodSymbol * p);
    TR::ResolvedMethodSymbol *getOwningMethodSymbol(mcount_t i);
-   TR::ResolvedMethodSymbol *getOwningMethodSymbol(TR_ResolvedMethod * method);
+   TR::ResolvedMethodSymbol *getOwningMethodSymbol(OMR::ResolvedMethod * method);
    TR::ResolvedMethodSymbol *getOwningMethodSymbol(TR_OpaqueMethodBlock * method);
 
    void registerResolvedMethodSymbolReference(TR::SymbolReference *);
@@ -537,7 +537,7 @@ public:
    TR::list<TR::Snippet*> *getSnippetsToBePatchedOnClassUnload() { return &_snippetsToBePatchedOnClassUnload; }
    TR::list<TR::Snippet*> *getMethodSnippetsToBePatchedOnClassUnload() { return &_methodSnippetsToBePatchedOnClassUnload; }
    TR::list<TR::Snippet*> *getSnippetsToBePatchedOnClassRedefinition() { return &_snippetsToBePatchedOnClassRedefinition; }
-   TR::list<TR_Pair<TR::Snippet,TR_ResolvedMethod> *> *getSnippetsToBePatchedOnRegisterNative() { return &_snippetsToBePatchedOnRegisterNative; }
+   TR::list<TR_Pair<TR::Snippet,OMR::ResolvedMethod> *> *getSnippetsToBePatchedOnRegisterNative() { return &_snippetsToBePatchedOnRegisterNative; }
 
    bool useLongRegAllocation(){ return _useLongRegAllocation; }
    void setUseLongRegAllocation(bool b){ _useLongRegAllocation = b; }
@@ -593,7 +593,7 @@ public:
    void     resetInlineDepth();
    int16_t restoreInlineDepth(TR_ByteCodeInfo &existingInfo);
    int16_t  matchingCallStackPrefixLength(TR_ByteCodeInfo &bcInfo);
-   bool foundOnTheStack(TR_ResolvedMethod *, int32_t);
+   bool foundOnTheStack(OMR::ResolvedMethod *, int32_t);
    int32_t getInlinedCalls() { return _inlinedCalls; }
    void incInlinedCalls() { _inlinedCalls++; }
 
@@ -618,7 +618,7 @@ public:
          }
 
       TR_InlinedCallSite &site() { return _site; }
-      TR_ResolvedMethod *resolvedMethod() { return _resolvedMethod->getResolvedMethod(); }
+      OMR::ResolvedMethod *resolvedMethod() { return _resolvedMethod->getResolvedMethod(); }
       TR::ResolvedMethodSymbol *resolvedMethodSymbol() { return _resolvedMethod; }
       TR::SymbolReference *callSymRef(){ return _callSymRef; }
       bool directCall() { return _directCall; }
@@ -627,7 +627,7 @@ public:
    uint32_t getNumInlinedCallSites();
 
    TR_InlinedCallSite &getInlinedCallSite(uint32_t index);
-   TR_ResolvedMethod  *getInlinedResolvedMethod(uint32_t index);
+   OMR::ResolvedMethod  *getInlinedResolvedMethod(uint32_t index);
    TR::ResolvedMethodSymbol  *getInlinedResolvedMethodSymbol(uint32_t index);
    TR::SymbolReference *getInlinedCallerSymRef(uint32_t index);
    bool isInlinedDirectCall(uint32_t index);
@@ -876,7 +876,7 @@ public:
 
    void printMemStatsAfter(const char *name);
 
-   TR::ResolvedMethodSymbol *createJittedMethodSymbol(TR_ResolvedMethod *resolvedMethod);
+   TR::ResolvedMethodSymbol *createJittedMethodSymbol(OMR::ResolvedMethod *resolvedMethod);
 
    bool isGPUCompilation() { return _flags.testAny(IsGPUCompilation);}
 
@@ -1025,7 +1025,7 @@ protected:
    TR::ResolvedMethodSymbol *_methodSymbol;
 
 private:
-   TR_ResolvedMethod                 *_method; // must be declared before _flowGraph
+   OMR::ResolvedMethod                 *_method; // must be declared before _flowGraph
    TR_ArenaAllocator                 _arenaAllocator;
    const char *                      _allocatorName;
 
@@ -1065,7 +1065,7 @@ private:
    TR::list<TR::Snippet*>                   _snippetsToBePatchedOnClassUnload;
    TR::list<TR::Snippet*>                   _methodSnippetsToBePatchedOnClassUnload;
    TR::list<TR::Snippet*>                   _snippetsToBePatchedOnClassRedefinition;
-   TR::list<TR_Pair<TR::Snippet,TR_ResolvedMethod> *> _snippetsToBePatchedOnRegisterNative;
+   TR::list<TR_Pair<TR::Snippet,OMR::ResolvedMethod> *> _snippetsToBePatchedOnRegisterNative;
 
    TR::list<TR::ResolvedMethodSymbol*>      _genILSyms;
 

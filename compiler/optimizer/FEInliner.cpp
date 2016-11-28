@@ -27,7 +27,7 @@
 
 class TR_OpaqueClassBlock;
 class TR_PrexArgInfo;
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 namespace TR { class ResolvedMethodSymbol; }
 namespace TR { class SymbolReference; }
 namespace TR { class Compilation; }
@@ -39,11 +39,11 @@ TR_CallSite* TR_CallSite::create(TR::TreeTop* callNodeTreeTop,
                            TR::Node* callNode,
                            TR_OpaqueClassBlock *receiverClass,
                            TR::SymbolReference *symRef,
-                           TR_ResolvedMethod *resolvedMethod,
+                           OMR::ResolvedMethod *resolvedMethod,
                            TR::Compilation* comp,
                            TR_Memory* trMemory,
                            TR_AllocationKind kind,
-                           TR_ResolvedMethod* caller,
+                           OMR::ResolvedMethod* caller,
                            int32_t depth,
                            bool allConsts)
 
@@ -63,14 +63,14 @@ bool TR_InlinerBase::inlineCallTarget(TR_CallStack *callStack, TR_CallTarget *ca
    return false;
    }
 
-void TR_InlinerBase::getBorderFrequencies(int32_t &hotBorderFrequency, int32_t &coldBorderFrequency, TR_ResolvedMethod * calleeResolvedMethod, TR::Node *callNode)
+void TR_InlinerBase::getBorderFrequencies(int32_t &hotBorderFrequency, int32_t &coldBorderFrequency, OMR::ResolvedMethod * calleeResolvedMethod, TR::Node *callNode)
    {
    hotBorderFrequency = 2500;
    coldBorderFrequency = 0;
    return;
    }
 
-int32_t TR_InlinerBase::scaleSizeBasedOnBlockFrequency(int32_t bytecodeSize, int32_t frequency, int32_t borderFrequency, TR_ResolvedMethod * calleeResolvedMethod, TR::Node *callNode, int32_t coldBorderFrequency)
+int32_t TR_InlinerBase::scaleSizeBasedOnBlockFrequency(int32_t bytecodeSize, int32_t frequency, int32_t borderFrequency, OMR::ResolvedMethod * calleeResolvedMethod, TR::Node *callNode, int32_t coldBorderFrequency)
    {
    int32_t maxFrequency = MAX_BLOCK_COUNT + MAX_COLD_BLOCK_COUNT;
    bytecodeSize = (int)((float)bytecodeSize * (float)(maxFrequency-borderFrequency)/(float)maxFrequency);

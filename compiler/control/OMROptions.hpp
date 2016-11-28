@@ -53,7 +53,7 @@ class TR_Debug;
 class TR_Debug;
 class TR_MCTLogs;
 class TR_OptimizationPlan;
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 namespace TR { class SimpleRegex; }
 namespace OMR { class Compilation; }
 namespace TR  { class Options;     }
@@ -1461,7 +1461,7 @@ public:
          _logListForOtherCompThreads(NULL)
       {
       }
-   Options(TR_Memory *, int32_t index, int32_t lineNumber, TR_ResolvedMethod *compilee, void *oldStartPC, TR_OptimizationPlan *optimizationPlan, bool isAOT=false,  int32_t compThreadID=-1);
+   Options(TR_Memory *, int32_t index, int32_t lineNumber, OMR::ResolvedMethod *compilee, void *oldStartPC, TR_OptimizationPlan *optimizationPlan, bool isAOT=false,  int32_t compThreadID=-1);
    Options(TR::Options &other);
 
    enum TR_AggresivenessLevel {
@@ -1478,8 +1478,8 @@ public:
    static void       setIsFullyInitialized()           { _fullyInitialized = true; }
    static bool       isFullyInitialized()              { return _fullyInitialized; }
 
-   static TR::OptionSet * findOptionSet(TR_Memory *, int32_t index, int32_t lineNum, TR_ResolvedMethod *, TR_Hotness, bool);
-   static TR::OptionSet * findOptionSet(TR_Memory *, TR_ResolvedMethod *, bool);
+   static TR::OptionSet * findOptionSet(TR_Memory *, int32_t index, int32_t lineNum, OMR::ResolvedMethod *, TR_Hotness, bool);
+   static TR::OptionSet * findOptionSet(TR_Memory *, OMR::ResolvedMethod *, bool);
    static TR::OptionSet * findOptionSet(int32_t index, int32_t lineNum, const char *, TR_Hotness, bool);
 
    static char       *getDefaultOptions();

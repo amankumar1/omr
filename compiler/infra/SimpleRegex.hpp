@@ -24,7 +24,7 @@
 #include "env/TRMemory.hpp"  // for TR_Memory, etc
 #include "il/DataTypes.hpp"  // for TR_YesNoMaybe
 
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 
 #define BITSPERUL 32
 #if BITSPERUL == 32
@@ -55,7 +55,7 @@ class SimpleRegex
 
    static bool match(TR::SimpleRegex *regex, const char *, bool isCaseSensitive=true);
    static bool match(TR::SimpleRegex *regex, int, bool isCaseSensitive=true);
-   static bool match(TR::SimpleRegex *regex, TR_ResolvedMethod *, bool isCaseSensitive=true);
+   static bool match(TR::SimpleRegex *regex, OMR::ResolvedMethod *, bool isCaseSensitive=true);
    static bool matchIgnoringLocale(TR::SimpleRegex *regex, const char *, bool isCaseSensitive=true);
 
    void print(bool negate);

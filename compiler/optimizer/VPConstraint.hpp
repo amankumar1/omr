@@ -31,7 +31,7 @@
 
 class TR_FrontEnd;
 class TR_OpaqueClassBlock;
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 namespace TR { class VPArrayInfo; }
 namespace TR { class VPClassPresence; }
 namespace TR { class VPClassType; }
@@ -106,7 +106,7 @@ class VPConstraint
 
    virtual const char *name()=0;
 
-   static TR::VPConstraint *create(TR::ValuePropagation *vp, const char *sig, int32_t len, TR_ResolvedMethod *method, bool isFixedClass);
+   static TR::VPConstraint *create(TR::ValuePropagation *vp, const char *sig, int32_t len, OMR::ResolvedMethod *method, bool isFixedClass);
    static bool isSpecialClass(uintptrj_t klass);
 
 
@@ -593,7 +593,7 @@ class VPClassType : public TR::VPConstraint
    public:
    VPClassType(int32_t p) : TR::VPConstraint(p) {}
    static TR::VPClassType *create(TR::ValuePropagation *vp, TR::SymbolReference *symRef, bool isFixedClass, bool isPointerToClass = false);
-   static TR::VPClassType *create(TR::ValuePropagation *vp, const char *sig, int32_t len, TR_ResolvedMethod *method, bool isFixed, TR_OpaqueClassBlock *j9class = 0);
+   static TR::VPClassType *create(TR::ValuePropagation *vp, const char *sig, int32_t len, OMR::ResolvedMethod *method, bool isFixed, TR_OpaqueClassBlock *j9class = 0);
    virtual TR::VPClassType *asClassType();
 
    virtual const char *getClassSignature(int32_t &len) = 0;
@@ -703,10 +703,10 @@ class VPConstString : public TR::VPFixedClass
 class VPUnresolvedClass : public TR::VPClassType
    {
    public:
-   VPUnresolvedClass(const char *sig, int32_t len, TR_ResolvedMethod *method)
+   VPUnresolvedClass(const char *sig, int32_t len, OMR::ResolvedMethod *method)
       : TR::VPClassType(UnresolvedClassPriority), _method(method)
       {_sig = sig; _len = len; _definiteType = false;}
-   static TR::VPUnresolvedClass *create(TR::ValuePropagation *vp, const char *sig, int32_t len, TR_ResolvedMethod *method);
+   static TR::VPUnresolvedClass *create(TR::ValuePropagation *vp, const char *sig, int32_t len, OMR::ResolvedMethod *method);
    virtual TR::VPUnresolvedClass *asUnresolvedClass();
 
    virtual TR::VPConstraint *intersect1(TR::VPConstraint *other, TR::ValuePropagation *vp);
@@ -714,7 +714,7 @@ class VPUnresolvedClass : public TR::VPClassType
    virtual const char *getClassSignature(int32_t &len);
    virtual TR::VPClassType *getArrayClass(TR::ValuePropagation *vp);
 
-   TR_ResolvedMethod *getOwningMethod() { return _method; }
+   OMR::ResolvedMethod *getOwningMethod() { return _method; }
 
    virtual bool isReferenceArray(TR::Compilation *);
    virtual bool isPrimitiveArray(TR::Compilation *);
@@ -725,10 +725,10 @@ class VPUnresolvedClass : public TR::VPClassType
    virtual void print(TR::Compilation *, TR::FILE *);
    virtual const char *name();
 
-   TR_ResolvedMethod *getMethod() {return _method; }
+   OMR::ResolvedMethod *getMethod() {return _method; }
 
    private:
-   TR_ResolvedMethod *_method;
+   OMR::ResolvedMethod *_method;
    bool _definiteType;
    };
 
@@ -975,9 +975,9 @@ class VPImplementedInterface : public TR::VPConstraint
    {
    public:
 
-   static  TR::VPImplementedInterface *create(TR::ValuePropagation *vp, char *sig, int32_t len, TR_ResolvedMethod *method);
+   static  TR::VPImplementedInterface *create(TR::ValuePropagation *vp, char *sig, int32_t len, OMR::ResolvedMethod *method);
 
-   VPImplementedInterface(char *sig, int32_t len, TR_ResolvedMethod *method)
+   VPImplementedInterface(char *sig, int32_t len, OMR::ResolvedMethod *method)
       : _method(method)
       {_sig = sig; _len = len;}
 
@@ -992,7 +992,7 @@ class VPImplementedInterface : public TR::VPConstraint
    virtual const char *name();
 
    private:
-   TR_ResolvedMethod *_method;
+   OMR::ResolvedMethod *_method;
    char *_sig;
    int32_t _len;
    };

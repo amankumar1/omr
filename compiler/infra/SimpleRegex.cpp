@@ -23,7 +23,7 @@
 #include <string.h>                    // for NULL, strlen
 #include "codegen/FrontEnd.hpp"        // for TR_VerboseLog
 #include "compile/Compilation.hpp"     // for Compilation, comp
-#include "compile/ResolvedMethod.hpp"  // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"  // for OMR::ResolvedMethod
 #include "env/StackMemoryRegion.hpp"
 #include "il/DataTypes.hpp"            // for CONSTANT64
 #include "ras/Debug.hpp"               // for TR_Debug
@@ -465,7 +465,7 @@ bool SimpleRegex::match(TR::SimpleRegex *regex, int32_t i, bool isCaseSensitive)
 
 bool SimpleRegex::match(
       TR::SimpleRegex *regex,
-      TR_ResolvedMethod * feMethod,
+      OMR::ResolvedMethod * feMethod,
       bool isCaseSensitive)
    {
    TR::Compilation *comp = TR::comp();

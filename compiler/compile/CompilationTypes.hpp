@@ -27,7 +27,7 @@
 
 class TR_BitVector;
 class TR_OpaqueClassBlock;
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 namespace TR { class Compilation; }
 namespace TR { class Node; }
 namespace TR { class TreeTop; }
@@ -145,7 +145,7 @@ class TR_DevirtualizedCallInfo
 
 struct TR_PeekingArgInfo
    {
-   TR_ResolvedMethod *_method;
+   OMR::ResolvedMethod *_method;
    const char **_args;
    int32_t *_lengths;
    };

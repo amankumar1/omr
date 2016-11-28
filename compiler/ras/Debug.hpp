@@ -65,7 +65,7 @@ class TR_PseudoRandomNumbersListElement;
 class TR_RegionAnalysis;
 class TR_RegionStructure;
 class TR_RematerializationInfo;
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 class TR_Structure;
 class TR_StructureSubGraphNode;
 namespace TR { class VPConstraint; }
@@ -402,12 +402,12 @@ public:
    virtual char *          inlinefileOption(char *, void *, TR::OptionTable *, TR::Options *);
    virtual char *          limitOption(char *, void *, TR::OptionTable *, TR::Options *, bool loadLimit);
    virtual int32_t *       loadCustomStrategy(char *optFileName);
-   virtual bool            methodCanBeCompiled(TR_Memory *mem, TR_ResolvedMethod *, TR_FilterBST * &);
-   virtual bool            methodCanBeRelocated(TR_Memory *mem, TR_ResolvedMethod *, TR_FilterBST * &);
+   virtual bool            methodCanBeCompiled(TR_Memory *mem, OMR::ResolvedMethod *, TR_FilterBST * &);
+   virtual bool            methodCanBeRelocated(TR_Memory *mem, OMR::ResolvedMethod *, TR_FilterBST * &);
    virtual bool            methodSigCanBeCompiled(const char *, TR_FilterBST * & , OMR::Method::Type methodType);
    virtual bool            methodSigCanBeRelocated(const char *, TR_FilterBST * & );
    virtual bool            methodSigCanBeCompiledOrRelocated(const char *, TR_FilterBST * &, bool isRelocation, OMR::Method::Type methodType);
-   virtual bool            methodCanBeFound(TR_Memory *, TR_ResolvedMethod *, TR::CompilationFilters *, TR_FilterBST * &);
+   virtual bool            methodCanBeFound(TR_Memory *, OMR::ResolvedMethod *, TR::CompilationFilters *, TR_FilterBST * &);
    virtual bool            methodSigCanBeFound(const char *, TR::CompilationFilters *, TR_FilterBST * &, OMR::Method::Type methodType);
    virtual TR::CompilationFilters * getCompilationFilters() { return _compilationFilters; }
    virtual TR::CompilationFilters * getRelocationFilters() { return _relocationFilters; }
@@ -450,7 +450,7 @@ public:
    virtual const char * getName(TR::Instruction *);
    virtual const char * getName(TR_Structure *);
    virtual const char * getName(TR::CFGNode *);
-   virtual const char * getName(TR_ResolvedMethod *m) { return getName((void *) m, "(TR_ResolvedMethod*)", 0, false); }
+   virtual const char * getName(OMR::ResolvedMethod *m) { return getName((void *) m, "(OMR::ResolvedMethod*)", 0, false); }
    virtual const char * getName(TR_OpaqueClassBlock *c) { return getName((void *) c, "(TR_OpaqueClassBlock*)", 0, false); }
    virtual const char * getName(void *, const char *, uint32_t, bool);
    virtual const char * getName(const char *s) { return s; }
@@ -488,7 +488,7 @@ public:
    virtual void         printVCG(TR::FILE *, TR::CFG *, const char *);
    virtual void         printVCG(TR::FILE *, TR::Node *, uint32_t indentation);
 
-   virtual void         print(J9JITExceptionTable * data, TR_ResolvedMethod * feMethod, bool fourByteOffsets);
+   virtual void         print(J9JITExceptionTable * data, OMR::ResolvedMethod * feMethod, bool fourByteOffsets);
 
    virtual void         clearNodeChecklist();
    virtual void         saveNodeChecklist(TR_BitVector &saveArea);
@@ -693,7 +693,7 @@ public:
    void printFilterTree(TR_FilterBST *root);
 
    TR::ResolvedMethodSymbol * getOwningMethodSymbol(TR::SymbolReference *);
-   TR_ResolvedMethod     * getOwningMethod(TR::SymbolReference *);
+   OMR::ResolvedMethod     * getOwningMethod(TR::SymbolReference *);
 
    const char * getAutoName(TR::SymbolReference *);
    const char * getParmName(TR::SymbolReference *);

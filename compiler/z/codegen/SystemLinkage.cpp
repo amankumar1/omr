@@ -2700,7 +2700,7 @@ TR_S390zOSSystemLinkage::calculateCallDescriptorFlags(TR::Node *callNode)
    if (callSymbol->isJNI() && callNode->isPreparedForDirectJNI())
       {
       TR::ResolvedMethodSymbol * cs = callSymbol->castToResolvedMethodSymbol();
-      TR_ResolvedMethod * resolvedMethod = cs->getResolvedMethod();
+      OMR::ResolvedMethod * resolvedMethod = cs->getResolvedMethod();
       // JNI Calls include a JNIEnv* pointer that is not included in list of children nodes.
       // For FastJNI, certain calls do not require us to pass the JNIEnv.
       if (!cg()->fej9()->jniDoNotPassThread(resolvedMethod))

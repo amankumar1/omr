@@ -1061,7 +1061,7 @@ TR::Register *OMR::X86::TreeEvaluator::integerStoreEvaluator(TR::Node *node, TR:
       TR_OpaqueMethodBlock *caller = node->getOwningMethod();
       if (tempMR && caller)
          {
-         TR_ResolvedMethod *m = comp->fe()->createResolvedMethod(cg->trMemory(), caller, node->getSymbolReference()->getOwningMethod(comp));
+         OMR::ResolvedMethod *m = comp->fe()->createResolvedMethod(cg->trMemory(), caller, node->getSymbolReference()->getOwningMethod(comp));
          if ((m->getRecognizedMethod() == TR::java_util_concurrent_atomic_AtomicInteger_lazySet) ||
              (m->getRecognizedMethod() == TR::java_util_concurrent_atomic_AtomicReference_lazySet) ||
              (m->getRecognizedMethod() == TR::java_util_concurrent_atomic_AtomicLong_lazySet))
@@ -2671,7 +2671,7 @@ TR::Register *OMR::X86::TreeEvaluator::arraycopyEvaluator(TR::Node *node, TR::Co
 
    // Use SSE copy for following methods
    TR_OpaqueMethodBlock *caller = node->getOwningMethod();
-   TR_ResolvedMethod *m = NULL;
+   OMR::ResolvedMethod *m = NULL;
    if (caller)
       {
       m = comp->fe()->createResolvedMethod(cg->trMemory(), caller, node->getSymbolReference()->getOwningMethod(comp));

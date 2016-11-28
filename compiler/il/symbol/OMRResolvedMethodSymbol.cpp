@@ -75,7 +75,7 @@ OMR::ResolvedMethodSymbol::self()
    }
 
 template <typename AllocatorType>
-TR::ResolvedMethodSymbol * OMR::ResolvedMethodSymbol::create(AllocatorType m, TR_ResolvedMethod * rm, TR::Compilation * comp)
+TR::ResolvedMethodSymbol * OMR::ResolvedMethodSymbol::create(AllocatorType m, OMR::ResolvedMethod * rm, TR::Compilation * comp)
    {
    return new (m) TR::ResolvedMethodSymbol(rm,comp);
    }
@@ -104,7 +104,7 @@ OMR::ResolvedMethodSymbol::initForCompilation(TR::Compilation *comp)
    }
 
 
-OMR::ResolvedMethodSymbol::ResolvedMethodSymbol(TR_ResolvedMethod * method, TR::Compilation * comp)
+OMR::ResolvedMethodSymbol::ResolvedMethodSymbol(OMR::ResolvedMethod * method, TR::Compilation * comp)
    : TR::MethodSymbol(TR_Private, method->convertToMethod()),
      _resolvedMethod(method),
      _flowGraph(0),
@@ -346,7 +346,7 @@ OMR::ResolvedMethodSymbol::getLogicalParameterList(TR::Compilation *comp)
 
 template <typename AllocatorType>
 TR::ResolvedMethodSymbol *
-OMR::ResolvedMethodSymbol::createJittedMethodSymbol(AllocatorType m, TR_ResolvedMethod * method, TR::Compilation * comp)
+OMR::ResolvedMethodSymbol::createJittedMethodSymbol(AllocatorType m, OMR::ResolvedMethod * method, TR::Compilation * comp)
    {
    auto sym = new (m) TR::ResolvedMethodSymbol(method, comp);
    sym->_localMappingCursor   = 0;
@@ -1764,7 +1764,7 @@ OMR::ResolvedMethodSymbol::addTrivialDeadTreeBlock(TR::Block *b)
       _trivialDeadTreeBlocksList.add(b);
    }
 
-// get/setTempIndex is called from TR_ResolvedMethod::makeParameterList
+// get/setTempIndex is called from OMR::ResolvedMethod::makeParameterList
 int32_t
 OMR::ResolvedMethodSymbol::setTempIndex(int32_t index, TR_FrontEnd * fe)
    {
@@ -2134,10 +2134,10 @@ OMR::ResolvedMethodSymbol::getArrayCopyTempSlot(TR_FrontEnd * fe)
 
 //Explicit instantiations
 
-template TR::ResolvedMethodSymbol * OMR::ResolvedMethodSymbol::create(TR_StackMemory m, TR_ResolvedMethod * rm, TR::Compilation * comp);
-template TR::ResolvedMethodSymbol * OMR::ResolvedMethodSymbol::create(TR_HeapMemory m, TR_ResolvedMethod * rm, TR::Compilation * comp);
-template TR::ResolvedMethodSymbol * OMR::ResolvedMethodSymbol::create(PERSISTENT_NEW_DECLARE m, TR_ResolvedMethod * rm, TR::Compilation * comp);
+template TR::ResolvedMethodSymbol * OMR::ResolvedMethodSymbol::create(TR_StackMemory m, OMR::ResolvedMethod * rm, TR::Compilation * comp);
+template TR::ResolvedMethodSymbol * OMR::ResolvedMethodSymbol::create(TR_HeapMemory m, OMR::ResolvedMethod * rm, TR::Compilation * comp);
+template TR::ResolvedMethodSymbol * OMR::ResolvedMethodSymbol::create(PERSISTENT_NEW_DECLARE m, OMR::ResolvedMethod * rm, TR::Compilation * comp);
 
-template TR::ResolvedMethodSymbol * OMR::ResolvedMethodSymbol::createJittedMethodSymbol(TR_StackMemory         m, TR_ResolvedMethod * method, TR::Compilation * comp);
-template TR::ResolvedMethodSymbol * OMR::ResolvedMethodSymbol::createJittedMethodSymbol(TR_HeapMemory          m, TR_ResolvedMethod * method, TR::Compilation * comp);
-template TR::ResolvedMethodSymbol * OMR::ResolvedMethodSymbol::createJittedMethodSymbol(PERSISTENT_NEW_DECLARE m, TR_ResolvedMethod * method, TR::Compilation * comp);
+template TR::ResolvedMethodSymbol * OMR::ResolvedMethodSymbol::createJittedMethodSymbol(TR_StackMemory         m, OMR::ResolvedMethod * method, TR::Compilation * comp);
+template TR::ResolvedMethodSymbol * OMR::ResolvedMethodSymbol::createJittedMethodSymbol(TR_HeapMemory          m, OMR::ResolvedMethod * method, TR::Compilation * comp);
+template TR::ResolvedMethodSymbol * OMR::ResolvedMethodSymbol::createJittedMethodSymbol(PERSISTENT_NEW_DECLARE m, OMR::ResolvedMethod * method, TR::Compilation * comp);

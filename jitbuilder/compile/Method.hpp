@@ -62,7 +62,7 @@ class Method : public OMR::Method
    virtual bool                  isFinalInObject() { return false; }
    };
 
-class ResolvedMethodBase : public TR_ResolvedMethod
+class ResolvedMethodBase : public OMR::ResolvedMethod
    {
    virtual uint16_t              nameLength()                                   { return signatureLength(); }
    virtual uint16_t              classNameLength()                              { return signatureLength(); }
@@ -92,7 +92,7 @@ class ResolvedMethodBase : public TR_ResolvedMethod
 
    uint32_t                      numberOfExceptionHandlers()                    { return 0; }
 
-   virtual bool                  isSameMethod(TR_ResolvedMethod *other)
+   virtual bool                  isSameMethod(OMR::ResolvedMethod *other)
       {
       return getPersistentIdentifier() == other->getPersistentIdentifier();
       }

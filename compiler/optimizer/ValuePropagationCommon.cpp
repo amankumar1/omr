@@ -31,7 +31,7 @@
 #include "codegen/RecognizedMethods.hpp"           // for RecognizedMethod, etc
 #include "compile/Compilation.hpp"                 // for Compilation, comp
 #include "compile/Method.hpp"                      // for OMR::Method
-#include "compile/ResolvedMethod.hpp"              // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"              // for OMR::ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"
 #include "control/Options.hpp"
 #include "control/Options_inlines.hpp"             // for TR::Options, etc
@@ -763,17 +763,17 @@ bool TR::ValuePropagation::canTransformArrayCopyCallForSmall(TR::Node *node, int
 
 #ifdef J9_PROJECT_SPECIFIC
 static
-TR_ResolvedMethod * findResolvedClassMethod(TR::Compilation * comp, char * className, char * methodName, char * methodSig)
+OMR::ResolvedMethod * findResolvedClassMethod(TR::Compilation * comp, char * className, char * methodName, char * methodSig)
    {
    TR_OpaqueClassBlock * classHandle = comp->fe()->getClassFromSignature(className, strlen(className), comp->getCurrentMethod());
 
    if (classHandle)
       {
-      TR_ScratchList<TR_ResolvedMethod> classMethods(comp->trMemory());
+      TR_ScratchList<OMR::ResolvedMethod> classMethods(comp->trMemory());
       comp->fej9()->getResolvedMethods(comp->trMemory(), classHandle, &classMethods);
 
-      ListIterator<TR_ResolvedMethod> it(&classMethods);
-      TR_ResolvedMethod *method;
+      ListIterator<OMR::ResolvedMethod> it(&classMethods);
+      OMR::ResolvedMethod *method;
       int methodNameLen = strlen(methodName);
       int methodSigLen  = strlen(methodSig);
       for (method = it.getCurrent(); method; method = it.getNext())
@@ -1171,7 +1171,7 @@ void TR::ValuePropagation::transformArrayCopyCall(TR::Node *node)
       if (comp()->generateArraylets() &&
           !comp()->getOption(TR_DisableMultiLeafArrayCopy))
          {
-         TR_ResolvedMethod *caller = node->getSymbolReference()->getOwningMethod(comp());
+         OMR::ResolvedMethod *caller = node->getSymbolReference()->getOwningMethod(comp());
          char *sig = "multiLeafArrayCopy";
          if (caller && strncmp(caller->nameChars(), sig, strlen(sig)) == 0)
             {
@@ -1367,7 +1367,7 @@ void TR::ValuePropagation::transformArrayCopyCall(TR::Node *node)
       // java/lang/System.arraycopy(Object[], Object[], int, Object[], int, int)
       // which is a private method in the java.lang.System class we ship
       //
-      TR_ResolvedMethod * newMethod =
+      OMR::ResolvedMethod * newMethod =
          findResolvedClassMethod(comp(), "Ljava/lang/System;", "arraycopy", "([Ljava/lang/Object;I[Ljava/lang/Object;II)V");
       }
 #else
@@ -2202,7 +2202,7 @@ void TR::ValuePropagation::generateArrayTranslateNode(TR::TreeTop *callTree,TR::
    TR::Node* callNode = callTree->getNode()->getFirstChild();
    TR::MethodSymbol *symbol = callNode->getSymbol()->castToMethodSymbol();
    const TR::RecognizedMethod rm = symbol->getRecognizedMethod();
-   TR_ResolvedMethod *m = symbol->getResolvedMethodSymbol()->getResolvedMethod();
+   OMR::ResolvedMethod *m = symbol->getResolvedMethodSymbol()->getResolvedMethod();
 
    bool isISO88591Encoder = (rm == TR::sun_nio_cs_ISO_8859_1_Encoder_encodeISOArray);
    bool isISO88591Decoder = (rm == TR::sun_nio_cs_ISO_8859_1_Decoder_decodeISO8859_1);
@@ -2459,7 +2459,7 @@ TR::TreeTop* TR::ValuePropagation::createConverterCallNodeAfterStores(
 
    TR::MethodSymbol *symbol = root->getSymbol()->castToMethodSymbol();
    TR::RecognizedMethod rm = symbol->getRecognizedMethod();
-   TR_ResolvedMethod *m = symbol->getResolvedMethodSymbol()->getResolvedMethod();
+   OMR::ResolvedMethod *m = symbol->getResolvedMethodSymbol()->getResolvedMethod();
 
 #ifdef J9_PROJECT_SPECIFIC
    bool isISO88591Encoder = (rm == TR::sun_nio_cs_ISO_8859_1_Encoder_encodeISOArray);
@@ -2766,7 +2766,7 @@ TR::TreeTop *createStoresForConverterCallChildren(TR::Compilation *comp, TR::Tre
    TR::Node *node = callTree->getNode()->getFirstChild();
    TR::MethodSymbol *symbol = node->getSymbol()->castToMethodSymbol();
    TR::RecognizedMethod rm = symbol->getRecognizedMethod();
-   TR_ResolvedMethod *m = symbol->getResolvedMethodSymbol()->getResolvedMethod();
+   OMR::ResolvedMethod *m = symbol->getResolvedMethodSymbol()->getResolvedMethod();
 #ifdef J9_PROJECT_SPECIFIC
    bool isISO88591Encoder = (rm == TR::sun_nio_cs_ISO_8859_1_Encoder_encodeISOArray);
 #else
@@ -3374,7 +3374,7 @@ void TR::ValuePropagation::transformRTMultiLeafArrayCopy(TR_RealTimeArrayCopy *r
    intptrj_t elementSize = TR::Symbol::convertTypeToSize(type);
    intptrj_t leafSize = comp()->fe()->getArrayletMask(elementSize) + 1;
 
-   TR_ResolvedMethod *method = comp()->getCurrentMethod();
+   OMR::ResolvedMethod *method = comp()->getCurrentMethod();
    TR::ResolvedMethodSymbol *methodSymbol = comp()->getOwningMethodSymbol(method);
    TR_OpaqueClassBlock *helperClass = comp()->getSystemClassPointer(); //fe()->getClassFromSignature("RTArrayCopy", 11, method);
 
@@ -3383,11 +3383,11 @@ void TR::ValuePropagation::transformRTMultiLeafArrayCopy(TR_RealTimeArrayCopy *r
    if (!helperClass)
      return;
 
-   TR_ScratchList<TR_ResolvedMethod> helperMethods(trMemory());
+   TR_ScratchList<OMR::ResolvedMethod> helperMethods(trMemory());
    comp()->fej9()->getResolvedMethods(trMemory(), helperClass, &helperMethods);
-   ListIterator<TR_ResolvedMethod> it(&helperMethods);
+   ListIterator<OMR::ResolvedMethod> it(&helperMethods);
    TR::SymbolReference *helperSymRef = NULL;
-   for (TR_ResolvedMethod *m = it.getCurrent(); m && !helperSymRef; m = it.getNext())
+   for (OMR::ResolvedMethod *m = it.getCurrent(); m && !helperSymRef; m = it.getNext())
       {
       char *sig = m->nameChars();
       if (trace())
@@ -3705,7 +3705,7 @@ void TR::ValuePropagation::transformConverterCall(TR::TreeTop *callTree)
    TR::Node * tableNode = NULL;
    bool hasTable = false;
 
-   TR_ResolvedMethod *m = symbol->getResolvedMethodSymbol()->getResolvedMethod();
+   OMR::ResolvedMethod *m = symbol->getResolvedMethodSymbol()->getResolvedMethod();
    bool isISO88591Encoder = (rm == TR::sun_nio_cs_ISO_8859_1_Encoder_encodeISOArray);
    int32_t childId = callNode->getFirstArgumentIndex();
    bool hasReciever = symbol->isStatic() ? false : true;

@@ -36,7 +36,7 @@
 #include "compile/CompilationTypes.hpp"        // for TR_Hotness
 #include "compile/Method.hpp"                  // for OMR::Method, etc
 #include "compile/OSRData.hpp"                 // for TR_OSRCompilationData, etc
-#include "compile/ResolvedMethod.hpp"          // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"          // for OMR::ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"    // for SymbolReferenceTable
 #include "compile/VirtualGuard.hpp"            // for TR_VirtualGuard
 #include "control/OptimizationPlan.hpp"        // for TR_OptimizationPlan
@@ -116,7 +116,7 @@ class TR_Memory;
 class TR_OptimizationPlan;
 class TR_PrexArgInfo;
 class TR_PseudoRandomNumbersListElement;
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 namespace TR { class IlGenRequest; }
 namespace TR { class Options; }
 namespace TR { class CodeCache; }
@@ -219,7 +219,7 @@ OMR::Compilation::Compilation(
       int32_t id,
       OMR_VMThread *omrVMThread,
       TR_FrontEnd *fe,
-      TR_ResolvedMethod *compilee,
+      OMR::ResolvedMethod *compilee,
       TR::IlGenRequest &ilGenRequest,
       TR::Options &options,
       const TR::Region &dispatchRegion,
@@ -287,7 +287,7 @@ OMR::Compilation::Compilation(
    _snippetsToBePatchedOnClassUnload(getTypedAllocator<TR::Snippet*>(self()->allocator())),
    _methodSnippetsToBePatchedOnClassUnload(getTypedAllocator<TR::Snippet*>(self()->allocator())),
    _snippetsToBePatchedOnClassRedefinition(getTypedAllocator<TR::Snippet*>(self()->allocator())),
-   _snippetsToBePatchedOnRegisterNative(getTypedAllocator<TR_Pair<TR::Snippet,TR_ResolvedMethod> *>(self()->allocator())),
+   _snippetsToBePatchedOnRegisterNative(getTypedAllocator<TR_Pair<TR::Snippet,OMR::ResolvedMethod> *>(self()->allocator())),
    _virtualGuards(getTypedAllocator<TR_VirtualGuard*>(self()->allocator())),
    _genILSyms(getTypedAllocator<TR::ResolvedMethodSymbol*>(self()->allocator())),
    _devirtualizedCalls(getTypedAllocator<TR_DevirtualizedCallInfo*>(self()->allocator())),
@@ -572,7 +572,7 @@ OMR::Compilation::self()
    }
 
 
-TR::ResolvedMethodSymbol * OMR::Compilation::createJittedMethodSymbol(TR_ResolvedMethod *resolvedMethod)
+TR::ResolvedMethodSymbol * OMR::Compilation::createJittedMethodSymbol(OMR::ResolvedMethod *resolvedMethod)
    {
    return TR::ResolvedMethodSymbol::createJittedMethodSymbol(self()->trHeapMemory(), resolvedMethod, self());
    }
@@ -1129,7 +1129,7 @@ ncount_t OMR::Compilation::generateAccurateNodeCount()
    }
 
 // return true if found at least occurances # of methods on the call stack
-bool OMR::Compilation::foundOnTheStack(TR_ResolvedMethod *method, int32_t occurrences)
+bool OMR::Compilation::foundOnTheStack(OMR::ResolvedMethod *method, int32_t occurrences)
   {
 
   if(_inlinedCallStack.isEmpty()) return false;
@@ -1586,7 +1586,7 @@ TR_OpaqueMethodBlock *OMR::Compilation::getMethodFromNode(TR::Node * node)
    TR_ByteCodeInfo bcInfo = node->getByteCodeInfo();
    TR_OpaqueMethodBlock *method = NULL;
    if (bcInfo.getCallerIndex() >= 0 && self()->getNumInlinedCallSites() > 0)
-      method = self()->compileRelocatableCode() ? ((TR_ResolvedMethod *)node->getAOTMethod())->getPersistentIdentifier() : self()->getInlinedCallSite(bcInfo.getCallerIndex())._methodInfo;
+      method = self()->compileRelocatableCode() ? ((OMR::ResolvedMethod *)node->getAOTMethod())->getPersistentIdentifier() : self()->getInlinedCallSite(bcInfo.getCallerIndex())._methodInfo;
    else
       method = self()->getCurrentMethod()->getPersistentIdentifier();
    return method;
@@ -1946,7 +1946,7 @@ bool OMR::Compilation::notYetRunMeansCold()
    if (_optimizer && !((TR::Optimizer*)_optimizer)->isIlGenOpt())
       return false;
 
-   TR_ResolvedMethod *currentMethod = self()->getJittedMethodSymbol()->getResolvedMethod();
+   OMR::ResolvedMethod *currentMethod = self()->getJittedMethodSymbol()->getResolvedMethod();
 
    intptrj_t initialCount = currentMethod->hasBackwardBranches() ?
                              self()->getOptions()->getInitialBCount() :
@@ -2033,7 +2033,7 @@ OMR::Compilation::getOwningMethodSymbol(mcount_t i)
    }
 
 TR::ResolvedMethodSymbol *
-OMR::Compilation::getOwningMethodSymbol(TR_ResolvedMethod * method)
+OMR::Compilation::getOwningMethodSymbol(OMR::ResolvedMethod * method)
    {
    for (int32_t i = _methodSymbols.size() - 1; i >= 0; --i)
       if (_methodSymbols[i]->getResolvedMethod() == method)
@@ -2100,7 +2100,7 @@ OMR::Compilation::getInlinedResolvedMethodSymbol(uint32_t index)
    return _inlinedCallSites[index].resolvedMethodSymbol();
    }
 
-TR_ResolvedMethod  *
+OMR::ResolvedMethod  *
 OMR::Compilation::getInlinedResolvedMethod(uint32_t index)
    {
    return _inlinedCallSites[index].resolvedMethod();
@@ -2176,7 +2176,7 @@ OMR::Compilation::getMethodSymbol()
    }
 
 
-TR_ResolvedMethod *
+OMR::ResolvedMethod *
 OMR::Compilation::getCurrentMethod()
    {
    if (self()->getOptimizer())

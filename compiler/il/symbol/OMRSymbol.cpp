@@ -23,7 +23,7 @@
 #include <string.h>                            // for memcmp, strncmp
 #include "codegen/FrontEnd.hpp"                // for TR_FrontEnd
 #include "compile/Compilation.hpp"             // for Compilation
-#include "compile/ResolvedMethod.hpp"          // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"          // for OMR::ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"    // for SymbolReferenceTable
 #include "env/KnownObjectTable.hpp"            // for KnownObjectTable, etc
 #include "env/ObjectModel.hpp"                 // for ObjectModel

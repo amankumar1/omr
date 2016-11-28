@@ -46,7 +46,7 @@ namespace OMR { typedef OMR::SymbolReference SymbolReferenceConnector; }
 #include "infra/Flags.hpp"                   // for flags32_t
 
 class TR_Debug;
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 class TR_UseDefAliasSetInterface;
 class TR_UseOnlyAliasSetInterface;
 namespace TR { class Register; }
@@ -129,7 +129,7 @@ public:
 
    void * getMethodAddress();
 
-   TR_ResolvedMethod *        getOwningMethod(TR::Compilation * c);
+   OMR::ResolvedMethod *        getOwningMethod(TR::Compilation * c);
    TR::ResolvedMethodSymbol * getOwningMethodSymbol(TR::Compilation *c);
 
    bool maybeVolatile();

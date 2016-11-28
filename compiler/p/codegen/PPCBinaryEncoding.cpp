@@ -28,7 +28,7 @@
 #include "codegen/RealRegister.hpp"            // for RealRegister, etc
 #include "codegen/Relocation.hpp"              // for TR_ExternalRelocation, etc
 #include "compile/Compilation.hpp"             // for Compilation
-#include "compile/ResolvedMethod.hpp"          // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"          // for OMR::ResolvedMethod
 #include "env/CompilerEnv.hpp"
 #ifdef J9_PROJECT_SPECIFIC
 #include "env/CHTable.hpp"                     // for TR_VirtualGuardSite

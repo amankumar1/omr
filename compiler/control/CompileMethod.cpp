@@ -28,7 +28,7 @@
 #include "codegen/LinkageConventionsEnum.hpp"
 #include "compile/Compilation.hpp"             // for Compilation, comp
 #include "compile/CompilationTypes.hpp"        // for TR_Hotness
-#include "compile/ResolvedMethod.hpp"          // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"          // for OMR::ResolvedMethod
 #include "control/OptimizationPlan.hpp"        // for TR_OptimizationPlan, etc
 #include "control/Options.hpp"
 #include "control/Options_inlines.hpp"         // for TR::Options, etc
@@ -181,7 +181,7 @@ int32_t init_options(TR::JitConfig *jitConfig, char *cmdLineOptions)
    return 0;
    }
 
-static bool methodCanBeCompiled(OMR::FrontEnd *fe, TR_ResolvedMethod &method, TR_FilterBST *&filter, TR_Memory *trMemory)
+static bool methodCanBeCompiled(OMR::FrontEnd *fe, OMR::ResolvedMethod &method, TR_FilterBST *&filter, TR_Memory *trMemory)
    {
    if (!method.isCompilable(trMemory))
       return false;
@@ -219,7 +219,7 @@ printCompFailureInfo(TR::Compilation * comp, const char * reason)
 uint8_t *
 compileMethod(
       OMR_VMThread *omrVMThread,
-      TR_ResolvedMethod &compilee,
+      OMR::ResolvedMethod &compilee,
       TR_Hotness hotness,
       int32_t &rc)
    {
@@ -240,7 +240,7 @@ compileMethodFromDetails(
    TR::SystemSegmentProvider scratchSegmentProvider(1 << 16, rawAllocator);
    TR::Region dispatchRegion(scratchSegmentProvider, rawAllocator);
    TR_Memory trMemory(*fe.persistentMemory(), dispatchRegion);
-   TR_ResolvedMethod & compilee = *((TR_ResolvedMethod *)details.getMethod());
+   OMR::ResolvedMethod & compilee = *((OMR::ResolvedMethod *)details.getMethod());
 
    TR::CompileIlGenRequest request(details);
 

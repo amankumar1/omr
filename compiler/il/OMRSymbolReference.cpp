@@ -24,7 +24,7 @@
 #include "codegen/FrontEnd.hpp"                // for TR_FrontEnd
 #include "compile/Compilation.hpp"             // for Compilation
 #include "compile/Method.hpp"                  // for OMR::Method, mcount_t
-#include "compile/ResolvedMethod.hpp"          // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"          // for OMR::ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"    // for SymbolReferenceTable, etc
 #include "control/Options.hpp"
 #include "control/Options_inlines.hpp"
@@ -172,7 +172,7 @@ OMR::SymbolReference::getOwningMethodSymbol(TR::Compilation *c)
 /**
  * Returns the Owning Method
  */
-TR_ResolvedMethod *
+OMR::ResolvedMethod *
 OMR::SymbolReference::getOwningMethod(TR::Compilation * c)
    {
    return self()->getOwningMethodSymbol(c)->getResolvedMethod();

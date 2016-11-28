@@ -60,7 +60,7 @@ class TR_OpaqueClassBlock;
 class TR_PersistentClassInfo;
 class TR_PrexArgInfo;
 class TR_RegionStructure;
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 class TR_Structure;
 class TR_StructureSubGraphNode;
 class TR_UseDefInfo;
@@ -824,7 +824,7 @@ class ValuePropagation : public TR::Optimization
    bool usePreexistence()    {return _usePreexistence;}
    bool registerPreXClass(TR::VPConstraint *constraint);
    TR_ScratchList<TR_OpaqueClassBlock> _prexClasses;
-   TR_ScratchList<TR_ResolvedMethod> _prexMethods;
+   TR_ScratchList<OMR::ResolvedMethod> _prexMethods;
    TR_ScratchList<TR_OpaqueClassBlock> _prexClassesThatShouldNotBeNewlyExtended;
    TR_ScratchList<TR_PersistentClassInfo> _resetClassesThatShouldNotBeNewlyExtended;
 

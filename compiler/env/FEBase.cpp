@@ -310,7 +310,7 @@ void __cxa_pure_virtual()
 #endif
 
 
-void TR_Debug::print(J9JITExceptionTable *, TR_ResolvedMethod *, bool) { }
+void TR_Debug::print(J9JITExceptionTable *, OMR::ResolvedMethod *, bool) { }
 void TR_Debug::printAnnotationInfoEntry(J9AnnotationInfo *,J9AnnotationInfoEntry *,int32_t) { }
 void TR_Debug::printByteCodeAnnotations() { }
 void TR_Debug::printByteCodeStack(int32_t, uint16_t, char *) { }

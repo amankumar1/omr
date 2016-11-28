@@ -1754,7 +1754,7 @@ TR_Debug::getOwningMethodSymbol(TR::SymbolReference * symRef)
    return _comp->getOwningMethodSymbol(symRef->getOwningMethodIndex());
    }
 
-TR_ResolvedMethod *
+OMR::ResolvedMethod *
 TR_Debug::getOwningMethod(TR::SymbolReference * symRef)
    {
    return getOwningMethodSymbol(symRef)->getResolvedMethod();
@@ -3634,7 +3634,7 @@ TR_Debug::dump(TR::FILE *pOutFile, TR_CHTable * chTable)
 
       for (int32_t i = chTable->_preXMethods->lastIndex(); i >= 0; --i)
          {
-         TR_ResolvedMethod *method = chTable->_preXMethods->element(i);
+         OMR::ResolvedMethod *method = chTable->_preXMethods->element(i);
          trfprintf(pOutFile, "[%s] %s\n", getName(method), method->signature(comp()->trMemory(), heapAlloc));
          }
       }

@@ -21,7 +21,7 @@
 #include "codegen/CodeGenerator.hpp"         // for CodeGenerator
 #include "codegen/Relocation.hpp"            // for TR_Relocation
 #include "compile/Method.hpp"                // for TR_AOTMethodInfo
-#include "compile/ResolvedMethod.hpp"        // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"        // for OMR::ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"  // for SymbolReferenceTable
 #include "compile/VirtualGuard.hpp"          // for TR_VirtualGuard
 #include "control/Options.hpp"

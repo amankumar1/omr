@@ -25,7 +25,7 @@
 #include "codegen/RecognizedMethods.hpp"
 #include "compile/Compilation.hpp"             // for Compilation, comp
 #include "compile/Method.hpp"                  // for OMR::Method
-#include "compile/ResolvedMethod.hpp"          // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"          // for OMR::ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"    // for SymbolReferenceTable, etc
 #include "control/Options.hpp"
 #include "control/Options_inlines.hpp"         // for TR::Options, etc
@@ -433,7 +433,7 @@ OMR::SymbolReference::getUseDefAliasesBV(bool isDirectCall, bool includeGCSafePo
             }
 
 #ifdef J9_PROJECT_SPECIFIC
-         TR_ResolvedMethod * method = resolvedMethodSymbol->getResolvedMethod();
+         OMR::ResolvedMethod * method = resolvedMethodSymbol->getResolvedMethod();
          TR_PersistentMethodInfo * methodInfo = TR_PersistentMethodInfo::get(method);
          if (methodInfo && (methodInfo->hasRefinedAliasSets() ||
                             comp->getMethodHotness() >= veryHot ||
@@ -902,7 +902,7 @@ addVeryRefinedCallAliasSets(TR::ResolvedMethodSymbol * methodSymbol, TR_BitVecto
          TR::ResolvedMethodSymbol * calleeSymbol = node->getSymbol()->getResolvedMethodSymbol();
          if (!calleeSymbol)
             return 0;
-         TR_ResolvedMethod * calleeMethod = calleeSymbol->getResolvedMethod();
+         OMR::ResolvedMethod * calleeMethod = calleeSymbol->getResolvedMethod();
          if (!calleeMethod->isCompilable(comp->trMemory()) || calleeMethod->isJNINative())
             return 0;
 

@@ -1025,7 +1025,7 @@ TR::Register *OMR::ARM::Linkage::buildARMLinkageDirectDispatch(TR::Node *callNod
    dependencies->stopAddingConditions();
 
    TR::ResolvedMethodSymbol *sym = callSymbol->getResolvedMethodSymbol();
-   TR_ResolvedMethod     *vmm = (sym == NULL) ? NULL : sym->getResolvedMethod();
+   OMR::ResolvedMethod     *vmm = (sym == NULL) ? NULL : sym->getResolvedMethod();
    bool isMyself;
 
    isMyself = (vmm != NULL) && vmm->isSameMethod(codeGen->comp()->getCurrentMethod()) && !codeGen->comp()->isDLT();

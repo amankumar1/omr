@@ -1598,7 +1598,7 @@ void TR_PartialRedundancy::eliminateRedundantComputations(TR::Block *block, TR::
                      TR::Block *branchBlock = piv->getBranchBlock();
                      TR::Node *node = branchBlock->getLastRealTreeTop()->getNode();
                      int16_t callerIndex = node->getInlinedSiteIndex();
-                     TR_ResolvedMethod *method = NULL;
+                     OMR::ResolvedMethod *method = NULL;
                      if (callerIndex != -1)
                         do
                            {

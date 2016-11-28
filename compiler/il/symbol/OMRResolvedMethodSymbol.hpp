@@ -72,14 +72,14 @@ class OMR_EXTENSIBLE ResolvedMethodSymbol : public TR::MethodSymbol
 
 protected:
 
-   ResolvedMethodSymbol(TR_ResolvedMethod *, TR::Compilation *);
+   ResolvedMethodSymbol(OMR::ResolvedMethod *, TR::Compilation *);
 
 public:
 
    TR::ResolvedMethodSymbol * self();
 
    template <typename AllocatorType>
-   static TR::ResolvedMethodSymbol * create(AllocatorType, TR_ResolvedMethod *, TR::Compilation *);
+   static TR::ResolvedMethodSymbol * create(AllocatorType, OMR::ResolvedMethod *, TR::Compilation *);
 
    void initForCompilation(TR::Compilation *);
 
@@ -129,10 +129,10 @@ public:
    void addMethodMetaDataSymbol(TR::RegisterMappedSymbol*s);
 
    mcount_t            getResolvedMethodIndex() { return _methodIndex; }
-   TR_ResolvedMethod * getResolvedMethod()      { return _resolvedMethod; }
+   OMR::ResolvedMethod * getResolvedMethod()      { return _resolvedMethod; }
 
    void setResolvedMethodIndex(mcount_t index)  { _methodIndex = index; }
-   void setResolvedMethod(TR_ResolvedMethod *m) {_resolvedMethod = m;}
+   void setResolvedMethod(OMR::ResolvedMethod *m) {_resolvedMethod = m;}
 
    const char * signature(TR_Memory * m) { return _resolvedMethod->signature(m); }
 
@@ -318,7 +318,7 @@ protected:
 private:
 
    TR::Compilation *                        _comp;
-   TR_ResolvedMethod *                       _resolvedMethod;
+   OMR::ResolvedMethod *                       _resolvedMethod;
    List<TR::AutomaticSymbol>                  _automaticList;
    List<TR::ParameterSymbol>                  _parameterList;
    List<TR::Block>                            _trivialDeadTreeBlocksList;
@@ -371,7 +371,7 @@ public:
     * Jitted method symbol facotry
     */
    template <typename AllocatorType>
-   static TR::ResolvedMethodSymbol * createJittedMethodSymbol(AllocatorType m, TR_ResolvedMethod *, TR::Compilation *);
+   static TR::ResolvedMethodSymbol * createJittedMethodSymbol(AllocatorType m, OMR::ResolvedMethod *, TR::Compilation *);
 
    uint32_t&   getLocalMappingCursor()                { TR_ASSERT(isJittedMethod(), "Should have been created as a jitted method."); return _localMappingCursor;}
    void        setLocalMappingCursor(uint32_t i)      { TR_ASSERT(isJittedMethod(), "Should have been created as a jitted method."); _localMappingCursor = i;}

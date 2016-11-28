@@ -22,7 +22,7 @@
 #include "infra/Annotations.hpp"
 #include "ilgen/JBIlGeneratorMethodDetails.hpp"
 
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 namespace TR { class ResolvedMethod; }
 
 namespace TR
@@ -39,7 +39,7 @@ public:
    IlGeneratorMethodDetails(TR::ResolvedMethod *method) :
       JitBuilder::IlGeneratorMethodDetailsConnector(method) {}
 
-   IlGeneratorMethodDetails(TR_ResolvedMethod *method) :
+   IlGeneratorMethodDetails(OMR::ResolvedMethod *method) :
       JitBuilder::IlGeneratorMethodDetailsConnector(method) {}
 
    };

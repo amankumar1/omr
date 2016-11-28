@@ -29,7 +29,7 @@
 #include "codegen/CodeGenerator.hpp"
 #include "compile/Compilation.hpp"       // for Compilation, comp
 #include "compile/CompilationTypes.hpp"  // for TR_Hotness
-#include "compile/ResolvedMethod.hpp"    // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"    // for OMR::ResolvedMethod
 #include "control/OptimizationPlan.hpp"  // for TR_OptimizationPlan
 #include "control/Recompilation.hpp"     // for TR_PersistentJittedBodyInfo, etc
 #include "env/CompilerEnv.hpp"
@@ -1751,7 +1751,7 @@ OMR::Options::Options(
       TR_Memory * trMemory,
       int32_t index,
       int32_t lineNum,
-      TR_ResolvedMethod *compilee,
+      OMR::ResolvedMethod *compilee,
       void *oldStartPC,
       TR_OptimizationPlan *optimizationPlan,
       bool isAOT,
@@ -2909,7 +2909,7 @@ TR::OptionFunctionPtr OMR::Options::negateProcessingMethod(TR::OptionFunctionPtr
 
 
 TR::OptionSet *
-OMR::Options::findOptionSet(TR_Memory * trMemory, TR_ResolvedMethod * vmMethod, bool isAOT)
+OMR::Options::findOptionSet(TR_Memory * trMemory, OMR::ResolvedMethod * vmMethod, bool isAOT)
    {
    TR_FilterBST * filter = 0;
    if (OMR::Options::getDebug() && OMR::Options::getDebug()->getCompilationFilters())
@@ -2922,7 +2922,7 @@ OMR::Options::findOptionSet(TR_Memory * trMemory, TR_ResolvedMethod * vmMethod, 
 
 
 TR::OptionSet *
-OMR::Options::findOptionSet(TR_Memory * trMemory, int32_t index, int32_t lineNum, TR_ResolvedMethod * vmMethod, TR_Hotness hotnessLevel, bool isAOT)
+OMR::Options::findOptionSet(TR_Memory * trMemory, int32_t index, int32_t lineNum, OMR::ResolvedMethod * vmMethod, TR_Hotness hotnessLevel, bool isAOT)
    {
    const char *methodSignature = vmMethod->signature(trMemory);
    return TR::Options::findOptionSet(index, lineNum, methodSignature, hotnessLevel, isAOT);

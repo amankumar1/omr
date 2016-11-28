@@ -30,7 +30,7 @@
 #include "codegen/RegisterPair.hpp"                // for RegisterPair
 #include "codegen/TreeEvaluator.hpp"               // for TreeEvaluator, etc
 #include "compile/Compilation.hpp"                 // for Compilation
-#include "compile/ResolvedMethod.hpp"              // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"              // for OMR::ResolvedMethod
 #include "control/Options.hpp"
 #include "control/Options_inlines.hpp"
 #include "env/CompilerEnv.hpp"

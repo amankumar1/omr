@@ -268,7 +268,7 @@ OMR::CodeGenerator::generateNop(TR::Node * node, TR::Instruction *instruction, T
      _relocationList(getTypedAllocator<TR_Relocation*>(TR::comp()->allocator())),
      _aotRelocationList(getTypedAllocator<TR_Relocation*>(TR::comp()->allocator())),
      _breakPointList(getTypedAllocator<uint8_t*>(TR::comp()->allocator())),
-     _jniCallSites(getTypedAllocator<TR_Pair<TR_ResolvedMethod,TR::Instruction> *>(TR::comp()->allocator())),
+     _jniCallSites(getTypedAllocator<TR_Pair<OMR::ResolvedMethod,TR::Instruction> *>(TR::comp()->allocator())),
      _lowestSavedReg(0),
      _preJitMethodEntrySize(0),
      _jitMethodEntryPaddingSize(0),

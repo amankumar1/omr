@@ -50,7 +50,7 @@ class TR_NodeKillAliasSetInterface;
 class TR_NodeUseAliasSetInterface;
 class TR_OpaqueClassBlock;
 class TR_OpaqueMethodBlock;
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 namespace CS2 { class allocator; }
 namespace TR { class AutomaticSymbol; }
 namespace TR { class Block; }
@@ -497,7 +497,7 @@ public:
    TR_YesNoMaybe          hasBeenRun();
 
    /// Given a monenter node, return the persistent class identifer that's being synchronized
-   TR_OpaqueClassBlock *  getMonitorClass(TR_ResolvedMethod *);
+   TR_OpaqueClassBlock *  getMonitorClass(OMR::ResolvedMethod *);
    TR_OpaqueClassBlock *  getMonitorClassInNode();
    void                   setMonitorClassInNode(TR_OpaqueClassBlock *);
 

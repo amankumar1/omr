@@ -60,9 +60,9 @@ FrontEnd::reserveTrampolineIfNecessary(TR::Compilation *comp, TR::SymbolReferenc
    return;
    }
 
-TR_ResolvedMethod *
+OMR::ResolvedMethod *
 FrontEnd::createResolvedMethod(TR_Memory * trMemory, TR_OpaqueMethodBlock * aMethod,
-                                  TR_ResolvedMethod * owningMethod, TR_OpaqueClassBlock *classForNewInstance)
+                                  OMR::ResolvedMethod * owningMethod, TR_OpaqueClassBlock *classForNewInstance)
    {
    return new (trMemory->trHeapMemory()) ResolvedMethod(aMethod);
    }

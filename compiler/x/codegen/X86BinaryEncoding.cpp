@@ -32,7 +32,7 @@
 #include "codegen/Snippet.hpp"                     // for Snippet
 #include "codegen/UnresolvedDataSnippet.hpp"
 #include "compile/Compilation.hpp"                 // for Compilation, etc
-#include "compile/ResolvedMethod.hpp"              // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"              // for OMR::ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"
 #include "control/Options.hpp"
 #include "control/Options_inlines.hpp"
@@ -1140,7 +1140,7 @@ TR::X86ImmSymInstruction::addMetaDataForCodeAddress(uint8_t *cursor)
          {
          TR::MethodSymbol *methodSym = sym->getMethodSymbol();
          TR::ResolvedMethodSymbol *resolvedMethodSym = sym->getResolvedMethodSymbol();
-         TR_ResolvedMethod *resolvedMethod = resolvedMethodSym ? resolvedMethodSym->getResolvedMethod() : 0;
+         OMR::ResolvedMethod *resolvedMethod = resolvedMethodSym ? resolvedMethodSym->getResolvedMethod() : 0;
          TR::LabelSymbol *labelSym = sym->getLabelSymbol();
 
          if ( !(resolvedMethod && resolvedMethod->isSameMethod(comp->getCurrentMethod()) && !comp->isDLT()) )
@@ -1271,7 +1271,7 @@ uint8_t *TR::X86ImmSymInstruction::generateBinaryEncoding()
          {
          TR::MethodSymbol *methodSym = sym->getMethodSymbol();
          TR::ResolvedMethodSymbol *resolvedMethodSym = sym->getResolvedMethodSymbol();
-         TR_ResolvedMethod *resolvedMethod = resolvedMethodSym ? resolvedMethodSym->getResolvedMethod() : 0;
+         OMR::ResolvedMethod *resolvedMethod = resolvedMethodSym ? resolvedMethodSym->getResolvedMethod() : 0;
          TR::LabelSymbol *labelSym = sym->getLabelSymbol();
 
          intptrj_t targetAddress = (int32_t)getSourceImmediate();

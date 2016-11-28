@@ -79,7 +79,7 @@ class TR_InlineBlocks;
 class TR_InnerAssumption;
 namespace OMR { class Method; }
 class TR_PrexArgInfo;
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 class TR_TransformInlinedFunction;
 namespace TR { class Block; }
 namespace TR { class CFG; }
@@ -314,7 +314,7 @@ class TR_InlinerBase: public TR_HasRandomGenerator
 
       void setStoreToCachedPrivateStatic(TR::Node *node) { _storeToCachedPrivateStatic = node; }
       TR::Node *getStoreToCachedPrivateStatic() { return _storeToCachedPrivateStatic; }
-      bool alwaysWorthInlining(TR_ResolvedMethod * calleeMethod, TR::Node *callNode);
+      bool alwaysWorthInlining(OMR::ResolvedMethod * calleeMethod, TR::Node *callNode);
 
       void getSymbolAndFindInlineTargets(TR_CallStack *, TR_CallSite *, bool findNewTargets=true);
 
@@ -348,9 +348,9 @@ class TR_InlinerBase: public TR_HasRandomGenerator
 
       int checkInlineableWithoutInitialCalleeSymbol(TR_CallSite* callsite, TR::Compilation* comp);
 
-      void getBorderFrequencies(int32_t &hotBorderFrequency, int32_t &coldBorderFrequency, TR_ResolvedMethod * calleeResolvedMethod, TR::Node *callNode);
-      int32_t scaleSizeBasedOnBlockFrequency(int32_t bytecodeSize, int32_t frequency, int32_t borderFrequency, TR_ResolvedMethod * calleeResolvedMethod, TR::Node *callNode, int32_t coldBorderFrequency = 0); // not virtual because we want base class always calling base version of this
-      virtual bool exceedsSizeThreshold(TR_CallSite *callSite, int bytecodeSize, TR::Block * callNodeBlock, TR_ByteCodeInfo & bcInfo,  int32_t numLocals=0, TR_ResolvedMethod * caller = 0, TR_ResolvedMethod * calleeResolvedMethod = 0, TR::Node * callNode = 0, bool allConsts = false);
+      void getBorderFrequencies(int32_t &hotBorderFrequency, int32_t &coldBorderFrequency, OMR::ResolvedMethod * calleeResolvedMethod, TR::Node *callNode);
+      int32_t scaleSizeBasedOnBlockFrequency(int32_t bytecodeSize, int32_t frequency, int32_t borderFrequency, OMR::ResolvedMethod * calleeResolvedMethod, TR::Node *callNode, int32_t coldBorderFrequency = 0); // not virtual because we want base class always calling base version of this
+      virtual bool exceedsSizeThreshold(TR_CallSite *callSite, int bytecodeSize, TR::Block * callNodeBlock, TR_ByteCodeInfo & bcInfo,  int32_t numLocals=0, OMR::ResolvedMethod * caller = 0, OMR::ResolvedMethod * calleeResolvedMethod = 0, TR::Node * callNode = 0, bool allConsts = false);
       virtual bool inlineCallTargets(TR::ResolvedMethodSymbol *, TR_CallStack *, TR_InnerPreexistenceInfo *info)
          {
          TR_ASSERT(0, "invalid call to TR_InlinerBase::inlineCallTargets");
@@ -526,18 +526,18 @@ class OMR_InlinerUtil : public TR::OptimizationUtil, public OMR_InlinerHelper
       OMR_InlinerUtil(TR::Compilation *comp);
       static TR::TreeTop * storeValueInATemp(TR::Compilation *comp, TR::Node *, TR::SymbolReference * &, TR::TreeTop *, TR::ResolvedMethodSymbol *, List<TR::SymbolReference> & tempList, List<TR::SymbolReference> & availableTemps, List<TR::SymbolReference> * moreTemps, bool behavesLikeTemp = true, TR::TreeTop ** newStoreValueATreeTop = NULL, bool isIndirect = false, int32_t offset = 0);
       virtual bool addTargetIfMethodIsNotOverridenInReceiversHierarchy(TR_IndirectCallSite *callsite);
-      virtual TR_ResolvedMethod *findSingleJittedImplementer(TR_IndirectCallSite *callsite);
+      virtual OMR::ResolvedMethod *findSingleJittedImplementer(TR_IndirectCallSite *callsite);
       virtual bool addTargetIfThereIsSingleImplementer (TR_IndirectCallSite *callsite);
-      virtual TR_PrexArgInfo* createPrexArgInfoForCallTarget(TR_VirtualGuardSelection *guard, TR_ResolvedMethod *implementer);
+      virtual TR_PrexArgInfo* createPrexArgInfoForCallTarget(TR_VirtualGuardSelection *guard, OMR::ResolvedMethod *implementer);
       virtual TR_InnerPreexistenceInfo *createInnerPrexInfo(TR::Compilation * c, TR::ResolvedMethodSymbol *methodSymbol, TR_CallStack *callStack, TR::TreeTop *callTree, TR::Node *callNode, TR_VirtualGuardKind guardKind);
       virtual TR_InlinerTracer * getInlinerTracer(TR::Optimization *optimization);
-      virtual void adjustByteCodeSize(TR_ResolvedMethod *calleeResolvedMethod, bool isInLoop, TR::Block *block, int &bytecodeSize){ return; }
+      virtual void adjustByteCodeSize(OMR::ResolvedMethod *calleeResolvedMethod, bool isInLoop, TR::Block *block, int &bytecodeSize){ return; }
       virtual void adjustCallerWeightLimit(TR::ResolvedMethodSymbol *callSymbol, int &callerWeightLimit){ return; }
       virtual void adjustMethodByteCodeSizeThreshold(TR::ResolvedMethodSymbol *callSymbol, int &methodByteCodeSizeThreshold){ return; }
       virtual TR_PrexArgInfo *computePrexInfo(TR_CallTarget *target);
-      virtual void collectCalleeMethodClassInfo(TR_ResolvedMethod *calleeMethod);
+      virtual void collectCalleeMethodClassInfo(OMR::ResolvedMethod *calleeMethod);
    protected:
-      virtual bool validateInterfaceImplementation(TR_ResolvedMethod *interfaceMethod);
+      virtual bool validateInterfaceImplementation(OMR::ResolvedMethod *interfaceMethod);
       virtual void refineColdness (TR::Node* node, bool& isCold);
       virtual void computeMethodBranchProfileInfo (TR::Block * cfgBlock, TR_CallTarget* calltarget, TR::ResolvedMethodSymbol* callerSymbol);
       virtual int32_t getCallCount(TR::Node *callNode);
@@ -559,22 +559,22 @@ class OMR_InlinerPolicy : public TR::OptimizationPolicy, public OMR_InlinerHelpe
       OMR_InlinerPolicy(TR::Compilation *comp);
       virtual bool inlineRecognizedMethod(TR::RecognizedMethod method);
       int32_t getInitialBytecodeSize(TR::ResolvedMethodSymbol * methodSymbol, TR::Compilation *comp);
-      virtual int32_t getInitialBytecodeSize(TR_ResolvedMethod *feMethod, TR::ResolvedMethodSymbol * methodSymbol, TR::Compilation *comp);
+      virtual int32_t getInitialBytecodeSize(OMR::ResolvedMethod *feMethod, TR::ResolvedMethodSymbol * methodSymbol, TR::Compilation *comp);
       virtual bool tryToInline(TR_CallTarget *, TR_CallStack *, bool);
-      virtual bool inlineMethodEvenForColdBlocks(TR_ResolvedMethod *method);
+      virtual bool inlineMethodEvenForColdBlocks(OMR::ResolvedMethod *method);
       bool aggressiveSmallAppOpts() { return TR::Options::getCmdLineOptions()->getOption(TR_AggressiveOpts); }
       virtual bool willBeInlinedInCodeGen(TR::RecognizedMethod method);
-      virtual bool canInlineMethodWhileInstrumenting(TR_ResolvedMethod *method);
+      virtual bool canInlineMethodWhileInstrumenting(OMR::ResolvedMethod *method);
       virtual bool skipHCRGuardForCallee(TR::ResolvedMethodSymbol *calleeSymbol){return false;}
       virtual bool dontPrivatizeArgumentsForRecognizedMethod(TR::RecognizedMethod recognizedMethod);
-      virtual bool replaceSoftwareCheckWithHardwareCheck(TR_ResolvedMethod *calleeMethod);
+      virtual bool replaceSoftwareCheckWithHardwareCheck(OMR::ResolvedMethod *calleeMethod);
    protected:
       virtual bool tryToInlineTrivialMethod (TR_CallStack* callStack, TR_CallTarget* calltarget);
-      virtual bool alwaysWorthInlining(TR_ResolvedMethod * calleeMethod, TR::Node *callNode);
+      virtual bool alwaysWorthInlining(OMR::ResolvedMethod * calleeMethod, TR::Node *callNode);
       virtual void determineInliningHeuristic(TR::ResolvedMethodSymbol *callerSymbol);
       bool tryToInlineGeneral(TR_CallTarget *, TR_CallStack *, bool);
       virtual bool callMustBeInlined(TR_CallTarget *calltarget);
-      bool mustBeInlinedEvenInDebug(TR_ResolvedMethod * calleeMethod, TR::TreeTop *callNodeTreeTop);
+      bool mustBeInlinedEvenInDebug(OMR::ResolvedMethod * calleeMethod, TR::TreeTop *callNodeTreeTop);
       virtual bool supressInliningRecognizedInitialCallee(TR_CallSite* callsite, TR::Compilation* comp);
       virtual TR_InlinerFailureReason checkIfTargetInlineable(TR_CallTarget* target, TR_CallSite* callsite, TR::Compilation* comp);
       virtual bool suitableForRemat(TR::Compilation *comp, TR::Node *node, TR_VirtualGuardSelection *guard);

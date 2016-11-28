@@ -22,7 +22,7 @@
 #include <stddef.h>                             // for size_t
 #include "codegen/FrontEnd.hpp"                 // for TR::IO::fprintf, etc
 #include "compile/Compilation.hpp"              // for Compilation
-#include "compile/ResolvedMethod.hpp"           // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"           // for OMR::ResolvedMethod
 #include "control/Options.hpp"
 #include "control/Options_inlines.hpp"
 #include "env/CompilerEnv.hpp"
@@ -847,7 +847,7 @@ TR::VPRelation *TR::VPNotEqual::getComplement(TR::ValuePropagation *vp)
 //
 // ***************************************************************************
 
-TR::VPConstraint *TR::VPConstraint::create(TR::ValuePropagation *vp, const char *sig, int32_t len, TR_ResolvedMethod *method, bool isFixedClass)
+TR::VPConstraint *TR::VPConstraint::create(TR::ValuePropagation *vp, const char *sig, int32_t len, OMR::ResolvedMethod *method, bool isFixedClass)
    {
    // Create a constraint if possible from any arbitrary signature
    //
@@ -1196,7 +1196,7 @@ TR::VPClassType *TR::VPClassType::create(TR::ValuePropagation *vp, TR::SymbolRef
    return TR::VPClassType::create(vp, sig, len, symRef->getOwningMethod(vp->comp()), isFixedClass);
    }
 
-TR::VPClassType *TR::VPClassType::create(TR::ValuePropagation *vp, const char *sig, int32_t len, TR_ResolvedMethod *method, bool isFixed, TR_OpaqueClassBlock *classObject)
+TR::VPClassType *TR::VPClassType::create(TR::ValuePropagation *vp, const char *sig, int32_t len, OMR::ResolvedMethod *method, bool isFixed, TR_OpaqueClassBlock *classObject)
    {
 #ifdef J9_PROJECT_SPECIFIC
    if (!classObject)
@@ -1396,7 +1396,7 @@ bool TR::VPConstString::getFieldByName(TR::SymbolReference *symRef, void* &val, 
    return TR::Compiler->cls.getStringFieldByName(comp, _symRef, symRef, val);
    }
 
-TR::VPUnresolvedClass *TR::VPUnresolvedClass::create(TR::ValuePropagation *vp, const char *sig, int32_t len, TR_ResolvedMethod *method)
+TR::VPUnresolvedClass *TR::VPUnresolvedClass::create(TR::ValuePropagation *vp, const char *sig, int32_t len, OMR::ResolvedMethod *method)
    {
    // If the constraint does not already exist, create it
    //

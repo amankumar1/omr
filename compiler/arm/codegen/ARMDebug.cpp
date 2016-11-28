@@ -415,7 +415,7 @@ TR_Debug::print(TR::FILE *pOutFile, TR::ARMImmSymInstruction * instr)
    TR::SymbolReference      *symRef    = instr->getSymbolReference();
    TR::Symbol                *sym       = symRef->getSymbol();
    TR::ResolvedMethodSymbol *calleeSym = sym->getResolvedMethodSymbol();
-   TR_ResolvedMethod     *callee    = calleeSym ? calleeSym->getResolvedMethod() : NULL;
+   OMR::ResolvedMethod     *callee    = calleeSym ? calleeSym->getResolvedMethod() : NULL;
 
    bool longJump = imm &&
                    (distance > BRANCH_FORWARD_LIMIT || distance < BRANCH_BACKWARD_LIMIT) &&

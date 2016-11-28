@@ -27,7 +27,7 @@
 #include "compile/Compilation.hpp"             // for Compilation
 #include "compile/CompilationTypes.hpp"        // for TR_Hotness
 #include "compile/Method.hpp"                  // for OMR::Method
-#include "compile/ResolvedMethod.hpp"          // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"          // for OMR::ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"    // for SymbolReferenceTable
 #include "control/Options.hpp"
 #include "control/Options_inlines.hpp"
@@ -1545,7 +1545,7 @@ OMR::Block::addExceptionRangeForSnippet(uint32_t startPC, uint32_t endPC)
    }
 
 void
-OMR::Block::setHandlerInfo(uint32_t c, uint8_t d, uint16_t i, TR_ResolvedMethod * m, TR::Compilation *comp)
+OMR::Block::setHandlerInfo(uint32_t c, uint8_t d, uint16_t i, OMR::ResolvedMethod * m, TR::Compilation *comp)
    {
    self()->ensureCatchBlockExtensionExists(comp);
    TR_CatchBlockExtension *cbe = _catchBlockExtension;
@@ -1565,7 +1565,7 @@ OMR::Block::setHandlerInfo(uint32_t c, uint8_t d, uint16_t i, TR_ResolvedMethod 
    }
 
 void
-OMR::Block::setHandlerInfoWithOutBCInfo(uint32_t c, uint8_t d, uint16_t i, TR_ResolvedMethod * m, TR::Compilation *comp)
+OMR::Block::setHandlerInfoWithOutBCInfo(uint32_t c, uint8_t d, uint16_t i, OMR::ResolvedMethod * m, TR::Compilation *comp)
    {
    self()->ensureCatchBlockExtensionExists(comp);
    TR_CatchBlockExtension *cbe = _catchBlockExtension;
@@ -1674,7 +1674,7 @@ OMR::Block::setExceptionClassName(char *name, int32_t length, TR::Compilation *c
       }
    }
 
-TR_ResolvedMethod *
+OMR::ResolvedMethod *
 OMR::Block::getOwningMethod()
    {
    TR_ASSERT(_catchBlockExtension, "catch block extension does not exist");

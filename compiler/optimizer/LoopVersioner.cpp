@@ -27,7 +27,7 @@
 #include "codegen/FrontEnd.hpp"                    // for TR_FrontEnd, etc
 #include "compile/Compilation.hpp"                 // for Compilation
 #include "compile/Method.hpp"                      // for OMR::Method
-#include "compile/ResolvedMethod.hpp"              // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"              // for OMR::ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"
 #include "compile/VirtualGuard.hpp"                // for TR_VirtualGuard
 #include "control/Options.hpp"
@@ -2995,7 +2995,7 @@ bool TR_LoopVersioner::checkProfiledGuardSuitability(TR_ScratchList<TR::Block> *
          if (trace())
             {
             TR::MethodSymbol *method = callSymRef->getSymbol()->castToMethodSymbol();
-            TR_ResolvedMethod *owningMethod = callSymRef->getOwningMethod(comp);
+            OMR::ResolvedMethod *owningMethod = callSymRef->getOwningMethod(comp);
             int32_t len = method->getMethod()->classNameLength();
             char *s = classNameToSignature(method->getMethod()->classNameChars(), len, comp);
             TR_OpaqueClassBlock *classOfMethod = comp->fe()->getClassFromSignature(s, len, owningMethod, true);

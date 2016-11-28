@@ -36,7 +36,7 @@
 #include "codegen/StorageInfo.hpp"
 #include "codegen/TreeEvaluator.hpp"           // for TreeEvaluator
 #include "compile/Compilation.hpp"             // for Compilation, comp
-#include "compile/ResolvedMethod.hpp"          // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"          // for OMR::ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"    // for SymbolReferenceTable
 #include "control/Options.hpp"
 #include "control/Options_inlines.hpp"         // for TR::Options, etc

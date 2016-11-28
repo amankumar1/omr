@@ -26,7 +26,7 @@
 #include "codegen/FrontEnd.hpp"               // for TR_VerboseLog
 #include "compile/Compilation.hpp"            // for Compilation, comp
 #include "compile/Method.hpp"                 // for OMR::Method, etc
-#include "compile/ResolvedMethod.hpp"         // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"         // for OMR::ResolvedMethod
 #include "control/Options.hpp"
 #include "control/OptionsUtil.hpp"
 #include "control/Options_inlines.hpp"        // for TR_FilterBST, etc
@@ -1240,7 +1240,7 @@ TR_Debug::methodSigCanBeFound(const char *methodSig, TR::CompilationFilters * fi
    }
 
 bool
-TR_Debug::methodCanBeFound(TR_Memory *trMemory, TR_ResolvedMethod *method, TR::CompilationFilters * filters, TR_FilterBST * & filter)
+TR_Debug::methodCanBeFound(TR_Memory *trMemory, OMR::ResolvedMethod *method, TR::CompilationFilters * filters, TR_FilterBST * & filter)
    {
    const char * methodSig = method->signature(trMemory);
    return methodSigCanBeFound(methodSig, filters, filter, method->convertToMethod()->methodType());
@@ -1282,14 +1282,14 @@ TR_Debug::methodSigCanBeCompiledOrRelocated(const char *methodSig, TR_FilterBST 
    }
 
 bool
-TR_Debug::methodCanBeCompiled(TR_Memory *trMemory, TR_ResolvedMethod *method, TR_FilterBST * & filter)
+TR_Debug::methodCanBeCompiled(TR_Memory *trMemory, OMR::ResolvedMethod *method, TR_FilterBST * & filter)
    {
    const char * methodSig = method->signature(trMemory);
    return methodSigCanBeCompiled(methodSig, filter, method->convertToMethod()->methodType());
    }
 
 bool
-TR_Debug::methodCanBeRelocated(TR_Memory *trMemory, TR_ResolvedMethod *method, TR_FilterBST * & filter)
+TR_Debug::methodCanBeRelocated(TR_Memory *trMemory, OMR::ResolvedMethod *method, TR_FilterBST * & filter)
    {
    const char * methodSig = method->signature(trMemory);
    return methodSigCanBeRelocated(methodSig, filter);

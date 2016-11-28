@@ -360,7 +360,7 @@ TR::Register *OMR::X86::i386::TreeEvaluator::lstoreEvaluator(TR::Node *node, TR:
       TR_OpaqueMethodBlock *caller = node->getOwningMethod();
       if (isVolatile && caller)
          {
-         TR_ResolvedMethod *m = comp->fe()->createResolvedMethod(cg->trMemory(), caller, node->getSymbolReference()->getOwningMethod(comp));
+         OMR::ResolvedMethod *m = comp->fe()->createResolvedMethod(cg->trMemory(), caller, node->getSymbolReference()->getOwningMethod(comp));
          if (m->getRecognizedMethod() == TR::java_util_concurrent_atomic_AtomicLong_lazySet)
             {
             isVolatile = false;
@@ -571,7 +571,7 @@ TR::Register *OMR::X86::i386::TreeEvaluator::lstoreEvaluator(TR::Node *node, TR:
       if ((lowMR || highMR) && caller)
          {
 #ifdef J9_PROJECT_SPECIFIC
-         TR_ResolvedMethod *m = comp->fe()->createResolvedMethod(cg->trMemory(), caller, node->getSymbolReference()->getOwningMethod(comp));
+         OMR::ResolvedMethod *m = comp->fe()->createResolvedMethod(cg->trMemory(), caller, node->getSymbolReference()->getOwningMethod(comp));
          if (m->getRecognizedMethod() == TR::java_util_concurrent_atomic_AtomicLong_lazySet)
             {
 	    if (lowMR)

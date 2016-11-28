@@ -259,7 +259,7 @@ uint8_t *TR::ARMImmSymInstruction::generateBinaryEncoding()
    if (getOpCodeValue() == ARMOp_bl)
       {
       TR::ResolvedMethodSymbol *sym = getSymbolReference()->getSymbol()->getResolvedMethodSymbol();
-      TR_ResolvedMethod *resolvedMethod = (sym==NULL)?NULL:sym->getResolvedMethod();
+      OMR::ResolvedMethod *resolvedMethod = (sym==NULL)?NULL:sym->getResolvedMethod();
 
       label = getSymbolReference()->getSymbol()->getLabelSymbol();
 

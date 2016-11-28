@@ -44,7 +44,9 @@ namespace TR { class Node; }
 namespace TR { class ResolvedMethodSymbol; }
 namespace TR { class SymbolReferenceTable; }
 
-class TR_ResolvedMethod
+namespace OMR
+{
+class ResolvedMethod
    {
 public:
    TR::RecognizedMethod getRecognizedMethod() { return convertToMethod()->getRecognizedMethod(); }
@@ -93,7 +95,7 @@ public:
    virtual uint16_t numberOfParameterSlots();
    virtual TR_FrontEnd *fe();
    virtual uint32_t maxBytecodeIndex();
-   virtual bool isSameMethod(TR_ResolvedMethod *);
+   virtual bool isSameMethod(OMR::ResolvedMethod *);
    virtual uint16_t numberOfTemps();
    virtual uint16_t numberOfPendingPushes();
 
@@ -110,13 +112,13 @@ public:
    virtual void setWarmCallGraphTooBig(uint32_t bcIndex, TR::Compilation *);
    virtual uint8_t *bytecodeStart();
    virtual TR_OpaqueClassBlock *containingClass();
-   virtual TR_ResolvedMethod * owningMethod();
-   virtual void setOwningMethod(TR_ResolvedMethod *);
+   virtual OMR::ResolvedMethod * owningMethod();
+   virtual void setOwningMethod(OMR::ResolvedMethod *);
    virtual bool owningMethodDoesntMatter(){ return false; }
    virtual void *ramConstantPool();
    virtual void *constantPool();
    virtual TR_OpaqueClassBlock * getClassFromConstantPool(TR::Compilation *, uint32_t cpIndex, bool returnClassForAot = false);
-   virtual bool canAlwaysShareSymbolDespiteOwningMethod(TR_ResolvedMethod *other) { return false; }
+   virtual bool canAlwaysShareSymbolDespiteOwningMethod(OMR::ResolvedMethod *other) { return false; }
    virtual char *getClassNameFromConstantPool(uint32_t cpIndex, uint32_t &length);
    virtual TR::DataType getLDCType(int32_t cpIndex);
    virtual bool isClassConstant(int32_t cpIndex);
@@ -141,8 +143,8 @@ public:
    virtual bool isUnresolvedMethodTypeTableEntry(int32_t cpIndex);
    virtual void *methodTypeTableEntryAddress(int32_t cpIndex);
 
-   virtual bool fieldsAreSame(int32_t, TR_ResolvedMethod *, int32_t, bool &sigSame);
-   virtual bool staticsAreSame(int32_t, TR_ResolvedMethod *, int32_t, bool &sigSame);
+   virtual bool fieldsAreSame(int32_t, OMR::ResolvedMethod *, int32_t, bool &sigSame);
+   virtual bool staticsAreSame(int32_t, OMR::ResolvedMethod *, int32_t, bool &sigSame);
    virtual bool getUnresolvedFieldInCP(int32_t);
    virtual bool getUnresolvedStaticMethodInCP(int32_t);
    virtual bool getUnresolvedSpecialMethodInCP(int32_t);
@@ -195,16 +197,16 @@ public:
 
    virtual TR_OpaqueClassBlock *getResolvedInterfaceMethod(int32_t cpIndex, uintptrj_t * pITableIndex);
 
-   virtual TR_ResolvedMethod *getResolvedStaticMethod (TR::Compilation *, int32_t cpIndex, bool * unresolvedInCP = 0);
-   virtual TR_ResolvedMethod *getResolvedSpecialMethod(TR::Compilation *, int32_t cpIndex, bool * unresolvedInCP = 0);
-   virtual TR_ResolvedMethod *getResolvedDynamicMethod(TR::Compilation *, int32_t cpIndex, bool * unresolvedInCP = 0);
-   virtual TR_ResolvedMethod *getResolvedHandleMethod(TR::Compilation *, int32_t cpIndex, bool * unresolvedInCP = 0);
-   virtual TR_ResolvedMethod *getResolvedHandleMethodWithSignature(TR::Compilation *, int32_t cpIndex, char *signature);
-   virtual TR_ResolvedMethod *getResolvedVirtualMethod(TR::Compilation *, int32_t cpIndex, bool ignoreReResolve = true, bool * unresolvedInCP = 0);
+   virtual OMR::ResolvedMethod *getResolvedStaticMethod (TR::Compilation *, int32_t cpIndex, bool * unresolvedInCP = 0);
+   virtual OMR::ResolvedMethod *getResolvedSpecialMethod(TR::Compilation *, int32_t cpIndex, bool * unresolvedInCP = 0);
+   virtual OMR::ResolvedMethod *getResolvedDynamicMethod(TR::Compilation *, int32_t cpIndex, bool * unresolvedInCP = 0);
+   virtual OMR::ResolvedMethod *getResolvedHandleMethod(TR::Compilation *, int32_t cpIndex, bool * unresolvedInCP = 0);
+   virtual OMR::ResolvedMethod *getResolvedHandleMethodWithSignature(TR::Compilation *, int32_t cpIndex, char *signature);
+   virtual OMR::ResolvedMethod *getResolvedVirtualMethod(TR::Compilation *, int32_t cpIndex, bool ignoreReResolve = true, bool * unresolvedInCP = 0);
 
    virtual uint32_t getResolvedInterfaceMethodOffset(TR_OpaqueClassBlock * classObject, int32_t cpIndex);
-   virtual TR_ResolvedMethod *getResolvedInterfaceMethod(TR::Compilation *, TR_OpaqueClassBlock * classObject, int32_t cpIndex);
-   virtual TR_ResolvedMethod *getResolvedVirtualMethod(TR::Compilation *, TR_OpaqueClassBlock * classObject, int32_t cpIndex,bool ignoreReResolve = true);
+   virtual OMR::ResolvedMethod *getResolvedInterfaceMethod(TR::Compilation *, TR_OpaqueClassBlock * classObject, int32_t cpIndex);
+   virtual OMR::ResolvedMethod *getResolvedVirtualMethod(TR::Compilation *, TR_OpaqueClassBlock * classObject, int32_t cpIndex,bool ignoreReResolve = true);
 
    virtual bool virtualMethodIsOverridden();
    virtual void setVirtualMethodIsOverridden();
@@ -254,5 +256,5 @@ public:
    virtual TR::ResolvedMethodSymbol *findOrCreateJittedMethodSymbol(TR::Compilation *comp);
 
    };
-
+} // namespace OMR
 #endif

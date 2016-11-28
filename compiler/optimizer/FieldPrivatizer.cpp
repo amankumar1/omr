@@ -461,7 +461,7 @@ bool TR_FieldPrivatizer::isStringPeephole(TR::Node *currentNode, TR::TreeTop *cu
       if (currentNode->getOpCodeValue() == TR::call &&
           !currentNode->getSymbolReference()->isUnresolved())
          {
-         TR_ResolvedMethod *method = currentNode->getSymbolReference()->getSymbol()->castToResolvedMethodSymbol()->getResolvedMethod();
+         OMR::ResolvedMethod *method = currentNode->getSymbolReference()->getSymbol()->castToResolvedMethodSymbol()->getResolvedMethod();
          if (method->isConstructor())
             {
             char *sig = method->signatureChars();
@@ -1178,7 +1178,7 @@ void TR_FieldPrivatizer::addPrivatizedRegisterCandidates(TR_Structure *structure
 void TR_FieldPrivatizer::addStringInitialization(TR::Block *block)
    {
 #ifdef J9_PROJECT_SPECIFIC
-   TR_ResolvedMethod *vmMethod = comp()->getCurrentMethod();
+   OMR::ResolvedMethod *vmMethod = comp()->getCurrentMethod();
    TR::ResolvedMethodSymbol *methodSymbol = comp()->getOwningMethodSymbol(vmMethod);
 
    TR::TreeTop *insertionPoint = block->getEntry();
@@ -1195,10 +1195,10 @@ void TR_FieldPrivatizer::addStringInitialization(TR::Block *block)
 
    if (!_initSymRef)
       {
-      List<TR_ResolvedMethod> stringBufferMethods(trMemory());
+      List<OMR::ResolvedMethod> stringBufferMethods(trMemory());
       comp()->fej9()->getResolvedMethods(trMemory(), _stringBufferClass, &stringBufferMethods);
-      ListIterator<TR_ResolvedMethod> it(&stringBufferMethods);
-      for (TR_ResolvedMethod *method = it.getCurrent(); method; method = it.getNext())
+      ListIterator<OMR::ResolvedMethod> it(&stringBufferMethods);
+      for (OMR::ResolvedMethod *method = it.getCurrent(); method; method = it.getNext())
          {
          if (method->isConstructor())
             {
@@ -1300,10 +1300,10 @@ void TR_FieldPrivatizer::placeStringEpiloguesBackInExit(TR::Block *block, bool p
 #if J9_PROJECT_SPECIFIC
    if (!_toStringSymRef)
       {
-      TR_ScratchList<TR_ResolvedMethod> stringBufferMethods(trMemory());
+      TR_ScratchList<OMR::ResolvedMethod> stringBufferMethods(trMemory());
       comp()->fej9()->getResolvedMethods(trMemory(), _stringBufferClass, &stringBufferMethods);
-      ListIterator<TR_ResolvedMethod> it(&stringBufferMethods);
-      for (TR_ResolvedMethod *method = it.getCurrent(); method; method = it.getNext())
+      ListIterator<OMR::ResolvedMethod> it(&stringBufferMethods);
+      for (OMR::ResolvedMethod *method = it.getCurrent(); method; method = it.getNext())
          {
          if (!strncmp(method->nameChars(), "toString", 8))
             {
@@ -1369,10 +1369,10 @@ void TR_FieldPrivatizer::cleanupStringPeephole()
 
   if (!_appendSymRef)
       {
-      TR_ScratchList<TR_ResolvedMethod> stringBufferMethods(trMemory());
+      TR_ScratchList<OMR::ResolvedMethod> stringBufferMethods(trMemory());
       comp()->fej9()->getResolvedMethods(trMemory(), _stringBufferClass, &stringBufferMethods);
-      ListIterator<TR_ResolvedMethod> it(&stringBufferMethods);
-      for (TR_ResolvedMethod *method = it.getCurrent(); method; method = it.getNext())
+      ListIterator<OMR::ResolvedMethod> it(&stringBufferMethods);
+      for (OMR::ResolvedMethod *method = it.getCurrent(); method; method = it.getNext())
          {
          if ((method->nameLength() == 15) &&
              !strncmp(method->nameChars(), "jitAppendUnsafe", 15))

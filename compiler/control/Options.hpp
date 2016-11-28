@@ -33,7 +33,7 @@ public:
    Options(TR_Memory * m,
            int32_t index,
            int32_t lineNumber,
-           TR_ResolvedMethod *compilee,
+           OMR::ResolvedMethod *compilee,
            void *oldStartPC,
            TR_OptimizationPlan *optimizationPlan,
            bool isAOT=false,

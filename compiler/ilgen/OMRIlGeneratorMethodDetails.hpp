@@ -33,7 +33,7 @@ namespace OMR { typedef OMR::IlGeneratorMethodDetails IlGeneratorMethodDetailsCo
 #include "infra/Annotations.hpp"  // for OMR_EXTENSIBLE
 
 class TR_FrontEnd;
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 namespace TR { class IlGeneratorMethodDetails; }
 
 namespace OMR
@@ -71,7 +71,7 @@ public:
    bool sameAs(TR::IlGeneratorMethodDetails & other) { return false; }
    void print(TR_FrontEnd *fe, TR::FILE *file) { }
 
-   inline static TR::IlGeneratorMethodDetails & create(TR::IlGeneratorMethodDetails & target, TR_ResolvedMethod *method);
+   inline static TR::IlGeneratorMethodDetails & create(TR::IlGeneratorMethodDetails & target, OMR::ResolvedMethod *method);
 
 protected:
    IlGeneratorMethodDetails() { }

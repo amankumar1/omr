@@ -28,7 +28,7 @@
 
 namespace TR { class GCStackAtlas; }
 namespace OMR { struct MethodMetaDataPOD; }
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 
 namespace TR
 {
@@ -70,8 +70,8 @@ class FrontEnd : public TR::FEBase<FrontEnd>
       //return (uint8_t *)((PyCodeObject *)method)->co_compiledCodeEntry;
       }
 
-  TR_ResolvedMethod * createResolvedMethod(TR_Memory * trMemory, TR_OpaqueMethodBlock * aMethod,
-                                            TR_ResolvedMethod * owningMethod, TR_OpaqueClassBlock *classForNewInstance);
+  OMR::ResolvedMethod * createResolvedMethod(TR_Memory * trMemory, TR_OpaqueMethodBlock * aMethod,
+                                            OMR::ResolvedMethod * owningMethod, TR_OpaqueClassBlock *classForNewInstance);
 
 
    void encodeStackMap(

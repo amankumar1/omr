@@ -52,7 +52,7 @@
 class TR_Debug;
 class TR_FrontEnd;
 class TR_Memory;
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 namespace OMR { struct MethodMetaDataPOD; }
 namespace TR { class CodeCache; }
 namespace TR { class CodeGenerator; }
@@ -127,7 +127,7 @@ public:
 
    virtual bool hasBackwardBranches(TR_OpaqueMethodBlock *method);
    virtual bool isCompiledMethod(TR_OpaqueMethodBlock *method);
-   virtual TR_ResolvedMethod * createResolvedMethod(TR_Memory *, TR_OpaqueMethodBlock *, TR_ResolvedMethod * = 0, TR_OpaqueClassBlock * = 0);
+   virtual OMR::ResolvedMethod * createResolvedMethod(TR_Memory *, TR_OpaqueMethodBlock *, OMR::ResolvedMethod * = 0, TR_OpaqueClassBlock * = 0);
    virtual uint8_t * getMethodStartPC(TR_OpaqueMethodBlock *method);
    virtual OMR::MethodMetaDataPOD *createMethodMetaData(TR::Compilation *comp) { return NULL; }
 
@@ -167,7 +167,7 @@ public:
    virtual bool classHasBeenReplaced(TR_OpaqueClassBlock *);
    virtual TR_OpaqueClassBlock * getSuperClass(TR_OpaqueClassBlock * classPointer);
    virtual TR_YesNoMaybe isInstanceOf(TR_OpaqueClassBlock *instanceClass, TR_OpaqueClassBlock * castClass, bool instanceIsFixed, bool castIsFixed = true, bool callSiteVettedForAOT=false);
-   virtual bool isUnloadAssumptionRequired(TR_OpaqueClassBlock *, TR_ResolvedMethod *);
+   virtual bool isUnloadAssumptionRequired(TR_OpaqueClassBlock *, OMR::ResolvedMethod *);
 
    // --------------------------------------------------------------------------
    // Persistence
@@ -201,7 +201,7 @@ public:
    // VM+Shared
    virtual TR_OpaqueClassBlock * getArrayClassFromComponentClass(TR_OpaqueClassBlock * componentClass);
    virtual TR_OpaqueClassBlock * getClassFromNewArrayType(int32_t arrayType);
-   virtual TR_OpaqueClassBlock * getClassFromSignature(const char * sig, int32_t length, TR_ResolvedMethod *method, bool callSiteVettedForAOT=false);
+   virtual TR_OpaqueClassBlock * getClassFromSignature(const char * sig, int32_t length, OMR::ResolvedMethod *method, bool callSiteVettedForAOT=false);
    virtual TR_OpaqueClassBlock * getClassFromSignature(const char * sig, int32_t length, TR_OpaqueMethodBlock *method, bool callSiteVettedForAOT=false);
    virtual TR_OpaqueClassBlock * getClassOfMethod(TR_OpaqueMethodBlock *method);
    virtual TR_OpaqueClassBlock * getComponentClassFromArrayClass(TR_OpaqueClassBlock *arrayClass);

@@ -28,7 +28,7 @@
 #include "runtime/CodeCacheManager.hpp"
 #include "env/CompilerEnv.hpp"
 
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 
 namespace TR
 {
@@ -50,7 +50,7 @@ class FECommon : public ::TR_FrontEnd
 
    virtual TR_Debug *createDebug(TR::Compilation *comp = NULL);
 
-   virtual TR_OpaqueClassBlock * getClassFromSignature(const char * sig, int32_t length, TR_ResolvedMethod *method, bool isVettedForAOT=false) { return NULL; }
+   virtual TR_OpaqueClassBlock * getClassFromSignature(const char * sig, int32_t length, OMR::ResolvedMethod *method, bool isVettedForAOT=false) { return NULL; }
    virtual TR_OpaqueClassBlock * getClassFromSignature(const char * sig, int32_t length, TR_OpaqueMethodBlock *method, bool isVettedForAOT=false) { return NULL; }
    virtual const char *       sampleSignature(TR_OpaqueMethodBlock * aMethod, char *buf, int32_t bufLen, TR_Memory *memory) { return NULL; }
 

@@ -375,7 +375,7 @@ OMR::Power::CodeGenerator::CodeGenerator() :
 
    self()->setSupportsProfiledInlining();
 
-   TR_ResolvedMethod *method = self()->comp()->getJittedMethodSymbol()->getResolvedMethod();
+   OMR::ResolvedMethod *method = self()->comp()->getJittedMethodSymbol()->getResolvedMethod();
    TR_ReturnInfo      returnInfo = self()->getLinkage()->getReturnInfoFromReturnType(method->returnType());
    self()->comp()->setReturnInfo(returnInfo);
    }

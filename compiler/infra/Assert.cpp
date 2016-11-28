@@ -24,7 +24,7 @@
 #include <stdlib.h>                            // for exit
 #include "codegen/FrontEnd.hpp"                // for TR_FrontEnd, isJ9
 #include "compile/Compilation.hpp"             // for Compilation, comp
-#include "compile/ResolvedMethod.hpp"          // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"          // for OMR::ResolvedMethod
 #include "control/Options.hpp"
 #include "control/Options_inlines.hpp"         // for TR::Options, etc
 #include "control/Recompilation.hpp"           // for TR_Recompilation

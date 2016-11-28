@@ -2037,7 +2037,7 @@ static void partialRedundantCompareElimination(TR::Node * node, TR::Block * bloc
       {
       // PRBE prevents unrolling the kernel loop for SIMDization by confusing loop canonizalization
       // if the range is known at the compile time
-      TR_ResolvedMethod *method;
+      OMR::ResolvedMethod *method;
       if (node->getInlinedSiteIndex() != -1)
          method = comp->getInlinedResolvedMethod(node->getInlinedSiteIndex());
       else

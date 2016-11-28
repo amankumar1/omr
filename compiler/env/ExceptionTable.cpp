@@ -31,7 +31,7 @@
 #include "infra/List.hpp"           // for List, ListIterator
 #include "infra/TRCfgEdge.hpp"      // for CFGEdge
 
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 
 TR_ExceptionTableEntryIterator::TR_ExceptionTableEntryIterator(TR::Compilation *comp)
    : _compilation(comp)
@@ -61,7 +61,7 @@ TR_ExceptionTableEntryIterator::TR_ExceptionTableEntryIterator(TR::Compilation *
          tableEntries._trMemory = comp->trMemory();
 
          uint32_t catchType = catchBlock->getCatchType();
-         TR_ResolvedMethod * method = catchBlock->getOwningMethod();
+         OMR::ResolvedMethod * method = catchBlock->getOwningMethod();
 
          // create exception ranges from the list of exception predecessors
          //
@@ -124,7 +124,7 @@ TR_ExceptionTableEntryIterator::TR_ExceptionTableEntryIterator(TR::Compilation *
 void
 TR_ExceptionTableEntryIterator::addSnippetRanges(
    List<TR_ExceptionTableEntry> & tableEntries, TR::Block * snippetBlock, TR::Block * catchBlock, uint32_t catchType,
-   TR_ResolvedMethod * method, TR::Compilation *comp)
+   OMR::ResolvedMethod * method, TR::Compilation *comp)
    {
    TR::Block::InstructionBoundaries * ib = snippetBlock->getFirstSnippetBoundaries();
    for (; ib; ib = ib->getNext())

@@ -30,7 +30,7 @@
 #include "codegen/RegisterPair.hpp"             // for RegisterPair
 #include "compile/Compilation.hpp"              // for Compilation, comp
 #include "compile/Method.hpp"                   // for OMR::Method, etc
-#include "compile/ResolvedMethod.hpp"           // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"           // for OMR::ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"     // for SymbolReferenceTable
 #include "control/Options.hpp"                  // for Options
 #include "cs2/allocator.h"                      // for allocator
@@ -2896,7 +2896,7 @@ OMR::Node::isClassUnloadingConst()
 
 
 TR_OpaqueClassBlock *
-OMR::Node::getMonitorClass(TR_ResolvedMethod * vmMethod)
+OMR::Node::getMonitorClass(OMR::ResolvedMethod * vmMethod)
    {
 #ifdef J9_PROJECT_SPECIFIC
    TR::Compilation * c = TR::comp();

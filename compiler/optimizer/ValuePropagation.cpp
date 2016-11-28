@@ -29,7 +29,7 @@
 #include "codegen/RecognizedMethods.hpp"
 #include "compile/Compilation.hpp"              // for Compilation, etc
 #include "compile/Method.hpp"
-#include "compile/ResolvedMethod.hpp"           // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"           // for OMR::ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"     // for SymbolReferenceTable
 #include "compile/VirtualGuard.hpp"             // for TR_VirtualGuard
 #include "control/Options.hpp"
@@ -2152,7 +2152,7 @@ TR::VPConstraint *TR::ValuePropagation::mergeDefConstraints(TR::Node *node, int3
       bool mergeDeferredConstraints = true;
       if (constraint && constraint->isFixedClass())
          {
-         TR_ResolvedMethod *owningMethod = comp()->getCurrentMethod();
+         OMR::ResolvedMethod *owningMethod = comp()->getCurrentMethod();
          TR_OpaqueClassBlock *classObject = fe()->getClassFromSignature("java/math/BigDecimal", 20, owningMethod);
          if (classObject && (constraint->getClass() == classObject))
             mergeDeferredConstraints = false;
@@ -2661,7 +2661,7 @@ TR::VPConstraint *TR::ValuePropagation::mergeDefConstraints(TR::Node *node, int3
       bool mergeDeferredConstraints = true;
       if (constraint && constraint->isFixedClass())
          {
-         TR_ResolvedMethod *owningMethod = comp()->getCurrentMethod();
+         OMR::ResolvedMethod *owningMethod = comp()->getCurrentMethod();
          TR_OpaqueClassBlock *classObject = fe()->getClassFromSignature("java/math/BigDecimal", 20, owningMethod);
          //printf("VP class for BigDecimal %p\n", classObject); fflush(stdout);
          if (classObject && (constraint->getClass() == classObject))
@@ -3833,7 +3833,7 @@ void TR::ValuePropagation::getParmValues()
    // Create a constraint for each parameter that we can find info for.
    // First look for a "this" parameter then look through the method's signature
    //
-   TR_ResolvedMethod *method = comp()->getCurrentMethod();
+   OMR::ResolvedMethod *method = comp()->getCurrentMethod();
    TR_OpaqueClassBlock *classObject;
 
 #ifdef J9_PROJECT_SPECIFIC
@@ -7064,17 +7064,17 @@ TR::SymbolReference * TR::ValuePropagation::getStringCacheRef()
      }
 
   TR::ResolvedMethodSymbol *methodSymbol;
-  TR_ResolvedMethod *feMethod = comp()->getCurrentMethod();
+  OMR::ResolvedMethod *feMethod = comp()->getCurrentMethod();
   TR_OpaqueClassBlock *stringClass = comp()->getStringClassPointer();
   TR::SymbolReference      *stringSymRef;
   methodSymbol = comp()->getOwningMethodSymbol(feMethod);
   stringSymRef = comp()->getSymRefTab()->findOrCreateClassSymbol(methodSymbol, -1, stringClass);
-  TR_ScratchList<TR_ResolvedMethod> stringMethods(comp()->trMemory());
+  TR_ScratchList<OMR::ResolvedMethod> stringMethods(comp()->trMemory());
   comp()->fej9()->getResolvedMethods(comp()->trMemory(), stringClass, &stringMethods);
-  ListIterator<TR_ResolvedMethod> it(&stringMethods);
+  ListIterator<OMR::ResolvedMethod> it(&stringMethods);
   TR::SymbolReference * callsymreference=null;
 
-  for (TR_ResolvedMethod *method = it.getCurrent(); method; method = it.getNext())
+  for (OMR::ResolvedMethod *method = it.getCurrent(); method; method = it.getNext())
       {
 	   char *sig  = method->signatureChars();
 	   if (!callsymreference  && !strncmp(sig, "(Ljava/lang/String;Ljava/lang/String;I)", 39))
@@ -7838,8 +7838,8 @@ void TR::ValuePropagation::doDelayedTransformations()
 
    _prexClasses.init();
 
-   ListIterator<TR_ResolvedMethod> mit(&_prexMethods);
-   for (TR_ResolvedMethod *method = mit.getCurrent(); method; method = mit.getNext())
+   ListIterator<OMR::ResolvedMethod> mit(&_prexMethods);
+   for (OMR::ResolvedMethod *method = mit.getCurrent(); method; method = mit.getNext())
       {
       //printf("---secs--- method assumption in %s\n", comp()->signature());
       comp()->getCHTable()->recompileOnMethodOverride(comp(), method);
@@ -7897,11 +7897,11 @@ void TR::ValuePropagation::doDelayedTransformations()
       {
       //Find the method symbol for the optimized clone method.
       //
-      TR_ScratchList<TR_ResolvedMethod> clnMethods(comp()->trMemory());
+      TR_ScratchList<OMR::ResolvedMethod> clnMethods(comp()->trMemory());
       comp()->fej9()->getResolvedMethods(comp()->trMemory(), optClnClass, &clnMethods);
-      ListIterator<TR_ResolvedMethod> clnit(&clnMethods);
+      ListIterator<OMR::ResolvedMethod> clnit(&clnMethods);
 
-      TR_ResolvedMethod *method = null;
+      OMR::ResolvedMethod *method = null;
       TR::SymbolReference *optClnClassSymRef = null;
       bool clnFound = false;
       for (method = clnit.getCurrent(); method; method = clnit.getNext())

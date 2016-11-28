@@ -23,7 +23,7 @@
 #include <string.h>                            // for strncmp, memset, NULL
 
 #include "compile/Compilation.hpp"             // for Compilation
-#include "compile/ResolvedMethod.hpp"          // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"          // for OMR::ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"    // for SymbolReferenceTable
 #include "env/StackMemoryRegion.hpp"
 #include "env/jittypes.h"                      // for TR_ByteCodeInfo, etc

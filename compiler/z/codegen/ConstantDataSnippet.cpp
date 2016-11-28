@@ -31,7 +31,7 @@
 #include "codegen/UnresolvedDataSnippet.hpp"
 #include "compile/Compilation.hpp"              // for Compilation
 #include "compile/Method.hpp"                   // for OMR::Method
-#include "compile/ResolvedMethod.hpp"           // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"           // for OMR::ResolvedMethod
 #include "control/Options.hpp"
 #include "control/Options_inlines.hpp"
 #include "env/CompilerEnv.hpp"
@@ -474,7 +474,7 @@ TR::S390TargetAddressSnippet::emitSnippetBody()
       {
       if (_targetsym != NULL)
          {
-         TR_ResolvedMethod * resolvedMethod = _targetsym->getResolvedMethodSymbol()->getResolvedMethod();
+         OMR::ResolvedMethod * resolvedMethod = _targetsym->getResolvedMethodSymbol()->getResolvedMethod();
 
          if (resolvedMethod != NULL && resolvedMethod->isSameMethod(comp->getCurrentMethod()))
             {
@@ -719,7 +719,7 @@ TR::S390InterfaceCallDataSnippet::emitSnippetBody()
         for (auto valuesIt = profiledClassesList->begin(); valuesIt != profiledClassesList->end(); ++valuesIt)
            {
            TR::SymbolReference *methodSymRef = callNode->getSymbolReference();
-           TR_ResolvedMethod * profiledMethod = methodSymRef->getOwningMethod(comp)->getResolvedInterfaceMethod(comp,
+           OMR::ResolvedMethod * profiledMethod = methodSymRef->getOwningMethod(comp)->getResolvedInterfaceMethod(comp,
                  (TR_OpaqueClassBlock *)(*valuesIt), methodSymRef->getCPIndex());
            numInterfaceCallCacheSlots--;
            updateField = true;

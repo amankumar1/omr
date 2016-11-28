@@ -36,7 +36,7 @@ class TR_CompactLocals;
 class TR_GlobalRegisterAllocator;
 class TR_InlinerBase;
 class TR_OpaqueClassBlock;
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 class TR_S390SystemLinkage;
 class TR_Value;
 namespace TR { class CodeGenerator; }
@@ -156,7 +156,7 @@ class Method
    virtual bool isFinalInObject();
 
 
-   virtual TR_MethodParameterIterator *getParameterIterator(TR::Compilation&, TR_ResolvedMethod * = NULL);
+   virtual TR_MethodParameterIterator *getParameterIterator(TR::Compilation&, OMR::ResolvedMethod * = NULL);
 
    // ---------------------------------------------------------------------------
 
@@ -185,7 +185,7 @@ class Method
 
 typedef struct TR_AOTMethodInfo
    {
-   TR_ResolvedMethod *resolvedMethod;
+   OMR::ResolvedMethod *resolvedMethod;
    int32_t cpIndex;
    } TR_AOTMethodInfo;
 

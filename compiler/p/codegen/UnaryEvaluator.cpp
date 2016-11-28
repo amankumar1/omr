@@ -29,7 +29,7 @@
 #include "codegen/TreeEvaluator.hpp"           // for TreeEvaluator
 #include "compile/Compilation.hpp"             // for Compilation
 #include "compile/CompilationTypes.hpp"        // for TR_Hotness
-#include "compile/ResolvedMethod.hpp"          // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"          // for OMR::ResolvedMethod
 #include "env/CompilerEnv.hpp"
 #include "env/Processors.hpp"
 #include "env/TRMemory.hpp"
@@ -58,7 +58,7 @@ TR::Register *OMR::Power::TreeEvaluator::aconstEvaluator(TR::Node *node, TR::Cod
    {
    TR::Compilation *comp = cg->comp();
    bool isClass = node->isClassPointerConstant();
-   TR_ResolvedMethod * method = comp->getCurrentMethod();
+   OMR::ResolvedMethod * method = comp->getCurrentMethod();
 
    bool isPicSite = node->isClassPointerConstant() && cg->fe()->isUnloadAssumptionRequired((TR_OpaqueClassBlock *) node->getAddress(), method );
    if (!isPicSite)

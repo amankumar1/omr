@@ -234,7 +234,7 @@ uint8_t *TR::PPCDepImmSymInstruction::generateBinaryEncoding()
    if (getOpCodeValue() == TR::InstOpCode::bl || getOpCodeValue() == TR::InstOpCode::b)
       {
       TR::ResolvedMethodSymbol *sym = getSymbolReference()->getSymbol()->getResolvedMethodSymbol();
-      TR_ResolvedMethod *resolvedMethod = sym == NULL ? NULL : sym->getResolvedMethod();
+      OMR::ResolvedMethod *resolvedMethod = sym == NULL ? NULL : sym->getResolvedMethod();
 
       if (resolvedMethod != NULL && resolvedMethod->isSameMethod(cg()->comp()->getCurrentMethod()))
          {

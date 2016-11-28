@@ -34,7 +34,7 @@
 #include "codegen/RegisterConstants.hpp"
 #include "compile/Compilation.hpp"             // for Compilation, comp, etc
 #include "compile/Method.hpp"                  // for OMR::Method
-#include "compile/ResolvedMethod.hpp"          // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"          // for OMR::ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"    // for SymbolReferenceTable, etc
 #include "compile/VirtualGuard.hpp"            // for TR_VirtualGuard
 #include "control/Options.hpp"
@@ -6996,7 +6996,7 @@ static int32_t numSignatureChars(char *sig)
 int32_t TR_InvariantArgumentPreexistence::perform()
    {
    TR::ResolvedMethodSymbol *methodSymbol = optimizer()->getMethodSymbol();
-   TR_ResolvedMethod       *feMethod     = methodSymbol->getResolvedMethod();
+   OMR::ResolvedMethod       *feMethod     = methodSymbol->getResolvedMethod();
 
    if (comp()->mustNotBeRecompiled())
       {
@@ -7353,7 +7353,7 @@ static bool specializeInvokeExactSymbol(TR::Node *callNode, TR::KnownObjectTable
    uintptrj_t              *refLocation    = knot->getPointerLocation(receiverIndex);
    TR::SymbolReference      *symRef         = callNode->getSymbolReference();
    TR::ResolvedMethodSymbol *owningMethod   = callNode->getSymbolReference()->getOwningMethodSymbol(comp);
-   TR_ResolvedMethod       *resolvedMethod = comp->fej9()->createMethodHandleArchetypeSpecimen(comp->trMemory(), refLocation, owningMethod->getResolvedMethod());
+   OMR::ResolvedMethod       *resolvedMethod = comp->fej9()->createMethodHandleArchetypeSpecimen(comp->trMemory(), refLocation, owningMethod->getResolvedMethod());
    if (resolvedMethod)
       {
       TR::SymbolReference      *specimenSymRef = comp->getSymRefTab()->findOrCreateMethodSymbol(owningMethod->getResolvedMethodIndex(), -1, resolvedMethod, TR::MethodSymbol::ComputedVirtual);
@@ -7440,7 +7440,7 @@ void TR_InvariantArgumentPreexistence::processIndirectCall(TR::Node *node, TR::T
    int32_t            receiverParmOrdinal = -1;
    TR::MethodSymbol   *methodSymbol   = node->getSymbol()->castToMethodSymbol();
 
-   TR_ResolvedMethod *resolvedMethod = methodSymbol->getResolvedMethodSymbol()? methodSymbol->getResolvedMethodSymbol()->getResolvedMethod() : NULL;
+   OMR::ResolvedMethod *resolvedMethod = methodSymbol->getResolvedMethodSymbol()? methodSymbol->getResolvedMethodSymbol()->getResolvedMethod() : NULL;
    if (!resolvedMethod)
       {
       if (methodSymbol->isInterface())
@@ -7551,7 +7551,7 @@ void TR_InvariantArgumentPreexistence::processIndirectCall(TR::Node *node, TR::T
       //
       TR::SymbolReference *symRef = node->getSymbolReference();
       int32_t offset = symRef->getOffset();
-      TR_ResolvedMethod *refinedMethod = symRef->getOwningMethod(comp())->getResolvedVirtualMethod(comp(), receiverInfo.getClass(), offset);
+      OMR::ResolvedMethod *refinedMethod = symRef->getOwningMethod(comp())->getResolvedVirtualMethod(comp(), receiverInfo.getClass(), offset);
 
       if (refinedMethod)
          {
@@ -7663,7 +7663,7 @@ void TR_InvariantArgumentPreexistence::processIndirectCall(TR::Node *node, TR::T
          TR::MethodSymbol *methSymbol = node->getSymbol()->getMethodSymbol();
          if (methSymbol->isInterface() || methodSymbol)
             {
-            TR_ResolvedMethod * method = NULL;
+            OMR::ResolvedMethod * method = NULL;
             bool newMethod = true;
             // There is the risk of invaliding a method repeatedly due to class hierarchy extensions
             // In the following avoid devirtualization based on single implementor if the method has
@@ -7813,7 +7813,7 @@ void TR_InvariantArgumentPreexistence::processIndirectCall(TR::Node *node, TR::T
       //printf("Method is %s\n", resolvedMethod->signature(trMemory()));
       //fflush(stdout);
 
-      TR_ResolvedMethod *originalResolvedMethod = resolvedMethod;
+      OMR::ResolvedMethod *originalResolvedMethod = resolvedMethod;
       TR_OpaqueClassBlock *originalClazz = originalResolvedMethod->containingClass();
       bool canRefine = true;
       if (originalClazz != receiverInfo.getClass())
@@ -7827,7 +7827,7 @@ void TR_InvariantArgumentPreexistence::processIndirectCall(TR::Node *node, TR::T
             canRefine = false;
          }
 
-      TR_ResolvedMethod *resolvedMethod = NULL;
+      OMR::ResolvedMethod *resolvedMethod = NULL;
       if (canRefine)
          resolvedMethod = symRef->getOwningMethod(comp())->getResolvedVirtualMethod(comp(), receiverInfo.getClass(), offset);
 

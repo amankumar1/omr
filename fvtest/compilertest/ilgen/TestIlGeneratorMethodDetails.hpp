@@ -34,7 +34,7 @@ namespace TestCompiler { typedef TestCompiler::IlGeneratorMethodDetails IlGenera
 #include "env/IO.hpp"
 
 class TR_InlineBlocks;
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 class TR_IlGenerator;
 namespace TR { class Compilation; }
 namespace TR { class ResolvedMethod; }
@@ -55,10 +55,10 @@ public:
 
    IlGeneratorMethodDetails(TR::ResolvedMethod *method) : _method(method) { }
 
-   IlGeneratorMethodDetails(TR_ResolvedMethod *method);
+   IlGeneratorMethodDetails(OMR::ResolvedMethod *method);
 
    TR::ResolvedMethod * getMethod() { return _method; }
-   TR_ResolvedMethod * getResolvedMethod() { return (TR_ResolvedMethod *)_method; }
+   OMR::ResolvedMethod * getResolvedMethod() { return (OMR::ResolvedMethod *)_method; }
 
    bool sameAs(TR::IlGeneratorMethodDetails & other, TR_FrontEnd *fe);
 

@@ -51,7 +51,7 @@ namespace OMR { typedef OMR::Symbol SymbolConnector; }
 #include "infra/Flags.hpp"          // for flags32_t
 
 class TR_FrontEnd;
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 namespace TR { class AutomaticSymbol; }
 namespace TR { class Compilation; }
 namespace TR { class LabelSymbol; }

@@ -21,7 +21,7 @@
 
 #include "il/symbol/OMRResolvedMethodSymbol.hpp"
 
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 namespace TR { class Compilation; }
 
 namespace TR
@@ -32,7 +32,7 @@ class OMR_EXTENSIBLE ResolvedMethodSymbol : public OMR::ResolvedMethodSymbolConn
 
 protected:
 
-   ResolvedMethodSymbol(TR_ResolvedMethod * m, TR::Compilation * c) :
+   ResolvedMethodSymbol(OMR::ResolvedMethod * m, TR::Compilation * c) :
       OMR::ResolvedMethodSymbolConnector(m, c) {}
 
 private:

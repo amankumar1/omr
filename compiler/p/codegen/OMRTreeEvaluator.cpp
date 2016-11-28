@@ -978,7 +978,7 @@ TR::Register *OMR::Power::TreeEvaluator::istoreEvaluator(TR::Node *node, TR::Cod
 #ifdef J9_PROJECT_SPECIFIC
    if (needSync && caller && !comp->compileRelocatableCode())
       {
-      TR_ResolvedMethod *m = comp->fe()->createResolvedMethod(cg->trMemory(), caller, node->getSymbolReference()->getOwningMethod(comp));
+      OMR::ResolvedMethod *m = comp->fe()->createResolvedMethod(cg->trMemory(), caller, node->getSymbolReference()->getOwningMethod(comp));
       if (m->getRecognizedMethod() == TR::java_util_concurrent_atomic_AtomicInteger_lazySet)
          {
          lazyVolatile = true;
@@ -1050,7 +1050,7 @@ TR::Register *OMR::Power::TreeEvaluator::astoreEvaluator(TR::Node *node, TR::Cod
 #ifdef J9_PROJECT_SPECIFIC
    if (needSync && caller && !comp->compileRelocatableCode())
       {
-      TR_ResolvedMethod *m = comp->fe()->createResolvedMethod(cg->trMemory(), caller, node->getSymbolReference()->getOwningMethod(comp));
+      OMR::ResolvedMethod *m = comp->fe()->createResolvedMethod(cg->trMemory(), caller, node->getSymbolReference()->getOwningMethod(comp));
       if (m->getRecognizedMethod() == TR::java_util_concurrent_atomic_AtomicReference_lazySet)
          {
          lazyVolatile = true;
@@ -1165,7 +1165,7 @@ TR::Register *OMR::Power::TreeEvaluator::lstoreEvaluator(TR::Node *node, TR::Cod
 #ifdef J9_PROJECT_SPECIFIC
       if (needSync && caller && !comp->compileRelocatableCode())
          {
-         TR_ResolvedMethod *m = comp->fe()->createResolvedMethod(cg->trMemory(), caller, node->getSymbolReference()->getOwningMethod(comp));
+         OMR::ResolvedMethod *m = comp->fe()->createResolvedMethod(cg->trMemory(), caller, node->getSymbolReference()->getOwningMethod(comp));
          if (m->getRecognizedMethod() == TR::java_util_concurrent_atomic_AtomicLong_lazySet)
             {
             lazyVolatile = true;
@@ -1215,7 +1215,7 @@ TR::Register *OMR::Power::TreeEvaluator::lstoreEvaluator(TR::Node *node, TR::Cod
 #ifdef J9_PROJECT_SPECIFIC
       if (needSync && caller && !comp->compileRelocatableCode())
          {
-         TR_ResolvedMethod *m = comp->fe()->createResolvedMethod(cg->trMemory(), caller, node->getSymbolReference()->getOwningMethod(comp));
+         OMR::ResolvedMethod *m = comp->fe()->createResolvedMethod(cg->trMemory(), caller, node->getSymbolReference()->getOwningMethod(comp));
          if (m->getRecognizedMethod() == TR::java_util_concurrent_atomic_AtomicLong_lazySet)
             {
             lazyVolatile = true;

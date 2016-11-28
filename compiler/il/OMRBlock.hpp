@@ -56,7 +56,7 @@ class TR_Memory;
 class TR_RegionStructure;
 class TR_RegisterCandidate;
 class TR_RegisterCandidates;
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 namespace TR { class Block; }
 namespace TR { class CFGEdge; }
 namespace TR { class CFGNode; }
@@ -324,7 +324,7 @@ class OMR_EXTENSIBLE Block : public TR::CFGNode
       int32_t                               _exceptionClassNameLength;
       uint32_t                              _exceptionsCaught;
       uint32_t                              _catchType;
-      TR_ResolvedMethod *                   _owningMethod;
+      OMR::ResolvedMethod *                   _owningMethod;
       TR_ByteCodeInfo                       _byteCodeInfo;
       uint16_t                              _handlerIndex;
       uint8_t                               _inlineDepth;
@@ -333,8 +333,8 @@ class OMR_EXTENSIBLE Block : public TR::CFGNode
    TR_CatchBlockExtension* getCatchBlockExtension()               { return _catchBlockExtension; }
    void setCatchBlockExtension(TR_CatchBlockExtension *extension) { _catchBlockExtension = extension; }
 
-   void setHandlerInfo(uint32_t c, uint8_t d, uint16_t i, TR_ResolvedMethod * m, TR::Compilation *comp);
-   void setHandlerInfoWithOutBCInfo(uint32_t c, uint8_t d, uint16_t i, TR_ResolvedMethod * m, TR::Compilation *comp); //also used for estimatecodesize dummy blocks
+   void setHandlerInfo(uint32_t c, uint8_t d, uint16_t i, OMR::ResolvedMethod * m, TR::Compilation *comp);
+   void setHandlerInfoWithOutBCInfo(uint32_t c, uint8_t d, uint16_t i, OMR::ResolvedMethod * m, TR::Compilation *comp); //also used for estimatecodesize dummy blocks
 
    bool                   isCatchBlock();
    uint32_t               getCatchType();
@@ -345,7 +345,7 @@ class OMR_EXTENSIBLE Block : public TR::CFGNode
    char *                 getExceptionClassNameChars();
    int32_t                getExceptionClassNameLength();
    void                   setExceptionClassName(char *c, int32_t length, TR::Compilation *comp);
-   TR_ResolvedMethod *    getOwningMethod();
+   OMR::ResolvedMethod *    getOwningMethod();
 
    void setUnrollFactor(int factor)                               { _unrollFactor = factor; }
    uint16_t getUnrollFactor()                                     { return _unrollFactor; }
@@ -357,8 +357,8 @@ class OMR_EXTENSIBLE Block : public TR::CFGNode
    // should be deleted when the members are moved out.
    void     setBlockBCIndex(int32_t len)                          { _blockBCIndex = len; }
    int32_t  getBlockBCIndex()                                     {  return _blockBCIndex; }
-   void     setJ9EstimateCodeSizeMethod(TR_ResolvedMethod *m)     { _j9EstimateSizeMethod = m; }
-   TR_ResolvedMethod *getJ9EstimateCodeSizeMethod()               { return _j9EstimateSizeMethod; }
+   void     setJ9EstimateCodeSizeMethod(OMR::ResolvedMethod *m)     { _j9EstimateSizeMethod = m; }
+   OMR::ResolvedMethod *getJ9EstimateCodeSizeMethod()               { return _j9EstimateSizeMethod; }
 
    TR::DebugCounterAggregation *getDebugCounters()                   { return _debugCounters; }
    void setDebugCounters(TR::DebugCounterAggregation *debugCounters) { _debugCounters = debugCounters; }
@@ -540,7 +540,7 @@ class OMR_EXTENSIBLE Block : public TR::CFGNode
    // TODO: These members are only used in J9EstimateCodeSize and should be moved out.
    int32_t                               _blockSize;
    int32_t                               _blockBCIndex;
-   TR_ResolvedMethod *                   _j9EstimateSizeMethod;
+   OMR::ResolvedMethod *                   _j9EstimateSizeMethod;
 
    TR::DebugCounterAggregation *         _debugCounters;
 

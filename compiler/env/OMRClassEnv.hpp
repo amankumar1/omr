@@ -35,7 +35,7 @@ namespace OMR { typedef OMR::ClassEnv ClassEnvConnector; }
 struct OMR_VMThread;
 namespace TR { class Compilation; }
 namespace TR { class SymbolReference; }
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 class TR_Memory;
 
 namespace OMR
@@ -84,8 +84,8 @@ public:
    bool sameClassLoaders(TR::Compilation *comp, TR_OpaqueClassBlock *, TR_OpaqueClassBlock *) { return false; }
    bool isString(TR::Compilation *comp, TR_OpaqueClassBlock *clazz) { return false; }
    bool isString(TR::Compilation *comp, uintptrj_t objectPointer) { return false; }
-   bool jitStaticsAreSame(TR::Compilation *comp, TR_ResolvedMethod * method1, int32_t cpIndex1, TR_ResolvedMethod * method2, int32_t cpIndex2) { return false; }
-   bool jitFieldsAreSame(TR::Compilation *comp, TR_ResolvedMethod * method1, int32_t cpIndex1, TR_ResolvedMethod * method2, int32_t cpIndex2, int32_t isStatic) { return false; }
+   bool jitStaticsAreSame(TR::Compilation *comp, OMR::ResolvedMethod * method1, int32_t cpIndex1, OMR::ResolvedMethod * method2, int32_t cpIndex2) { return false; }
+   bool jitFieldsAreSame(TR::Compilation *comp, OMR::ResolvedMethod * method1, int32_t cpIndex1, OMR::ResolvedMethod * method2, int32_t cpIndex2, int32_t isStatic) { return false; }
 
    uintptrj_t persistentClassPointerFromClassPointer(TR::Compilation *comp, TR_OpaqueClassBlock *clazz) { return 0; }
    TR_OpaqueClassBlock *objectClass(TR::Compilation *comp, uintptrj_t objectPointer) { return NULL; }

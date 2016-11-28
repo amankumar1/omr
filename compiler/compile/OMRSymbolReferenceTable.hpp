@@ -251,7 +251,7 @@ class SymbolReferenceTable
    TR::SymbolReference * createTemporary(TR::ResolvedMethodSymbol * owningMethodSymbol, TR::DataType, bool isInternalPointer = false, size_t size = 0);
    TR::SymbolReference * createCoDependententTemporary(TR::ResolvedMethodSymbol * owningMethodSymbol, TR::DataType, bool isInternalPointer, size_t size,
          TR::Symbol *coDependent, int32_t offset);
-   TR::SymbolReference * findStaticSymbol(TR_ResolvedMethod * owningMethod, int32_t cpIndex, TR::DataType);
+   TR::SymbolReference * findStaticSymbol(OMR::ResolvedMethod * owningMethod, int32_t cpIndex, TR::DataType);
 
    // --------------------------------------------------------------------------
    // OMR
@@ -295,9 +295,9 @@ class SymbolReferenceTable
    // base recompilation
    TR::SymbolReference * findOrCreateRecompilationCounterSymbolRef(void *counterAddress);
 
-   TR::SymbolReference * findOrCreateMethodSymbol(mcount_t owningMethodIndex, int32_t cpIndex, TR_ResolvedMethod *, TR::MethodSymbol::Kinds, bool = false);
-   TR::SymbolReference * findOrCreateComputedStaticMethodSymbol(mcount_t owningMethodIndex, int32_t cpIndex, TR_ResolvedMethod * resolvedMethod);
-   TR::SymbolReference * findOrCreateStaticMethodSymbol(mcount_t owningMethodIndex, int32_t cpIndex, TR_ResolvedMethod * resolvedMethod);
+   TR::SymbolReference * findOrCreateMethodSymbol(mcount_t owningMethodIndex, int32_t cpIndex, OMR::ResolvedMethod *, TR::MethodSymbol::Kinds, bool = false);
+   TR::SymbolReference * findOrCreateComputedStaticMethodSymbol(mcount_t owningMethodIndex, int32_t cpIndex, OMR::ResolvedMethod * resolvedMethod);
+   TR::SymbolReference * findOrCreateStaticMethodSymbol(mcount_t owningMethodIndex, int32_t cpIndex, OMR::ResolvedMethod * resolvedMethod);
    TR::SymbolReference * findJavaLangClassFromClassSymbolRef();
 
    // FE, CG, optimizer
@@ -421,7 +421,7 @@ class SymbolReferenceTable
 
    TR::SymbolReference * findOrCreateCPSymbol(TR::ResolvedMethodSymbol *, int32_t, TR::DataType, bool, void *);
 
-   bool shouldMarkBlockAsCold(TR_ResolvedMethod * owningMethod, bool isUnresolvedInCP);
+   bool shouldMarkBlockAsCold(OMR::ResolvedMethod * owningMethod, bool isUnresolvedInCP);
    void markBlockAsCold();
 
    char *strdup(const char *arg);

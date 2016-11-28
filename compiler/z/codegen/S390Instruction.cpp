@@ -40,7 +40,7 @@
 #include "codegen/Snippet.hpp"                     // for Snippet, etc
 #include "codegen/S390Snippets.hpp"
 #include "compile/Compilation.hpp"                 // for Compilation
-#include "compile/ResolvedMethod.hpp"              // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"              // for OMR::ResolvedMethod
 #include "control/Options.hpp"
 #include "control/Options_inlines.hpp"
 #include "env/CompilerEnv.hpp"
@@ -2514,7 +2514,7 @@ TR::S390RILInstruction::generateBinaryEncoding()
             {
             callSymbol = getTargetSymbol()->isMethod() ? getTargetSymbol()->castToMethodSymbol() : NULL;
             TR::ResolvedMethodSymbol * sym = (callSymbol) ? callSymbol->getResolvedMethodSymbol() : NULL;
-            TR_ResolvedMethod * fem = sym ? sym->getResolvedMethod() : NULL;
+            OMR::ResolvedMethod * fem = sym ? sym->getResolvedMethod() : NULL;
             isRecursiveCall = (fem != NULL && fem->isSameMethod(comp->getCurrentMethod()) && !comp->isDLT());
             }
          if (isRecursiveCall)

@@ -46,7 +46,7 @@ class TR_InlinerTracer;
 class TR_InnerPreexistenceInfo;
 namespace OMR { class Method; }
 class TR_PrexArgInfo;
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 namespace TR { class AutomaticSymbol; }
 namespace TR { class Block; }
 namespace TR { class CFG; }
@@ -59,7 +59,7 @@ struct TR_VirtualGuardSelection;
 class TR_CallStack : public TR_Link<TR_CallStack>
    {
    public:
-      TR_CallStack(TR::Compilation *, TR::ResolvedMethodSymbol *, TR_ResolvedMethod *, TR_CallStack *, int32_t, bool safeToAddSymRefs = false);
+      TR_CallStack(TR::Compilation *, TR::ResolvedMethodSymbol *, OMR::ResolvedMethod *, TR_CallStack *, int32_t, bool safeToAddSymRefs = false);
       ~TR_CallStack();
       void commit();
 
@@ -70,8 +70,8 @@ class TR_CallStack : public TR_Link<TR_CallStack>
       TR_PersistentMemory * trPersistentMemory(){ return _trMemory->trPersistentMemory(); }
 
       void initializeControlFlowInfo(TR::ResolvedMethodSymbol *);
-      TR_CallStack * isCurrentlyOnTheStack(TR_ResolvedMethod *, int32_t);
-      bool           isAnywhereOnTheStack (TR_ResolvedMethod *, int32_t); // Even searches calls already inlined by previous opts
+      TR_CallStack * isCurrentlyOnTheStack(OMR::ResolvedMethod *, int32_t);
+      bool           isAnywhereOnTheStack (OMR::ResolvedMethod *, int32_t); // Even searches calls already inlined by previous opts
       void updateState(TR::Block *);
       void addAutomatic(TR::AutomaticSymbol * a);
       void addTemp(TR::SymbolReference *);
@@ -109,7 +109,7 @@ class TR_CallStack : public TR_Link<TR_CallStack>
       TR::Compilation *          _comp;
       TR_Memory *               _trMemory;
       TR::ResolvedMethodSymbol * _methodSymbol;
-      TR_ResolvedMethod *       _method;
+      OMR::ResolvedMethod *       _method;
       TR::Node *                 _currentCallNode;
       BlockInfo *               _blockInfo;
       List<TR::AutomaticSymbol>  _autos;
@@ -132,7 +132,7 @@ struct TR_CallTarget : public TR_Link<TR_CallTarget>
 
    TR_CallTarget(TR_CallSite *callsite,
                  TR::ResolvedMethodSymbol *calleeSymbol,
-                 TR_ResolvedMethod *calleeMethod,
+                 OMR::ResolvedMethod *calleeMethod,
                  TR_VirtualGuardSelection *guard,
                  TR_OpaqueClassBlock *receiverClass,
                  TR_PrexArgInfo *ecsPrexArgInfo,
@@ -144,7 +144,7 @@ struct TR_CallTarget : public TR_Link<TR_CallTarget>
    // Target Specific
 
    TR::ResolvedMethodSymbol *   _calleeSymbol;          //must have this by the time we actually do the inlinining
-   TR_ResolvedMethod *          _calleeMethod;
+   OMR::ResolvedMethod *          _calleeMethod;
    TR::MethodSymbol::Kinds      _calleeMethodKind;
    TR_VirtualGuardSelection *   _guard;
    int32_t							  _size;
@@ -206,7 +206,7 @@ struct TR_CallTarget : public TR_Link<TR_CallTarget>
 
 #define TR_CALLSITE_INHERIT_CONSTRUCTOR_AND_TR_ALLOC(EXTENDED,BASE) \
    TR_ALLOC(TR_Memory::Inliner); \
-   EXTENDED (TR_ResolvedMethod *callerResolvedMethod,  \
+   EXTENDED (OMR::ResolvedMethod *callerResolvedMethod,  \
                   TR::TreeTop *callNodeTreeTop,  \
                   TR::Node *parent,  \
                   TR::Node *callNode,  \
@@ -214,7 +214,7 @@ struct TR_CallTarget : public TR_Link<TR_CallTarget>
                   TR_OpaqueClassBlock *receiverClass,  \
                   int32_t vftSlot,  \
                   int32_t cpIndex,  \
-                  TR_ResolvedMethod *initialCalleeMethod,  \
+                  OMR::ResolvedMethod *initialCalleeMethod,  \
                   TR::ResolvedMethodSymbol * initialCalleeSymbol,  \
                   bool isIndirectCall,  \
                   bool isInterface,  \
@@ -244,7 +244,7 @@ struct TR_CallSite : public TR_Link<TR_CallSite>
       TR_ALLOC(TR_Memory::Inliner);
       friend class TR_InlinerTracer;
 
-      TR_CallSite(TR_ResolvedMethod *callerResolvedMethod,
+      TR_CallSite(OMR::ResolvedMethod *callerResolvedMethod,
                   TR::TreeTop *callNodeTreeTop,
                   TR::Node *parent,
                   TR::Node *callNode,
@@ -252,7 +252,7 @@ struct TR_CallSite : public TR_Link<TR_CallSite>
                   TR_OpaqueClassBlock *receiverClass,
                   int32_t vftSlot,
                   int32_t cpIndex,
-                  TR_ResolvedMethod *initialCalleeMethod,
+                  OMR::ResolvedMethod *initialCalleeMethod,
                   TR::ResolvedMethodSymbol * initialCalleeSymbol,
                   bool isIndirectCall,
                   bool isInterface,
@@ -324,8 +324,8 @@ struct TR_CallSite : public TR_Link<TR_CallSite>
          _mytargets[i] = ct;
          }
 
-      TR_CallTarget *         addTarget(TR_Memory* , TR_InlinerBase*, TR_VirtualGuardSelection *, TR_ResolvedMethod *, TR_OpaqueClassBlock *,TR_AllocationKind allocKind=stackAlloc,float ratio=1.0);
-      bool                    addTarget0(TR_Memory*, TR_InlinerTracer *, TR_VirtualGuardSelection *, TR_ResolvedMethod *, TR_OpaqueClassBlock *,TR_AllocationKind allocKind=stackAlloc,float ratio=1.0);
+      TR_CallTarget *         addTarget(TR_Memory* , TR_InlinerBase*, TR_VirtualGuardSelection *, OMR::ResolvedMethod *, TR_OpaqueClassBlock *,TR_AllocationKind allocKind=stackAlloc,float ratio=1.0);
+      bool                    addTarget0(TR_Memory*, TR_InlinerTracer *, TR_VirtualGuardSelection *, OMR::ResolvedMethod *, TR_OpaqueClassBlock *,TR_AllocationKind allocKind=stackAlloc,float ratio=1.0);
       void                    addTarget(TR_CallTarget *target)
          {
          _mytargets.push_back(target);
@@ -346,7 +346,7 @@ struct TR_CallSite : public TR_Link<TR_CallSite>
       TR_OpaqueClassBlock    *calleeClass();
 
       TR::Compilation *             _comp;
-      TR_ResolvedMethod *          _callerResolvedMethod;
+      OMR::ResolvedMethod *          _callerResolvedMethod;
       TR::TreeTop *                 _callNodeTreeTop;
       TR::TreeTop *                 _cursorTreeTop;
       TR::Node *                    _parent;
@@ -357,7 +357,7 @@ struct TR_CallSite : public TR_Link<TR_CallSite>
       TR_OpaqueClassBlock *        _receiverClass;         // for interface calls, we might know this?
       int32_t                      _vftSlot;               //
       int32_t                      _cpIndex;               //
-      TR_ResolvedMethod *          _initialCalleeMethod;    // alot of times we might already know the resolved method.
+      OMR::ResolvedMethod *          _initialCalleeMethod;    // alot of times we might already know the resolved method.
       TR::ResolvedMethodSymbol *    _initialCalleeSymbol;   // and in those cases, we should also know the methodsymbol..
       TR_ByteCodeInfo             _bcInfo;
       int32_t                     _stmtNo;
@@ -390,11 +390,11 @@ struct TR_CallSite : public TR_Link<TR_CallSite>
                                  TR::Node* callNode,
                                  TR_OpaqueClassBlock *receiverClass,
                                  TR::SymbolReference *symRef,
-                                 TR_ResolvedMethod *resolvedMethod,
+                                 OMR::ResolvedMethod *resolvedMethod,
                                  TR::Compilation* comp,
                                  TR_Memory* trMemory,
                                  TR_AllocationKind kind,
-                                 TR_ResolvedMethod* caller = NULL,
+                                 OMR::ResolvedMethod* caller = NULL,
                                  int32_t depth=-1,
                                  bool allConsts = false);
 
@@ -431,7 +431,7 @@ class TR_IndirectCallSite : public TR_CallSite
       TR_CALLSITE_INHERIT_CONSTRUCTOR_AND_TR_ALLOC(TR_IndirectCallSite, TR_CallSite)
       virtual bool findCallSiteTarget (TR_CallStack *callStack, TR_InlinerBase* inliner);
 		virtual const char*  name () { return "TR_IndirectCallSite"; }
-      virtual TR_ResolvedMethod* findSingleJittedImplementer (TR_InlinerBase* inliner);
+      virtual OMR::ResolvedMethod* findSingleJittedImplementer (TR_InlinerBase* inliner);
 
    protected:
       bool hasFixedTypeArgInfo();
@@ -440,7 +440,7 @@ class TR_IndirectCallSite : public TR_CallSite
       bool tryToRefineReceiverClassBasedOnResolvedTypeArgInfo(TR_InlinerBase* inliner);
 
       virtual bool findCallTargetUsingArgumentPreexistence(TR_InlinerBase* inliner);
-      virtual TR_ResolvedMethod* getResolvedMethod (TR_OpaqueClassBlock* klass);
+      virtual OMR::ResolvedMethod* getResolvedMethod (TR_OpaqueClassBlock* klass);
       TR_OpaqueClassBlock * extractAndLogClassArgument(TR_InlinerBase* inliner);
 		//capabilities
 		bool addTargetIfMethodIsNotOverriden (TR_InlinerBase* inliner);

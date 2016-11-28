@@ -40,8 +40,8 @@
 #define notImplemented(A) TR_ASSERT(0, "TR_FrontEnd::%s is undefined", (A) )
 
 
-TR_ResolvedMethod *
-TR_FrontEnd::createResolvedMethod(TR_Memory *, TR_OpaqueMethodBlock *, TR_ResolvedMethod *, TR_OpaqueClassBlock *)
+OMR::ResolvedMethod *
+TR_FrontEnd::createResolvedMethod(TR_Memory *, TR_OpaqueMethodBlock *, OMR::ResolvedMethod *, TR_OpaqueClassBlock *)
    {
    notImplemented("createResolvedMethod");
    return 0;
@@ -272,7 +272,7 @@ TR_FrontEnd::getClassFromNewArrayType(int32_t arrayType)
    }
 
 TR_OpaqueClassBlock *
-TR_FrontEnd::getClassFromSignature(const char * sig, int32_t length, TR_ResolvedMethod *method, bool isVettedForAOT)
+TR_FrontEnd::getClassFromSignature(const char * sig, int32_t length, OMR::ResolvedMethod *method, bool isVettedForAOT)
    {
    notImplemented("getClassFromSignature");
    return 0;
@@ -302,7 +302,7 @@ TR_FrontEnd::getSuperClass(TR_OpaqueClassBlock * classPointer)
    }
 
 bool
-TR_FrontEnd::isUnloadAssumptionRequired(TR_OpaqueClassBlock *, TR_ResolvedMethod *)
+TR_FrontEnd::isUnloadAssumptionRequired(TR_OpaqueClassBlock *, OMR::ResolvedMethod *)
    {
    notImplemented("isUnloadAssumptionRequired");
    return true;

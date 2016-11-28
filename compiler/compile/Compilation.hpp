@@ -26,7 +26,7 @@
 class TR_FrontEnd;
 class TR_Memory;
 class TR_OptimizationPlan;
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 namespace TR { class IlGenRequest; }
 namespace TR { class Options; }
 struct OMR_VMThread;
@@ -41,7 +41,7 @@ class OMR_EXTENSIBLE Compilation : public OMR::CompilationConnector
          int32_t compThreadId,
          OMR_VMThread *omrVMThread,
          TR_FrontEnd *fe,
-         TR_ResolvedMethod *method,
+         OMR::ResolvedMethod *method,
          TR::IlGenRequest &request,
          TR::Options &options,
          const TR::Region &dispatchRegion,

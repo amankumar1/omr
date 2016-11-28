@@ -79,7 +79,7 @@ class TR_RegisterCandidate;
 class TR_RegisterCandidates;
 class TR_Relocation;
 class TR_RelocationDebugInfo;
-class TR_ResolvedMethod;
+namespace OMR { class ResolvedMethod; }
 class TR_ScratchRegisterManager;
 namespace TR { class GCStackAtlas; }
 namespace OMR { class RegisterUsage; }
@@ -1099,7 +1099,7 @@ class OMR_EXTENSIBLE CodeGenerator
    void apply32BitLabelRelativeRelocation(int32_t * cursor, TR::LabelSymbol *); // no virt
    void apply32BitLabelTableRelocation(int32_t * cursor, TR::LabelSymbol *); // no virt
 
-   TR::list<TR_Pair<TR_ResolvedMethod,TR::Instruction> *> &getJNICallSites() { return _jniCallSites; }  // registerAssumptions()
+   TR::list<TR_Pair<OMR::ResolvedMethod,TR::Instruction> *> &getJNICallSites() { return _jniCallSites; }  // registerAssumptions()
 
    bool needClassAndMethodPointerRelocations() { return false; }
    bool needRelocationsForStatics() { return false; }
@@ -1906,7 +1906,7 @@ class OMR_EXTENSIBLE CodeGenerator
    TR::list<TR::Node*> _nodesToUncommonList;
    TR::list<TR::Node*> _nodesSpineCheckedList;
 
-   TR::list<TR_Pair<TR_ResolvedMethod, TR::Instruction> *> _jniCallSites; // list of instrutions representing direct jni call sites
+   TR::list<TR_Pair<OMR::ResolvedMethod, TR::Instruction> *> _jniCallSites; // list of instrutions representing direct jni call sites
 
    TR_Array<void *> _monitorMapping;
 

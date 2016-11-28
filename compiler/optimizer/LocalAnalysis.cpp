@@ -25,7 +25,7 @@
 #include "codegen/Linkage.hpp"                   // for Linkage
 #include "compile/Compilation.hpp"               // for Compilation
 #include "compile/Method.hpp"                    // for MAX_SCOUNT
-#include "compile/ResolvedMethod.hpp"            // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"            // for OMR::ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"
 #include "cs2/bitvectr.h"
 #include "env/TRMemory.hpp"                      // for BitVector, etc

@@ -38,7 +38,7 @@
 #include "compile/Compilation.hpp"             // for Compilation
 #include "compile/Method.hpp"                  // for OMR::Method, etc
 #include "compile/OSRData.hpp"                 // for TR_OSRMethodData, etc
-#include "compile/ResolvedMethod.hpp"          // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"          // for OMR::ResolvedMethod
 #include "compile/SymbolReferenceTable.hpp"    // for SymbolReferenceTable
 #include "compile/VirtualGuard.hpp"            // for TR_VirtualGuard
 #include "control/Options.hpp"

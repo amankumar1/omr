@@ -33,7 +33,7 @@
 #include "codegen/RegisterConstants.hpp"
 #include "compile/Compilation.hpp"             // for Compilation, comp, etc
 #include "compile/Method.hpp"                  // for OMR::Method, etc
-#include "compile/ResolvedMethod.hpp"          // for TR_ResolvedMethod
+#include "compile/ResolvedMethod.hpp"          // for OMR::ResolvedMethod
 #include "control/Options.hpp"
 #include "control/Options_inlines.hpp"
 #include "control/Recompilation.hpp"
@@ -1000,7 +1000,7 @@ OMR::SymbolReferenceTable::findOrCreateReportMethodEnterSymbolRef(TR::ResolvedMe
 
 
 
-bool OMR::SymbolReferenceTable::shouldMarkBlockAsCold(TR_ResolvedMethod * owningMethod, bool isUnresolvedInCP)
+bool OMR::SymbolReferenceTable::shouldMarkBlockAsCold(OMR::ResolvedMethod * owningMethod, bool isUnresolvedInCP)
    {
    return false;
    }
@@ -1286,7 +1286,7 @@ TR::SymbolReference * OMR::SymbolReferenceTable::getRegisterSymbol(TR_GlobalRegi
 
 
 TR::SymbolReference *
-OMR::SymbolReferenceTable::findStaticSymbol(TR_ResolvedMethod * owningMethod, int32_t cpIndex, TR::DataType type)
+OMR::SymbolReferenceTable::findStaticSymbol(OMR::ResolvedMethod * owningMethod, int32_t cpIndex, TR::DataType type)
    {
    TR::SymbolReference * symRef;
    TR_SymRefIterator i(type == TR::Address ? aliasBuilder.addressStaticSymRefs() :
@@ -1408,21 +1408,21 @@ OMR::SymbolReferenceTable::findOrCreateCPSymbol(
 
 TR::SymbolReference *
 OMR::SymbolReferenceTable::findOrCreateComputedStaticMethodSymbol(
-   mcount_t owningMethodIndex, int32_t cpIndex, TR_ResolvedMethod * resolvedMethod)
+   mcount_t owningMethodIndex, int32_t cpIndex, OMR::ResolvedMethod * resolvedMethod)
    {
    return findOrCreateMethodSymbol(owningMethodIndex, cpIndex, resolvedMethod, TR::MethodSymbol::ComputedStatic, false /*isUnresolvedInCP*/);
    }
 
 TR::SymbolReference *
 OMR::SymbolReferenceTable::findOrCreateStaticMethodSymbol(
-   mcount_t owningMethodIndex, int32_t cpIndex, TR_ResolvedMethod * resolvedMethod)
+   mcount_t owningMethodIndex, int32_t cpIndex, OMR::ResolvedMethod * resolvedMethod)
    {
    return findOrCreateMethodSymbol(owningMethodIndex, cpIndex, resolvedMethod, TR::MethodSymbol::Static, false /*isUnresolvedInCP*/);
    }
 
 TR::SymbolReference *
 OMR::SymbolReferenceTable::findOrCreateMethodSymbol(
-   mcount_t owningMethodIndex, int32_t cpIndex, TR_ResolvedMethod * resolvedMethod, TR::MethodSymbol::Kinds callKind, bool isUnresolvedInCP)
+   mcount_t owningMethodIndex, int32_t cpIndex, OMR::ResolvedMethod * resolvedMethod, TR::MethodSymbol::Kinds callKind, bool isUnresolvedInCP)
    {
    TR::SymbolReference * symRef;
    // We check comp()->getHasMethodHandleInvoke() here only because owningMethodDoesntMatter() could be expensive, and currently only JSR292 uses this facility
@@ -1436,7 +1436,7 @@ OMR::SymbolReferenceTable::findOrCreateMethodSymbol(
             {
             if (performTransformation(comp(), "O^O SYMBOL SHARING: Reusing #%d M%p for M%p\n", symRef->getReferenceNumber(), existingMethod->getResolvedMethod(), resolvedMethod))
                {
-               TR_ResolvedMethod * owningMethod = comp()->getOwningMethodSymbol(owningMethodIndex)->getResolvedMethod();
+               OMR::ResolvedMethod * owningMethod = comp()->getOwningMethodSymbol(owningMethodIndex)->getResolvedMethod();
                symRef->setHasBeenAccessedAtRuntime(isUnresolvedInCP ? TR_no: TR_maybe);
                if (shouldMarkBlockAsCold(owningMethod, isUnresolvedInCP))
                   markBlockAsCold();
@@ -1460,7 +1460,7 @@ OMR::SymbolReferenceTable::findOrCreateMethodSymbol(
         }
       }
 
-   TR_ResolvedMethod * owningMethod = comp()->getOwningMethodSymbol(owningMethodIndex)->getResolvedMethod();
+   OMR::ResolvedMethod * owningMethod = comp()->getOwningMethodSymbol(owningMethodIndex)->getResolvedMethod();
 
    TR::MethodSymbol * sym;
    int32_t unresolvedIndex = 0;
@@ -1706,7 +1706,7 @@ OMR::SymbolReferenceTable::makeAutoAvailableForIlGen(TR::SymbolReference * a)
 
 static bool parmSlotCameFromExpandingAnArchetypeArgPlaceholder(int32_t slot, TR::ResolvedMethodSymbol *sym, TR_Memory *mem)
    {
-   TR_ResolvedMethod *meth = sym->getResolvedMethod();
+   OMR::ResolvedMethod *meth = sym->getResolvedMethod();
    if (meth->convertToMethod()->isArchetypeSpecimen())
       return slot >= meth->archetypeArgPlaceholderSlot(mem);
    else
@@ -1766,7 +1766,7 @@ TR::SymbolReference *
 OMR::SymbolReferenceTable::createLocalObject(int32_t objectSize, TR::ResolvedMethodSymbol * owningMethodSymbol, TR::SymbolReference *classSymRef)
    {
    int32_t             slot              = owningMethodSymbol->incTempIndex(fe());
-   TR_ResolvedMethod * method            = owningMethodSymbol->getResolvedMethod();
+   OMR::ResolvedMethod * method            = owningMethodSymbol->getResolvedMethod();
    mcount_t            owningMethodIndex = owningMethodSymbol->getResolvedMethodIndex();
 
    TR::AutomaticSymbol  * sym             = TR::AutomaticSymbol::createLocalObject(trHeapMemory(), TR::New, classSymRef, TR::Aggregate, objectSize, fe());
@@ -1781,7 +1781,7 @@ TR::SymbolReference *
 OMR::SymbolReferenceTable::createLocalAddrArray(int32_t objectSize, TR::ResolvedMethodSymbol * owningMethodSymbol, TR::SymbolReference *classSymRef)
    {
    int32_t             slot              = owningMethodSymbol->incTempIndex(fe());
-   TR_ResolvedMethod * method            = owningMethodSymbol->getResolvedMethod();
+   OMR::ResolvedMethod * method            = owningMethodSymbol->getResolvedMethod();
    mcount_t            owningMethodIndex = owningMethodSymbol->getResolvedMethodIndex();
 
    TR::AutomaticSymbol  * sym             = TR::AutomaticSymbol::createLocalObject(trHeapMemory(),TR::anewarray, classSymRef, TR::Aggregate, objectSize, fe());
@@ -1796,7 +1796,7 @@ TR::SymbolReference *
 OMR::SymbolReferenceTable::createLocalPrimArray(int32_t objectSize, TR::ResolvedMethodSymbol * owningMethodSymbol, int32_t arrayType)
    {
    int32_t             slot              = owningMethodSymbol->incTempIndex(fe());
-   TR_ResolvedMethod * method            = owningMethodSymbol->getResolvedMethod();
+   OMR::ResolvedMethod * method            = owningMethodSymbol->getResolvedMethod();
    mcount_t            owningMethodIndex = owningMethodSymbol->getResolvedMethodIndex();
 
    TR::AutomaticSymbol  * sym             = TR::AutomaticSymbol::createLocalObject(trHeapMemory(), arrayType, TR::Aggregate, objectSize, fe());
